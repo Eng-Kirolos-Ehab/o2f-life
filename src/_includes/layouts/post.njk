@@ -1,0 +1,26 @@
+---
+layout: layouts/base.njk
+---
+{% set locale = "ar-EG" if lang == "ar" else "en-US" %}
+<article class="section">
+  <div class="container-x max-w-3xl">
+    <p class="section-kicker">{{ "مقال" if lang == "ar" else "Blog" }}</p>
+    <h1 class="section-title mb-3">{{ title }}</h1>
+    {% if date %}
+      <p class="text-sm text-brand-off/60 mb-8">{{ date.toLocaleDateString(locale) }}</p>
+    {% endif %}
+
+    {% if cover %}
+      <img src="{{ cover }}" alt="{{ title }}" class="rounded-xl2 w-full object-cover shadow-card mb-8">
+    {% endif %}
+
+    <div class="prose prose-invert max-w-none">
+      {{ content | safe }}
+    </div>
+
+    <div class="mt-12 card text-center">
+      <h3 class="text-xl mb-2">{{ "عجبك المقال؟" if lang == "ar" else "Enjoyed this post?" }}</h3>
+      <a href="/{{ lang }}/blog/" class="btn-ghost mt-3">{{ "كل المقالات" if lang == "ar" else "All posts" }}</a>
+    </div>
+  </div>
+</article>

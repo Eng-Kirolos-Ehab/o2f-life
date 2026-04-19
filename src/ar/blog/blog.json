@@ -1,0 +1,9 @@
+{
+  "layout": "layouts/post.njk",
+  "tags": ["blog_ar"],
+  "permalink": "/ar/blog/{{ page.fileSlug }}/",
+  "eleventyComputed": {
+    "altLang": "en",
+    "altUrl":  "/en/blog/{{ page.fileSlug }}/"
+  }
+}

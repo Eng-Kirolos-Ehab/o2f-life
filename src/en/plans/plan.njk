@@ -1,0 +1,126 @@
+---
+pagination:
+  data: plans
+  size: 1
+  alias: p
+  resolve: values
+permalink: "/en/plans/{{ p.slug }}/"
+eleventyComputed:
+  title: "{{ p.en.name }}"
+  description: "{{ p.en.blurb }}"
+  altUrl: "/ar/plans/{{ p.slug }}/"
+---
+
+<section class="grid-bg relative overflow-hidden">
+  <div class="absolute top-10 -right-20 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl animate-pulse-soft pointer-events-none"></div>
+  <div class="container-x py-16 sm:py-20 relative">
+    <p class="section-kicker" data-aos="fade-up">Plan</p>
+    <h1 class="section-title mb-3" data-aos="fade-up" data-aos-delay="100">{{ p.en.name }}</h1>
+    <p class="text-xl text-brand-mint" data-aos="fade-up" data-aos-delay="200">{{ p.en.tagline }}</p>
+    <p class="mt-5 max-w-2xl text-lg text-brand-off/75" data-aos="fade-up" data-aos-delay="300">{{ p.en.blurb }}</p>
+
+    {# Regional Price #}
+    <div class="mt-6 price-container inline-flex items-baseline gap-3 rounded-xl2 border border-brand-mint/30 bg-brand-mint/5 px-5 py-3" data-aos="fade-up" data-aos-delay="350"
+         data-egypt-amount="{{ p.pricing.egypt.amount }}"
+         data-egypt-currency="{{ p.pricing.egypt.currency }}"
+         data-egypt-period="{{ p.pricing.egypt.period }}"
+         data-gulf-amount="{{ p.pricing.gulf.amount }}"
+         data-gulf-currency="{{ p.pricing.gulf.currency }}"
+         data-gulf-period="{{ p.pricing.gulf.period }}"
+         data-intl-amount="{{ p.pricing.international.amount }}"
+         data-intl-currency="{{ p.pricing.international.currency }}"
+         data-intl-period="{{ p.pricing.international.period }}">
+      <span class="text-3xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.amount }}</span>
+      <span class="text-brand-off/70 price-currency">{{ p.pricing.egypt.currency }}</span>
+      <span class="text-brand-off/50 text-sm price-period">/ {{ p.pricing.egypt.period }}</span>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mt-8" data-aos="fade-up" data-aos-delay="400">
+      <a href="/en/contact/?service={{ p.slug }}" class="btn-primary">{{ p.en.cta }}</a>
+      <a href="/en/plans/" class="btn-ghost">← All plans</a>
+    </div>
+
+    <div class="mt-6" data-aos="fade-up" data-aos-delay="450">
+      <div class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1">
+        <button type="button" data-region="egypt" class="region-btn px-3 py-1.5 rounded-md text-xs font-semibold">🇪🇬 Egypt</button>
+        <button type="button" data-region="gulf" class="region-btn px-3 py-1.5 rounded-md text-xs font-semibold">🇸🇦 Gulf</button>
+        <button type="button" data-region="international" class="region-btn px-3 py-1.5 rounded-md text-xs font-semibold">🌍 Intl</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x grid lg:grid-cols-2 gap-6">
+    <div class="card card-hover" data-aos="fade-right">
+      <h2 class="text-2xl mb-4">What's included</h2>
+      <ul class="space-y-2 text-brand-off/80">
+        {% for f in p.en.features %}
+          <li class="flex gap-2"><span class="text-brand-mint">✓</span>{{ f }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="card card-hover" data-aos="fade-left">
+      <h2 class="text-2xl mb-4">How it works</h2>
+      <ol class="space-y-3 text-brand-off/80 list-decimal ltr:pl-5 rtl:pr-5">
+        <li>Short intake call to understand your goals, health and lifestyle.</li>
+        <li>Your personalized training and nutrition plan is built within 48h.</li>
+        <li>Weekly check-ins capture new stats and fine-tune the plan.</li>
+        <li>You keep the habits and lifestyle — long after we're done.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <div class="relative rounded-xl2 overflow-hidden bg-gradient-to-br from-brand-mint/20 via-brand-mint/10 to-brand-ink p-8 sm:p-12 border border-brand-mint/30" data-aos="zoom-in">
+      <div class="absolute top-0 right-0 w-64 h-64 rounded-full bg-brand-mint/20 blur-3xl animate-pulse-soft"></div>
+      <div class="relative text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl mb-3">Ready to begin?</h2>
+        <p class="text-brand-off/80 max-w-xl mx-auto mb-6">Reach out and we'll confirm your spot and next steps.</p>
+        <a href="/en/contact/?service={{ p.slug }}" class="btn-primary">{{ p.en.cta }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .region-btn { color: rgba(247,248,250,0.6); }
+  .region-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
+  .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
+</style>
+
+<script>
+(function () {
+  const KEY = 'o2f_region';
+  const DEFAULT = 'egypt';
+  const keys = {
+    egypt: { a: 'egyptAmount', c: 'egyptCurrency', p: 'egyptPeriod' },
+    gulf: { a: 'gulfAmount', c: 'gulfCurrency', p: 'gulfPeriod' },
+    international: { a: 'intlAmount', c: 'intlCurrency', p: 'intlPeriod' }
+  };
+  function setRegion(region) {
+    if (!keys[region]) region = DEFAULT;
+    try { localStorage.setItem(KEY, region); } catch (e) {}
+    document.querySelectorAll('.region-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.region === region);
+    });
+    document.querySelectorAll('.price-container').forEach(function (el) {
+      const a = el.querySelector('.price-amount');
+      const c = el.querySelector('.price-currency');
+      const p = el.querySelector('.price-period');
+      if (a) a.textContent = el.dataset[keys[region].a] || '';
+      if (c) c.textContent = el.dataset[keys[region].c] || '';
+      if (p) p.textContent = '/ ' + (el.dataset[keys[region].p] || '');
+    });
+  }
+  let saved = DEFAULT;
+  try { saved = localStorage.getItem(KEY) || DEFAULT; } catch (e) {}
+  setRegion(saved);
+  document.querySelectorAll('.region-btn').forEach(function (b) {
+    b.addEventListener('click', function () { setRegion(b.dataset.region); });
+  });
+})();
+</script>

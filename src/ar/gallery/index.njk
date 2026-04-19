@@ -1,0 +1,25 @@
+---
+title: "المعرض"
+description: "لمحات من تدريب الكابتن أسامة، الوجبات، وأبرز لحظات البرنامج."
+---
+
+<section class="grid-bg">
+  <div class="container-x py-16 sm:py-20">
+    <p class="section-kicker">المعرض</p>
+    <h1 class="section-title mb-4">من خلف الكواليس.</h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl">
+      نظرة على برامجنا ووجباتنا ولحظات التدريب.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {% for img in gallery.images %}
+      <figure class="card p-2 overflow-hidden">
+        <img src="{{ img.src }}" alt="{{ img.alt_ar }}" loading="lazy"
+             class="w-full h-64 object-cover rounded-xl">
+      </figure>
+    {% endfor %}
+  </div>
+</section>

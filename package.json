@@ -1,0 +1,22 @@
+{
+  "name": "o2f-life",
+  "version": "0.1.0",
+  "private": true,
+  "description": "O2F.life — Coach Osama Omran's official website (bilingual AR/EN)",
+  "scripts": {
+    "clean": "rm -rf _site",
+    "css:build": "tailwindcss -i ./src/assets/css/main.css -o ./_site/assets/css/main.css --minify",
+    "css:watch": "tailwindcss -i ./src/assets/css/main.css -o ./_site/assets/css/main.css --watch",
+    "eleventy:build": "eleventy",
+    "eleventy:watch": "eleventy --serve --quiet",
+    "build": "npm run clean && npm run eleventy:build && npm run css:build",
+    "dev": "npm-run-all --parallel eleventy:watch css:watch",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@tailwindcss/typography": "^0.5.15",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^3.4.14"
+  }
+}

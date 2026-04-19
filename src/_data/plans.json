@@ -1,0 +1,121 @@
+{
+  "basic": {
+    "slug": "basic",
+    "visible": true,
+    "highlight": false,
+    "order": 1,
+    "pricing": {
+      "egypt":         { "amount": "2,500", "currency": "EGP",  "period": "per month",  "period_ar": "شهريًا" },
+      "gulf":          { "amount": "350",   "currency": "SAR",  "period": "per month",  "period_ar": "شهريًا" },
+      "international": { "amount": "99",    "currency": "USD",  "period": "per month",  "period_ar": "شهريًا" }
+    },
+    "en": {
+      "name": "Basic Plan",
+      "tagline": "Start strong with the essentials",
+      "blurb": "Your first step toward a stronger, healthier you — with guided nutrition and flexible online training.",
+      "features": [
+        "Goal-oriented personalized nutrition plan",
+        "Customizable workout program (home or gym)",
+        "Weekly check-ins to track progress",
+        "Nutrition adjustments every 2 weeks",
+        "Train anytime, anywhere (full online flexibility)"
+      ],
+      "cta": "Start the Basic Plan"
+    },
+    "ar": {
+      "name": "الخطة البسيطة",
+      "tagline": "ابدأ رحلتك بالأساسيات",
+      "blurb": "خطوتك الأولى نحو لياقة أفضل — مع إرشاد غذائي ومرونة تدريب أونلاين.",
+      "features": [
+        "خطة تغذية مخصّصة حسب هدفك",
+        "برنامج تمرين قابل للتخصيص (بيت أو جيم)",
+        "متابعة أسبوعية لتقدّمك",
+        "تعديل خطة التغذية كل أسبوعين",
+        "تدرّب في أي وقت ومن أي جهاز"
+      ],
+      "cta": "ابدأ الخطة البسيطة"
+    }
+  },
+
+  "standard": {
+    "slug": "standard",
+    "visible": true,
+    "highlight": true,
+    "order": 2,
+    "pricing": {
+      "egypt":         { "amount": "4,500", "currency": "EGP",  "period": "per month",  "period_ar": "شهريًا" },
+      "gulf":          { "amount": "650",   "currency": "SAR",  "period": "per month",  "period_ar": "شهريًا" },
+      "international": { "amount": "179",   "currency": "USD",  "period": "per month",  "period_ar": "شهريًا" }
+    },
+    "en": {
+      "name": "Standard Plan",
+      "tagline": "Build a solid foundation",
+      "blurb": "The sweet spot: daily support, weekly tuning, and optional herbal add-ons for a more holistic approach.",
+      "features": [
+        "Goal-oriented personalized nutrition plan",
+        "Customizable workout program",
+        "Daily support & check-ins",
+        "Weekly nutrition adjustments",
+        "Optional therapeutic herbs guidance",
+        "Full online flexibility"
+      ],
+      "cta": "Start the Standard Plan"
+    },
+    "ar": {
+      "name": "الخطة الأساسية",
+      "tagline": "ابنِ أساسًا قويًا",
+      "blurb": "الخيار الأمثل: دعم يومي، تعديلات أسبوعية، وخيار إضافة الأعشاب العلاجية لنهج أشمل.",
+      "features": [
+        "خطة تغذية مخصّصة",
+        "برنامج تمرين قابل للتخصيص",
+        "دعم ومتابعة يومية",
+        "تعديل خطة التغذية أسبوعيًا",
+        "إرشاد اختياري للأعشاب العلاجية",
+        "مرونة كاملة أونلاين"
+      ],
+      "cta": "ابدأ الخطة الأساسية"
+    }
+  },
+
+  "advanced": {
+    "slug": "advanced",
+    "visible": true,
+    "highlight": false,
+    "order": 3,
+    "pricing": {
+      "egypt":         { "amount": "7,500", "currency": "EGP",  "period": "per month",  "period_ar": "شهريًا" },
+      "gulf":          { "amount": "1,100", "currency": "SAR",  "period": "per month",  "period_ar": "شهريًا" },
+      "international": { "amount": "299",   "currency": "USD",  "period": "per month",  "period_ar": "شهريًا" }
+    },
+    "en": {
+      "name": "Advanced Plan",
+      "tagline": "Unlock your full potential",
+      "blurb": "Live coaching with Osama, daily follow-up, and medical supervision for the most committed results.",
+      "features": [
+        "Tailor-made workout program",
+        "Live sessions with Coach Osama",
+        "Daily follow-up & accountability",
+        "Personalized nutrition plan, weekly-tuned",
+        "Therapeutic herbs protocol",
+        "Medical supervision add-on",
+        "Full online convenience"
+      ],
+      "cta": "Start the Advanced Plan"
+    },
+    "ar": {
+      "name": "الخطة المتطوّرة",
+      "tagline": "أطلق إمكاناتك الكاملة",
+      "blurb": "تدريب مباشر مع الكابتن أسامة، متابعة يومية، وإشراف طبي لأفضل النتائج.",
+      "features": [
+        "برنامج تمرين مُفصّل لك",
+        "جلسات مباشرة مع الكابتن أسامة",
+        "متابعة يومية ومسؤولية مشتركة",
+        "خطة تغذية بتعديل أسبوعي",
+        "بروتوكول أعشاب علاجية",
+        "إشراف طبي إضافي",
+        "مرونة كاملة أونلاين"
+      ],
+      "cta": "ابدأ الخطة المتطوّرة"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {%- for p in collections.all -%}
+    {%- if p.url and not p.url.includes("/admin/") -%}
+  <url>
+    <loc>{{ site.url }}{{ p.url }}</loc>
+    {%- if p.date %}
+    <lastmod>{{ p.date.toISOString() }}</lastmod>{%- endif %}
+    {%- if p.data.altLang and p.data.altUrl %}
+    <xhtml:link rel="alternate" hreflang="{{ p.data.altLang }}" href="{{ site.url }}{{ p.data.altUrl }}"/>{%- endif %}
+  </url>
+    {%- endif -%}
+  {%- endfor %}
+</urlset>

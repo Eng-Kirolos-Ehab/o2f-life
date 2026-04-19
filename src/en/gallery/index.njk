@@ -1,0 +1,25 @@
+---
+title: "Gallery"
+description: "A look at Coach Osama's training, nutrition and program highlights."
+---
+
+<section class="grid-bg">
+  <div class="container-x py-16 sm:py-20">
+    <p class="section-kicker">Gallery</p>
+    <h1 class="section-title mb-4">Behind the scenes.</h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl">
+      A glimpse into our programs, meals and training moments.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {% for img in gallery.images %}
+      <figure class="card p-2 overflow-hidden">
+        <img src="{{ img.src }}" alt="{{ img.alt_en }}" loading="lazy"
+             class="w-full h-64 object-cover rounded-xl">
+      </figure>
+    {% endfor %}
+  </div>
+</section>

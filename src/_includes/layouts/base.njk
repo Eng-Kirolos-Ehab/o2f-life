@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="{{ lang }}" dir="{{ lang | dir }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0B1220">
+
+  {# ---------- SEO ---------- #}
+  <title>{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.seo.titleSuffix }}{% endif %}</title>
+  <meta name="description" content="{{ description or 'Online fitness, nutrition and naturopathic coaching with Coach Osama Omran.' }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+  {# Hreflang alternates #}
+  {% if altLang and altUrl %}
+  <link rel="alternate" hreflang="{{ altLang }}" href="{{ site.url }}{{ altUrl }}">
+  <link rel="alternate" hreflang="{{ lang }}" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}/{{ site.defaultLang }}/">
+  {% endif %}
+
+  {# Open Graph / Twitter #}
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ title or site.name }}">
+  <meta property="og:description" content="{{ description or '' }}">
+  <meta property="og:image" content="{{ site.url }}{{ ogImage or site.seo.ogImage }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:locale" content="{{ 'ar_SA' if lang == 'ar' else 'en_US' }}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  {# Favicons #}
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+
+  {# CSS #}
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  {# AOS — Animate On Scroll #}
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+  {# JSON-LD — Person + Organization + WebSite #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "logo": "{{ site.url }}/assets/images/logo.svg"
+      },
+      {
+        "@type": "Person",
+        "name": "{{ site.owner }}",
+        "url": "{{ site.url }}",
+        "jobTitle": "Online Fitness & Nutrition Coach"
+      },
+      {
+        "@type": "WebSite",
+        "url": "{{ site.url }}",
+        "name": "{{ site.name }}",
+        "inLanguage": ["ar","en"]
+      }
+    ]
+  }
+  </script>
+
+  {# Plausible analytics — only when domain set #}
+  {% if site.analytics.plausibleDomain %}
+  <script defer data-domain="{{ site.analytics.plausibleDomain }}"
+          src="https://plausible.io/js/script.js"></script>
+  {% endif %}
+</head>
+<body class="min-h-screen flex flex-col">
+  {% include "partials/header.njk" %}
+
+  <main class="flex-1">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+  {% include "partials/whatsapp-float.njk" %}
+
+  <script src="/assets/js/main.js" defer></script>
+
+  {# AOS init #}
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.AOS) {
+        AOS.init({
+          duration: 700,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 60,
+          disable: function () {
+            return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+---
+title: "المقالات"
+description: "مقالات في التدريب والتغذية والطب الطبيعي والصحة على المدى البعيد — من الكابتن أسامة عمران."
+layout: layouts/base.njk
+tags: []
+permalink: "/ar/blog/"
+---
+
+<section class="grid-bg">
+  <div class="container-x py-16 sm:py-20">
+    <p class="section-kicker">المقالات</p>
+    <h1 class="section-title mb-4">ملاحظات، علم، ودلائل عملية.</h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl">
+      مقالات في التدريب والتغذية والطب الطبيعي والصحة على المدى البعيد.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+    {% set posts = collections.blog_ar | reverse %}
+    {% if posts.length == 0 %}
+      <p class="text-brand-off/60">لسه مفيش مقالات — أول مقال جاي قريب!</p>
+    {% endif %}
+    {% for post in posts %}
+      <a href="{{ post.url }}" class="card hover:border-brand-mint transition-colors flex flex-col">
+        {% if post.data.cover %}
+          <img src="{{ post.data.cover }}" alt="" class="rounded-xl mb-4 h-40 object-cover">
+        {% endif %}
+        <p class="text-xs text-brand-off/60 mb-1">{{ post.date.toLocaleDateString("ar-EG") }}</p>
+        <h3 class="text-xl mb-2">{{ post.data.title }}</h3>
+        <p class="text-brand-off/70 text-sm flex-1">{{ post.data.description }}</p>
+        <span class="inline-flex items-center gap-1 text-brand-mint text-sm mt-4">اقرأ ←</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,162 @@
+---
+title: "الباقات"
+description: "اختر الباقة المناسبة — البسيطة، الأساسية، أو المتطوّرة — مع تسعير إقليمي لمصر، الخليج، والعملاء الدوليين."
+---
+
+<section class="grid-bg relative overflow-hidden">
+  <div class="absolute top-10 -left-20 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl animate-pulse-soft pointer-events-none"></div>
+  <div class="container-x py-16 sm:py-20 relative">
+    <p class="section-kicker" data-aos="fade-up">اختر الباقة</p>
+    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">باقات مبنيّة <span class="gradient-mint-text">حواليك.</span></h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
+      كل باقة مخصّصة بالكامل. اختر مستوى الدعم اللي يناسب وضعك دلوقتي.
+    </p>
+  </div>
+</section>
+
+<section class="pt-4">
+  <div class="container-x">
+    <div class="flex flex-wrap items-center justify-center gap-2" data-aos="fade-up">
+      <span class="text-brand-off/60 text-sm ml-2">التسعير لـ:</span>
+      <div id="region-switcher" class="inline-flex rounded-xl2 border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
+        <button type="button" data-region="egypt" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇪🇬 مصر</button>
+        <button type="button" data-region="gulf" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇸🇦 الخليج / العربي</button>
+        <button type="button" data-region="international" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🌍 دولي</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-10">
+  <div class="container-x grid md:grid-cols-3 gap-5 items-stretch">
+    {% set orderedKeys = ["basic","standard","advanced"] %}
+    {% for key in orderedKeys %}
+      {% set p = plans[key] %}
+      {% if p.visible !== false %}
+      <div class="card card-hover flex flex-col relative {% if p.highlight %}ring-2 ring-brand-mint/50{% endif %}"
+           data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 100 }}">
+        {% if p.highlight %}
+          <span class="chip bg-brand-mint text-brand-ink border-brand-mint mb-3 self-start text-xs font-bold">★ الأكثر شعبية</span>
+        {% endif %}
+        <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
+        <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
+
+        <div class="mb-4 price-container"
+             data-egypt-amount="{{ p.pricing.egypt.amount }}"
+             data-egypt-currency="{{ p.pricing.egypt.currency }}"
+             data-egypt-period="{{ p.pricing.egypt.period_ar }}"
+             data-gulf-amount="{{ p.pricing.gulf.amount }}"
+             data-gulf-currency="{{ p.pricing.gulf.currency }}"
+             data-gulf-period="{{ p.pricing.gulf.period_ar }}"
+             data-intl-amount="{{ p.pricing.international.amount }}"
+             data-intl-currency="{{ p.pricing.international.currency }}"
+             data-intl-period="{{ p.pricing.international.period_ar }}">
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.amount }}</span>
+            <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.currency }}</span>
+          </div>
+          <div class="text-brand-off/50 text-xs price-period">{{ p.pricing.egypt.period_ar }}</div>
+        </div>
+
+        <p class="text-brand-off/70 text-sm">{{ p.ar.blurb }}</p>
+        <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
+          {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint">✓</span>{{ f }}</li>{% endfor %}
+        </ul>
+        <a href="/ar/plans/{{ p.slug }}/"
+           class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
+          {{ p.ar.cta }}
+        </a>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+    {% if customPlans.items %}
+      {% for p in customPlans.items %}
+        {% if p.visible !== false and p.ar %}
+        <div class="card card-hover flex flex-col relative border-brand-gold/30"
+             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 400 }}">
+          <span class="chip text-brand-gold mb-3 self-start">✨ خاصة</span>
+          <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
+          <p class="text-brand-gold text-sm mb-4">{{ p.ar.tagline }}</p>
+          {% if p.pricing %}
+          <div class="mb-4 price-container"
+               data-egypt-amount="{{ p.pricing.egypt.amount }}"
+               data-egypt-currency="{{ p.pricing.egypt.currency }}"
+               data-egypt-period="{{ p.pricing.egypt.period_ar }}"
+               data-gulf-amount="{{ p.pricing.gulf.amount }}"
+               data-gulf-currency="{{ p.pricing.gulf.currency }}"
+               data-gulf-period="{{ p.pricing.gulf.period_ar }}"
+               data-intl-amount="{{ p.pricing.international.amount }}"
+               data-intl-currency="{{ p.pricing.international.currency }}"
+               data-intl-period="{{ p.pricing.international.period_ar }}">
+            <div class="flex items-baseline gap-2">
+              <span class="text-4xl font-bold text-brand-gold price-amount">{{ p.pricing.egypt.amount }}</span>
+              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.currency }}</span>
+            </div>
+            <div class="text-brand-off/50 text-xs price-period">{{ p.pricing.egypt.period_ar }}</div>
+          </div>
+          {% endif %}
+          <p class="text-brand-off/70 text-sm">{{ p.ar.blurb }}</p>
+          {% if p.ar.features %}
+          <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
+            {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-gold">✓</span>{{ f }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+          <a href="/ar/contact/?service={{ p.slug }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
+            {{ p.ar.cta or "اطلب هذه الخطة" }}
+          </a>
+        </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-x">
+    <div class="card card-hover text-center" data-aos="fade-up">
+      <h3 class="text-xl mb-2">بتدوّر على برنامج مكافحة الشيخوخة؟</h3>
+      <p class="text-brand-off/70">باقة شاملة منفصلة مخصّصة للتجديد والحيوية على المدى البعيد.</p>
+      <a href="/ar/anti-aging/" class="btn-ghost mt-6">استكشف مكافحة الشيخوخة ←</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .region-btn { color: rgba(247,248,250,0.6); }
+  .region-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
+  .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
+</style>
+
+<script>
+(function () {
+  const KEY = 'o2f_region';
+  const DEFAULT = 'egypt';
+  const keys = {
+    egypt: { a: 'egyptAmount', c: 'egyptCurrency', p: 'egyptPeriod' },
+    gulf: { a: 'gulfAmount', c: 'gulfCurrency', p: 'gulfPeriod' },
+    international: { a: 'intlAmount', c: 'intlCurrency', p: 'intlPeriod' }
+  };
+  function setRegion(region) {
+    if (!keys[region]) region = DEFAULT;
+    try { localStorage.setItem(KEY, region); } catch (e) {}
+    document.querySelectorAll('.region-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.region === region);
+    });
+    document.querySelectorAll('.price-container').forEach(function (el) {
+      const a = el.querySelector('.price-amount');
+      const c = el.querySelector('.price-currency');
+      const p = el.querySelector('.price-period');
+      if (a) a.textContent = el.dataset[keys[region].a] || '';
+      if (c) c.textContent = el.dataset[keys[region].c] || '';
+      if (p) p.textContent = el.dataset[keys[region].p] || '';
+    });
+  }
+  let saved = DEFAULT;
+  try { saved = localStorage.getItem(KEY) || DEFAULT; } catch (e) {}
+  setRegion(saved);
+  document.querySelectorAll('.region-btn').forEach(function (b) {
+    b.addEventListener('click', function () { setRegion(b.dataset.region); });
+  });
+})();
+</script>
