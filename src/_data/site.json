@@ -13,6 +13,8 @@
     "tiktok":    "",
     "x":         ""
   },
+  "logo": "",
+  "heroImage": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
   "defaultLang": "en",
   "languages": [
     { "code": "ar", "label": "العربية", "dir": "rtl" },

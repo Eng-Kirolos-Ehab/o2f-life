@@ -1,0 +1,158 @@
+{
+  "ar": {
+    "hero": {
+      "badge": "الكابتن أسامة عمران — O2F.life",
+      "title": "حوّل جسمك،",
+      "titleHighlight": "من الداخل للخارج.",
+      "subtitle": "تدريب أونلاين مخصّص يجمع بين التمرين والتغذية والطب الطبيعي — مصمّم لأهدافك وجدولك وأسلوب حياتك.",
+      "ctaPrimary": "ابدأ اليوم",
+      "ctaSecondary": "اكتشف الخدمات"
+    },
+    "pillars": {
+      "kicker": "اللي بيميّزنا",
+      "title": "نهج علمي مدعوم بالطبيعة.",
+      "items": [
+        {
+          "title": "الاعتماد على الطبيعة",
+          "description": "نستخدم أعشابًا علاجية ومتابعة طبية دورية في الخطة المتقدمة، لنهج أكثر شمولية."
+        },
+        {
+          "title": "المتابعة الدورية",
+          "description": "نراقب إحصائيات جسمك باستمرار ونحدّث خططك لتواكب كل تغيّر."
+        },
+        {
+          "title": "خطة مخصّصة بالكامل",
+          "description": "نختار النظام المناسب لهدفك وحالتك — أقصر طريق لأفضل نتيجة."
+        }
+      ]
+    },
+    "results": {
+      "kicker": "نتائج حقيقية",
+      "title": "من رحلة عملائنا مع الكابتن أسامة.",
+      "items": [
+        {
+          "stat": "٣ شهور",
+          "description": "يبدأ عملاؤنا ملاحظة تغيّرات واضحة في الجسم والعقل خلال ٣ شهور فقط — بطرق بسيطة ومستدامة."
+        },
+        {
+          "stat": "٩٠%",
+          "description": "من عملائنا يستمرّون على خطط التغذية حتى بعد الوصول لأهدافهم — لأنها ممتعة وسهلة."
+        },
+        {
+          "stat": "١:١",
+          "description": "متابعة مباشرة مستمرة مع الكابتن أسامة تضمن دعمًا وتحفيزًا وتعديلًا شخصيًا."
+        }
+      ]
+    },
+    "services": {
+      "kicker": "ماذا تحصل عليه معنا",
+      "title": "مصمّم لك، أسبوعًا بأسبوع.",
+      "items": [
+        {
+          "title": "المتابعة الأسبوعية",
+          "description": "نجمع بيانات أسبوعية ونحسّن خطط الرياضة والتغذية لتواكب تغيّرات جسمك."
+        },
+        {
+          "title": "تدريب مخصّص",
+          "description": "مصمّم لمستواك وأهدافك وتفضيلاتك — مبتدئ أو متقدم."
+        },
+        {
+          "title": "تغذية مخصّصة",
+          "description": "مناسبة لأهدافك وتفضيلاتك وروتينك اليومي. بسيطة وممتعة ومرنة."
+        },
+        {
+          "title": "متابعة صحية",
+          "description": "نراقب مؤشراتك الصحية ونعدّل الخطة لتحقيق أفضل النتائج."
+        }
+      ]
+    },
+    "plansSection": {
+      "kicker": "اختر طريقك",
+      "title": "خطط تناسب طموحك."
+    },
+    "cta": {
+      "badge": "أماكن محدودة متاحة",
+      "title": "جاهز للتحوّل؟",
+      "subtitle": "احجز مكالمة تعارف مجانية، ونحطلك خطة أول ٩٠ يوم.",
+      "button": "احجز مكالمة"
+    }
+  },
+  "en": {
+    "hero": {
+      "badge": "Coach Osama Omran — O2F.life",
+      "title": "Transform your body,",
+      "titleHighlight": "from the inside out.",
+      "subtitle": "Personalized online coaching that blends training, nutrition and naturopathic medicine — built around your goals, schedule and lifestyle.",
+      "ctaPrimary": "Start today",
+      "ctaSecondary": "Explore services"
+    },
+    "pillars": {
+      "kicker": "What makes us different",
+      "title": "A science-driven, nature-backed approach.",
+      "items": [
+        {
+          "title": "Naturopathic foundation",
+          "description": "We rely on therapeutic herbs and natural protocols alongside periodic medical follow-up in our advanced plan."
+        },
+        {
+          "title": "Continuous check-ins",
+          "description": "We track your body stats and adjust your nutrition to match every change — so you never plateau."
+        },
+        {
+          "title": "Fully personalized",
+          "description": "Your plan is picked for your goal and your state — the shortest route to the best result."
+        }
+      ]
+    },
+    "results": {
+      "kicker": "Real results",
+      "title": "From our clients' journey with Coach Osama.",
+      "items": [
+        {
+          "stat": "3 mo",
+          "description": "Clients start noticing clear physical and mental changes within just 3 months — through simple, sustainable methods."
+        },
+        {
+          "stat": "90%",
+          "description": "of our clients continue their personalized meal plans even after reaching their goals — thanks to how enjoyable the system is."
+        },
+        {
+          "stat": "1:1",
+          "description": "Direct ongoing follow-up with Coach Osama ensures continuous support, motivation and tailored adjustments."
+        }
+      ]
+    },
+    "services": {
+      "kicker": "What you get with us",
+      "title": "Built around you, every single week.",
+      "items": [
+        {
+          "title": "Weekly tracking",
+          "description": "Weekly data capture so we can tune your training and nutrition as your body changes."
+        },
+        {
+          "title": "Custom workouts",
+          "description": "Designed for your fitness level, goals and preferences — beginner or advanced."
+        },
+        {
+          "title": "Custom nutrition",
+          "description": "Aligned to your goals, food preferences and daily routine. Simple, enjoyable, flexible."
+        },
+        {
+          "title": "Health follow-up",
+          "description": "We monitor health markers and fine-tune the plan for the best possible outcomes."
+        }
+      ]
+    },
+    "plansSection": {
+      "kicker": "Pick your path",
+      "title": "Plans that match your ambition."
+    },
+    "cta": {
+      "badge": "Limited spots available",
+      "title": "Ready for your transformation?",
+      "subtitle": "Book a free intro call and let's map out your first 90 days.",
+      "button": "Book a call"
+    }
+  }
+}
