@@ -1,6 +1,6 @@
 /* =========================================================================
    O2F.life — Main JS
-   Mobile menu toggle + language switcher helpers + subtle scroll polish
+   Mobile menu + language switcher + scroll polish + stat animations
    ========================================================================= */
 
 (function () {
@@ -41,20 +41,51 @@
   }
 
   // ---------- Language switcher (preserves current path) ----------
-  // <a data-lang-switch="ar"> will rewrite /en/foo → /ar/foo and vice-versa
   document.querySelectorAll("[data-lang-switch]").forEach((link) => {
     link.addEventListener("click", (e) => {
-      const target = link.getAttribute("data-lang-switch"); // "ar" or "en"
+      const target = link.getAttribute("data-lang-switch");
       if (!target) return;
       const other = target === "ar" ? "en" : "ar";
-      const path = window.location.pathname.replace(
-        `/${other}/`,
-        `/${target}/`
-      );
+      const path = window.location.pathname.replace(`/${other}/`, `/${target}/`);
       e.preventDefault();
       window.location.href = path === window.location.pathname
         ? window.location.pathname.replace(/\/(en|ar)\/.*/, `/${target}/`)
         : path;
     });
   });
+
+  // ---------- Stat card entrance animation ----------
+  // Adds the animate-number-pop class when the stat cards scroll into view
+  const statCards = document.querySelectorAll(".card-hover .glow-text-mint");
+  if (statCards.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-number-pop");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statCards.forEach((el) => io.observe(el));
+  }
+
+  // ---------- Parallax-lite on hero orbs ----------
+  const orbs = document.querySelectorAll(".hero-orb");
+  if (orbs.length) {
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          orbs.forEach((orb, i) => {
+            const speed = (i + 1) * 0.04;
+            orb.style.transform = `translateY(${y * speed}px)`;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
 })();

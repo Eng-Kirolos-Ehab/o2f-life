@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Content Manager — O2F.life</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <script>
+    /* Guard: must have authenticated via login page */
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
+      window.location.replace('./index.html');
+    }
+  </script>
+</head>
+<body>
+  <!-- Decap CMS (formerly Netlify CMS) -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</body>
+</html>

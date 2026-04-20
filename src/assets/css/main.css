@@ -64,7 +64,19 @@
     @apply btn bg-brand-mint text-brand-ink shadow-glow-mint
            hover:-translate-y-0.5 hover:shadow-lg hover:brightness-110
            active:scale-95;
+    position: relative;
+    overflow: hidden;
   }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+    transform: translateX(-100%);
+    transition: transform .6s;
+  }
+  .btn-primary:hover::after { transform: translateX(100%); }
+
   .btn-ghost {
     @apply btn border border-brand-line text-brand-off
            hover:border-brand-mint hover:text-brand-mint
@@ -118,6 +130,21 @@
   .divider-mint {
     @apply w-12 h-0.5 bg-gradient-to-r from-brand-mint to-brand-gold mx-auto my-4;
   }
+
+  /* Hero badge pill */
+  .hero-badge {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6;
+    border: 1px solid rgba(0,217,163,.2);
+    background: rgba(0,217,163,.07);
+    animation: badge-float 4s ease-in-out infinite;
+  }
+  .hero-badge-dot {
+    @apply w-2 h-2 rounded-full bg-brand-mint;
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+  .hero-badge-text {
+    @apply text-xs text-brand-mint font-semibold tracking-wide;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -148,16 +175,17 @@ html[dir="ltr"] .ltr-only { display: initial; }
   }
   .grid-bg {
     background-image:
-      radial-gradient(ellipse at top, rgba(0,217,163,.15), transparent 55%),
-      radial-gradient(ellipse at bottom right, rgba(201,168,74,.06), transparent 50%),
+      radial-gradient(ellipse at top, rgba(0,217,163,.18), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(201,168,74,.08), transparent 50%),
       linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
     background-size: auto, auto, 40px 40px, 40px 40px;
   }
-  .animate-float { animation: float 6s ease-in-out infinite; }
-  .animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
-  .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
-  .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+  .animate-float        { animation: float 6s ease-in-out infinite; }
+  .animate-float-slow   { animation: float-slow 9s ease-in-out infinite; }
+  .animate-float-img    { animation: float-img 8s ease-in-out infinite; }
+  .animate-pulse-soft   { animation: pulse-soft 3s ease-in-out infinite; }
+  .animate-pulse-glow   { animation: pulse-glow 2.5s ease-in-out infinite; }
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient-shift 8s ease infinite;
@@ -167,8 +195,9 @@ html[dir="ltr"] .ltr-only { display: initial; }
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
   }
-  .animate-spin-slow { animation: spin-slow 20s linear infinite; }
-  .animate-border-glow { animation: border-glow 2s ease-in-out infinite; }
+  .animate-spin-slow    { animation: spin-slow 25s linear infinite; }
+  .animate-spin-reverse { animation: spin-slow 18s linear infinite reverse; }
+  .animate-border-glow  { animation: border-glow 2.5s ease-in-out infinite; }
   .hover-lift {
     @apply transition-transform duration-300 ease-out;
   }
@@ -180,8 +209,61 @@ html[dir="ltr"] .ltr-only { display: initial; }
     border: 1px solid rgba(255,255,255,0.08);
   }
   .glow-text-mint {
-    text-shadow: 0 0 20px rgba(0,217,163,0.5);
+    text-shadow: 0 0 30px rgba(0,217,163,0.5);
   }
+}
+
+/* --------------------------------------------------------------------------
+   Floating particles
+   -------------------------------------------------------------------------- */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(0,217,163,0.6);
+  pointer-events: none;
+  animation: particle-drift 10s ease-in-out infinite;
+}
+.particle:nth-child(2) { background: rgba(201,168,74,0.5); animation-duration: 13s; animation-delay: -2s; }
+.particle:nth-child(3) { animation-duration: 8s;  animation-delay: -4s; }
+.particle:nth-child(4) { background: rgba(201,168,74,0.4); animation-duration: 11s; animation-delay: -1s; }
+.particle:nth-child(5) { animation-duration: 9s;  animation-delay: -6s; }
+.particle:nth-child(6) { animation-duration: 14s; animation-delay: -3s; }
+
+@keyframes particle-drift {
+  0%,100% { transform: translate(0, 0) scale(1);   opacity: .35; }
+  25%      { transform: translate(15px, -25px) scale(1.6); opacity: .7; }
+  50%      { transform: translate(-10px, -45px) scale(.8); opacity: .15; }
+  75%      { transform: translate(8px, -20px) scale(1.2); opacity: .5; }
+}
+
+/* --------------------------------------------------------------------------
+   Orb decorations (hero background)
+   -------------------------------------------------------------------------- */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+.hero-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,217,163,.12), transparent 65%);
+  top: -120px; left: -80px;
+  animation: orb-drift 12s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(201,168,74,.09), transparent 65%);
+  bottom: -80px; right: -60px;
+  animation: orb-drift 15s ease-in-out infinite reverse;
+}
+.hero-orb-3 {
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(0,217,163,.07), transparent 65%);
+  top: 40%; left: 40%;
+  animation: orb-drift 9s ease-in-out infinite 3s;
 }
 
 /* --------------------------------------------------------------------------
@@ -195,6 +277,19 @@ html[dir="ltr"] .ltr-only { display: initial; }
   0%,100% { transform: translateY(0px) rotate(0deg); }
   33%     { transform: translateY(-8px) rotate(1deg); }
   66%     { transform: translateY(-16px) rotate(-1deg); }
+}
+@keyframes float-img {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-10px); }
+}
+@keyframes badge-float {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-5px); }
+}
+@keyframes orb-drift {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  33%     { transform: translate(25px, -15px) scale(1.05); }
+  66%     { transform: translate(-12px, 12px) scale(.95); }
 }
 @keyframes pulse-soft {
   0%,100% { opacity: 1; }
@@ -225,13 +320,26 @@ html[dir="ltr"] .ltr-only { display: initial; }
   to   { transform: rotate(360deg); }
 }
 @keyframes border-glow {
-  0%,100% { border-color: rgba(0,217,163,0.2); }
-  50%     { border-color: rgba(0,217,163,0.6); }
+  0%,100% { border-color: rgba(0,217,163,0.15); }
+  50%     { border-color: rgba(0,217,163,0.55); }
 }
+@keyframes number-pop {
+  0%   { transform: scale(0.7) translateY(10px); opacity: 0; }
+  60%  { transform: scale(1.08) translateY(-3px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.animate-number-pop { animation: number-pop .6s cubic-bezier(.175,.885,.32,1.275) both; }
 
 /* Mint glow on focus */
 :focus-visible {
   outline: 2px solid #00D9A3;
   outline-offset: 3px;
   border-radius: 6px;
+}
+
+/* Horizontal line accent */
+.line-accent {
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-mint), var(--color-gold), transparent);
+  border-radius: 2px;
 }
