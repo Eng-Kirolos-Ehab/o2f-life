@@ -70,7 +70,7 @@ description: "Choose the right coaching plan — Basic, Standard or Advanced —
         <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
           {% for f in p.en.features %}<li class="flex gap-2"><span class="text-brand-mint">✓</span>{{ f }}</li>{% endfor %}
         </ul>
-        <a href="/en/plans/{{ p.slug }}/"
+        <a href="{{ ('/en/plans/' + p.slug + '/') | url }}"
            class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
           {{ p.en.cta }}
         </a>
@@ -108,7 +108,7 @@ description: "Choose the right coaching plan — Basic, Standard or Advanced —
             {% for f in p.en.features %}<li class="flex gap-2"><span class="text-brand-gold">✓</span>{{ f }}</li>{% endfor %}
           </ul>
           {% endif %}
-          <a href="/en/contact/?service={{ p.slug }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
+          <a href="{{ ('/en/contact/?service=' + p.slug) | url }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
             {{ p.en.cta or "Request this plan" }}
           </a>
         </div>
@@ -123,7 +123,7 @@ description: "Choose the right coaching plan — Basic, Standard or Advanced —
     <div class="card card-hover text-center" data-aos="fade-up">
       <h3 class="text-xl mb-2">Looking for the Anti-aging program?</h3>
       <p class="text-brand-off/70">A separate holistic package focused on rejuvenation and long-term vitality.</p>
-      <a href="/en/anti-aging/" class="btn-ghost mt-6">Explore Anti-aging →</a>
+      <a href="{{ '/en/anti-aging/' | url }}" class="btn-ghost mt-6">Explore Anti-aging →</a>
     </div>
   </div>
 </section>

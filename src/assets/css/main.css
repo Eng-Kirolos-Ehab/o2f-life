@@ -62,11 +62,13 @@
   }
   .btn-primary {
     @apply btn bg-brand-mint text-brand-ink shadow-glow-mint
-           hover:-translate-y-0.5 hover:shadow-lg;
+           hover:-translate-y-0.5 hover:shadow-lg hover:brightness-110
+           active:scale-95;
   }
   .btn-ghost {
     @apply btn border border-brand-line text-brand-off
-           hover:border-brand-mint hover:text-brand-mint;
+           hover:border-brand-mint hover:text-brand-mint
+           hover:bg-brand-mint/5 active:scale-95;
   }
 
   .card {
@@ -75,9 +77,9 @@
            transition-all duration-300 ease-out;
   }
   .card-hover {
-    @apply hover:-translate-y-1 hover:border-brand-mint/60
-           hover:shadow-[0_10px_40px_-12px_rgba(0,217,163,0.35)]
-           hover:bg-white/[0.05];
+    @apply hover:-translate-y-1.5 hover:border-brand-mint/60
+           hover:shadow-[0_16px_48px_-12px_rgba(0,217,163,0.4)]
+           hover:bg-white/[0.06];
   }
   .card-glow {
     @apply relative overflow-hidden;
@@ -86,15 +88,17 @@
     content: "";
     @apply absolute -inset-1 rounded-xl2 opacity-0
            transition-opacity duration-500 pointer-events-none;
-    background: radial-gradient(ellipse at center,
-      rgba(0,217,163,0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse at top center,
+      rgba(0,217,163,0.18) 0%, transparent 65%);
   }
   .card-glow:hover::before { @apply opacity-100; }
 
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full
            border border-brand-line bg-white/5 px-3 py-1
-           text-xs font-medium text-brand-off/80;
+           text-xs font-medium text-brand-off/80
+           transition-all duration-200
+           hover:border-brand-mint/50 hover:text-brand-mint hover:bg-brand-mint/5;
   }
 
   .section { @apply py-16 sm:py-20 lg:py-24; }
@@ -103,6 +107,16 @@
   }
   .section-kicker {
     @apply text-brand-mint uppercase tracking-widest text-xs font-semibold mb-3;
+  }
+
+  .stat-card {
+    @apply card card-hover text-center p-8;
+  }
+  .stat-number {
+    @apply text-4xl sm:text-5xl font-bold text-brand-mint glow-text-mint;
+  }
+  .divider-mint {
+    @apply w-12 h-0.5 bg-gradient-to-r from-brand-mint to-brand-gold mx-auto my-4;
   }
 }
 
@@ -126,35 +140,69 @@ html[dir="ltr"] .ltr-only { display: initial; }
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .gradient-blue-text {
+    background: linear-gradient(135deg, #60a5fa 0%, #00D9A3 50%, #C9A84A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   .grid-bg {
     background-image:
-      radial-gradient(ellipse at top, rgba(0,217,163,.12), transparent 60%),
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: auto, 40px 40px, 40px 40px;
+      radial-gradient(ellipse at top, rgba(0,217,163,.15), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(201,168,74,.06), transparent 50%),
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: auto, auto, 40px 40px, 40px 40px;
   }
   .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
   .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+  .animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient-shift 8s ease infinite;
   }
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+  .animate-border-glow { animation: border-glow 2s ease-in-out infinite; }
   .hover-lift {
     @apply transition-transform duration-300 ease-out;
   }
   .hover-lift:hover { transform: translateY(-4px); }
+  .glass {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .glow-text-mint {
+    text-shadow: 0 0 20px rgba(0,217,163,0.5);
+  }
 }
 
 /* --------------------------------------------------------------------------
    Custom keyframes
    -------------------------------------------------------------------------- */
 @keyframes float {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-10px); }
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-14px); }
+}
+@keyframes float-slow {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  33%     { transform: translateY(-8px) rotate(1deg); }
+  66%     { transform: translateY(-16px) rotate(-1deg); }
 }
 @keyframes pulse-soft {
   0%,100% { opacity: 1; }
-  50%     { opacity: 0.6; }
+  50%     { opacity: 0.5; }
+}
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 20px rgba(0,217,163,0.2); }
+  50%     { box-shadow: 0 0 40px rgba(0,217,163,0.5), 0 0 80px rgba(0,217,163,0.15); }
 }
 @keyframes gradient-shift {
   0%,100% { background-position: 0% 50%; }
@@ -163,6 +211,22 @@ html[dir="ltr"] .ltr-only { display: initial; }
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes border-glow {
+  0%,100% { border-color: rgba(0,217,163,0.2); }
+  50%     { border-color: rgba(0,217,163,0.6); }
 }
 
 /* Mint glow on focus */

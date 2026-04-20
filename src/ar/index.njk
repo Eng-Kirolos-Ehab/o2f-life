@@ -18,8 +18,8 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
           مصمّم لأهدافك وجدولك وأسلوب حياتك.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/ar/plans/" class="btn-primary">ابدأ اليوم</a>
-          <a href="/ar/services/" class="btn-ghost">اكتشف الخدمات</a>
+          <a href="{{ '/ar/plans/' | url }}" class="btn-primary">ابدأ اليوم</a>
+          <a href="{{ '/ar/services/' | url }}" class="btn-ghost">اكتشف الخدمات</a>
         </div>
 
         <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl">
@@ -32,7 +32,7 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 
       <div class="relative">
         <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-br from-brand-mint/30 to-brand-gold/20 blur-2xl"></div>
-        <img src="/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp"
+        <img src="{{ '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp' | url }}"
              alt="الكابتن أسامة عمران" loading="eager"
              class="relative rounded-xl2 w-full object-cover shadow-card">
       </div>
@@ -115,7 +115,7 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
     <div class="grid md:grid-cols-3 gap-5">
       {% for key in ["basic","standard","advanced"] %}
         {% set p = plans[key] %}
-        <a href="/ar/plans/{{ p.slug }}/" class="card hover:border-brand-mint transition-colors {% if p.highlight %}ring-1 ring-brand-mint/40{% endif %}">
+        <a href="{{ ('/ar/plans/' + p.slug + '/') | url }}" class="card hover:border-brand-mint transition-colors {% if p.highlight %}ring-1 ring-brand-mint/40{% endif %}">
           {% if p.highlight %}<span class="chip text-brand-mint mb-3">الأكثر شيوعًا</span>{% endif %}
           <h3 class="text-xl mb-1">{{ p.ar.name }}</h3>
           <p class="text-brand-mint text-sm mb-3">{{ p.ar.tagline }}</p>
@@ -133,7 +133,7 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
     <div class="card text-center">
       <h2 class="text-2xl sm:text-3xl mb-3">جاهز للتحوّل؟</h2>
       <p class="text-brand-off/70 max-w-xl mx-auto">احجز مكالمة تعارف مجانية، ونحطلك خطة أول ٩٠ يوم.</p>
-      <a href="/ar/contact/" class="btn-primary mt-6">احجز مكالمة</a>
+      <a href="{{ '/ar/contact/' | url }}" class="btn-primary mt-6">احجز مكالمة</a>
     </div>
   </div>
 </section>

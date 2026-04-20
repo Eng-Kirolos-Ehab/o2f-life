@@ -28,11 +28,11 @@
   <meta name="twitter:card" content="summary_large_image">
 
   {# Favicons #}
-  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <link rel="icon" href="{{ '/assets/images/favicon.svg' | url }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | url }}">
 
   {# CSS #}
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}">
 
   {# AOS — Animate On Scroll #}
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
@@ -80,7 +80,7 @@
   {% include "partials/footer.njk" %}
   {% include "partials/whatsapp-float.njk" %}
 
-  <script src="/assets/js/main.js" defer></script>
+  <script src="{{ '/assets/js/main.js' | url }}" defer></script>
 
   {# AOS init #}
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

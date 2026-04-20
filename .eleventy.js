@@ -25,6 +25,6 @@ module.exports = function(eleventyConfig) {
     templateFormats: ["njk", "md", "html", "11ty.js"],
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk",
-    pathPrefix: "/"
+    pathPrefix: "/o2f-life/"
   };
 };

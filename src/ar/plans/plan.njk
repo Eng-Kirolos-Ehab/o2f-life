@@ -35,8 +35,8 @@ eleventyComputed:
     </div>
 
     <div class="flex flex-wrap gap-3 mt-8" data-aos="fade-up" data-aos-delay="400">
-      <a href="/ar/contact/?service={{ p.slug }}" class="btn-primary">{{ p.ar.cta }}</a>
-      <a href="/ar/plans/" class="btn-ghost">→ كل الباقات</a>
+      <a href="{{ ('/ar/contact/?service=' + p.slug) | url }}" class="btn-primary">{{ p.ar.cta }}</a>
+      <a href="{{ '/ar/plans/' | url }}" class="btn-ghost">→ كل الباقات</a>
     </div>
 
     <div class="mt-6" data-aos="fade-up" data-aos-delay="450">
@@ -79,7 +79,7 @@ eleventyComputed:
       <div class="relative text-center max-w-2xl mx-auto">
         <h2 class="text-2xl sm:text-3xl mb-3">جاهز تبدأ؟</h2>
         <p class="text-brand-off/80 max-w-xl mx-auto mb-6">تواصل معانا وهنأكّد مكانك والخطوات التالية.</p>
-        <a href="/ar/contact/?service={{ p.slug }}" class="btn-primary">{{ p.ar.cta }}</a>
+        <a href="{{ ('/ar/contact/?service=' + p.slug) | url }}" class="btn-primary">{{ p.ar.cta }}</a>
       </div>
     </div>
   </div>
