@@ -5,9 +5,9 @@ description: "Online training, personalized nutrition, naturopathic guidance, an
 
 <section class="grid-bg">
   <div class="container-x py-16 sm:py-20">
-    <p class="section-kicker">What we do</p>
-    <h1 class="section-title mb-4">Services</h1>
-    <p class="text-lg text-brand-off/70 max-w-2xl">
+    <p class="section-kicker" data-aos="fade-up">What we do</p>
+    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">Services</h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
       A complete toolkit to transform your body and support your long-term health.
     </p>
   </div>
@@ -15,53 +15,61 @@ description: "Online training, personalized nutrition, naturopathic guidance, an
 
 <section class="section">
   <div class="container-x grid md:grid-cols-2 gap-6">
-    <div id="training" class="card">
+    <div id="training" class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="100">
+      <div class="text-2xl mb-3">🏋️</div>
       <h2 class="text-2xl mb-2">Online Training</h2>
       <p class="text-brand-off/70">Custom workout programs you can run from home or any gym — designed for your level and built for progress, not exhaustion.</p>
       <ul class="mt-4 space-y-1 text-sm text-brand-off/70">
-        <li>• Assessment of current level and mobility</li>
-        <li>• Progressive programming (strength, conditioning, mobility)</li>
-        <li>• Video demos for every movement</li>
-        <li>• Weekly load/volume adjustments</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Assessment of current level and mobility</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Progressive programming (strength, conditioning, mobility)</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Video demos for every movement</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Weekly load/volume adjustments</li>
       </ul>
     </div>
 
-    <div id="nutrition" class="card">
+    <div id="nutrition" class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="200">
+      <div class="text-2xl mb-3">🥗</div>
       <h2 class="text-2xl mb-2">Nutrition Coaching</h2>
       <p class="text-brand-off/70">Meal plans that respect your preferences, culture and goals — simple to follow, enjoyable, and easy to sustain long-term.</p>
       <ul class="mt-4 space-y-1 text-sm text-brand-off/70">
-        <li>• Personalized calorie and macro targets</li>
-        <li>• Food preference and culture-aware menus</li>
-        <li>• Re-tuning every 2 weeks (weekly in advanced)</li>
-        <li>• Practical substitution list for travel and events</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Personalized calorie and macro targets</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Food preference and culture-aware menus</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Re-tuning every 2 weeks (weekly in advanced)</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Practical substitution list for travel and events</li>
       </ul>
     </div>
 
-    <div id="naturopathy" class="card">
+    <div id="naturopathy" class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="300">
+      <div class="text-2xl mb-3">🌿</div>
       <h2 class="text-2xl mb-2">Naturopathic Guidance</h2>
       <p class="text-brand-off/70">Holistic protocols for energy, recovery and long-term health — herbs, sleep, stress and lifestyle, backed by science.</p>
       <ul class="mt-4 space-y-1 text-sm text-brand-off/70">
-        <li>• Therapeutic herb recommendations</li>
-        <li>• Sleep and stress protocols</li>
-        <li>• Optional medical supervision (advanced plan)</li>
-        <li>• Long-term health markers tracking</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Therapeutic herb recommendations</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Sleep and stress protocols</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Optional medical supervision (advanced plan)</li>
+        <li class="flex gap-2"><span class="text-brand-mint">✓</span>Long-term health markers tracking</li>
       </ul>
     </div>
 
-    <div id="anti-aging" class="card">
+    <div id="anti-aging" class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="400">
+      <div class="text-2xl mb-3">✨</div>
       <h2 class="text-2xl mb-2">Anti-aging Program</h2>
       <p class="text-brand-off/70">A dedicated package to rejuvenate body and mind — skin, mood, memory, mobility, hormones and immunity.</p>
-      <a href="{{ '/en/anti-aging/' | url }}" class="inline-flex items-center gap-1 text-brand-mint text-sm mt-4">Learn more →</a>
+      <a href="{{ '/en/anti-aging/' | url }}" class="inline-flex items-center gap-1 text-brand-mint text-sm mt-4 hover:gap-2 transition-all">Learn more →</a>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container-x">
-    <div class="card text-center">
-      <h2 class="text-2xl sm:text-3xl mb-3">Not sure where to start?</h2>
-      <p class="text-brand-off/70 max-w-xl mx-auto">Book a free 15-minute intro call and we'll recommend the right fit.</p>
-      <a href="{{ '/en/contact/' | url }}" class="btn-primary mt-6">Book a call</a>
+    <div class="relative rounded-xl2 overflow-hidden bg-gradient-to-br from-brand-mint/15 via-brand-mint/5 to-brand-ink border border-brand-mint/25 p-10 text-center"
+         data-aos="zoom-in">
+      <div class="absolute top-0 right-0 w-48 h-48 rounded-full bg-brand-mint/15 blur-3xl animate-pulse-soft pointer-events-none"></div>
+      <div class="relative">
+        <h2 class="text-2xl sm:text-3xl mb-3">Not sure where to start?</h2>
+        <p class="text-brand-off/70 max-w-xl mx-auto mb-6">Book a free 15-minute intro call and we'll recommend the right fit.</p>
+        <a href="{{ '/en/contact/' | url }}" class="btn-primary">Book a call</a>
+      </div>
     </div>
   </div>
 </section>
