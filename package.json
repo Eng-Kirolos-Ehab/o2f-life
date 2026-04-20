@@ -4,7 +4,7 @@
   "private": true,
   "description": "O2F.life — Coach Osama Omran's official website (bilingual AR/EN)",
   "scripts": {
-    "clean": "rm -rf _site",
+    "clean": "rmdir /s /q _site",
     "css:build": "tailwindcss -i ./src/assets/css/main.css -o ./_site/assets/css/main.css --minify",
     "css:watch": "tailwindcss -i ./src/assets/css/main.css -o ./_site/assets/css/main.css --watch",
     "eleventy:build": "eleventy",
