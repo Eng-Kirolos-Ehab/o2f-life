@@ -5,11 +5,11 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
 
 <section class="grid-bg">
   <div class="container-x py-16 sm:py-20">
-    <p class="section-kicker">About</p>
-    <h1 class="section-title text-balance mb-6">Welcome to Coach Osama's world.</h1>
+    <p class="section-kicker" data-aos="fade-up">About</p>
+    <h1 class="section-title text-balance mb-6" data-aos="fade-up" data-aos-delay="100">Welcome to Coach Osama's world.</h1>
 
     <div class="grid lg:grid-cols-[1.1fr,1fr] gap-10 items-start">
-      <div class="prose prose-invert max-w-none">
+      <div class="prose prose-invert max-w-none" data-aos="fade-right">
         <p class="text-lg text-brand-off/80">
           Hi, I'm <strong>Osama Omran</strong>, an online fitness coach who
           believes in transformation <em>from the inside out</em>.
@@ -36,8 +36,8 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
         </ul>
       </div>
 
-      <div class="relative">
-        <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-br from-brand-mint/30 to-brand-gold/20 blur-2xl"></div>
+      <div class="relative" data-aos="fade-left" data-aos-delay="150">
+        <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-br from-brand-mint/30 to-brand-gold/20 blur-2xl animate-pulse-soft"></div>
         <img src="{{ '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp' | url }}"
              alt="Coach Osama Omran"
              class="relative rounded-xl2 w-full object-cover shadow-card">
@@ -48,17 +48,17 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
 
 <section class="section">
   <div class="container-x">
-    <h2 class="section-title mb-8">Philosophy</h2>
+    <h2 class="section-title mb-8" data-aos="fade-up">Philosophy</h2>
     <div class="grid md:grid-cols-3 gap-5">
-      <div class="card">
+      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="100">
         <h3 class="text-xl mb-2">Holistic</h3>
         <p class="text-brand-off/70 text-sm">Real transformation touches training, nutrition, sleep, stress and biology. We work on all of it.</p>
       </div>
-      <div class="card">
+      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="200">
         <h3 class="text-xl mb-2">Personal</h3>
         <p class="text-brand-off/70 text-sm">Your plan is designed around your body, schedule, culture and taste — not copy-pasted.</p>
       </div>
-      <div class="card">
+      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="300">
         <h3 class="text-xl mb-2">Sustainable</h3>
         <p class="text-brand-off/70 text-sm">Over 90% of our clients keep following their plans after hitting their goals. That's not luck — that's design.</p>
       </div>
@@ -68,9 +68,13 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
 
 <section class="section">
   <div class="container-x">
-    <div class="card text-center">
-      <h2 class="text-2xl sm:text-3xl mb-3">Let's start your transformation.</h2>
-      <a href="{{ '/en/contact/' | url }}" class="btn-primary mt-6">Book a free call</a>
+    <div class="relative rounded-xl2 overflow-hidden bg-gradient-to-br from-brand-mint/15 via-brand-mint/5 to-brand-ink border border-brand-mint/25 p-10 text-center"
+         data-aos="zoom-in">
+      <div class="absolute top-0 right-0 w-48 h-48 rounded-full bg-brand-mint/15 blur-3xl animate-pulse-soft pointer-events-none"></div>
+      <div class="relative">
+        <h2 class="text-2xl sm:text-3xl mb-3">Let's start your transformation.</h2>
+        <a href="{{ '/en/contact/' | url }}" class="btn-primary mt-4">Book a free call</a>
+      </div>
     </div>
   </div>
 </section>
