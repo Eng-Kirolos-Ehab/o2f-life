@@ -1,32 +1,32 @@
 <header data-site-header
         class="sticky top-0 z-40 border-b border-brand-line bg-brand-ink/80 backdrop-blur-md transition-shadow">
   <div class="container-x flex h-16 items-center justify-between">
-    <a href="/{{ lang }}/" class="flex items-center gap-2 font-display text-lg font-bold">
+    <a href="{{ ('/' + lang + '/') | url }}" class="flex items-center gap-2 font-display text-lg font-bold">
       <span class="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-brand-mint to-brand-gold"></span>
       <span class="gradient-mint-text">O2F<span class="text-brand-off">.life</span></span>
     </a>
 
     {# Desktop nav #}
     <nav class="hidden md:flex items-center gap-6 text-sm">
-      <a href="/{{ lang }}/"          class="text-brand-off/80 hover:text-brand-mint">{{ "الرئيسية" if lang == "ar" else "Home" }}</a>
-      <a href="/{{ lang }}/about/"    class="text-brand-off/80 hover:text-brand-mint">{{ "عن الكابتن" if lang == "ar" else "About" }}</a>
-      <a href="/{{ lang }}/services/" class="text-brand-off/80 hover:text-brand-mint">{{ "الخدمات" if lang == "ar" else "Services" }}</a>
-      <a href="/{{ lang }}/plans/"    class="text-brand-off/80 hover:text-brand-mint">{{ "الباقات" if lang == "ar" else "Plans" }}</a>
-      <a href="/{{ lang }}/gallery/"  class="text-brand-off/80 hover:text-brand-mint">{{ "المعرض" if lang == "ar" else "Gallery" }}</a>
-      <a href="/{{ lang }}/blog/"     class="text-brand-off/80 hover:text-brand-mint">{{ "المقالات" if lang == "ar" else "Blog" }}</a>
-      <a href="/{{ lang }}/methylene-blue/" class="text-brand-off/80 hover:text-brand-mint">{{ "ميثيلين بلو" if lang == "ar" else "Methylene Blue" }}</a>
-      <a href="/{{ lang }}/contact/"  class="text-brand-off/80 hover:text-brand-mint">{{ "تواصل" if lang == "ar" else "Contact" }}</a>
+      <a href="{{ ('/' + lang + '/') | url }}"                   class="text-brand-off/80 hover:text-brand-mint">{{ "الرئيسية" if lang == "ar" else "Home" }}</a>
+      <a href="{{ ('/' + lang + '/about/') | url }}"             class="text-brand-off/80 hover:text-brand-mint">{{ "عن الكابتن" if lang == "ar" else "About" }}</a>
+      <a href="{{ ('/' + lang + '/services/') | url }}"          class="text-brand-off/80 hover:text-brand-mint">{{ "الخدمات" if lang == "ar" else "Services" }}</a>
+      <a href="{{ ('/' + lang + '/plans/') | url }}"             class="text-brand-off/80 hover:text-brand-mint">{{ "الباقات" if lang == "ar" else "Plans" }}</a>
+      <a href="{{ ('/' + lang + '/gallery/') | url }}"           class="text-brand-off/80 hover:text-brand-mint">{{ "المعرض" if lang == "ar" else "Gallery" }}</a>
+      <a href="{{ ('/' + lang + '/blog/') | url }}"              class="text-brand-off/80 hover:text-brand-mint">{{ "المقالات" if lang == "ar" else "Blog" }}</a>
+      <a href="{{ ('/' + lang + '/methylene-blue/') | url }}"    class="text-brand-off/80 hover:text-brand-mint">{{ "ميثيلين بلو" if lang == "ar" else "Methylene Blue" }}</a>
+      <a href="{{ ('/' + lang + '/contact/') | url }}"           class="text-brand-off/80 hover:text-brand-mint">{{ "تواصل" if lang == "ar" else "Contact" }}</a>
     </nav>
 
     <div class="flex items-center gap-3">
       {# Language switcher #}
       {% if lang == "ar" %}
-        <a href="/en/" data-lang-switch="en" class="chip hover:border-brand-mint hover:text-brand-mint">EN</a>
+        <a href="{{ '/en/' | url }}" data-lang-switch="en" class="chip hover:border-brand-mint hover:text-brand-mint">EN</a>
       {% else %}
-        <a href="/ar/" data-lang-switch="ar" class="chip hover:border-brand-mint hover:text-brand-mint">ع</a>
+        <a href="{{ '/ar/' | url }}" data-lang-switch="ar" class="chip hover:border-brand-mint hover:text-brand-mint">ع</a>
       {% endif %}
 
-      <a href="/{{ lang }}/plans/" class="btn-primary hidden sm:inline-flex">
+      <a href="{{ ('/' + lang + '/plans/') | url }}" class="btn-primary hidden sm:inline-flex">
         {{ "اشترك الآن" if lang == "ar" else "Join Now" }}
       </a>
 
@@ -43,14 +43,14 @@
   {# Mobile panel #}
   <div data-menu-panel class="hidden md:hidden border-t border-brand-line">
     <nav class="container-x py-4 grid gap-2 text-sm">
-      <a href="/{{ lang }}/"          class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "الرئيسية" if lang == "ar" else "Home" }}</a>
-      <a href="/{{ lang }}/about/"    class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "عن الكابتن" if lang == "ar" else "About" }}</a>
-      <a href="/{{ lang }}/services/" class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "الخدمات" if lang == "ar" else "Services" }}</a>
-      <a href="/{{ lang }}/plans/"    class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "الباقات" if lang == "ar" else "Plans" }}</a>
-      <a href="/{{ lang }}/gallery/"  class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "المعرض" if lang == "ar" else "Gallery" }}</a>
-      <a href="/{{ lang }}/blog/"     class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "المقالات" if lang == "ar" else "Blog" }}</a>
-      <a href="/{{ lang }}/methylene-blue/" class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "ميثيلين بلو" if lang == "ar" else "Methylene Blue" }}</a>
-      <a href="/{{ lang }}/contact/"  class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "تواصل" if lang == "ar" else "Contact" }}</a>
+      <a href="{{ ('/' + lang + '/') | url }}"                   class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "الرئيسية" if lang == "ar" else "Home" }}</a>
+      <a href="{{ ('/' + lang + '/about/') | url }}"             class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "عن الكابتن" if lang == "ar" else "About" }}</a>
+      <a href="{{ ('/' + lang + '/services/') | url }}"          class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "الخدمات" if lang == "ar" else "Services" }}</a>
+      <a href="{{ ('/' + lang + '/plans/') | url }}"             class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "الباقات" if lang == "ar" else "Plans" }}</a>
+      <a href="{{ ('/' + lang + '/gallery/') | url }}"           class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "المعرض" if lang == "ar" else "Gallery" }}</a>
+      <a href="{{ ('/' + lang + '/blog/') | url }}"              class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "المقالات" if lang == "ar" else "Blog" }}</a>
+      <a href="{{ ('/' + lang + '/methylene-blue/') | url }}"    class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "ميثيلين بلو" if lang == "ar" else "Methylene Blue" }}</a>
+      <a href="{{ ('/' + lang + '/contact/') | url }}"           class="py-2 text-brand-off/80 hover:text-brand-mint">{{ "تواصل" if lang == "ar" else "Contact" }}</a>
     </nav>
   </div>
 </header>

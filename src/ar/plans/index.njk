@@ -62,7 +62,7 @@ description: "اختر الباقة المناسبة — البسيطة، الأ
         <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
           {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint">✓</span>{{ f }}</li>{% endfor %}
         </ul>
-        <a href="/ar/plans/{{ p.slug }}/"
+        <a href="{{ ('/ar/plans/' + p.slug + '/') | url }}"
            class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
           {{ p.ar.cta }}
         </a>
@@ -102,7 +102,7 @@ description: "اختر الباقة المناسبة — البسيطة، الأ
             {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-gold">✓</span>{{ f }}</li>{% endfor %}
           </ul>
           {% endif %}
-          <a href="/ar/contact/?service={{ p.slug }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
+          <a href="{{ ('/ar/contact/?service=' + p.slug) | url }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
             {{ p.ar.cta or "اطلب هذه الخطة" }}
           </a>
         </div>
@@ -117,7 +117,7 @@ description: "اختر الباقة المناسبة — البسيطة، الأ
     <div class="card card-hover text-center" data-aos="fade-up">
       <h3 class="text-xl mb-2">بتدوّر على برنامج مكافحة الشيخوخة؟</h3>
       <p class="text-brand-off/70">باقة شاملة منفصلة مخصّصة للتجديد والحيوية على المدى البعيد.</p>
-      <a href="/ar/anti-aging/" class="btn-ghost mt-6">استكشف مكافحة الشيخوخة ←</a>
+      <a href="{{ '/ar/anti-aging/' | url }}" class="btn-ghost mt-6">استكشف مكافحة الشيخوخة ←</a>
     </div>
   </div>
 </section>

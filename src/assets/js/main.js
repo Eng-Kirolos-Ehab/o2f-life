@@ -48,11 +48,13 @@
       if (!target) return;
       const other = target === "ar" ? "en" : "ar";
       const path = window.location.pathname.replace(
-        new RegExp(`^/${other}(/|$)`),
-        `/${target}$1`
+        `/${other}/`,
+        `/${target}/`
       );
       e.preventDefault();
-      window.location.href = path === window.location.pathname ? `/${target}/` : path;
+      window.location.href = path === window.location.pathname
+        ? window.location.pathname.replace(/\/(en|ar)\/.*/, `/${target}/`)
+        : path;
     });
   });
 })();

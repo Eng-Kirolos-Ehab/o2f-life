@@ -12,7 +12,7 @@ description: "Your message is on its way — we'll reply within 24 hours."
       feel free to message us on WhatsApp.
     </p>
     <div class="mt-8 flex flex-wrap gap-3 justify-center">
-      <a href="/en/" class="btn-ghost">Back to home</a>
+      <a href="{{ '/en/' | url }}" class="btn-ghost">Back to home</a>
       <a target="_blank" rel="noopener" href="https://wa.me/{{ site.whatsapp | replace('+','') }}" class="btn-primary">Open WhatsApp</a>
     </div>
   </div>
