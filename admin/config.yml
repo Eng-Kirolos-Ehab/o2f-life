@@ -1,0 +1,336 @@
+# Decap CMS configuration — O2F.life
+# Access at: https://o2f.life/admin/ (requires GitHub login via Netlify Identity or OAuth).
+
+backend:
+  name: github
+  repo: Eng-Kirolos-Ehab/o2f-life
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: "site/src/assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+site_url: https://o2f.life
+display_url: https://o2f.life
+logo_url: https://o2f.life/assets/images/logo.svg
+
+locale: en
+
+collections:
+  # ════════════════════════════════════════════════════════════
+  #  SITE SETTINGS — Logo, SEO, social, stats, contact info
+  # ════════════════════════════════════════════════════════════
+  - name: settings
+    label: "⚙️ Site Settings"
+    description: "Control logo, contact info, SEO defaults, and global branding."
+    files:
+      - name: site
+        label: "Global Site Info"
+        file: "site/src/_data/site.json"
+        fields:
+          - { name: name,       label: "Site Name",            widget: string }
+          - { name: domain,     label: "Domain (no https://)", widget: string }
+          - { name: url,        label: "Site URL (with https)", widget: string }
+          - { name: owner,      label: "Owner / Coach Name",   widget: string }
+          - { name: email,      label: "Contact Email",        widget: string }
+          - { name: whatsapp,   label: "WhatsApp (+country...)", widget: string }
+          - { name: googleForm, label: "Google Form URL (signup)", widget: string, required: false, hint: "The main signup form link — used on the contact page." }
+
+          - label: "Social Links"
+            name: social
+            widget: object
+            fields:
+              - { name: instagram, label: Instagram, widget: string, required: false }
+              - { name: facebook,  label: Facebook,  widget: string, required: false }
+              - { name: youtube,   label: YouTube,   widget: string, required: false }
+              - { name: tiktok,    label: TikTok,    widget: string, required: false }
+              - { name: x,         label: "X/Twitter", widget: string, required: false }
+
+          - label: "Homepage Stats"
+            name: stats
+            widget: object
+            fields:
+              - { name: years,   label: "Years of experience",  widget: string }
+              - { name: clients, label: "Clients coached",      widget: string }
+              - { name: custom,  label: "% Personalized",        widget: string }
+              - { name: support, label: "Support availability", widget: string }
+
+          - label: "SEO Defaults"
+            name: seo
+            widget: object
+            fields:
+              - { name: titleSuffix, label: "Default title suffix", widget: string }
+              - { name: ogImage,     label: "Default Open Graph image", widget: image, required: false, hint: "Social-media preview image (1200×630)" }
+
+          - label: "Analytics"
+            name: analytics
+            widget: object
+            fields:
+              - { name: plausibleDomain, label: "Plausible domain (leave blank to disable)", widget: string, required: false }
+
+          - { name: defaultLang, label: "Default language", widget: select, options: [ "en", "ar" ], default: "en" }
+
+  # ════════════════════════════════════════════════════════════
+  #  PLANS — Main pricing (Basic / Standard / Advanced)
+  # ════════════════════════════════════════════════════════════
+  - name: plans
+    label: "💪 Main Plans"
+    description: "Control the 3 core plans — visibility, highlights, regional pricing, features."
+    files:
+      - name: plans-data
+        label: "Basic / Standard / Advanced"
+        file: "site/src/_data/plans.json"
+        fields:
+          - label: "Basic Plan"
+            name: basic
+            widget: object
+            fields:
+              - { name: slug, label: "Slug (URL path)", widget: string, default: "basic" }
+              - { name: visible,   label: "Show on site?",      widget: boolean, default: true }
+              - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: false }
+              - { name: order,     label: "Display order",      widget: number,  default: 1 }
+              - label: "Regional Pricing"
+                name: pricing
+                widget: object
+                fields:
+                  - label: "🇪🇬 Egypt"
+                    name: egypt
+                    widget: object
+                    fields:
+                      - { name: amount, label: "Amount", widget: string }
+                      - { name: currency, label: "Currency", widget: string, default: "EGP" }
+                      - { name: period, label: "Period (EN)", widget: string, default: "per month" }
+                      - { name: period_ar, label: "Period (AR)", widget: string, default: "شهريًا" }
+                  - label: "🇸🇦 Gulf / Arab"
+                    name: gulf
+                    widget: object
+                    fields:
+                      - { name: amount, label: "Amount", widget: string }
+                      - { name: currency, label: "Currency", widget: string, default: "SAR" }
+                      - { name: period, label: "Period (EN)", widget: string, default: "per month" }
+                      - { name: period_ar, label: "Period (AR)", widget: string, default: "شهريًا" }
+                  - label: "🌍 International"
+                    name: international
+                    widget: object
+                    fields:
+                      - { name: amount, label: "Amount", widget: string }
+                      - { name: currency, label: "Currency", widget: string, default: "USD" }
+                      - { name: period, label: "Period (EN)", widget: string, default: "per month" }
+                      - { name: period_ar, label: "Period (AR)", widget: string, default: "شهريًا" }
+              - label: "English Content"
+                name: en
+                widget: object
+                fields:
+                  - { name: name,     label: "Plan name", widget: string }
+                  - { name: tagline,  label: "Tagline",   widget: string }
+                  - { name: blurb,    label: "Description", widget: text }
+                  - { name: features, label: "Features",   widget: list, field: { label: "Feature", name: item, widget: string } }
+                  - { name: cta,      label: "CTA button text", widget: string }
+              - label: "Arabic Content / المحتوى العربي"
+                name: ar
+                widget: object
+                fields:
+                  - { name: name,     label: "اسم الخطة",       widget: string }
+                  - { name: tagline,  label: "العنوان الفرعي", widget: string }
+                  - { name: blurb,    label: "الوصف",           widget: text }
+                  - { name: features, label: "المميزات",        widget: list, field: { label: "ميزة", name: item, widget: string } }
+                  - { name: cta,      label: "نص الزر",         widget: string }
+
+          - label: "Standard Plan"
+            name: standard
+            widget: object
+            fields:
+              - { name: slug, widget: string, default: "standard" }
+              - { name: visible, label: "Show on site?", widget: boolean, default: true }
+              - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: true }
+              - { name: order, label: "Display order", widget: number, default: 2 }
+              - label: "Regional Pricing"
+                name: pricing
+                widget: object
+                fields:
+                  - { label: "🇪🇬 Egypt", name: egypt, widget: object, fields: [
+                      { name: amount, label: Amount, widget: string },
+                      { name: currency, label: Currency, widget: string, default: "EGP" },
+                      { name: period, label: "Period (EN)", widget: string, default: "per month" },
+                      { name: period_ar, label: "Period (AR)", widget: string, default: "شهريًا" }
+                    ] }
+                  - { label: "🇸🇦 Gulf / Arab", name: gulf, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "SAR" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+                  - { label: "🌍 International", name: international, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "USD" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+              - { label: "English Content", name: en, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, field: { label: Feature, name: item, widget: string } },
+                  { name: cta, widget: string }
+                ] }
+              - { label: "Arabic Content", name: ar, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, field: { label: "ميزة", name: item, widget: string } },
+                  { name: cta, widget: string }
+                ] }
+
+          - label: "Advanced Plan"
+            name: advanced
+            widget: object
+            fields:
+              - { name: slug, widget: string, default: "advanced" }
+              - { name: visible, label: "Show on site?", widget: boolean, default: true }
+              - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: false }
+              - { name: order, label: "Display order", widget: number, default: 3 }
+              - label: "Regional Pricing"
+                name: pricing
+                widget: object
+                fields:
+                  - { label: "🇪🇬 Egypt", name: egypt, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "EGP" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+                  - { label: "🇸🇦 Gulf / Arab", name: gulf, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "SAR" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+                  - { label: "🌍 International", name: international, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "USD" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+              - { label: "English Content", name: en, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, field: { label: Feature, name: item, widget: string } },
+                  { name: cta, widget: string }
+                ] }
+              - { label: "Arabic Content", name: ar, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, field: { label: "ميزة", name: item, widget: string } },
+                  { name: cta, widget: string }
+                ] }
+
+      # ─── Custom / special plans ───────────────────────────────
+      - name: custom-plans
+        label: "✨ Custom / Special Plans"
+        file: "site/src/_data/customPlans.json"
+        description: "Add any number of extra plans (e.g. family plan, team plan, seasonal offer...)"
+        fields:
+          - label: "Custom Plans"
+            name: items
+            widget: list
+            summary: "{{fields.en.name}}"
+            fields:
+              - { name: slug, label: "Slug (URL-friendly)", widget: string, hint: "e.g. family-plan, vip-plan" }
+              - { name: visible, label: "Show on site?", widget: boolean, default: true }
+              - label: "Regional Pricing"
+                name: pricing
+                widget: object
+                required: false
+                fields:
+                  - { label: "🇪🇬 Egypt", name: egypt, widget: object, required: false, fields: [
+                      { name: amount, widget: string, required: false },
+                      { name: currency, widget: string, default: "EGP", required: false },
+                      { name: period, widget: string, default: "per month", required: false },
+                      { name: period_ar, widget: string, default: "شهريًا", required: false }
+                    ] }
+                  - { label: "🇸🇦 Gulf / Arab", name: gulf, widget: object, required: false, fields: [
+                      { name: amount, widget: string, required: false },
+                      { name: currency, widget: string, default: "SAR", required: false },
+                      { name: period, widget: string, default: "per month", required: false },
+                      { name: period_ar, widget: string, default: "شهريًا", required: false }
+                    ] }
+                  - { label: "🌍 International", name: international, widget: object, required: false, fields: [
+                      { name: amount, widget: string, required: false },
+                      { name: currency, widget: string, default: "USD", required: false },
+                      { name: period, widget: string, default: "per month", required: false },
+                      { name: period_ar, widget: string, default: "شهريًا", required: false }
+                    ] }
+              - label: "English"
+                name: en
+                widget: object
+                fields:
+                  - { name: name, widget: string }
+                  - { name: tagline, widget: string }
+                  - { name: blurb, widget: text }
+                  - { name: features, widget: list, required: false, field: { label: Feature, name: item, widget: string } }
+                  - { name: cta, widget: string, required: false, default: "Request this plan" }
+              - label: "Arabic / عربي"
+                name: ar
+                widget: object
+                fields:
+                  - { name: name, widget: string }
+                  - { name: tagline, widget: string }
+                  - { name: blurb, widget: text }
+                  - { name: features, widget: list, required: false, field: { label: "ميزة", name: item, widget: string } }
+                  - { name: cta, widget: string, required: false, default: "اطلب هذه الخطة" }
+
+  # ════════════════════════════════════════════════════════════
+  #  GALLERY
+  # ════════════════════════════════════════════════════════════
+  - name: gallery
+    label: "🖼️ Gallery"
+    files:
+      - name: gallery-data
+        label: "Gallery images"
+        file: "site/src/_data/gallery.json"
+        fields:
+          - label: "Images"
+            name: images
+            widget: list
+            summary: "{{fields.alt_en}}"
+            fields:
+              - { name: src,    label: Image,    widget: image }
+              - { name: alt_en, label: "Alt text (EN)", widget: string, required: false }
+              - { name: alt_ar, label: "Alt text (AR)", widget: string, required: false }
+
+  # ════════════════════════════════════════════════════════════
+  #  BLOG — English
+  # ════════════════════════════════════════════════════════════
+  - name: blog-en
+    label: "📝 Blog — English"
+    folder: "site/src/en/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title,       label: Title,       widget: string }
+      - { name: date,        label: Date,        widget: datetime }
+      - { name: description, label: Description, widget: text }
+      - { name: cover,       label: Cover image, widget: image, required: false }
+      - { name: body,        label: Body,        widget: markdown }
+
+  # ════════════════════════════════════════════════════════════
+  #  BLOG — Arabic
+  # ════════════════════════════════════════════════════════════
+  - name: blog-ar
+    label: "📝 المقالات — عربي"
+    folder: "site/src/ar/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title,       label: "العنوان",     widget: string }
+      - { name: date,        label: "التاريخ",     widget: datetime }
+      - { name: description, label: "الوصف",       widget: text }
+      - { name: cover,       label: "صورة الغلاف", widget: image, required: false }
+      - { name: body,        label: "المحتوى",     widget: markdown }

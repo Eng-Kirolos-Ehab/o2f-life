@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>O2F.life — Choose your language</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="0; url=/en/">
+<link rel="canonical" href="https://o2f.life/en/">
+<script>
+  (function () {
+    try {
+      var ar = /^ar\b/i.test(navigator.language || "");
+      location.replace(ar ? "/ar/" : "/en/");
+    } catch (e) {
+      location.replace("/en/");
+    }
+  })();
+</script>
+<style>
+  body { font-family: system-ui, sans-serif; background:#0B1220; color:#F7F8FA;
+         display:flex; align-items:center; justify-content:center;
+         min-height:100vh; margin:0; }
+  a { color:#00D9A3; margin:0 1rem; font-weight:600; }
+</style>
+</head>
+<body>
+  <div>
+    <p>Choose your language / اختر اللغة</p>
+    <p style="text-align:center; margin-top:1rem">
+      <a href="/en/">English</a>
+      <a href="/ar/">العربية</a>
+    </p>
+  </div>
+</body>
+</html>
