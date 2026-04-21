@@ -156,6 +156,91 @@
     .quick-link-label { font-size: .875rem; }
     .quick-link-path { font-size: .75rem; color: var(--muted); font-family: monospace; }
 
+    /* ── JSON Editor ── */
+    .token-gate { max-width: 540px; }
+    .token-row {
+      display: flex; gap: .5rem; margin-top: .75rem;
+    }
+    .token-input {
+      flex: 1; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12); border-radius: 12px;
+      padding: .65rem 1rem; color: var(--off);
+      font-family: monospace; font-size: .875rem;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .token-input:focus {
+      border-color: rgba(0,217,163,.5);
+      box-shadow: 0 0 0 3px rgba(0,217,163,.12);
+    }
+    .token-input::placeholder { color: rgba(247,248,250,.3); }
+    .btn-connect {
+      background: var(--mint); color: var(--ink);
+      border: none; border-radius: 12px;
+      padding: .65rem 1.25rem; font-size: .875rem; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+      font-family: 'Tajawal', sans-serif;
+      transition: filter .15s, transform .15s;
+    }
+    .btn-connect:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .file-tabs {
+      display: flex; gap: .375rem; margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .file-tab {
+      padding: .45rem 1rem; border-radius: 10px; font-size: .8rem;
+      font-family: monospace; cursor: pointer; border: none;
+      background: rgba(255,255,255,.05); color: var(--muted);
+      transition: all .15s;
+    }
+    .file-tab:hover { background: rgba(255,255,255,.09); color: var(--off); }
+    .file-tab.active { background: rgba(0,217,163,.15); color: var(--mint); }
+
+    .editor-status {
+      font-size: .8rem; padding: .4rem .85rem; border-radius: 8px;
+      margin-bottom: .75rem; display: inline-block;
+      background: rgba(255,255,255,.05); color: var(--muted);
+    }
+    .editor-status.loading { color: var(--gold); background: rgba(201,168,74,.1); }
+    .editor-status.success { color: var(--mint); background: rgba(0,217,163,.1); }
+    .editor-status.error   { color: #fca5a5;   background: rgba(239,68,68,.1); }
+
+    .json-textarea {
+      width: 100%; height: 420px;
+      background: rgba(0,0,0,.35); border: 1px solid var(--line);
+      border-radius: 14px; padding: 1rem;
+      color: #a8d5c2; font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: .82rem; line-height: 1.65; resize: vertical;
+      outline: none; transition: border-color .2s;
+      direction: ltr; text-align: left;
+    }
+    .json-textarea:focus { border-color: rgba(0,217,163,.35); }
+
+    .editor-actions {
+      display: flex; gap: .5rem; margin-top: .75rem;
+    }
+    .btn-validate {
+      padding: .6rem 1.25rem; border-radius: 10px; font-size: .875rem;
+      font-family: 'Tajawal', sans-serif; cursor: pointer;
+      background: rgba(255,255,255,.07); border: 1px solid var(--line);
+      color: var(--off); transition: all .15s;
+    }
+    .btn-validate:hover { background: rgba(255,255,255,.12); }
+    .btn-save {
+      padding: .6rem 1.5rem; border-radius: 10px; font-size: .875rem;
+      font-family: 'Tajawal', sans-serif; cursor: pointer; font-weight: 700;
+      background: var(--mint); border: none; color: var(--ink);
+      transition: filter .15s, transform .15s;
+    }
+    .btn-save:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-save:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-disconnect {
+      margin-right: auto; padding: .6rem 1rem; border-radius: 10px;
+      font-size: .8rem; font-family: 'Tajawal', sans-serif; cursor: pointer;
+      background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2);
+      color: #fca5a5; transition: background .15s;
+    }
+    .btn-disconnect:hover { background: rgba(239,68,68,.15); }
+
     @media (max-width: 768px) {
       .sidebar { width: 200px; }
       .main { margin-right: 200px; }
@@ -192,6 +277,10 @@
       <button class="nav-item" onclick="showSection('media')">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
         الوسائط
+      </button>
+      <button class="nav-item" onclick="showSection('json')">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        محرر JSON
       </button>
 
       <div class="nav-section" style="margin-top:.75rem">الموقع</div>
@@ -341,22 +430,223 @@
         </a>
       </div>
 
+      <!-- ══ JSON EDITOR SECTION ══ -->
+      <div id="section-json" style="display:none">
+
+        <!-- Token gate -->
+        <div id="token-gate" class="token-gate">
+          <div class="info-box">
+            <svg class="info-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div class="info-text">
+              تحتاج <strong>GitHub Personal Access Token</strong> بصلاحية
+              <strong>Contents: Read &amp; Write</strong> لتعديل وحفظ الملفات مباشرة.
+              يُخزَّن الـ token محليًا في جلسة المتصفح فقط ولا يُرسَل لأي خادم خارجي.
+            </div>
+          </div>
+          <div class="token-row">
+            <input type="password" id="ghToken" class="token-input"
+                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+            <button class="btn-connect" onclick="connectToken()">اتصال</button>
+          </div>
+          <div id="token-error" style="display:none;margin-top:.5rem;font-size:.8rem;color:#fca5a5"></div>
+        </div>
+
+        <!-- Editor (shown after token validated) -->
+        <div id="json-editor" style="display:none">
+          <div class="file-tabs">
+            <button class="file-tab" id="tab-site"    onclick="switchFile('site')">site.json</button>
+            <button class="file-tab" id="tab-plans"   onclick="switchFile('plans')">plans.json</button>
+            <button class="file-tab" id="tab-custom"  onclick="switchFile('custom')">customPlans.json</button>
+            <button class="file-tab" id="tab-gallery" onclick="switchFile('gallery')">gallery.json</button>
+          </div>
+
+          <div id="editor-status" class="editor-status">جاهز</div>
+
+          <textarea id="json-textarea" class="json-textarea" spellcheck="false"
+                    placeholder="جاري التحميل..."></textarea>
+
+          <div class="editor-actions">
+            <button class="btn-disconnect" onclick="disconnectToken()">قطع الاتصال</button>
+            <button class="btn-validate" onclick="validateJSON()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><polyline points="20 6 9 17 4 12"/></svg>
+              تحقق
+            </button>
+            <button class="btn-save" id="saveBtn" onclick="saveFile()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              حفظ ونشر
+            </button>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </main>
 
   <script>
     function showSection(name) {
-      ['content','pages','media'].forEach(s => {
+      ['content','pages','media','json'].forEach(s => {
         document.getElementById('section-' + s).style.display = s === name ? '' : 'none';
       });
       document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
       event.currentTarget.classList.add('active');
-      const titles = { content: 'إدارة المحتوى', pages: 'الصفحات', media: 'الوسائط' };
+      const titles = {
+        content: 'إدارة المحتوى',
+        pages:   'الصفحات',
+        media:   'الوسائط',
+        json:    'محرر JSON',
+      };
       document.getElementById('pageTitle').textContent = titles[name];
+      if (name === 'json') initJsonEditor();
     }
+
     function logout() {
       sessionStorage.removeItem('o2f-admin-auth');
       window.location.replace('./index.html');
+    }
+
+    /* ── JSON Editor ── */
+    const REPO  = 'Eng-Kirolos-Ehab/o2f-life';
+    const FILES = {
+      site:    'src/_data/site.json',
+      plans:   'src/_data/plans.json',
+      custom:  'src/_data/customPlans.json',
+      gallery: 'src/_data/gallery.json',
+    };
+    let currentFile = 'site';
+    let currentSha  = '';
+
+    function initJsonEditor() {
+      const token = sessionStorage.getItem('o2f-gh-token');
+      if (token) {
+        document.getElementById('token-gate').style.display = 'none';
+        document.getElementById('json-editor').style.display = '';
+        switchFile('site');
+      } else {
+        document.getElementById('token-gate').style.display = '';
+        document.getElementById('json-editor').style.display = 'none';
+      }
+    }
+
+    async function connectToken() {
+      const token = document.getElementById('ghToken').value.trim();
+      const errEl = document.getElementById('token-error');
+      errEl.style.display = 'none';
+      if (!token) return;
+
+      setStatus('جاري التحقق من الصلاحيات...', 'loading');
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${FILES.site}`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+        );
+        if (res.status === 401) throw new Error('التوكن غير صالح أو منتهي الصلاحية.');
+        if (res.status === 403) throw new Error('لا توجد صلاحية كافية. تأكد من تفعيل Contents: Write.');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        sessionStorage.setItem('o2f-gh-token', token);
+        document.getElementById('token-gate').style.display = 'none';
+        document.getElementById('json-editor').style.display = '';
+        switchFile('site');
+      } catch(e) {
+        errEl.textContent = e.message;
+        errEl.style.display = 'block';
+        setStatus('فشل التحقق', 'error');
+      }
+    }
+
+    function disconnectToken() {
+      sessionStorage.removeItem('o2f-gh-token');
+      document.getElementById('ghToken').value = '';
+      document.getElementById('json-editor').style.display = 'none';
+      document.getElementById('token-gate').style.display = '';
+      document.getElementById('token-error').style.display = 'none';
+      setStatus('جاهز', '');
+    }
+
+    async function switchFile(key) {
+      currentFile = key;
+      document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + key).classList.add('active');
+
+      const token = sessionStorage.getItem('o2f-gh-token');
+      setStatus('جاري التحميل...', 'loading');
+      document.getElementById('saveBtn').disabled = true;
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${FILES[key]}`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
+        const data = await res.json();
+        currentSha = data.sha;
+        const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        document.getElementById('json-textarea').value = JSON.stringify(JSON.parse(raw), null, 2);
+        setStatus('تم التحميل ✓', 'success');
+        document.getElementById('saveBtn').disabled = false;
+      } catch(e) {
+        setStatus('خطأ في التحميل: ' + e.message, 'error');
+      }
+    }
+
+    function validateJSON() {
+      const val = document.getElementById('json-textarea').value;
+      try {
+        JSON.parse(val);
+        setStatus('JSON صالح ✓', 'success');
+      } catch(e) {
+        setStatus('خطأ: ' + e.message, 'error');
+      }
+    }
+
+    async function saveFile() {
+      const token = sessionStorage.getItem('o2f-gh-token');
+      const val   = document.getElementById('json-textarea').value;
+      let parsed;
+      try { parsed = JSON.parse(val); }
+      catch(e) { setStatus('JSON غير صالح — ' + e.message, 'error'); return; }
+
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(parsed, null, 2) + '\n')));
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.disabled = true;
+      setStatus('جاري الحفظ والنشر...', 'loading');
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${FILES[currentFile]}`,
+          {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `admin: update ${FILES[currentFile]}`,
+              content: encoded,
+              sha: currentSha,
+            }),
+          }
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
+        currentSha = data.content.sha;
+        setStatus('تم الحفظ والنشر! سيظهر التغيير خلال دقيقة ✓', 'success');
+      } catch(e) {
+        setStatus('فشل الحفظ: ' + e.message, 'error');
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    function setStatus(msg, type) {
+      const el = document.getElementById('editor-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'editor-status' + (type ? ' ' + type : '');
     }
   </script>
 </body>
