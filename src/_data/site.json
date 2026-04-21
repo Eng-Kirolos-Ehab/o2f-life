@@ -8,15 +8,23 @@
   "googleForm": "https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header",
   "social": {
     "instagram": "https://www.instagram.com/osama.fit/",
-    "facebook":  "",
-    "youtube":   "",
-    "tiktok":    "",
-    "x":         ""
+    "facebook": "",
+    "youtube": "",
+    "tiktok": "",
+    "x": ""
   },
   "defaultLang": "en",
   "languages": [
-    { "code": "ar", "label": "العربية", "dir": "rtl" },
-    { "code": "en", "label": "English", "dir": "ltr" }
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
   ],
   "seo": {
     "titleSuffix": "O2F.life — Coach Osama Omran",
@@ -26,9 +34,9 @@
     "plausibleDomain": "o2f.life"
   },
   "stats": {
-    "years":   "10+",
+    "years": "10+",
     "clients": "1000+",
-    "custom":  "100%",
+    "custom": "100%",
     "support": "24/7"
   }
 }
