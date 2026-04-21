@@ -1,14 +1,54 @@
 {
   "images": [
-    { "src": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp", "alt_en": "Coach Osama", "alt_ar": "الكابتن أسامة" },
-    { "src": "/assets/images/871_meal.png",   "alt_en": "Meal plan sample", "alt_ar": "نموذج خطة وجبات" },
-    { "src": "/assets/images/878_image-removebg-preview__6_.webp", "alt_en": "Program highlight", "alt_ar": "لقطة من البرنامج" },
-    { "src": "/assets/images/891_3.png",      "alt_en": "Training session", "alt_ar": "جلسة تدريب" },
-    { "src": "/assets/images/695_Gym_and_Fitness__Instagram_Post___1_.jpg", "alt_en": "Gym & fitness", "alt_ar": "لياقة وتدريب" },
-    { "src": "/assets/images/178_image.png",  "alt_en": "Program visual", "alt_ar": "عنصر بصري" },
-    { "src": "/assets/images/199_image.png",  "alt_en": "Program visual", "alt_ar": "عنصر بصري" },
-    { "src": "/assets/images/33_image.png",   "alt_en": "Program visual", "alt_ar": "عنصر بصري" },
-    { "src": "/assets/images/34_image.png",   "alt_en": "Program visual", "alt_ar": "عنصر بصري" },
-    { "src": "/assets/images/64_image.png",   "alt_en": "Program visual", "alt_ar": "عنصر بصري" }
+    {
+      "src": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
+      "alt_en": "Coach Osama",
+      "alt_ar": "الكابتن أسامة"
+    },
+    {
+      "src": "/assets/images/871_meal.png",
+      "alt_en": "Meal plan sample",
+      "alt_ar": "نموذج خطة وجبات"
+    },
+    {
+      "src": "/assets/images/878_image-removebg-preview__6_.webp",
+      "alt_en": "Program highlight",
+      "alt_ar": "لقطة من البرنامج"
+    },
+    {
+      "src": "/assets/images/891_3.png",
+      "alt_en": "Training session",
+      "alt_ar": "جلسة تدريب"
+    },
+    {
+      "src": "/assets/images/695_Gym_and_Fitness__Instagram_Post___1_.jpg",
+      "alt_en": "Gym & fitness",
+      "alt_ar": "لياقة وتدريب"
+    },
+    {
+      "src": "/assets/images/178_image.png",
+      "alt_en": "Program visual",
+      "alt_ar": "عنصر بصري"
+    },
+    {
+      "src": "/assets/images/199_image.png",
+      "alt_en": "Program visual",
+      "alt_ar": "عنصر بصري"
+    },
+    {
+      "src": "/assets/images/33_image.png",
+      "alt_en": "Program visual",
+      "alt_ar": "عنصر بصري"
+    },
+    {
+      "src": "/assets/images/34_image.png",
+      "alt_en": "Program visual",
+      "alt_ar": "عنصر بصري"
+    },
+    {
+      "src": "/assets/images/64_image.png",
+      "alt_en": "Program visual",
+      "alt_ar": "عنصر بصري"
+    }
   ]
 }
