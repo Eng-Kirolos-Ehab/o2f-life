@@ -2,8 +2,12 @@
         class="sticky top-0 z-40 border-b border-brand-line bg-brand-ink/80 backdrop-blur-md transition-shadow">
   <div class="container-x flex h-16 items-center justify-between">
     <a href="{{ ('/' + lang + '/') | url }}" class="flex items-center gap-2 font-display text-lg font-bold">
-      <span class="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-brand-mint to-brand-gold"></span>
-      <span class="gradient-mint-text">O2F<span class="text-brand-off">.life</span></span>
+      {% if site.logo %}
+        <img src="{{ site.logo | url }}" alt="{{ site.name }}" class="h-8 w-auto">
+      {% else %}
+        <span class="inline-block h-8 w-8 rounded-lg bg-gradient-to-br from-brand-mint to-brand-gold"></span>
+        <span class="gradient-mint-text">O2F<span class="text-brand-off">.life</span></span>
+      {% endif %}
     </a>
 
     {# Desktop nav #}

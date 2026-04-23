@@ -1,33 +1,31 @@
 # Decap CMS configuration — O2F.life
-# Access at: https://o2f.life/admin/ (requires GitHub login via Netlify Identity or OAuth).
+# Access at: https://o2f.life/admin/ (requires GitHub login via OAuth).
 
 backend:
   name: github
   repo: Eng-Kirolos-Ehab/o2f-life
   branch: main
 
-publish_mode: editorial_workflow
-
-media_folder: "site/src/assets/images/uploads"
+# No editorial_workflow — changes publish directly without needing a PR
+media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
 site_url: https://o2f.life
 display_url: https://o2f.life
-logo_url: https://o2f.life/assets/images/logo.svg
 
 locale: en
 
 collections:
   # ════════════════════════════════════════════════════════════
-  #  SITE SETTINGS — Logo, SEO, social, stats, contact info
+  #  SITE SETTINGS — Logo, hero image, SEO, social, stats, contact
   # ════════════════════════════════════════════════════════════
   - name: settings
     label: "⚙️ Site Settings"
-    description: "Control logo, contact info, SEO defaults, and global branding."
+    description: "Control logo, hero image, contact info, SEO defaults, and global branding."
     files:
       - name: site
         label: "Global Site Info"
-        file: "site/src/_data/site.json"
+        file: "src/_data/site.json"
         fields:
           - { name: name,       label: "Site Name",            widget: string }
           - { name: domain,     label: "Domain (no https://)", widget: string }
@@ -35,7 +33,10 @@ collections:
           - { name: owner,      label: "Owner / Coach Name",   widget: string }
           - { name: email,      label: "Contact Email",        widget: string }
           - { name: whatsapp,   label: "WhatsApp (+country...)", widget: string }
-          - { name: googleForm, label: "Google Form URL (signup)", widget: string, required: false, hint: "The main signup form link — used on the contact page." }
+          - { name: googleForm, label: "Google Form URL (signup)", widget: string, required: false }
+
+          - { name: logo,      label: "Logo Image",  widget: image, required: false, hint: "Displayed in the site header. Recommended: SVG or PNG with transparent background." }
+          - { name: heroImage, label: "Hero Image (Homepage)", widget: image, required: false, hint: "The coach photo shown on the homepage hero section." }
 
           - label: "Social Links"
             name: social
@@ -72,6 +73,146 @@ collections:
           - { name: defaultLang, label: "Default language", widget: select, options: [ "en", "ar" ], default: "en" }
 
   # ════════════════════════════════════════════════════════════
+  #  HOMEPAGE CONTENT — Hero, pillars, results, services, CTA
+  # ════════════════════════════════════════════════════════════
+  - name: homepage
+    label: "🏠 Homepage Content"
+    description: "Edit all text on the homepage for both Arabic and English."
+    files:
+      - name: homepage-ar
+        label: "Arabic Homepage / الصفحة الرئيسية عربي"
+        file: "src/_data/homepage.json"
+        fields:
+          - label: "Arabic Content / عربي"
+            name: ar
+            widget: object
+            fields:
+              - label: "Hero Section"
+                name: hero
+                widget: object
+                fields:
+                  - { name: badge,         label: "Badge text (top)",    widget: string }
+                  - { name: title,         label: "Title (first line)",  widget: string }
+                  - { name: titleHighlight,label: "Title (highlight)",   widget: string }
+                  - { name: subtitle,      label: "Subtitle paragraph",  widget: text }
+                  - { name: ctaPrimary,    label: "Primary button",      widget: string }
+                  - { name: ctaSecondary,  label: "Secondary button",    widget: string }
+              - label: "Pillars Section (What makes us different)"
+                name: pillars
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker (small text above title)", widget: string }
+                  - { name: title,  label: "Section title",                   widget: string }
+                  - label: "Cards"
+                    name: items
+                    widget: list
+                    fields:
+                      - { name: title,       label: "Card title",       widget: string }
+                      - { name: description, label: "Card description", widget: text }
+              - label: "Results Section"
+                name: results
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - label: "Stats"
+                    name: items
+                    widget: list
+                    fields:
+                      - { name: stat,        label: "Stat number/value", widget: string }
+                      - { name: description, label: "Description",       widget: text }
+              - label: "Services Section (What you get)"
+                name: services
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - label: "Items"
+                    name: items
+                    widget: list
+                    fields:
+                      - { name: title,       label: "Item title",       widget: string }
+                      - { name: description, label: "Item description", widget: text }
+              - label: "Plans Preview Section"
+                name: plansSection
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+              - label: "CTA Section (Bottom call-to-action)"
+                name: cta
+                widget: object
+                fields:
+                  - { name: badge,    label: "Badge text",    widget: string }
+                  - { name: title,    label: "Title",         widget: string }
+                  - { name: subtitle, label: "Subtitle",      widget: text }
+                  - { name: button,   label: "Button text",   widget: string }
+          - label: "English Content"
+            name: en
+            widget: object
+            fields:
+              - label: "Hero Section"
+                name: hero
+                widget: object
+                fields:
+                  - { name: badge,         label: "Badge text (top)",    widget: string }
+                  - { name: title,         label: "Title (first line)",  widget: string }
+                  - { name: titleHighlight,label: "Title (highlight)",   widget: string }
+                  - { name: subtitle,      label: "Subtitle paragraph",  widget: text }
+                  - { name: ctaPrimary,    label: "Primary button",      widget: string }
+                  - { name: ctaSecondary,  label: "Secondary button",    widget: string }
+              - label: "Pillars Section"
+                name: pillars
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - label: "Cards"
+                    name: items
+                    widget: list
+                    fields:
+                      - { name: title,       label: "Card title",       widget: string }
+                      - { name: description, label: "Card description", widget: text }
+              - label: "Results Section"
+                name: results
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - label: "Stats"
+                    name: items
+                    widget: list
+                    fields:
+                      - { name: stat,        label: "Stat number/value", widget: string }
+                      - { name: description, label: "Description",       widget: text }
+              - label: "Services Section"
+                name: services
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - label: "Items"
+                    name: items
+                    widget: list
+                    fields:
+                      - { name: title,       label: "Item title",       widget: string }
+                      - { name: description, label: "Item description", widget: text }
+              - label: "Plans Preview Section"
+                name: plansSection
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+              - label: "CTA Section"
+                name: cta
+                widget: object
+                fields:
+                  - { name: badge,    label: "Badge text",    widget: string }
+                  - { name: title,    label: "Title",         widget: string }
+                  - { name: subtitle, label: "Subtitle",      widget: text }
+                  - { name: button,   label: "Button text",   widget: string }
+
+  # ════════════════════════════════════════════════════════════
   #  PLANS — Main pricing (Basic / Standard / Advanced)
   # ════════════════════════════════════════════════════════════
   - name: plans
@@ -80,7 +221,7 @@ collections:
     files:
       - name: plans-data
         label: "Basic / Standard / Advanced"
-        file: "site/src/_data/plans.json"
+        file: "src/_data/plans.json"
         fields:
           - label: "Basic Plan"
             name: basic
@@ -227,10 +368,9 @@ collections:
                   { name: cta, widget: string }
                 ] }
 
-      # ─── Custom / special plans ───────────────────────────────
       - name: custom-plans
         label: "✨ Custom / Special Plans"
-        file: "site/src/_data/customPlans.json"
+        file: "src/_data/customPlans.json"
         description: "Add any number of extra plans (e.g. family plan, team plan, seasonal offer...)"
         fields:
           - label: "Custom Plans"
@@ -238,7 +378,7 @@ collections:
             widget: list
             summary: "{{fields.en.name}}"
             fields:
-              - { name: slug, label: "Slug (URL-friendly)", widget: string, hint: "e.g. family-plan, vip-plan" }
+              - { name: slug, label: "Slug (URL-friendly)", widget: string }
               - { name: visible, label: "Show on site?", widget: boolean, default: true }
               - label: "Regional Pricing"
                 name: pricing
@@ -263,24 +403,20 @@ collections:
                       { name: period, widget: string, default: "per month", required: false },
                       { name: period_ar, widget: string, default: "شهريًا", required: false }
                     ] }
-              - label: "English"
-                name: en
-                widget: object
-                fields:
-                  - { name: name, widget: string }
-                  - { name: tagline, widget: string }
-                  - { name: blurb, widget: text }
-                  - { name: features, widget: list, required: false, field: { label: Feature, name: item, widget: string } }
-                  - { name: cta, widget: string, required: false, default: "Request this plan" }
-              - label: "Arabic / عربي"
-                name: ar
-                widget: object
-                fields:
-                  - { name: name, widget: string }
-                  - { name: tagline, widget: string }
-                  - { name: blurb, widget: text }
-                  - { name: features, widget: list, required: false, field: { label: "ميزة", name: item, widget: string } }
-                  - { name: cta, widget: string, required: false, default: "اطلب هذه الخطة" }
+              - { label: "English", name: en, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, required: false, field: { label: Feature, name: item, widget: string } },
+                  { name: cta, widget: string, required: false, default: "Request this plan" }
+                ] }
+              - { label: "Arabic / عربي", name: ar, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, required: false, field: { label: "ميزة", name: item, widget: string } },
+                  { name: cta, widget: string, required: false, default: "اطلب هذه الخطة" }
+                ] }
 
   # ════════════════════════════════════════════════════════════
   #  GALLERY
@@ -290,7 +426,7 @@ collections:
     files:
       - name: gallery-data
         label: "Gallery images"
-        file: "site/src/_data/gallery.json"
+        file: "src/_data/gallery.json"
         fields:
           - label: "Images"
             name: images
@@ -306,7 +442,7 @@ collections:
   # ════════════════════════════════════════════════════════════
   - name: blog-en
     label: "📝 Blog — English"
-    folder: "site/src/en/blog"
+    folder: "src/en/blog"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -323,7 +459,7 @@ collections:
   # ════════════════════════════════════════════════════════════
   - name: blog-ar
     label: "📝 المقالات — عربي"
-    folder: "site/src/ar/blog"
+    folder: "src/ar/blog"
     create: true
     slug: "{{slug}}"
     extension: md

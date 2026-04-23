@@ -6,12 +6,10 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 
 {# ==================== HERO ==================== #}
 <section class="grid-bg relative overflow-hidden" style="min-height:90vh;display:flex;align-items:center;">
-  {# Animated orbs #}
   <div class="hero-orb hero-orb-1"></div>
   <div class="hero-orb hero-orb-2"></div>
   <div class="hero-orb hero-orb-3"></div>
 
-  {# Floating particles #}
   <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
     <span class="particle" style="top:12%;right:8%"></span>
     <span class="particle" style="top:28%;left:12%"></span>
@@ -24,33 +22,30 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
   <div class="container-x py-20 sm:py-28 lg:py-32 relative w-full">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-      {# --- Right column (RTL = text first) --- #}
       <div>
         <div class="hero-badge" data-aos="fade-down" data-aos-duration="600">
           <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">الكابتن أسامة عمران &mdash; O2F.life</span>
+          <span class="hero-badge-text">{{ homepage.ar.hero.badge }}</span>
         </div>
 
         <h1 class="section-title text-balance leading-tight" data-aos="fade-up" data-aos-delay="80">
-          حوّل جسمك،<br>
-          <span class="gradient-mint-text">من الداخل للخارج.</span>
+          {{ homepage.ar.hero.title }}<br>
+          <span class="gradient-mint-text">{{ homepage.ar.hero.titleHighlight }}</span>
         </h1>
 
         <p class="mt-5 max-w-xl text-lg text-brand-off/70 leading-relaxed"
            data-aos="fade-up" data-aos-delay="160">
-          تدريب أونلاين مخصّص يجمع بين التمرين والتغذية والطب الطبيعي —
-          مصمّم لأهدافك وجدولك وأسلوب حياتك.
+          {{ homepage.ar.hero.subtitle }}
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="240">
           <a href="{{ '/ar/plans/' | url }}" class="btn-primary group">
-            ابدأ اليوم
+            {{ homepage.ar.hero.ctaPrimary }}
             <svg class="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1 flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
           </a>
-          <a href="{{ '/ar/services/' | url }}" class="btn-ghost">اكتشف الخدمات</a>
+          <a href="{{ '/ar/services/' | url }}" class="btn-ghost">{{ homepage.ar.hero.ctaSecondary }}</a>
         </div>
 
-        {# Stats #}
         <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl"
              data-aos="fade-up" data-aos-delay="320">
           <div class="card card-hover text-center">
@@ -72,27 +67,21 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
         </div>
       </div>
 
-      {# --- Left column: image (RTL) --- #}
       <div class="relative" data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
-        {# Rotating rings #}
         <div class="absolute -inset-10 rounded-full border border-brand-mint/8 animate-spin-slow pointer-events-none"></div>
         <div class="absolute -inset-6 rounded-full border border-brand-gold/6 animate-spin-reverse pointer-events-none"></div>
-
-        {# Glow blur behind image #}
         <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-bl from-brand-mint/25 to-brand-gold/15 blur-2xl"></div>
 
-        {# Image #}
-        <img src="{{ '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp' | url }}"
-             alt="الكابتن أسامة عمران" loading="eager"
+        <img src="{{ (site.heroImage or '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp') | url }}"
+             alt="{{ site.owner }}" loading="eager"
              class="relative rounded-xl2 w-full object-cover shadow-card animate-float-img">
 
-        {# Floating info chips #}
         <div class="absolute -bottom-5 -right-5 card py-2.5 px-4 text-sm animate-float pointer-events-none" style="animation-delay:1s;z-index:10">
-          <span class="font-bold text-brand-mint">+10</span>
+          <span class="font-bold text-brand-mint">{{ site.stats.years }}</span>
           <span class="text-brand-off/65 me-1">سنوات</span>
         </div>
         <div class="absolute -top-5 -left-5 card py-2.5 px-4 text-sm animate-float pointer-events-none" style="animation-delay:2.5s;z-index:10">
-          <span class="font-bold text-brand-mint">+1000</span>
+          <span class="font-bold text-brand-mint">{{ site.stats.clients }}</span>
           <span class="text-brand-off/65 me-1">عميل</span>
         </div>
       </div>
@@ -103,40 +92,27 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 {# ==================== PILLARS ==================== #}
 <section class="section">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">اللي بيميّزنا</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">نهج علمي مدعوم بالطبيعة.</h2>
+    <p class="section-kicker" data-aos="fade-up">{{ homepage.ar.pillars.kicker }}</p>
+    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ homepage.ar.pillars.title }}</h2>
     <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
 
     <div class="grid md:grid-cols-3 gap-5">
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="100">
-        <div class="h-12 w-12 rounded-xl bg-brand-mint/12 text-brand-mint flex items-center justify-center mb-4 animate-pulse-glow">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2v20M2 12h20"/>
-          </svg>
+      {% set pillarIcons = [
+        '<path d="M12 2v20M2 12h20"/>',
+        '<path d="M3 12h3l3-8 4 16 3-8h5"/>',
+        '<path d="M12 4l8 4-8 4-8-4 8-4zm0 8l8 4-8 4-8-4"/>'
+      ] %}
+      {% for item in homepage.ar.pillars.items %}
+        <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+          <div class="h-12 w-12 rounded-xl bg-brand-mint/12 text-brand-mint flex items-center justify-center mb-4 animate-pulse-glow" style="animation-delay:{{ (loop.index - 1) * 0.6 }}s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              {{ pillarIcons[loop.index0] | safe }}
+            </svg>
+          </div>
+          <h3 class="text-xl mb-2">{{ item.title }}</h3>
+          <p class="text-brand-off/65 text-sm leading-relaxed">{{ item.description }}</p>
         </div>
-        <h3 class="text-xl mb-2">الاعتماد على الطبيعة</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">نستخدم أعشابًا علاجية ومتابعة طبية دورية في الخطة المتقدمة، لنهج أكثر شمولية.</p>
-      </div>
-
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="200">
-        <div class="h-12 w-12 rounded-xl bg-brand-mint/12 text-brand-mint flex items-center justify-center mb-4 animate-pulse-glow" style="animation-delay:.6s">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 12h3l3-8 4 16 3-8h5"/>
-          </svg>
-        </div>
-        <h3 class="text-xl mb-2">المتابعة الدورية</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">نراقب إحصائيات جسمك باستمرار ونحدّث خططك لتواكب كل تغيّر.</p>
-      </div>
-
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="300">
-        <div class="h-12 w-12 rounded-xl bg-brand-mint/12 text-brand-mint flex items-center justify-center mb-4 animate-pulse-glow" style="animation-delay:1.2s">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 4l8 4-8 4-8-4 8-4zm0 8l8 4-8 4-8-4"/>
-          </svg>
-        </div>
-        <h3 class="text-xl mb-2">خطة مخصّصة بالكامل</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">نختار النظام المناسب لهدفك وحالتك — أقصر طريق لأفضل نتيجة.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -144,32 +120,20 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 {# ==================== RESULTS ==================== #}
 <section class="section bg-white/[0.02]">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">نتائج حقيقية</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">من رحلة عملائنا مع الكابتن أسامة.</h2>
+    <p class="section-kicker" data-aos="fade-up">{{ homepage.ar.results.kicker }}</p>
+    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ homepage.ar.results.title }}</h2>
     <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
 
     <div class="grid md:grid-cols-3 gap-5">
-      <div class="card card-hover card-glow text-center" data-aos="zoom-in" data-aos-delay="100">
-        <div class="text-5xl sm:text-6xl font-display text-brand-mint mb-3 glow-text-mint">
-          ٣<span class="text-2xl"> شهور</span>
+      {% for item in homepage.ar.results.items %}
+        <div class="card card-hover card-glow text-center" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
+          <div class="text-5xl sm:text-6xl font-display text-brand-mint mb-3 glow-text-mint">
+            {{ item.stat }}
+          </div>
+          <div class="divider-mint"></div>
+          <p class="text-brand-off/65 text-sm leading-relaxed mt-4">{{ item.description }}</p>
         </div>
-        <div class="divider-mint"></div>
-        <p class="text-brand-off/65 text-sm leading-relaxed mt-4">يبدأ عملاؤنا ملاحظة تغيّرات واضحة في الجسم والعقل خلال ٣ شهور فقط — بطرق بسيطة ومستدامة.</p>
-      </div>
-
-      <div class="card card-hover card-glow text-center" data-aos="zoom-in" data-aos-delay="200">
-        <div class="text-5xl sm:text-6xl font-display text-brand-mint mb-3 glow-text-mint">
-          ٩٠<span class="text-2xl">%</span>
-        </div>
-        <div class="divider-mint"></div>
-        <p class="text-brand-off/65 text-sm leading-relaxed mt-4">من عملائنا يستمرّون على خطط التغذية حتى بعد الوصول لأهدافهم — لأنها ممتعة وسهلة.</p>
-      </div>
-
-      <div class="card card-hover card-glow text-center" data-aos="zoom-in" data-aos-delay="300">
-        <div class="text-5xl sm:text-6xl font-display text-brand-mint mb-3 glow-text-mint">١:١</div>
-        <div class="divider-mint"></div>
-        <p class="text-brand-off/65 text-sm leading-relaxed mt-4">متابعة مباشرة مستمرة مع الكابتن أسامة تضمن دعمًا وتحفيزًا وتعديلًا شخصيًا.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -177,53 +141,28 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 {# ==================== WHAT YOU GET ==================== #}
 <section class="section">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">ماذا تحصل عليه معنا</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">مصمّم لك، أسبوعًا بأسبوع.</h2>
+    <p class="section-kicker" data-aos="fade-up">{{ homepage.ar.services.kicker }}</p>
+    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ homepage.ar.services.title }}</h2>
     <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="100">
-        <div class="h-11 w-11 rounded-xl bg-brand-mint/10 text-brand-mint flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
+      {% set serviceIcons = [
+        '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+        '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>',
+        '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>',
+        '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>'
+      ] %}
+      {% for item in homepage.ar.services.items %}
+        <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+          <div class="h-11 w-11 rounded-xl bg-brand-mint/10 text-brand-mint flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              {{ serviceIcons[loop.index0] | safe }}
+            </svg>
+          </div>
+          <h3 class="text-lg mb-2">{{ item.title }}</h3>
+          <p class="text-brand-off/65 text-sm leading-relaxed">{{ item.description }}</p>
         </div>
-        <h3 class="text-lg mb-2">المتابعة الأسبوعية</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">نجمع بيانات أسبوعية ونحسّن خطط الرياضة والتغذية لتواكب تغيّرات جسمك.</p>
-      </div>
-
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="200">
-        <div class="h-11 w-11 rounded-xl bg-brand-mint/10 text-brand-mint flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-            <line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
-          </svg>
-        </div>
-        <h3 class="text-lg mb-2">تدريب مخصّص</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">مصمّم لمستواك وأهدافك وتفضيلاتك — مبتدئ أو متقدم.</p>
-      </div>
-
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="300">
-        <div class="h-11 w-11 rounded-xl bg-brand-mint/10 text-brand-mint flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/>
-            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
-          </svg>
-        </div>
-        <h3 class="text-lg mb-2">تغذية مخصّصة</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">مناسبة لأهدافك وتفضيلاتك وروتينك اليومي. بسيطة وممتعة ومرنة.</p>
-      </div>
-
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="400">
-        <div class="h-11 w-11 rounded-xl bg-brand-mint/10 text-brand-mint flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-          </svg>
-        </div>
-        <h3 class="text-lg mb-2">متابعة صحية</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">نراقب مؤشراتك الصحية ونعدّل الخطة لتحقيق أفضل النتائج.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -231,8 +170,8 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 {# ==================== PLANS PREVIEW ==================== #}
 <section class="section bg-white/[0.015]">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">اختر طريقك</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">خطط تناسب طموحك.</h2>
+    <p class="section-kicker" data-aos="fade-up">{{ homepage.ar.plansSection.kicker }}</p>
+    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ homepage.ar.plansSection.title }}</h2>
     <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
 
     <div class="grid md:grid-cols-3 gap-5">
@@ -261,25 +200,22 @@ ogImage: "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp
 <section class="section">
   <div class="container-x">
     <div class="relative card text-center overflow-hidden animate-border-glow" data-aos="fade-up">
-      {# Animated background gradient #}
       <div class="absolute inset-0 animate-gradient pointer-events-none"
            style="background:linear-gradient(135deg,rgba(0,217,163,.06),transparent,rgba(201,168,74,.06),transparent);background-size:300% 300%"></div>
-
-      {# Top accent line #}
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px"
            style="background:linear-gradient(90deg,transparent,rgba(0,217,163,.7),transparent)"></div>
 
       <div class="relative py-4">
         <div class="hero-badge mx-auto mb-4" style="animation-delay:.5s">
           <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">أماكن محدودة متاحة</span>
+          <span class="hero-badge-text">{{ homepage.ar.cta.badge }}</span>
         </div>
 
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-3 font-bold">جاهز للتحوّل؟</h2>
-        <p class="text-brand-off/65 max-w-xl mx-auto leading-relaxed">احجز مكالمة تعارف مجانية، ونحطلك خطة أول ٩٠ يوم.</p>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-3 font-bold">{{ homepage.ar.cta.title }}</h2>
+        <p class="text-brand-off/65 max-w-xl mx-auto leading-relaxed">{{ homepage.ar.cta.subtitle }}</p>
 
         <a href="{{ '/ar/contact/' | url }}" class="btn-primary mt-7 inline-flex group">
-          احجز مكالمة
+          {{ homepage.ar.cta.button }}
           <svg class="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1 flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
         </a>
       </div>
