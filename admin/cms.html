@@ -204,12 +204,111 @@
     .editor-status.success { color: var(--mint); background: rgba(0,217,163,.1); }
     .editor-status.error   { color: #fca5a5;   background: rgba(239,68,68,.1); }
 
+    .visual-editor { display: grid; gap: 1rem; }
+    .editor-panel {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+    .editor-panel h3 { margin-bottom: .75rem; font-size: .95rem; color: var(--mint); }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: .75rem;
+    }
+    .field { display: grid; gap: .35rem; }
+    .field label { font-size: .78rem; color: var(--muted); }
+    .field input, .field textarea {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      color: var(--off);
+      padding: .55rem .7rem;
+      font-family: inherit;
+      font-size: .86rem;
+    }
+    .field textarea { min-height: 90px; resize: vertical; }
+    .field input:focus, .field textarea:focus {
+      border-color: rgba(0,217,163,.5);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0,217,163,.12);
+    }
+    .switch-row { display: flex; align-items: center; gap: .4rem; font-size: .82rem; color: var(--off); }
+    .item-list { display: grid; gap: .5rem; margin-top: .75rem; }
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: .4rem;
+    }
+    .list-item input { flex: 1; }
+    .btn-mini {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--off);
+      border-radius: 8px;
+      padding: .35rem .65rem;
+      cursor: pointer;
+      font-size: .75rem;
+      font-family: inherit;
+    }
+    .btn-mini:hover { background: rgba(255,255,255,.12); }
+    .btn-danger { color: #fca5a5; border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.08); }
+    .btn-danger:hover { background: rgba(239,68,68,.16); }
+    .plan-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: .85rem;
+      display: grid;
+      gap: .8rem;
+      background: rgba(255,255,255,.02);
+    }
+    .plan-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .75rem;
+    }
+    .gallery-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+      display: grid;
+      gap: .6rem;
+      padding-bottom: .6rem;
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      background: rgba(0,0,0,.2);
+    }
+    .gallery-fields { padding: 0 .6rem; display: grid; gap: .45rem; }
+    .dropzone {
+      border: 2px dashed rgba(0,217,163,.35);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      background: rgba(0,217,163,.04);
+      color: rgba(247,248,250,.75);
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .dropzone.dragover { background: rgba(0,217,163,.1); border-color: rgba(0,217,163,.7); }
+    .raw-editor-wrap details { margin-top: .75rem; }
+    .raw-editor-wrap summary { cursor: pointer; font-size: .8rem; color: var(--muted); }
     .json-textarea {
-      width: 100%; height: 420px;
+      width: 100%; height: 230px;
+      margin-top: .5rem;
       background: rgba(0,0,0,.35); border: 1px solid var(--line);
       border-radius: 14px; padding: 1rem;
       color: #a8d5c2; font-family: 'Fira Code', 'Cascadia Code', monospace;
-      font-size: .82rem; line-height: 1.65; resize: vertical;
+      font-size: .8rem; line-height: 1.55; resize: vertical;
       outline: none; transition: border-color .2s;
       direction: ltr; text-align: left;
     }
@@ -266,19 +365,19 @@
 
     <nav class="sidebar-nav">
       <div class="nav-section">القسم</div>
-      <button class="nav-item active" onclick="showSection('content')">
+      <button class="nav-item active" onclick="showSection('content', event)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         المحتوى
       </button>
-      <button class="nav-item" onclick="showSection('pages')">
+      <button class="nav-item" onclick="showSection('pages', event)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
         الصفحات
       </button>
-      <button class="nav-item" onclick="showSection('media')">
+      <button class="nav-item" onclick="showSection('media', event)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
         الوسائط
       </button>
-      <button class="nav-item" onclick="showSection('json')">
+      <button class="nav-item" onclick="showSection('json', event)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         محرر JSON
       </button>
@@ -462,8 +561,14 @@
 
           <div id="editor-status" class="editor-status">جاهز</div>
 
-          <textarea id="json-textarea" class="json-textarea" spellcheck="false"
-                    placeholder="جاري التحميل..."></textarea>
+          <div id="visual-editor" class="visual-editor"></div>
+          <div class="raw-editor-wrap">
+            <details>
+              <summary>محرر JSON الخام (اختياري للمستخدم المتقدم)</summary>
+              <textarea id="json-textarea" class="json-textarea" spellcheck="false"
+                        placeholder="جاري التحميل..."></textarea>
+            </details>
+          </div>
 
           <div class="editor-actions">
             <button class="btn-disconnect" onclick="disconnectToken()">قطع الاتصال</button>
@@ -484,12 +589,12 @@
   </main>
 
   <script>
-    function showSection(name) {
+    function showSection(name, evt) {
       ['content','pages','media','json'].forEach(s => {
         document.getElementById('section-' + s).style.display = s === name ? '' : 'none';
       });
       document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-      event.currentTarget.classList.add('active');
+      if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
       const titles = {
         content: 'إدارة المحتوى',
         pages:   'الصفحات',
@@ -515,8 +620,11 @@
     };
     let currentFile = 'site';
     let currentSha  = '';
+    let currentData = null;
+    let rawEditorDirty = false;
 
     function initJsonEditor() {
+      setupRawEditorTracking();
       const token = sessionStorage.getItem('o2f-gh-token');
       if (token) {
         document.getElementById('token-gate').style.display = 'none';
@@ -563,6 +671,15 @@
       setStatus('جاهز', '');
     }
 
+    function setupRawEditorTracking() {
+      const rawEl = document.getElementById('json-textarea');
+      if (!rawEl || rawEl.dataset.bound === '1') return;
+      rawEl.dataset.bound = '1';
+      rawEl.addEventListener('input', () => {
+        rawEditorDirty = true;
+      });
+    }
+
     async function switchFile(key) {
       currentFile = key;
       document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
@@ -581,7 +698,8 @@
         const data = await res.json();
         currentSha = data.sha;
         const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
-        document.getElementById('json-textarea').value = JSON.stringify(JSON.parse(raw), null, 2);
+        currentData = JSON.parse(raw);
+        renderEditor();
         setStatus('تم التحميل ✓', 'success');
         document.getElementById('saveBtn').disabled = false;
       } catch(e) {
@@ -590,9 +708,9 @@
     }
 
     function validateJSON() {
-      const val = document.getElementById('json-textarea').value;
       try {
-        JSON.parse(val);
+        maybeSyncFromRawEditor();
+        JSON.stringify(currentData);
         setStatus('JSON صالح ✓', 'success');
       } catch(e) {
         setStatus('خطأ: ' + e.message, 'error');
@@ -601,12 +719,14 @@
 
     async function saveFile() {
       const token = sessionStorage.getItem('o2f-gh-token');
-      const val   = document.getElementById('json-textarea').value;
-      let parsed;
-      try { parsed = JSON.parse(val); }
-      catch(e) { setStatus('JSON غير صالح — ' + e.message, 'error'); return; }
+      try {
+        maybeSyncFromRawEditor();
+      } catch(e) {
+        setStatus('JSON غير صالح — ' + e.message, 'error');
+        return;
+      }
 
-      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(parsed, null, 2) + '\n')));
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2) + '\n')));
       const saveBtn = document.getElementById('saveBtn');
       saveBtn.disabled = true;
       setStatus('جاري الحفظ والنشر...', 'loading');
@@ -642,6 +762,386 @@
       }
     }
 
+    function renderEditor() {
+      updateRawEditor();
+      const container = document.getElementById('visual-editor');
+      if (!container || !currentData) return;
+
+      if (currentFile === 'site') renderSiteEditor(container);
+      if (currentFile === 'plans') renderPlansEditor(container, currentData);
+      if (currentFile === 'custom') renderCustomPlansEditor(container);
+      if (currentFile === 'gallery') renderGalleryEditor(container);
+    }
+
+    function syncFromRawEditor() {
+      const val = document.getElementById('json-textarea').value;
+      currentData = JSON.parse(val);
+      renderEditor();
+    }
+
+    function maybeSyncFromRawEditor() {
+      if (!rawEditorDirty) return;
+      syncFromRawEditor();
+      rawEditorDirty = false;
+    }
+
+    function updateRawEditor() {
+      document.getElementById('json-textarea').value = JSON.stringify(currentData, null, 2);
+      rawEditorDirty = false;
+    }
+
+    function fieldHTML(label, path, value, type = 'text') {
+      const escaped = escapeHtml(value ?? '');
+      return `
+        <div class="field">
+          <label>${label}</label>
+          <input type="${type}" data-path="${path}" value="${escaped}">
+        </div>
+      `;
+    }
+
+    function textAreaHTML(label, path, value) {
+      return `
+        <div class="field">
+          <label>${label}</label>
+          <textarea data-path="${path}">${escapeHtml(value ?? '')}</textarea>
+        </div>
+      `;
+    }
+
+    function renderSiteEditor(container) {
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>البيانات الأساسية</h3>
+          <div class="editor-grid">
+            ${fieldHTML('اسم الموقع', 'name', currentData.name)}
+            ${fieldHTML('المالك', 'owner', currentData.owner)}
+            ${fieldHTML('البريد الإلكتروني', 'email', currentData.email, 'email')}
+            ${fieldHTML('واتساب', 'whatsapp', currentData.whatsapp)}
+            ${fieldHTML('رابط الفورم', 'googleForm', currentData.googleForm, 'url')}
+            ${fieldHTML('رابط الموقع', 'url', currentData.url, 'url')}
+          </div>
+        </div>
+        <div class="editor-panel">
+          <h3>السوشيال ميديا</h3>
+          <div class="editor-grid">
+            ${fieldHTML('Instagram', 'social.instagram', currentData.social?.instagram)}
+            ${fieldHTML('Facebook', 'social.facebook', currentData.social?.facebook)}
+            ${fieldHTML('YouTube', 'social.youtube', currentData.social?.youtube)}
+            ${fieldHTML('TikTok', 'social.tiktok', currentData.social?.tiktok)}
+            ${fieldHTML('X / Twitter', 'social.x', currentData.social?.x)}
+          </div>
+        </div>
+        <div class="editor-panel">
+          <h3>الإحصاءات</h3>
+          <div class="editor-grid">
+            ${fieldHTML('سنين الخبرة', 'stats.years', currentData.stats?.years)}
+            ${fieldHTML('عدد العملاء', 'stats.clients', currentData.stats?.clients)}
+            ${fieldHTML('نسبة التخصيص', 'stats.custom', currentData.stats?.custom)}
+            ${fieldHTML('الدعم', 'stats.support', currentData.stats?.support)}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+    }
+
+    function renderPlansEditor(container, plansObj) {
+      const planEntries = Object.entries(plansObj);
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>الباقات الرئيسية</h3>
+          <div class="item-list">
+            ${planEntries.map(([key, plan]) => planCardHTML({ key, plan, mode: 'plans' })).join('')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+      bindListEditors(container);
+    }
+
+    function renderCustomPlansEditor(container) {
+      if (!Array.isArray(currentData.items)) currentData.items = [];
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>الباقات المخصصة</h3>
+          <button class="btn-mini" id="addCustomPlan">+ إضافة باقة مخصصة</button>
+          <div class="item-list" id="customPlansList">
+            ${currentData.items.map((plan, i) => customPlanCardHTML(plan, i)).join('')}
+          </div>
+        </div>
+      `;
+      document.getElementById('addCustomPlan').onclick = () => {
+        currentData.items.push(defaultPlan('custom-' + (currentData.items.length + 1)));
+        renderEditor();
+      };
+      bindSimpleFields(container);
+      bindListEditors(container);
+      container.querySelectorAll('[data-delete-custom]').forEach(btn => {
+        btn.onclick = () => {
+          currentData.items.splice(Number(btn.dataset.deleteCustom), 1);
+          renderEditor();
+        };
+      });
+    }
+
+    function renderGalleryEditor(container) {
+      if (!Array.isArray(currentData.images)) currentData.images = [];
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>معرض الصور</h3>
+          <label class="dropzone" id="galleryDropzone">
+            اسحب الصور هنا أو اضغط للاختيار
+            <input type="file" id="galleryInput" accept="image/*" multiple style="display:none">
+          </label>
+          <div class="gallery-grid" style="margin-top:.9rem">
+            ${currentData.images.map((img, index) => `
+              <div class="gallery-card">
+                <img src="..${escapeHtml(img.src || '')}" alt="">
+                <div class="gallery-fields">
+                  ${fieldHTML('مسار الصورة', `images.${index}.src`, img.src)}
+                  ${fieldHTML('Alt EN', `images.${index}.alt_en`, img.alt_en)}
+                  ${fieldHTML('Alt AR', `images.${index}.alt_ar`, img.alt_ar)}
+                  <button class="btn-mini btn-danger" data-delete-image="${index}">حذف الصورة</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+      container.querySelectorAll('[data-delete-image]').forEach(btn => {
+        btn.onclick = () => {
+          currentData.images.splice(Number(btn.dataset.deleteImage), 1);
+          renderEditor();
+        };
+      });
+
+      const dropzone = document.getElementById('galleryDropzone');
+      const input = document.getElementById('galleryInput');
+      ['dragenter', 'dragover'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      }));
+      ['dragleave', 'drop'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      }));
+      dropzone.addEventListener('drop', e => {
+        const files = Array.from(e.dataTransfer.files || []);
+        handleGalleryUpload(files);
+      });
+      input.addEventListener('change', e => handleGalleryUpload(Array.from(e.target.files || [])));
+    }
+
+    async function handleGalleryUpload(files) {
+      if (!files.length) return;
+      const token = sessionStorage.getItem('o2f-gh-token');
+      if (!token) return setStatus('برجاء توصيل GitHub token أولًا.', 'error');
+      setStatus('جاري رفع الصور...', 'loading');
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        const safeName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9_.-]/g, '_')}`;
+        const targetPath = `src/assets/images/${safeName}`;
+        try {
+          const base64 = await fileToBase64(file);
+          const uploadRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${targetPath}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `admin: upload ${safeName}`,
+              content: base64,
+            }),
+          });
+          if (!uploadRes.ok) {
+            const err = await uploadRes.json().catch(() => ({}));
+            throw new Error(err.message || `HTTP ${uploadRes.status}`);
+          }
+          currentData.images.push({
+            src: `/assets/images/${safeName}`,
+            alt_en: 'New image',
+            alt_ar: 'صورة جديدة',
+          });
+        } catch (e) {
+          setStatus(`فشل رفع ${file.name}: ${e.message}`, 'error');
+        }
+      }
+      renderEditor();
+      setStatus('تم رفع الصور. اضغط حفظ ونشر لتحديث gallery.json', 'success');
+    }
+
+    function planCardHTML({ key, title, plan, mode, controls = '' }) {
+      const prefix = mode === 'plans' ? `${key}` : `items.${key}`;
+      const cardTitle = title || key;
+      return `
+        <div class="plan-card">
+          <div class="plan-header">
+            <strong>${escapeHtml(cardTitle)}</strong>
+            <div style="display:flex;align-items:center;gap:.45rem">
+              <div class="switch-row">
+                <input type="checkbox" ${plan.visible !== false ? 'checked' : ''} data-path="${prefix}.visible" data-type="checkbox">
+                <span>ظاهر</span>
+              </div>
+              ${controls}
+            </div>
+          </div>
+          <div class="editor-grid">
+            ${fieldHTML('Slug', `${prefix}.slug`, plan.slug)}
+            ${fieldHTML('اسم الباقة (AR)', `${prefix}.ar.name`, plan.ar?.name)}
+            ${fieldHTML('Plan name (EN)', `${prefix}.en.name`, plan.en?.name)}
+            ${fieldHTML('Tagline AR', `${prefix}.ar.tagline`, plan.ar?.tagline)}
+            ${fieldHTML('Tagline EN', `${prefix}.en.tagline`, plan.en?.tagline)}
+          </div>
+          <div class="editor-grid">
+            ${fieldHTML('سعر مصر', `${prefix}.pricing.egypt.amount`, plan.pricing?.egypt?.amount)}
+            ${fieldHTML('عملة مصر', `${prefix}.pricing.egypt.currency`, plan.pricing?.egypt?.currency)}
+            ${fieldHTML('سعر الخليج', `${prefix}.pricing.gulf.amount`, plan.pricing?.gulf?.amount)}
+            ${fieldHTML('عملة الخليج', `${prefix}.pricing.gulf.currency`, plan.pricing?.gulf?.currency)}
+            ${fieldHTML('سعر دولي', `${prefix}.pricing.international.amount`, plan.pricing?.international?.amount)}
+            ${fieldHTML('عملة دولي', `${prefix}.pricing.international.currency`, plan.pricing?.international?.currency)}
+          </div>
+          <div class="editor-grid">
+            ${textAreaHTML('نبذة عربية', `${prefix}.ar.blurb`, plan.ar?.blurb)}
+            ${textAreaHTML('English blurb', `${prefix}.en.blurb`, plan.en?.blurb)}
+          </div>
+          <div class="editor-grid">
+            ${fieldHTML('CTA AR', `${prefix}.ar.cta`, plan.ar?.cta)}
+            ${fieldHTML('CTA EN', `${prefix}.en.cta`, plan.en?.cta)}
+          </div>
+          ${featureListHTML('مميزات عربية', `${prefix}.ar.features`, plan.ar?.features || [])}
+          ${featureListHTML('English features', `${prefix}.en.features`, plan.en?.features || [])}
+        </div>
+      `;
+    }
+
+    function customPlanCardHTML(plan, index) {
+      return planCardHTML({
+        key: index,
+        title: `custom #${index + 1}`,
+        plan,
+        mode: 'custom',
+        controls: `<button class="btn-mini btn-danger" data-delete-custom="${index}">حذف</button>`,
+      });
+    }
+
+    function featureListHTML(title, path, items) {
+      return `
+        <div class="field">
+          <label>${title}</label>
+          <div class="item-list" data-list-path="${path}">
+            ${(items || []).map((item, idx) => `
+              <div class="list-item">
+                <input type="text" data-list-input="${path}" data-list-index="${idx}" value="${escapeHtml(item)}">
+                <button class="btn-mini btn-danger" data-list-remove="${path}" data-list-index="${idx}">حذف</button>
+              </div>
+            `).join('')}
+          </div>
+          <button class="btn-mini" data-list-add="${path}">+ إضافة ميزة</button>
+        </div>
+      `;
+    }
+
+    function bindSimpleFields(container) {
+      container.querySelectorAll('[data-path]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.path;
+          const isCheckbox = e.target.dataset.type === 'checkbox';
+          setByPath(currentData, path, isCheckbox ? e.target.checked : e.target.value);
+          updateRawEditor();
+        });
+      });
+    }
+
+    function bindListEditors(container) {
+      container.querySelectorAll('[data-list-add]').forEach(btn => {
+        btn.onclick = () => {
+          const arr = getByPath(currentData, btn.dataset.listAdd) || [];
+          arr.push('');
+          setByPath(currentData, btn.dataset.listAdd, arr);
+          renderEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-remove]').forEach(btn => {
+        btn.onclick = () => {
+          const path = btn.dataset.listRemove;
+          const idx = Number(btn.dataset.listIndex);
+          const arr = getByPath(currentData, path) || [];
+          arr.splice(idx, 1);
+          setByPath(currentData, path, arr);
+          renderEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-input]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.listInput;
+          const idx = Number(e.target.dataset.listIndex);
+          const arr = getByPath(currentData, path) || [];
+          arr[idx] = e.target.value;
+          setByPath(currentData, path, arr);
+          updateRawEditor();
+        });
+      });
+    }
+
+    function defaultPlan(slug) {
+      return {
+        slug,
+        visible: true,
+        pricing: {
+          egypt: { amount: '', currency: 'EGP', period: 'per month', period_ar: 'شهريًا' },
+          gulf: { amount: '', currency: 'SAR', period: 'per month', period_ar: 'شهريًا' },
+          international: { amount: '', currency: 'USD', period: 'per month', period_ar: 'شهريًا' }
+        },
+        en: { name: '', tagline: '', blurb: '', features: [], cta: 'Request this plan' },
+        ar: { name: '', tagline: '', blurb: '', features: [], cta: 'اطلب هذه الخطة' },
+      };
+    }
+
+    function getByPath(obj, path) {
+      return path.split('.').reduce((acc, key) => (acc ? acc[key] : undefined), obj);
+    }
+
+    function setByPath(obj, path, value) {
+      const keys = path.split('.');
+      let cur = obj;
+      keys.forEach((key, idx) => {
+        const isLast = idx === keys.length - 1;
+        if (isLast) {
+          cur[key] = value;
+          return;
+        }
+        if (cur[key] == null || typeof cur[key] !== 'object') {
+          const nextKey = keys[idx + 1];
+          cur[key] = /^\d+$/.test(nextKey) ? [] : {};
+        }
+        cur = cur[key];
+      });
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result || '';
+          resolve(String(result).split(',')[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
     function setStatus(msg, type) {
       const el = document.getElementById('editor-status');
       if (!el) return;
@@ -650,4 +1150,4 @@
     }
   </script>
 </body>
-</html>
+            </html>
