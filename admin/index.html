@@ -1,320 +1,40 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <title>تسجيل الدخول — لوحة التحكم O2F.life</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Manager</title>
+    <!--
+      This page provides a visual admin interface for your Eleventy site using
+      Decap CMS. To deploy it, place this file in your site's `admin` folder
+      alongside a `config.yml` file that defines your collections (for example,
+      site settings, plans, custom plans, gallery, blog posts, etc.).
 
-    :root {
-      --ink:  #0B1220;
-      --mint: #00D9A3;
-      --gold: #C9A84A;
-      --off:  #F7F8FA;
-    }
+      When a user visits this page, Decap CMS will load the configuration
+      automatically and render form fields for each entry. The user can edit
+      content through a friendly UI (text inputs, lists, drag‑and‑drop
+      uploads) without touching code or raw JSON files. Upon save, changes
+      are committed back to the repository via GitHub using OAuth or a token,
+      depending on your backend configuration.
 
-    body {
-      background: var(--ink);
-      color: var(--off);
-      font-family: 'Tajawal', system-ui, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Animated background orbs */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb-1 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(0,217,163,.18), transparent 70%);
-      top: -150px; left: -150px;
-      animation: orb-drift 10s ease-in-out infinite;
-    }
-    .orb-2 {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(201,168,74,.12), transparent 70%);
-      bottom: -100px; right: -100px;
-      animation: orb-drift 13s ease-in-out infinite reverse;
-    }
-    .orb-3 {
-      width: 250px; height: 250px;
-      background: radial-gradient(circle, rgba(0,217,163,.08), transparent 70%);
-      top: 50%; left: 55%;
-      animation: orb-drift 8s ease-in-out infinite 2s;
-    }
-
-    /* Grid overlay */
-    .grid-overlay {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
-      background-size: 44px 44px;
-    }
-
-    /* Card */
-    .card {
-      position: relative; z-index: 10;
-      background: rgba(255,255,255,.045);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 24px;
-      padding: 2.75rem 2.5rem;
-      width: min(430px, 92vw);
-      animation: card-in .6s cubic-bezier(.16,1,.3,1) both;
-      box-shadow: 0 25px 60px rgba(0,0,0,.4);
-    }
-
-    /* Logo */
-    .logo { text-align: center; margin-bottom: 2rem; }
-    .logo-text {
-      font-size: 2.25rem; font-weight: 800; letter-spacing: -.02em;
-      background: linear-gradient(135deg, var(--mint) 0%, var(--gold) 100%);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-    .logo-sub { color: rgba(247,248,250,.45); font-size: .875rem; margin-top: .3rem; }
-
-    /* Divider */
-    .divider {
-      height: 1px; margin: 1.75rem 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.1), transparent);
-    }
-
-    h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.5rem; }
-
-    /* Fields */
-    .field { margin-bottom: 1.25rem; }
-    label {
-      display: block; font-size: .875rem; font-weight: 500;
-      color: rgba(247,248,250,.65); margin-bottom: .5rem;
-    }
-    .input-wrap { position: relative; }
-    .input-icon {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      right: .9rem; color: rgba(247,248,250,.3); pointer-events: none;
-    }
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px;
-      padding: .8rem 2.75rem .8rem 1rem;
-      color: var(--off);
-      font-family: 'Tajawal', system-ui, sans-serif;
-      font-size: 1rem;
-      transition: border-color .2s, box-shadow .2s, background .2s;
-      outline: none;
-    }
-    input:focus {
-      border-color: rgba(0,217,163,.5);
-      background: rgba(0,217,163,.06);
-      box-shadow: 0 0 0 3px rgba(0,217,163,.12);
-    }
-    input::placeholder { color: rgba(247,248,250,.28); }
-
-    /* Submit button */
-    .btn-login {
-      width: 100%; margin-top: 1.25rem;
-      background: var(--mint); color: #0B1220;
-      border: none; border-radius: 14px;
-      padding: .9rem 1.5rem;
-      font-family: 'Tajawal', system-ui, sans-serif;
-      font-size: 1rem; font-weight: 700;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: .5rem;
-      transition: all .2s;
-      box-shadow: 0 0 0 0 rgba(0,217,163,.4);
-      position: relative; overflow: hidden;
-    }
-    .btn-login::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
-      transform: translateX(-100%);
-      transition: transform .5s;
-    }
-    .btn-login:hover::before { transform: translateX(100%); }
-    .btn-login:hover {
-      filter: brightness(1.08);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 35px rgba(0,217,163,.35);
-    }
-    .btn-login:active { transform: scale(.97); }
-
-    /* Spinner */
-    .spinner {
-      width: 1.2rem; height: 1.2rem;
-      border: 2px solid rgba(11,18,32,.3);
-      border-top-color: #0B1220;
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      display: none;
-    }
-    .is-loading .spinner { display: block; }
-    .is-loading .btn-text { display: none; }
-
-    /* Error message */
-    .error-msg {
-      display: none; margin-top: 1rem;
-      background: rgba(239,68,68,.1);
-      border: 1px solid rgba(239,68,68,.3);
-      border-radius: 12px;
-      padding: .75rem 1rem;
-      color: #fca5a5; font-size: .875rem;
-      animation: slide-down .3s ease;
-    }
-    .error-msg.show { display: flex; align-items: center; gap: .5rem; }
-
-    /* Animations */
-    @keyframes orb-drift {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33%  { transform: translate(30px, -20px) scale(1.05); }
-      66%  { transform: translate(-15px, 15px) scale(.95); }
-    }
-    @keyframes card-in {
-      from { opacity: 0; transform: translateY(24px) scale(.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes slide-down {
-      from { opacity: 0; transform: translateY(-6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20%     { transform: translateX(-8px); }
-      40%     { transform: translateX(8px); }
-      60%     { transform: translateX(-5px); }
-      80%     { transform: translateX(5px); }
-    }
-    .shake { animation: shake .4s ease; }
-
-    .footer-note {
-      text-align: center; margin-top: 1.5rem;
-      font-size: .75rem; color: rgba(247,248,250,.25);
-    }
-  </style>
-</head>
-<body>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="grid-overlay"></div>
-
-  <div class="card">
-    <div class="logo">
-      <div class="logo-text">O2F.life</div>
-      <div class="logo-sub">لوحة التحكم</div>
-    </div>
-
-    <div class="divider"></div>
-
-    <h1>تسجيل الدخول</h1>
-
-    <form id="loginForm" novalidate>
-      <div class="field">
-        <label for="username">اسم المستخدم</label>
-        <div class="input-wrap">
-          <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-          <input type="text" id="username" name="username"
-                 placeholder="أدخل اسم المستخدم"
-                 autocomplete="username" required>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="password">كلمة المرور</label>
-        <div class="input-wrap">
-          <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <input type="password" id="password" name="password"
-                 placeholder="أدخل كلمة المرور"
-                 autocomplete="current-password" required>
-        </div>
-      </div>
-
-      <button type="submit" class="btn-login" id="submitBtn">
-        <span class="btn-text">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-left:.35rem">
-            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-            <polyline points="10 17 15 12 10 7"/>
-            <line x1="15" y1="12" x2="3" y2="12"/>
-          </svg>
-          دخول
-        </span>
-        <div class="spinner"></div>
-      </button>
-
-      <div class="error-msg" id="errorMsg">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        اسم المستخدم أو كلمة المرور غير صحيحة. حاول مرة أخرى.
-      </div>
-    </form>
-
-    <p class="footer-note">O2F.life Admin Panel &mdash; Authorized access only</p>
-  </div>
-
-  <script>
-    /* Credentials: username=admin  password=O2F@admin2025 */
-    const VALID_USER = 'admin';
-    const VALID_HASH = '21482e434cef8b299db5a3fa4cc938a58ef685b6154319e4ac574409abeac32d';
-
-    async function sha256(str) {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    /* Already logged in → skip to CMS */
-    if (sessionStorage.getItem('o2f-admin-auth') === '1') {
-      window.location.replace('./cms.html');
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn  = document.getElementById('submitBtn');
-      const err  = document.getElementById('errorMsg');
-      const form = document.getElementById('loginForm');
-
-      btn.classList.add('is-loading');
-      err.classList.remove('show');
-
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      const hash = await sha256(password);
-
-      if (username === VALID_USER && hash === VALID_HASH) {
-        sessionStorage.setItem('o2f-admin-auth', '1');
-        window.location.href = './cms.html';
-      } else {
-        btn.classList.remove('is-loading');
-        err.classList.add('show');
-        form.classList.add('shake');
-        document.getElementById('password').value = '';
-        document.getElementById('password').focus();
-        setTimeout(() => form.classList.remove('shake'), 500);
-      }
-    });
-  </script>
-</body>
+      For more information, see the official installation guide:
+      https://decapcms.org/docs/intro/
+    -->
+    <!-- Load Decap CMS from the CDN. Using the latest version ensures you
+         receive bug fixes and new features automatically. -->
+    <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+    <!-- Optionally include the default Netlify identity widget if you're using
+         Decap's built‑in authentication. Remove this line if you manage
+         authentication separately (e.g., via GitHub OAuth App). -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <!--
+      The Decap CMS application inserts itself into the page automatically,
+      replacing this fallback message when the script loads. If you see this
+      message, check the console for errors or network issues preventing
+      Decap from loading.
+    -->
+    <p>Loading content manager…</p>
+  </body>
 </html>
