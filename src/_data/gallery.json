@@ -1,4 +1,27 @@
 {
+  "hero_cards": [
+    {
+      "image": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
+      "title_ar": "التحول الجسدي",
+      "title_en": "Body Transformation",
+      "desc_ar": "برامج مخصصة تحوّل جسمك في أسابيع بإشراف مباشر",
+      "desc_en": "Personalized programs that transform your body in weeks under direct supervision"
+    },
+    {
+      "image": "/assets/images/871_meal.png",
+      "title_ar": "تغذية علمية",
+      "title_en": "Scientific Nutrition",
+      "desc_ar": "خطط غذائية مبنية على العلم والتجربة الحقيقية",
+      "desc_en": "Nutrition plans built on science and real-world experience"
+    },
+    {
+      "image": "/assets/images/695_Gym_and_Fitness__Instagram_Post___1_.jpg",
+      "title_ar": "تدريب محترف",
+      "title_en": "Professional Training",
+      "desc_ar": "جلسات تدريبية متميزة تناسب مستواك وأهدافك",
+      "desc_en": "Elite training sessions tailored to your level and goals"
+    }
+  ],
   "images": [
     {
       "src": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
