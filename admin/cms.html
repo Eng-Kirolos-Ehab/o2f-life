@@ -8,7 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <script>
-    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1' ||
+        !localStorage.getItem('o2f-gh-token')) {
+      // Missing auth or missing token — re-login to restore both
+      sessionStorage.removeItem('o2f-admin-auth');
       window.location.replace('./login.html');
     }
   </script>
