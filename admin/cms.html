@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <script>
     if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
-      window.location.replace('./index.html');
+      window.location.replace('./login.html');
     }
   </script>
   <style>
@@ -636,7 +636,7 @@
 
     function logout() {
       sessionStorage.removeItem('o2f-admin-auth');
-      window.location.replace('./index.html');
+      window.location.replace('./login.html');
     }
 
     /* ── JSON Editor ── */
