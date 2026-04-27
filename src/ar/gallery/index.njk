@@ -3,23 +3,100 @@ title: "المعرض"
 description: "لمحات من تدريب الكابتن أسامة، الوجبات، وأبرز لحظات البرنامج."
 ---
 
+{# ── Hero ── #}
 <section class="grid-bg">
-  <div class="container-x py-16 sm:py-20">
-    <p class="section-kicker">المعرض</p>
-    <h1 class="section-title mb-4">من خلف الكواليس.</h1>
-    <p class="text-lg text-brand-off/70 max-w-2xl">
-      نظرة على برامجنا ووجباتنا ولحظات التدريب.
+  <div class="container-x py-20 sm:py-28">
+    <p class="section-kicker" data-aos="fade-up">المعرض</p>
+    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="80">
+      من خلف<br>
+      <span class="gradient-mint-text">الكواليس.</span>
+    </h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="160">
+      نظرة حقيقية على برامجنا، خططنا الغذائية، ولحظات التدريب مع الكابتن أسامة عمران.
     </p>
   </div>
 </section>
 
+{# ── Feature Cards ── #}
+{% if gallery.hero_cards and gallery.hero_cards.length %}
 <section class="section">
-  <div class="container-x grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-    {% for img in gallery.images %}
-      <figure class="card p-2 overflow-hidden">
-        <img src="{{ img.src }}" alt="{{ img.alt_ar }}" loading="lazy"
-             class="w-full h-64 object-cover rounded-xl">
-      </figure>
-    {% endfor %}
+  <div class="container-x">
+    <div class="grid sm:grid-cols-3 gap-6">
+      {% for card in gallery.hero_cards %}
+        <div class="group relative rounded-2xl overflow-hidden shadow-2xl"
+             style="aspect-ratio:3/4"
+             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 150 }}">
+
+          <img src="{{ card.image | url }}" alt="{{ card.title_ar }}" loading="lazy"
+               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+
+          {# Layered gradient #}
+          <div class="absolute inset-0"
+               style="background:linear-gradient(to top, rgba(7,15,30,.92) 0%, rgba(7,15,30,.4) 45%, transparent 75%)"></div>
+
+          {# Mint accent line at top #}
+          <div class="absolute top-0 left-0 right-0 h-0.5"
+               style="background:linear-gradient(to left, transparent, #00D9A3, transparent); opacity:.7"></div>
+
+          {# Text content #}
+          <div class="absolute bottom-0 right-0 left-0 p-6 text-right">
+            <div class="mb-2">
+              <span class="inline-block text-xs font-semibold tracking-widest"
+                    style="color:#00D9A3">٠{{ loop.index }}</span>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2 leading-tight">{{ card.title_ar }}</h3>
+            <p class="text-sm leading-relaxed" style="color:rgba(247,248,250,.75)">{{ card.desc_ar }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ── Divider ── #}
+<div class="container-x">
+  <hr style="border:none;border-top:1px solid rgba(255,255,255,.07)">
+</div>
+
+{# ── Gallery Grid ── #}
+<section class="section">
+  <div class="container-x">
+
+    <div class="mb-12 text-center" data-aos="fade-up">
+      <p class="section-kicker">جميع الصور</p>
+      <h2 class="section-title">لحظات خالدة.</h2>
+    </div>
+
+    {# Masonry columns layout #}
+    <div style="column-count:2;column-gap:1rem"
+         class="sm:columns-3 lg:columns-4">
+      {% for img in gallery.images %}
+        <figure class="overflow-hidden rounded-xl mb-4"
+                style="break-inside:avoid;display:inline-block;width:100%"
+                data-aos="fade-up"
+                data-aos-delay="{{ (loop.index0 % 4) * 80 }}">
+          <img src="{{ img.src | url }}"
+               alt="{{ img.alt_ar }}"
+               loading="lazy"
+               class="w-full object-cover transition-all duration-500"
+               style="border-radius:12px;display:block"
+               onmouseover="this.style.filter='brightness(1.12)';this.style.transform='scale(1.03)';this.style.transition='all .4s'"
+               onmouseout="this.style.filter='brightness(1)';this.style.transform='scale(1)';this.style.transition='all .4s'">
+        </figure>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{# ── CTA ── #}
+<section class="section" style="background:rgba(0,217,163,.04);border-top:1px solid rgba(0,217,163,.1)">
+  <div class="container-x text-center" data-aos="fade-up">
+    <h2 class="section-title mb-4">جاهز تكتب قصة نجاحك؟</h2>
+    <p class="text-brand-off/70 mb-8 max-w-lg mx-auto">
+      انضم لمئات العملاء اللي غيّروا حياتهم مع منظومة الكابتن أسامة المُثبتة.
+    </p>
+    <a href="{{ ('/ar/plans/') | url }}" class="btn-primary">اشترك الآن</a>
   </div>
 </section>

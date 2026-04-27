@@ -380,6 +380,10 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
         الوسائط
       </button>
+      <button class="nav-item" onclick="showSection('gallery', event)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3"/></svg>
+        معرض الصور
+      </button>
       <button class="nav-item" onclick="showSection('json', event)">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         محرر JSON
@@ -444,12 +448,12 @@
             <div class="card-arrow">فتح المحرر ←</div>
           </div>
 
-          <div class="card" onclick="openEditor('json','gallery')" style="cursor:pointer">
+          <div class="card" onclick="openEditor('gallery','')" style="cursor:pointer">
             <div class="card-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3"/></svg>
             </div>
             <div class="card-title">معرض الصور</div>
-            <div class="card-desc">رفع صور بالـ drag &amp; drop وتعديل بياناتها</div>
+            <div class="card-desc">تعديل كروت الهيرو الـ٣ + رفع صور بالـ drag &amp; drop</div>
             <div class="card-arrow">فتح المحرر ←</div>
           </div>
         </div>
@@ -580,6 +584,38 @@
         </a>
       </div>
 
+      <!-- ══ GALLERY SECTION ══ -->
+      <div id="section-gallery" style="display:none">
+
+        <div id="gallery-section-status" class="editor-status" style="margin-bottom:1.25rem">جاهز</div>
+
+        <!-- Sub-section A: Hero Cards -->
+        <p class="section-title">كروت الصور الرئيسية (٣ كروت تظهر في أعلى صفحة المعرض)</p>
+        <div id="hero-cards-editor" class="gallery-grid"
+             style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));margin-bottom:2.5rem">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Sub-section B: Gallery Images -->
+        <p class="section-title">صور المعرض الكاملة — اسحب وأفلت لإضافة صور أو استخدم الأزرار للترتيب والحذف</p>
+        <label class="dropzone" id="galleryDropzone2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:.35rem;opacity:.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><br>
+          اسحب الصور هنا أو اضغط للاختيار
+          <input type="file" id="galleryInput2" accept="image/*" multiple style="display:none">
+        </label>
+        <div id="gallery-images-editor" class="gallery-grid" style="margin-top:.9rem">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="editor-actions" style="margin-top:1.5rem">
+          <button class="btn-save" id="gallerySaveBtn" onclick="saveGallerySection()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            حفظ ونشر
+          </button>
+        </div>
+
+      </div>
+
       <!-- ══ JSON EDITOR SECTION ══ -->
       <div id="section-json" style="display:none">
 
@@ -622,7 +658,7 @@
 
   <script>
     function showSection(name, evt) {
-      ['content','pages','media','json'].forEach(s => {
+      ['content','pages','media','json','gallery'].forEach(s => {
         document.getElementById('section-' + s).style.display = s === name ? '' : 'none';
       });
       document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -632,10 +668,30 @@
         pages:   'الصفحات',
         media:   'الوسائط',
         json:    'محرر JSON',
+        gallery: 'معرض الصور',
       };
       document.getElementById('pageTitle').textContent = titles[name];
-      if (name === 'json')  initJsonEditor();
-      if (name === 'pages') initPagesEditor();
+      if (name === 'json')    initJsonEditor();
+      if (name === 'pages')   initPagesEditor();
+      if (name === 'gallery') initGallerySection();
+    }
+
+    // Called from content-section cards — navigates directly to the right editor + tab
+    function openEditor(section, file) {
+      ['content','pages','media','json','gallery'].forEach(s => {
+        document.getElementById('section-' + s).style.display = s === section ? '' : 'none';
+      });
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => {
+        if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(`'${section}'`)) {
+          el.classList.add('active');
+        }
+      });
+      const titles = { content:'إدارة المحتوى', pages:'الصفحات', media:'الوسائط', json:'محرر JSON', gallery:'معرض الصور' };
+      document.getElementById('pageTitle').textContent = titles[section] || section;
+      if (section === 'json')    { initJsonEditor();    if (file) switchFile(file); }
+      if (section === 'pages')   { initPagesEditor();   if (file) switchPageFile(file); }
+      if (section === 'gallery') { initGallerySection(); }
     }
 
     // Called from content-section cards — navigates directly to the right editor + tab
@@ -1452,6 +1508,288 @@
 
     function setPagesStatus(msg, type) {
       const el = document.getElementById('pages-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'editor-status' + (type ? ' ' + type : '');
+    }
+
+    /* ══════════════════════════════════════════════
+       DEDICATED GALLERY SECTION
+       Two sub-sections: hero cards + gallery images
+    ══════════════════════════════════════════════ */
+    let gallerySecData = null;
+    let gallerySecSha  = '';
+
+    function initGallerySection() {
+      if (gallerySecData) {
+        renderGallerySection();
+        return;
+      }
+      loadGallerySection();
+    }
+
+    async function loadGallerySection() {
+      const token = localStorage.getItem('o2f-gh-token');
+      setGalleryStatus('جاري التحميل...', 'loading');
+      const saveBtn = document.getElementById('gallerySaveBtn');
+      if (saveBtn) saveBtn.disabled = true;
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/src/_data/gallery.json`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        gallerySecSha = data.sha;
+        const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        gallerySecData = JSON.parse(raw);
+
+        // Ensure hero_cards array has exactly 3 items
+        if (!Array.isArray(gallerySecData.hero_cards)) gallerySecData.hero_cards = [];
+        while (gallerySecData.hero_cards.length < 3) {
+          gallerySecData.hero_cards.push({ image: '', title_ar: '', title_en: '', desc_ar: '', desc_en: '' });
+        }
+        if (!Array.isArray(gallerySecData.images)) gallerySecData.images = [];
+
+        renderGallerySection();
+        setGalleryStatus('تم التحميل ✓', 'success');
+        if (saveBtn) saveBtn.disabled = false;
+      } catch(e) {
+        setGalleryStatus('خطأ في التحميل: ' + e.message, 'error');
+      }
+    }
+
+    function renderGallerySection() {
+      renderHeroCardsEditor();
+      renderGalleryImagesEditor();
+      setupGalleryDropzone2();
+    }
+
+    function renderHeroCardsEditor() {
+      const container = document.getElementById('hero-cards-editor');
+      if (!container || !gallerySecData) return;
+      const cards = gallerySecData.hero_cards || [];
+      container.innerHTML = cards.slice(0, 3).map((card, i) => `
+        <div class="gallery-card" style="padding-bottom:.75rem">
+          <div style="position:relative;width:100%;height:220px;overflow:hidden;border-radius:12px 12px 0 0;background:#0d1724">
+            ${card.image
+              ? `<img src="..${escapeHtml(card.image)}" alt="" style="width:100%;height:100%;object-fit:cover">`
+              : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem">لا توجد صورة — ارفع صورة للكارت</div>`
+            }
+            <label style="position:absolute;bottom:.5rem;right:.5rem;cursor:pointer" class="btn-mini">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              رفع صورة
+              <input type="file" accept="image/*" style="display:none" onchange="uploadHeroCardImage(this,${i})">
+            </label>
+          </div>
+          <div class="gallery-fields">
+            <div class="field">
+              <label>العنوان بالعربي</label>
+              <input type="text" data-gpath="hero_cards.${i}.title_ar" value="${escapeHtml(card.title_ar || '')}">
+            </div>
+            <div class="field">
+              <label>Title (English)</label>
+              <input type="text" data-gpath="hero_cards.${i}.title_en" value="${escapeHtml(card.title_en || '')}">
+            </div>
+            <div class="field">
+              <label>الوصف بالعربي</label>
+              <textarea data-gpath="hero_cards.${i}.desc_ar" style="min-height:60px">${escapeHtml(card.desc_ar || '')}</textarea>
+            </div>
+            <div class="field">
+              <label>Description (English)</label>
+              <textarea data-gpath="hero_cards.${i}.desc_en" style="min-height:60px">${escapeHtml(card.desc_en || '')}</textarea>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      bindGalleryFields(container);
+    }
+
+    function renderGalleryImagesEditor() {
+      const container = document.getElementById('gallery-images-editor');
+      if (!container || !gallerySecData) return;
+      const images = gallerySecData.images || [];
+
+      container.innerHTML = images.map((img, i) => `
+        <div class="gallery-card">
+          <img src="..${escapeHtml(img.src || '')}" alt=""
+               style="width:100%;height:120px;object-fit:cover;background:rgba(0,0,0,.25)">
+          <div class="gallery-fields">
+            <div class="field">
+              <label>مسار الصورة</label>
+              <input type="text" data-gpath="images.${i}.src" value="${escapeHtml(img.src || '')}">
+            </div>
+            <div class="field">
+              <label>Alt EN</label>
+              <input type="text" data-gpath="images.${i}.alt_en" value="${escapeHtml(img.alt_en || '')}">
+            </div>
+            <div class="field">
+              <label>Alt AR</label>
+              <input type="text" data-gpath="images.${i}.alt_ar" value="${escapeHtml(img.alt_ar || '')}">
+            </div>
+            <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.2rem">
+              ${i > 0 ? `<button class="btn-mini" data-gallery-up="${i}" title="لأعلى">↑ لأعلى</button>` : ''}
+              ${i < images.length - 1 ? `<button class="btn-mini" data-gallery-dn="${i}" title="لأسفل">↓ لأسفل</button>` : ''}
+              <button class="btn-mini btn-danger" data-gallery-del="${i}">حذف</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      bindGalleryFields(container);
+
+      container.querySelectorAll('[data-gallery-del]').forEach(btn => {
+        btn.onclick = () => {
+          gallerySecData.images.splice(Number(btn.dataset.galleryDel), 1);
+          renderGalleryImagesEditor();
+        };
+      });
+      container.querySelectorAll('[data-gallery-up]').forEach(btn => {
+        btn.onclick = () => {
+          const idx = Number(btn.dataset.galleryUp);
+          const arr = gallerySecData.images;
+          [arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]];
+          renderGalleryImagesEditor();
+        };
+      });
+      container.querySelectorAll('[data-gallery-dn]').forEach(btn => {
+        btn.onclick = () => {
+          const idx = Number(btn.dataset.galleryDn);
+          const arr = gallerySecData.images;
+          [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]];
+          renderGalleryImagesEditor();
+        };
+      });
+    }
+
+    function bindGalleryFields(container) {
+      container.querySelectorAll('[data-gpath]').forEach(el => {
+        el.addEventListener('input', e => {
+          setByPath(gallerySecData, e.target.dataset.gpath, e.target.value);
+        });
+      });
+    }
+
+    function setupGalleryDropzone2() {
+      const dropzone = document.getElementById('galleryDropzone2');
+      const input    = document.getElementById('galleryInput2');
+      if (!dropzone || dropzone.dataset.bound === '1') return;
+      dropzone.dataset.bound = '1';
+      ['dragenter','dragover'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault(); dropzone.classList.add('dragover');
+      }));
+      ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault(); dropzone.classList.remove('dragover');
+      }));
+      dropzone.addEventListener('drop', e => handleGallerySecUpload(Array.from(e.dataTransfer.files || [])));
+      input.addEventListener('change', e => handleGallerySecUpload(Array.from(e.target.files || [])));
+    }
+
+    async function handleGallerySecUpload(files) {
+      if (!files.length) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      if (!token) return setGalleryStatus('برجاء تسجيل الدخول أولًا.', 'error');
+      setGalleryStatus('جاري رفع الصور...', 'loading');
+
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        const safeName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9_.-]/g, '_')}`;
+        const targetPath = `src/assets/images/${safeName}`;
+        try {
+          const base64 = await fileToBase64(file);
+          const uploadRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${targetPath}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: `admin: upload ${safeName}`, content: base64 }),
+          });
+          if (!uploadRes.ok) {
+            const err = await uploadRes.json().catch(() => ({}));
+            throw new Error(err.message || `HTTP ${uploadRes.status}`);
+          }
+          gallerySecData.images.push({ src: `/assets/images/${safeName}`, alt_en: 'New image', alt_ar: 'صورة جديدة' });
+        } catch(e) {
+          setGalleryStatus(`فشل رفع ${file.name}: ${e.message}`, 'error');
+        }
+      }
+      renderGalleryImagesEditor();
+      setGalleryStatus('تم رفع الصور. اضغط "حفظ ونشر" لتحديث المعرض على الموقع', 'success');
+    }
+
+    async function uploadHeroCardImage(input, index) {
+      const file = input.files[0];
+      if (!file) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      const ext  = file.name.split('.').pop().toLowerCase();
+      const safeName = `hero_card_${index + 1}_${Date.now()}.${ext}`;
+      const targetPath = `src/assets/images/${safeName}`;
+      setGalleryStatus('جاري رفع الصورة...', 'loading');
+      try {
+        const base64 = await fileToBase64(file);
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${targetPath}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github+json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: `admin: upload hero card ${index + 1} image`, content: base64 }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        gallerySecData.hero_cards[index].image = `/assets/images/${safeName}`;
+        renderHeroCardsEditor();
+        setGalleryStatus('✓ تم رفع الصورة. اضغط "حفظ ونشر" لتطبيق التغيير على الموقع.', 'success');
+      } catch(e) {
+        setGalleryStatus('فشل رفع الصورة: ' + e.message, 'error');
+      }
+    }
+
+    async function saveGallerySection() {
+      const token = localStorage.getItem('o2f-gh-token');
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(gallerySecData, null, 2) + '\n')));
+      const saveBtn = document.getElementById('gallerySaveBtn');
+      if (saveBtn) saveBtn.disabled = true;
+      setGalleryStatus('جاري الحفظ والنشر...', 'loading');
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/src/_data/gallery.json`,
+          {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: 'admin: update gallery.json',
+              content: encoded,
+              sha: gallerySecSha,
+            }),
+          }
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
+        gallerySecSha = data.content.sha;
+        setGalleryStatus('✓ تم الحفظ! التغيير هيظهر خلال 1-2 دقيقة — لو مش ظاهر اضغط Ctrl+Shift+R على صفحة الموقع', 'success');
+      } catch(e) {
+        setGalleryStatus('فشل الحفظ: ' + e.message, 'error');
+      } finally {
+        if (saveBtn) saveBtn.disabled = false;
+      }
+    }
+
+    function setGalleryStatus(msg, type) {
+      const el = document.getElementById('gallery-section-status');
       if (!el) return;
       el.textContent = msg;
       el.className = 'editor-status' + (type ? ' ' + type : '');
