@@ -1,7 +1,6 @@
 ---
 title: "Home"
 description: "Online fitness, nutrition and naturopathic coaching with Coach Osama Omran. Transform your body from the inside out."
-ogImage: "/assets/images/osama.jpeg"
 ---
 
 {# ==================== HERO ==================== #}
@@ -76,7 +75,7 @@ ogImage: "/assets/images/osama.jpeg"
         <div class="absolute -inset-10 rounded-full border border-brand-mint/8 animate-spin-slow pointer-events-none"></div>
         <div class="absolute -inset-6 rounded-full border border-brand-gold/6 animate-spin-reverse pointer-events-none"></div>
         <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-br from-brand-mint/25 to-brand-gold/15 blur-2xl"></div>
-        <img src="{{ '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp' | url }}"
+        <img src="{{ (site.heroImage or '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp') | url }}"
              alt="Coach Osama Omran" loading="eager"
              class="relative rounded-xl2 w-full object-cover shadow-card animate-float-img">
         <div class="absolute -bottom-5 -left-5 card py-2.5 px-4 text-sm animate-float pointer-events-none" style="animation-delay:1s;z-index:10">

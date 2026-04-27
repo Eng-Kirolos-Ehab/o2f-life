@@ -7,7 +7,7 @@
 
   {# ---------- SEO ---------- #}
   <title>{% if title %}{{ title }} — {{ site.name }}{% else %}{{ site.seo.titleSuffix }}{% endif %}</title>
-  <meta name="description" content="{{ description or 'Online fitness, nutrition and naturopathic coaching with Coach Osama Omran.' }}">
+  <meta name="description" content="{{ description or site.seo.description or 'Online fitness, nutrition and naturopathic coaching with Coach Osama Omran.' }}">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 
   {# Hreflang alternates #}
@@ -21,7 +21,7 @@
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title or site.name }}">
-  <meta property="og:description" content="{{ description or '' }}">
+  <meta property="og:description" content="{{ description or site.seo.description or '' }}">
   <meta property="og:image" content="{{ site.url }}{{ ogImage or site.seo.ogImage }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:locale" content="{{ 'ar_SA' if lang == 'ar' else 'en_US' }}">
