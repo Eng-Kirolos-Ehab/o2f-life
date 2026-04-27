@@ -1,25 +1,25 @@
 {
   "hero_cards": [
     {
-      "image": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
-      "title_ar": "التحول الجسدي",
-      "title_en": "Body Transformation",
-      "desc_ar": "برامج مخصصة تحوّل جسمك في أسابيع بإشراف مباشر",
-      "desc_en": "Personalized programs that transform your body in weeks under direct supervision"
+      "image": "/assets/images/hero_card_1_1777309011809.webp",
+      "title_ar": "تحقيق الأهداف معًا",
+      "title_en": "Achieving Goals Together",
+      "desc_ar": "كل خطوة تُحسب نحو التقدم والنجاح. الرحلة بدأت من هنا، والنتائج تتحدث عن نفسها.",
+      "desc_en": "Every step counts towards progress and success. The journey started here, and the results speak for themselves."
     },
     {
-      "image": "/assets/images/871_meal.png",
-      "title_ar": "تغذية علمية",
-      "title_en": "Scientific Nutrition",
-      "desc_ar": "خطط غذائية مبنية على العلم والتجربة الحقيقية",
-      "desc_en": "Nutrition plans built on science and real-world experience"
+      "image": "/assets/images/hero_card_2_1777309015755.webp",
+      "title_ar": "الدعم والإرشاد المستمر",
+      "title_en": "Ongoing Support and Guidance",
+      "desc_ar": "عندما يلتقي التوجيه الاحترافي مع الإصرار، تأتي الإنجازات. نحن معك في كل خطوة على الطريق.",
+      "desc_en": "When professional guidance meets determination, achievements follow. We’re with you every step of the way."
     },
     {
-      "image": "/assets/images/695_Gym_and_Fitness__Instagram_Post___1_.jpg",
-      "title_ar": "تدريب محترف",
-      "title_en": "Professional Training",
-      "desc_ar": "جلسات تدريبية متميزة تناسب مستواك وأهدافك",
-      "desc_en": "Elite training sessions tailored to your level and goals"
+      "image": "/assets/images/hero_card_3_1777309024063.jpg",
+      "title_ar": "شراكة من أجل النجاح",
+      "title_en": "A Partnership for Success",
+      "desc_ar": "التغيير ليس رحلة فردية. نحن هنا لدعمك وتحفيزك حتى تصل إلى هدفك.",
+      "desc_en": "Transformation is not a solo journey. We’re here to support and motivate you until you reach your goal."
     }
   ],
   "images": [
