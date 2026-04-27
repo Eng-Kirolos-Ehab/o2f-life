@@ -1,7 +1,7 @@
 {
   "name": "O2F.life",
-  "logoUrl": "",
-  "faviconUrl": "/assets/images/favicon.svg",
+  "logoUrl": "/assets/images/logo.webp",
+  "faviconUrl": "/assets/images/favicon.webp",
   "domain": "o2f.life",
   "url": "https://o2f.life",
   "owner": "Coach Osama Omran",
