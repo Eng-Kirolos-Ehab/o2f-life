@@ -761,7 +761,7 @@
         }
         const data = await res.json();
         currentSha = data.content.sha;
-        setStatus('✓ تم الحفظ! الموقع بيتبني دلوقتي — التغيير هيظهر خلال 2-3 دقايق', 'success');
+        setStatus('✓ تم الحفظ! التغيير هيظهر خلال 1-2 دقيقة — لو مش ظاهر اضغط Ctrl+Shift+R على صفحة الموقع', 'success');
       } catch(e) {
         setStatus('فشل الحفظ: ' + e.message, 'error');
       } finally {
@@ -817,11 +817,42 @@
     }
 
     function renderSiteEditor(container) {
+      const logoPreview = currentData.logoUrl
+        ? `<img src="${escapeHtml(currentData.logoUrl)}" alt="logo" style="height:56px;border-radius:8px;margin-bottom:.5rem;border:1px solid var(--line)">`
+        : `<div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#00D9A3,#C9A84A);margin-bottom:.5rem"></div>`;
+      const faviconPreview = currentData.faviconUrl
+        ? `<img src="${escapeHtml(currentData.faviconUrl)}" alt="favicon" style="width:32px;height:32px;margin-bottom:.5rem;border:1px solid var(--line);border-radius:4px">`
+        : `<div style="width:32px;height:32px;background:var(--line);border-radius:4px;margin-bottom:.5rem"></div>`;
+
       container.innerHTML = `
         <div class="editor-panel">
-          <h3>اللوجو والهوية</h3>
+          <h3>اللوجو والفافيكون</h3>
           <div class="editor-grid">
-            ${fieldHTML('اسم الموقع (يظهر في الهيدر)', 'name', currentData.name)}
+            <div class="field">
+              <label>لوجو الموقع (يظهر في الهيدر)</label>
+              ${logoPreview}
+              <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" class="btn-mini">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                رفع لوجو
+                <input type="file" id="logoUpload" accept="image/*" style="display:none" onchange="uploadSiteImage(this,'logoUrl','logo')">
+              </label>
+              ${currentData.logoUrl ? `<button class="btn-mini btn-danger" style="margin-right:.4rem" onclick="currentData.logoUrl='';renderEditor()">حذف اللوجو</button>` : ''}
+            </div>
+            <div class="field">
+              <label>فافيكون (أيقونة علامة التبويب)</label>
+              ${faviconPreview}
+              <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" class="btn-mini">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                رفع فافيكون
+                <input type="file" id="faviconUpload" accept="image/*,.svg,.ico" style="display:none" onchange="uploadSiteImage(this,'faviconUrl','favicon')">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="editor-panel">
+          <h3>اسم الموقع والهوية</h3>
+          <div class="editor-grid">
+            ${fieldHTML('اسم الموقع (يظهر إذا لم يكن هناك لوجو)', 'name', currentData.name)}
             ${fieldHTML('المالك / المدرب', 'owner', currentData.owner)}
             ${fieldHTML('رابط الموقع', 'url', currentData.url, 'url')}
             ${fieldHTML('رابط الفورم (Google Form)', 'googleForm', currentData.googleForm, 'url')}
@@ -1140,6 +1171,39 @@
       });
     }
 
+    async function uploadSiteImage(input, jsonField, fileName) {
+      const file = input.files[0];
+      if (!file) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      const ext   = file.name.split('.').pop().toLowerCase();
+      const path  = `src/assets/images/${fileName}.${ext}`;
+      setStatus('جاري رفع الصورة...', 'loading');
+      try {
+        const base64 = await fileToBase64(file);
+        // check if file already exists (need its SHA to overwrite)
+        let sha = '';
+        try {
+          const ex = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,
+            { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } });
+          if (ex.ok) sha = (await ex.json()).sha;
+        } catch(_) {}
+        const body = { message: `admin: upload ${fileName}.${ext}`, content: base64 };
+        if (sha) body.sha = sha;
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `HTTP ${res.status}`); }
+        currentData[jsonField] = `/assets/images/${fileName}.${ext}`;
+        updateRawEditor();
+        renderEditor();
+        setStatus(`✓ تم رفع الصورة. اضغط "حفظ ونشر" لتطبيق التغيير على الموقع.`, 'success');
+      } catch(e) {
+        setStatus('فشل رفع الصورة: ' + e.message, 'error');
+      }
+    }
+
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -1279,7 +1343,7 @@
         }
         const data = await res.json();
         currentPageSha = data.content.sha;
-        setPagesStatus('✓ تم الحفظ! الموقع بيتبني دلوقتي — التغيير هيظهر خلال 2-3 دقايق', 'success');
+        setPagesStatus('✓ تم الحفظ! التغيير هيظهر خلال 1-2 دقيقة — لو مش ظاهر اضغط Ctrl+Shift+R على صفحة الموقع', 'success');
       } catch(e) {
         setPagesStatus('فشل الحفظ: ' + e.message, 'error');
       } finally {
