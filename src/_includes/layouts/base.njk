@@ -28,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
 
   {# Favicons #}
-  <link rel="icon" href="{{ '/assets/images/favicon.svg' | url }}" type="image/svg+xml">
+  <link rel="icon" href="{{ (site.faviconUrl or '/assets/images/favicon.svg') | url }}">
   <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | url }}">
 
   {# CSS #}
