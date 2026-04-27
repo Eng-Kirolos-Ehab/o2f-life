@@ -694,23 +694,6 @@
       if (section === 'gallery') { initGallerySection(); }
     }
 
-    // Called from content-section cards — navigates directly to the right editor + tab
-    function openEditor(section, file) {
-      ['content','pages','media','json'].forEach(s => {
-        document.getElementById('section-' + s).style.display = s === section ? '' : 'none';
-      });
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(el => {
-        if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(`'${section}'`)) {
-          el.classList.add('active');
-        }
-      });
-      const titles = { content:'إدارة المحتوى', pages:'الصفحات', media:'الوسائط', json:'محرر JSON' };
-      document.getElementById('pageTitle').textContent = titles[section] || section;
-      if (section === 'json')  { initJsonEditor();   if (file) switchFile(file); }
-      if (section === 'pages') { initPagesEditor();  if (file) switchPageFile(file); }
-    }
-
     function logout() {
       sessionStorage.removeItem('o2f-admin-auth');
       window.location.replace('./login.html');
