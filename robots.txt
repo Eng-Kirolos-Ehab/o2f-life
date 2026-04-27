@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://o2f.life/sitemap.xml
+Sitemap: https://o2-f.com/sitemap.xml
