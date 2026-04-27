@@ -2,7 +2,7 @@
   "name": "O2F life",
   "logoUrl": "/assets/images/logo.webp",
   "faviconUrl": "/assets/images/favicon.webp",
-  "heroImage": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
+  "heroImage": "/assets/images/hero.jpeg",
   "domain": "o2f.life",
   "url": "https://o2-f.com",
   "owner": "Coach Osama Omran",
@@ -32,7 +32,7 @@
   "seo": {
     "titleSuffix": "O2F life — Coach Osama Omran",
     "description": "Online fitness, nutrition and naturopathic coaching with Coach Osama Omran. Transform your body from the inside out.",
-    "ogImage": "/assets/images/osama.jpeg"
+    "ogImage": "/assets/images/og-image.webp"
   },
   "analytics": {
     "plausibleDomain": "o2f.life"
