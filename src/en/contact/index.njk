@@ -5,12 +5,9 @@ description: "Get in touch with Coach Osama Omran. Fill in the signup form, mess
 
 <section class="grid-bg">
   <div class="container-x py-16 sm:py-20">
-    <p class="section-kicker">Contact</p>
-    <h1 class="section-title mb-4">Let's talk.</h1>
-    <p class="text-lg text-brand-off/70 max-w-2xl">
-      Pick the way that works best for you — the signup form, WhatsApp, or email.
-      We reply within 24 hours.
-    </p>
+    <p class="section-kicker">{{ pages.contact.en.hero.kicker }}</p>
+    <h1 class="section-title mb-4">{{ pages.contact.en.hero.title }}</h1>
+    <p class="text-lg text-brand-off/70 max-w-2xl">{{ pages.contact.en.hero.description }}</p>
   </div>
 </section>
 
@@ -21,15 +18,12 @@ description: "Get in touch with Coach Osama Omran. Fill in the signup form, mess
     <a href="{{ site.googleForm }}" target="_blank" rel="noopener"
        class="card lg:col-span-2 flex flex-col justify-between ring-1 ring-brand-mint/40 hover:border-brand-mint transition-colors">
       <div>
-        <span class="chip text-brand-mint mb-3">Recommended</span>
-        <h2 class="text-2xl sm:text-3xl mb-2">Signup form</h2>
-        <p class="text-brand-off/70">
-          Tell us about yourself, your goals and your schedule. Takes about 3 minutes.
-          Coach Osama reviews every response personally and replies within 24 hours.
-        </p>
+        <span class="chip text-brand-mint mb-3">{{ pages.contact.en.cards.form.badge }}</span>
+        <h2 class="text-2xl sm:text-3xl mb-2">{{ pages.contact.en.cards.form.title }}</h2>
+        <p class="text-brand-off/70">{{ pages.contact.en.cards.form.description }}</p>
       </div>
       <div class="mt-6 inline-flex items-center gap-2 text-brand-mint font-semibold">
-        Open the form
+        {{ pages.contact.en.cards.form.cta }}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
       </div>
     </a>
@@ -40,8 +34,8 @@ description: "Get in touch with Coach Osama Omran. Fill in the signup form, mess
       <div class="h-10 w-10 rounded-lg bg-[#25D366]/15 text-[#25D366] flex items-center justify-center mb-3">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.77 11.77 0 0012.06 0C5.5 0 .17 5.34.17 11.9c0 2.1.55 4.14 1.6 5.95L0 24l6.32-1.66a11.88 11.88 0 005.74 1.47h.01c6.56 0 11.9-5.34 11.9-11.9a11.82 11.82 0 00-3.45-8.43z"/></svg>
       </div>
-      <h3 class="text-xl mb-1">WhatsApp</h3>
-      <p class="text-brand-off/70 text-sm">Quick questions? Message us directly.</p>
+      <h3 class="text-xl mb-1">{{ pages.contact.en.cards.whatsapp.title }}</h3>
+      <p class="text-brand-off/70 text-sm">{{ pages.contact.en.cards.whatsapp.description }}</p>
       <span class="text-brand-mint text-sm mt-3">{{ site.whatsapp }}</span>
     </a>
 
@@ -51,8 +45,8 @@ description: "Get in touch with Coach Osama Omran. Fill in the signup form, mess
       <div class="h-10 w-10 rounded-lg bg-brand-mint/15 text-brand-mint flex items-center justify-center mb-3">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
       </div>
-      <h3 class="text-xl mb-1">Email</h3>
-      <p class="text-brand-off/70 text-sm">Prefer a longer message? Drop us an email.</p>
+      <h3 class="text-xl mb-1">{{ pages.contact.en.cards.email.title }}</h3>
+      <p class="text-brand-off/70 text-sm">{{ pages.contact.en.cards.email.description }}</p>
       <span class="text-brand-mint text-sm mt-3">{{ site.email }}</span>
     </a>
 
@@ -62,9 +56,9 @@ description: "Get in touch with Coach Osama Omran. Fill in the signup form, mess
       <div class="h-10 w-10 rounded-lg bg-brand-mint/15 text-brand-mint flex items-center justify-center mb-3">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
       </div>
-      <h3 class="text-xl mb-1">Instagram</h3>
-      <p class="text-brand-off/70 text-sm">Daily tips, transformations and behind the scenes.</p>
-      <span class="text-brand-mint text-sm mt-3">@osama.fit</span>
+      <h3 class="text-xl mb-1">{{ pages.contact.en.cards.instagram.title }}</h3>
+      <p class="text-brand-off/70 text-sm">{{ pages.contact.en.cards.instagram.description }}</p>
+      <span class="text-brand-mint text-sm mt-3">{{ pages.contact.en.cards.instagram.handle }}</span>
     </a>
     {% endif %}
   </div>
@@ -73,11 +67,8 @@ description: "Get in touch with Coach Osama Omran. Fill in the signup form, mess
 <section class="section">
   <div class="container-x">
     <div class="card text-center">
-      <h3 class="text-xl mb-2">What happens after you sign up?</h3>
-      <p class="text-brand-off/70 max-w-xl mx-auto">
-        Coach Osama reviews your answers, sends a short follow-up if needed,
-        and schedules your onboarding call within 24 hours.
-      </p>
+      <h3 class="text-xl mb-2">{{ pages.contact.en.process.title }}</h3>
+      <p class="text-brand-off/70 max-w-xl mx-auto">{{ pages.contact.en.process.description }}</p>
     </div>
   </div>
 </section>

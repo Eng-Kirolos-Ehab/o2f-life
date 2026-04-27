@@ -6,309 +6,131 @@ description: "Restore your youth and radiance with our innovative anti-aging pro
 <section class="grid-bg relative overflow-hidden">
   <div class="absolute top-10 -right-20 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl animate-pulse-soft pointer-events-none"></div>
   <div class="absolute bottom-10 -left-20 w-80 h-80 rounded-full bg-brand-gold/15 blur-3xl animate-pulse-soft pointer-events-none" style="animation-delay:1.5s"></div>
-
   <div class="container-x py-16 sm:py-24 relative">
-    <p class="section-kicker" data-aos="fade-up">🌿 Anti-aging Package</p>
+    <p class="section-kicker" data-aos="fade-up">{{ pages.antiaging.en.hero.kicker }}</p>
     <h1 class="section-title text-balance mb-4" data-aos="fade-up" data-aos-delay="100">
-      <span class="gradient-mint-text animate-gradient">Restore</span> your youth and radiance<br>
-      with our innovative anti-aging program. ✨
+      <span class="gradient-mint-text animate-gradient">{{ pages.antiaging.en.hero.title_gradient }}</span> {{ pages.antiaging.en.hero.title_rest }}<br>
+      {{ pages.antiaging.en.hero.title_line2 }}
     </h1>
-    <p class="text-lg text-brand-off/75 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-      Regain a youthful, healthy appearance through our personalized anti-aging
-      program — a suite of custom plans to improve skin health, boost energy,
-      and enhance self-confidence and vitality.
-    </p>
+    <p class="text-lg text-brand-off/75 max-w-2xl" data-aos="fade-up" data-aos-delay="200">{{ pages.antiaging.en.hero.description }}</p>
     <div class="flex flex-wrap gap-3 mt-8" data-aos="fade-up" data-aos-delay="300">
-      <a href="{{ '/en/contact/?service=anti-aging' | url }}" class="btn-primary">Book a consultation</a>
-      <a href="#package-details" class="btn-ghost">See package details</a>
+      <a href="{{ '/en/contact/?service=anti-aging' | url }}" class="btn-primary">{{ pages.antiaging.en.hero.cta_primary }}</a>
+      <a href="#package-details" class="btn-ghost">{{ pages.antiaging.en.hero.cta_secondary }}</a>
     </div>
   </div>
 </section>
 
-{# RESULTS SECTION #}
 <section class="section">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">Results you can expect</p>
-    <h2 class="section-title mb-6" data-aos="fade-up" data-aos-delay="100">The Results You Can Achieve After Treatment.</h2>
+    <p class="section-kicker" data-aos="fade-up">{{ pages.antiaging.en.results.kicker }}</p>
+    <h2 class="section-title mb-6" data-aos="fade-up" data-aos-delay="100">{{ pages.antiaging.en.results.title }}</h2>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="100">
-        <div class="text-2xl mb-2">🫀</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Improved Internal Organ Function</h3>
-        <p class="text-brand-off/70 text-sm">Enhancing the performance of all internal organs.</p>
+      {% for item in pages.antiaging.en.results.items %}
+      <div class="card card-hover" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+        <div class="text-2xl mb-2">{{ item.emoji }}</div>
+        <h3 class="text-lg mb-2 text-brand-mint">{{ item.title }}</h3>
+        <p class="text-brand-off/70 text-sm">{{ item.text }}</p>
       </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="150">
-        <div class="text-2xl mb-2">⚡</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Relief from Chronic Fatigue & Productivity</h3>
-        <p class="text-brand-off/70 text-sm">Boosting energy levels and work capacity.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="200">
-        <div class="text-2xl mb-2">✨</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Cosmetic Benefits</h3>
-        <p class="text-brand-off/70 text-sm">Tighter skin, improved elasticity, rejuvenation, enhanced hair texture and growth.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="250">
-        <div class="text-2xl mb-2">🧘</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Psychological & Mood Enhancement</h3>
-        <p class="text-brand-off/70 text-sm">Improving overall mental well-being and mood stability.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="300">
-        <div class="text-2xl mb-2">🧠</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Cognitive & Memory Improvements</h3>
-        <p class="text-brand-off/70 text-sm">Maintaining intellectual abilities, quick thinking, and high performance.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="350">
-        <div class="text-2xl mb-2">💪</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Motor Function Enhancements</h3>
-        <p class="text-brand-off/70 text-sm">Preserving muscle strength, joint health, spinal alignment, and overall mobility.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="400">
-        <div class="text-2xl mb-2">❤️</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Cardiovascular & Endocrine Prevention</h3>
-        <p class="text-brand-off/70 text-sm">Reducing the risk of heart disease, hypertension, and endocrine disorders.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="450">
-        <div class="text-2xl mb-2">🔥</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Enhanced Libido & Sexual Function</h3>
-        <p class="text-brand-off/70 text-sm">Improving sexual desire and performance.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="500">
-        <div class="text-2xl mb-2">⏳</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Biological Age Preservation</h3>
-        <p class="text-brand-off/70 text-sm">Maintaining youthful vitality and slowing down aging effects.</p>
-      </div>
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="550">
-        <div class="text-2xl mb-2">🛡️</div>
-        <h3 class="text-lg mb-2 text-brand-mint">Immune & Hormonal Boost</h3>
-        <p class="text-brand-off/70 text-sm">Strengthening the immune system and balancing hormones.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-{# WHAT WE OFFER YOU — added section #}
 <section class="section bg-white/[0.02]">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">What we offer</p>
-    <h2 class="section-title mb-10" data-aos="fade-up" data-aos-delay="100">A complete approach — not just one tool.</h2>
+    <p class="section-kicker" data-aos="fade-up">{{ pages.antiaging.en.what_we_offer.kicker }}</p>
+    <h2 class="section-title mb-10" data-aos="fade-up" data-aos-delay="100">{{ pages.antiaging.en.what_we_offer.title }}</h2>
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="card card-hover overflow-hidden p-0" data-aos="fade-up" data-aos-delay="100">
-        <div class="aspect-video bg-gradient-to-br from-brand-mint/20 to-brand-gold/20 flex items-center justify-center text-5xl">🔬</div>
+      {% for item in pages.antiaging.en.what_we_offer.items %}
+      <div class="card card-hover overflow-hidden p-0" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+        <div class="aspect-video bg-gradient-to-br from-brand-mint/20 to-brand-gold/20 flex items-center justify-center text-5xl">{{ item.emoji }}</div>
         <div class="p-6">
-          <h3 class="text-xl mb-2 text-brand-mint">Advanced technologies for better health</h3>
-          <p class="text-brand-off/70 text-sm">
-            Benefit from the latest innovations in health and nutrition — a combination of proper nutrition,
-            targeted exercise, and natural treatments to help you resist the signs of time.
-          </p>
+          <h3 class="text-xl mb-2 text-brand-mint">{{ item.title }}</h3>
+          <p class="text-brand-off/70 text-sm">{{ item.text }}</p>
         </div>
       </div>
-      <div class="card card-hover overflow-hidden p-0" data-aos="fade-up" data-aos-delay="200">
-        <div class="aspect-video bg-gradient-to-br from-brand-gold/20 to-brand-mint/20 flex items-center justify-center text-5xl">🌿</div>
-        <div class="p-6">
-          <h3 class="text-xl mb-2 text-brand-mint">Guaranteed natural remedies & supplements</h3>
-          <p class="text-brand-off/70 text-sm">
-            Our programs are designed to provide the best natural supplements and organic products
-            that support a youthful body and skin.
-          </p>
-        </div>
-      </div>
-      <div class="card card-hover overflow-hidden p-0" data-aos="fade-up" data-aos-delay="300">
-        <div class="aspect-video bg-gradient-to-br from-brand-mint/25 to-brand-ink flex items-center justify-center text-5xl">💪</div>
-        <div class="p-6">
-          <h3 class="text-xl mb-2 text-brand-mint">Fitness plans designed just for you</h3>
-          <p class="text-brand-off/70 text-sm">
-            Enjoy specialized fitness sessions aimed at enhancing flexibility, building strength,
-            and rejuvenating your energy.
-          </p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-{# TIMELINE — added section #}
 <section class="section">
   <div class="container-x max-w-4xl">
-    <h2 class="section-title mb-4" data-aos="fade-up">How long do you need to begin your journey to renewed youth?</h2>
-    <p class="text-brand-off/75 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="100">
-      We believe that true transformation comes with consistency —
-      and our program is designed to give you noticeable, long-lasting results.
-    </p>
+    <h2 class="section-title mb-4" data-aos="fade-up">{{ pages.antiaging.en.timeline.title }}</h2>
+    <p class="text-brand-off/75 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="100">{{ pages.antiaging.en.timeline.description }}</p>
     <div class="space-y-4">
-      <div class="card card-hover flex gap-4 items-start" data-aos="fade-right" data-aos-delay="100">
-        <div class="shrink-0 w-14 h-14 rounded-xl bg-brand-mint/20 border border-brand-mint/40 flex items-center justify-center text-brand-mint font-bold">3M</div>
+      {% for item in pages.antiaging.en.timeline.items %}
+      <div class="card card-hover flex gap-4 items-start" data-aos="fade-right" data-aos-delay="{{ loop.index * 100 }}">
+        <div class="shrink-0 w-14 h-14 rounded-xl {% if loop.index == 1 %}bg-brand-mint/20 border border-brand-mint/40 text-brand-mint{% else %}bg-brand-gold/20 border border-brand-gold/40 text-brand-gold{% endif %} flex items-center justify-center font-bold">{{ item.label }}</div>
         <div>
-          <h3 class="text-lg text-brand-mint mb-1">In the First 3 Months</h3>
-          <p class="text-brand-off/75 text-sm">
-            You will feel a significant difference. Renewed energy, a more radiant appearance,
-            and improved health inside and out. This period is enough for you to start
-            seeing tangible results in your daily life.
-          </p>
+          <h3 class="text-lg text-brand-mint mb-1">{{ item.title }}</h3>
+          <p class="text-brand-off/75 text-sm">{{ item.text }}</p>
         </div>
       </div>
-      <div class="card card-hover flex gap-4 items-start" data-aos="fade-right" data-aos-delay="200">
-        <div class="shrink-0 w-14 h-14 rounded-xl bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold font-bold">6M</div>
-        <div>
-          <h3 class="text-lg text-brand-mint mb-1">In 6 Months</h3>
-          <p class="text-brand-off/75 text-sm">
-            You will experience a complete transformation — not just in your outward appearance,
-            but also in your energy levels and self-confidence. You will develop sustainable
-            healthy habits that bring back your true youth.
-          </p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
-    <p class="text-center text-brand-mint italic mt-8 text-lg" data-aos="fade-up">
-      Youth isn't just a dream — make it your reality today.
-    </p>
+    <p class="text-center text-brand-mint italic mt-8 text-lg" data-aos="fade-up">{{ pages.antiaging.en.timeline.closing }}</p>
   </div>
 </section>
 
-{# FOUNDER STORY #}
 <section class="section bg-white/[0.02]">
   <div class="container-x">
-    <h2 class="section-title mb-4" data-aos="fade-up">Are you experiencing signs of aging?</h2>
+    <h2 class="section-title mb-4" data-aos="fade-up">{{ pages.antiaging.en.founder.title }}</h2>
     <div class="max-w-3xl space-y-4">
-      <p class="text-brand-off/80" data-aos="fade-up" data-aos-delay="100">
-        Premature aging has become one of the greatest challenges of modern life.
-        We chase solutions constantly — sometimes with chemical treatments,
-        sometimes through inherited habits and misconceptions.
-      </p>
-      <p class="text-brand-off/80" data-aos="fade-up" data-aos-delay="200">
-        I chose a different path. I studied, researched, and tested for years —
-        and I've taken it upon myself to find a <strong class="text-brand-mint">real</strong> solution.
-      </p>
-      <p class="text-brand-off/80" data-aos="fade-up" data-aos-delay="300">
-        And I'm living proof: past 40 and still enjoying a level of health that matches —
-        and exceeds — my age. Why wait, when the results speak for themselves? Join me on this
-        journey and let's prove together that <em>age is just a number</em>.
-      </p>
+      {% for p in pages.antiaging.en.founder.paragraphs %}
+      <p class="text-brand-off/80" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">{{ p | safe }}</p>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-{# PACKAGE DETAILS — added section with 6 categories #}
 <section id="package-details" class="section">
   <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">Package Details</p>
-    <h2 class="section-title mb-10" data-aos="fade-up" data-aos-delay="100">Forever Youth Package</h2>
-
+    <p class="section-kicker" data-aos="fade-up">{{ pages.antiaging.en.package.kicker }}</p>
+    <h2 class="section-title mb-10" data-aos="fade-up" data-aos-delay="100">{{ pages.antiaging.en.package.title }}</h2>
     <div class="grid md:grid-cols-2 gap-5">
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="100">
-        <div class="text-3xl mb-3">🗓️</div>
-        <h3 class="text-xl mb-3 text-brand-mint">Personalized Consultations</h3>
+      {% for item in pages.antiaging.en.package.items %}
+      <div class="card card-hover" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+        <div class="text-3xl mb-3">{{ item.emoji }}</div>
+        <h3 class="text-xl mb-3 text-brand-mint">{{ item.title }}</h3>
         <ul class="space-y-3 text-brand-off/80 text-sm">
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Biological Age vs. Chronological Age Assessment Sessions:</strong> Discover your body's true age based on your health and lifestyle.</div>
-          </li>
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Customized Nutrition Consultations to Stimulate Anti-Aging:</strong> Nutritional advice specifically designed to support your overall health and combat the effects of time.</div>
-          </li>
+          {% for pt in item.points %}
+          <li class="flex gap-2"><span class="text-brand-mint">✓</span><div><strong>{{ pt.bold }}</strong> {{ pt.text }}</div></li>
+          {% endfor %}
         </ul>
       </div>
-
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="200">
-        <div class="text-3xl mb-3">🌱</div>
-        <h3 class="text-xl mb-3 text-brand-mint">Nutrition & Natural Therapies</h3>
-        <ul class="space-y-3 text-brand-off/80 text-sm">
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Collagen-boosting nutritional programs:</strong> Strengthen the skin and improve joint flexibility for a younger look and feel.</div>
-          </li>
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Natural herbal recipes:</strong> Natural ingredients to support overall health and stimulate cellular renewal.</div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="300">
-        <div class="text-3xl mb-3">🏋️</div>
-        <h3 class="text-xl mb-3 text-brand-mint">Customized Sports Training</h3>
-        <ul class="space-y-3 text-brand-off/80 text-sm">
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Exercises to stimulate youth and energy hormones:</strong> Such as growth hormone to ensure an active and vibrant body.</div>
-          </li>
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Flexibility and muscle-strengthening programs:</strong> Help reduce physical stress and improve daily performance.</div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="400">
-        <div class="text-3xl mb-3">🧘</div>
-        <h3 class="text-xl mb-3 text-brand-mint">Lifestyle Management</h3>
-        <ul class="space-y-3 text-brand-off/80 text-sm">
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Stress & stress management techniques:</strong> Because stress increases the signs of aging, we offer you solutions to reduce its impact.</div>
-          </li>
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Sleep Improvement Programs:</strong> Strategies to improve your nightly sleep, which supports the body's natural repair processes.</div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="500">
-        <div class="text-3xl mb-3">💆</div>
-        <h3 class="text-xl mb-3 text-brand-mint">Skin & Body Care</h3>
-        <ul class="space-y-3 text-brand-off/80 text-sm">
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Skincare tips using natural ingredients:</strong> Support skin health in a safe and effective way.</div>
-          </li>
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Masks and herbal recipes:</strong> To renew skin cells and restore vitality.</div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="card card-hover" data-aos="fade-up" data-aos-delay="600">
-        <div class="text-3xl mb-3">💊</div>
-        <h3 class="text-xl mb-3 text-brand-mint">Nutritional Supplements & Antioxidants</h3>
-        <ul class="space-y-3 text-brand-off/80 text-sm">
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Introduction to the most important nutritional supplements:</strong> Such as collagen, turmeric, and antioxidants to support eternal youth.</div>
-          </li>
-          <li class="flex gap-2"><span class="text-brand-mint">✓</span>
-            <div><strong>Safe-use guide:</strong> With expert follow-up to ensure the best results.</div>
-          </li>
-        </ul>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-{# PRICING OFFERS — added section #}
 <section class="section bg-white/[0.02]">
   <div class="container-x max-w-4xl">
-    <p class="section-kicker text-center" data-aos="fade-up">Limited-time offers</p>
-    <h2 class="section-title text-center mb-10" data-aos="fade-up" data-aos-delay="100">Choose your journey.</h2>
+    <p class="section-kicker text-center" data-aos="fade-up">{{ pages.antiaging.en.pricing.kicker }}</p>
+    <h2 class="section-title text-center mb-10" data-aos="fade-up" data-aos-delay="100">{{ pages.antiaging.en.pricing.title }}</h2>
     <div class="grid sm:grid-cols-2 gap-5">
-      <div class="card card-hover text-center" data-aos="fade-right">
-        <div class="text-sm text-brand-off/60 uppercase tracking-wider mb-2">3-month package</div>
-        <div class="text-5xl font-bold text-brand-mint mb-2">1200 <span class="text-xl">SAR</span></div>
-        <p class="text-brand-off/70 text-sm mb-6">Start seeing visible transformation.</p>
-        <a href="{{ '/en/contact/?service=anti-aging-3m' | url }}" class="btn-ghost w-full justify-center">Book 3 months</a>
+      {% for plan in pages.antiaging.en.pricing.plans %}
+      <div class="card card-hover text-center {% if plan.highlight %}ring-2 ring-brand-mint/50 relative{% endif %}" data-aos="{% if loop.index == 1 %}fade-right{% else %}fade-left{% endif %}">
+        {% if plan.badge %}<span class="absolute -top-3 left-1/2 -translate-x-1/2 chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">{{ plan.badge }}</span>{% endif %}
+        <div class="text-sm text-brand-off/60 uppercase tracking-wider mb-2">{{ plan.label }}</div>
+        <div class="text-5xl font-bold text-brand-mint mb-2">{{ plan.price }} <span class="text-xl">{{ plan.currency }}</span></div>
+        <p class="text-brand-off/70 text-sm mb-6">{{ plan.description }}</p>
+        <a href="{{ ('/en/contact/?service=anti-aging-' + loop.index + 'm') | url }}" class="{% if plan.highlight %}btn-primary{% else %}btn-ghost{% endif %} w-full justify-center">{{ plan.cta }}</a>
       </div>
-      <div class="card card-hover text-center ring-2 ring-brand-mint/50 relative" data-aos="fade-left">
-        <span class="absolute -top-3 left-1/2 -translate-x-1/2 chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">Best value</span>
-        <div class="text-sm text-brand-off/60 uppercase tracking-wider mb-2">6-month package</div>
-        <div class="text-5xl font-bold text-brand-mint mb-2">2000 <span class="text-xl">SAR</span></div>
-        <p class="text-brand-off/70 text-sm mb-6">Full transformation — habits and results that last.</p>
-        <a href="{{ '/en/contact/?service=anti-aging-6m' | url }}" class="btn-primary w-full justify-center">Book 6 months</a>
-      </div>
+      {% endfor %}
     </div>
-    <p class="text-center text-brand-off/60 text-xs mt-6" data-aos="fade-up">
-      Prices vary by region — contact us for local pricing in Egypt or international.
-    </p>
+    <p class="text-center text-brand-off/60 text-xs mt-6" data-aos="fade-up">{{ pages.antiaging.en.pricing.note }}</p>
   </div>
 </section>
 
-{# FINAL CTA #}
 <section class="section">
   <div class="container-x">
     <div class="relative rounded-xl2 overflow-hidden bg-gradient-to-br from-brand-mint/20 via-brand-mint/10 to-brand-ink p-8 sm:p-12 border border-brand-mint/30" data-aos="zoom-in">
       <div class="absolute top-0 right-0 w-64 h-64 rounded-full bg-brand-mint/20 blur-3xl animate-pulse-soft"></div>
       <div class="relative text-center max-w-2xl mx-auto">
-        <h2 class="text-2xl sm:text-3xl mb-3">Start your rejuvenation today.</h2>
-        <p class="text-brand-off/80 mb-6">Youth isn't just a dream — make it your reality today.</p>
-        <a href="{{ '/en/contact/?service=anti-aging' | url }}" class="btn-primary">Book a consultation</a>
+        <h2 class="text-2xl sm:text-3xl mb-3">{{ pages.antiaging.en.cta.title }}</h2>
+        <p class="text-brand-off/80 mb-6">{{ pages.antiaging.en.cta.description }}</p>
+        <a href="{{ '/en/contact/?service=anti-aging' | url }}" class="btn-primary">{{ pages.antiaging.en.cta.button }}</a>
       </div>
     </div>
   </div>

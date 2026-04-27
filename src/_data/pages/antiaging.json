@@ -1,0 +1,322 @@
+{
+  "en": {
+    "seo": {
+      "title": "Anti-aging Package",
+      "description": "Restore your youth and radiance with our innovative anti-aging program — skin, energy, mood, memory, hormones, and biological age."
+    },
+    "hero": {
+      "kicker": "🌿 Anti-aging Package",
+      "title_gradient": "Restore",
+      "title_rest": "your youth and radiance",
+      "title_line2": "with our innovative anti-aging program. ✨",
+      "description": "Regain a youthful, healthy appearance through our personalized anti-aging program — a suite of custom plans to improve skin health, boost energy, and enhance self-confidence and vitality.",
+      "cta_primary": "Book a consultation",
+      "cta_secondary": "See package details"
+    },
+    "results": {
+      "kicker": "Results you can expect",
+      "title": "The Results You Can Achieve After Treatment.",
+      "items": [
+        { "emoji": "🫀", "title": "Improved Internal Organ Function", "text": "Enhancing the performance of all internal organs." },
+        { "emoji": "⚡", "title": "Relief from Chronic Fatigue & Productivity", "text": "Boosting energy levels and work capacity." },
+        { "emoji": "✨", "title": "Cosmetic Benefits", "text": "Tighter skin, improved elasticity, rejuvenation, enhanced hair texture and growth." },
+        { "emoji": "🧘", "title": "Psychological & Mood Enhancement", "text": "Improving overall mental well-being and mood stability." },
+        { "emoji": "🧠", "title": "Cognitive & Memory Improvements", "text": "Maintaining intellectual abilities, quick thinking, and high performance." },
+        { "emoji": "💪", "title": "Motor Function Enhancements", "text": "Preserving muscle strength, joint health, spinal alignment, and overall mobility." },
+        { "emoji": "❤️", "title": "Cardiovascular & Endocrine Prevention", "text": "Reducing the risk of heart disease, hypertension, and endocrine disorders." },
+        { "emoji": "🔥", "title": "Enhanced Libido & Sexual Function", "text": "Improving sexual desire and performance." },
+        { "emoji": "⏳", "title": "Biological Age Preservation", "text": "Maintaining youthful vitality and slowing down aging effects." },
+        { "emoji": "🛡️", "title": "Immune & Hormonal Boost", "text": "Strengthening the immune system and balancing hormones." }
+      ]
+    },
+    "what_we_offer": {
+      "kicker": "What we offer",
+      "title": "A complete approach — not just one tool.",
+      "items": [
+        {
+          "emoji": "🔬",
+          "title": "Advanced technologies for better health",
+          "text": "Benefit from the latest innovations in health and nutrition — a combination of proper nutrition, targeted exercise, and natural treatments to help you resist the signs of time."
+        },
+        {
+          "emoji": "🌿",
+          "title": "Guaranteed natural remedies & supplements",
+          "text": "Our programs are designed to provide the best natural supplements and organic products that support a youthful body and skin."
+        },
+        {
+          "emoji": "💪",
+          "title": "Fitness plans designed just for you",
+          "text": "Enjoy specialized fitness sessions aimed at enhancing flexibility, building strength, and rejuvenating your energy."
+        }
+      ]
+    },
+    "timeline": {
+      "title": "How long do you need to begin your journey to renewed youth?",
+      "description": "We believe that true transformation comes with consistency — and our program is designed to give you noticeable, long-lasting results.",
+      "items": [
+        {
+          "label": "3M",
+          "title": "In the First 3 Months",
+          "text": "You will feel a significant difference. Renewed energy, a more radiant appearance, and improved health inside and out. This period is enough for you to start seeing tangible results in your daily life."
+        },
+        {
+          "label": "6M",
+          "title": "In 6 Months",
+          "text": "You will experience a complete transformation — not just in your outward appearance, but also in your energy levels and self-confidence. You will develop sustainable healthy habits that bring back your true youth."
+        }
+      ],
+      "closing": "Youth isn't just a dream — make it your reality today."
+    },
+    "founder": {
+      "title": "Are you experiencing signs of aging?",
+      "paragraphs": [
+        "Premature aging has become one of the greatest challenges of modern life. We chase solutions constantly — sometimes with chemical treatments, sometimes through inherited habits and misconceptions.",
+        "I chose a different path. I studied, researched, and tested for years — and I've taken it upon myself to find a <strong class=\"text-brand-mint\">real</strong> solution.",
+        "And I'm living proof: past 40 and still enjoying a level of health that matches — and exceeds — my age. Why wait, when the results speak for themselves? Join me on this journey and let's prove together that <em>age is just a number</em>."
+      ]
+    },
+    "package": {
+      "kicker": "Package Details",
+      "title": "Forever Youth Package",
+      "items": [
+        {
+          "emoji": "🗓️",
+          "title": "Personalized Consultations",
+          "points": [
+            { "bold": "Biological Age vs. Chronological Age Assessment Sessions:", "text": "Discover your body's true age based on your health and lifestyle." },
+            { "bold": "Customized Nutrition Consultations to Stimulate Anti-Aging:", "text": "Nutritional advice specifically designed to support your overall health and combat the effects of time." }
+          ]
+        },
+        {
+          "emoji": "🌱",
+          "title": "Nutrition & Natural Therapies",
+          "points": [
+            { "bold": "Collagen-boosting nutritional programs:", "text": "Strengthen the skin and improve joint flexibility for a younger look and feel." },
+            { "bold": "Natural herbal recipes:", "text": "Natural ingredients to support overall health and stimulate cellular renewal." }
+          ]
+        },
+        {
+          "emoji": "🏋️",
+          "title": "Customized Sports Training",
+          "points": [
+            { "bold": "Exercises to stimulate youth and energy hormones:", "text": "Such as growth hormone to ensure an active and vibrant body." },
+            { "bold": "Flexibility and muscle-strengthening programs:", "text": "Help reduce physical stress and improve daily performance." }
+          ]
+        },
+        {
+          "emoji": "🧘",
+          "title": "Lifestyle Management",
+          "points": [
+            { "bold": "Stress & stress management techniques:", "text": "Because stress increases the signs of aging, we offer you solutions to reduce its impact." },
+            { "bold": "Sleep Improvement Programs:", "text": "Strategies to improve your nightly sleep, which supports the body's natural repair processes." }
+          ]
+        },
+        {
+          "emoji": "💆",
+          "title": "Skin & Body Care",
+          "points": [
+            { "bold": "Skincare tips using natural ingredients:", "text": "Support skin health in a safe and effective way." },
+            { "bold": "Masks and herbal recipes:", "text": "To renew skin cells and restore vitality." }
+          ]
+        },
+        {
+          "emoji": "💊",
+          "title": "Nutritional Supplements & Antioxidants",
+          "points": [
+            { "bold": "Introduction to the most important nutritional supplements:", "text": "Such as collagen, turmeric, and antioxidants to support eternal youth." },
+            { "bold": "Safe-use guide:", "text": "With expert follow-up to ensure the best results." }
+          ]
+        }
+      ]
+    },
+    "pricing": {
+      "kicker": "Limited-time offers",
+      "title": "Choose your journey.",
+      "note": "Prices vary by region — contact us for local pricing in Egypt or international.",
+      "plans": [
+        {
+          "label": "3-month package",
+          "price": "1200",
+          "currency": "SAR",
+          "description": "Start seeing visible transformation.",
+          "cta": "Book 3 months",
+          "highlight": false
+        },
+        {
+          "label": "6-month package",
+          "price": "2000",
+          "currency": "SAR",
+          "description": "Full transformation — habits and results that last.",
+          "cta": "Book 6 months",
+          "badge": "Best value",
+          "highlight": true
+        }
+      ]
+    },
+    "cta": {
+      "title": "Start your rejuvenation today.",
+      "description": "Youth isn't just a dream — make it your reality today.",
+      "button": "Book a consultation"
+    }
+  },
+  "ar": {
+    "seo": {
+      "title": "باقة مكافحة الشيخوخة",
+      "description": "استعد شبابك وإشراقك مع برنامج الكابتن أسامة المبتكر لمكافحة الشيخوخة — البشرة، الطاقة، المزاج، الذاكرة، والهرمونات."
+    },
+    "hero": {
+      "kicker": "🌿 باقة مكافحة الشيخوخة",
+      "title_gradient": "استعد",
+      "title_rest": "شبابك وإشراقك",
+      "title_line2": "مع برنامجنا المبتكر لمكافحة الشيخوخة. ✨",
+      "description": "استعد مظهرك الشبابي الصحي من خلال برنامجنا المخصّص لمكافحة الشيخوخة — مجموعة خطط متكاملة لتحسين صحة البشرة، رفع الطاقة، وتعزيز الثقة بالنفس والحيوية.",
+      "cta_primary": "احجز استشارة",
+      "cta_secondary": "شوف تفاصيل الباقة"
+    },
+    "results": {
+      "kicker": "النتائج اللي هتحسّها",
+      "title": "النتائج اللي هتحقّقها بعد البرنامج.",
+      "items": [
+        { "emoji": "🫀", "title": "تحسين وظائف الأعضاء الداخلية", "text": "رفع أداء كل الأجهزة الداخلية." },
+        { "emoji": "⚡", "title": "التخلّص من التعب المزمن", "text": "زيادة مستويات الطاقة وقدرة العمل." },
+        { "emoji": "✨", "title": "فوايد جمالية", "text": "شدّ البشرة، تحسين مرونتها، تجديد الخلايا، ونمو شعر أكثر صحة." },
+        { "emoji": "🧘", "title": "تحسين نفسي ومزاجي", "text": "تحسين الحالة النفسية العامة واستقرار المزاج." },
+        { "emoji": "🧠", "title": "تحسين المعرفة والذاكرة", "text": "الحفاظ على القدرات العقلية والتفكير السريع والأداء العالي." },
+        { "emoji": "💪", "title": "تعزيز الوظائف الحركية", "text": "الحفاظ على قوة العضلات، صحة المفاصل، واستقامة العمود الفقري." },
+        { "emoji": "❤️", "title": "الوقاية من أمراض القلب والغدد", "text": "تقليل مخاطر أمراض القلب، الضغط، واضطرابات الغدد الصم." },
+        { "emoji": "🔥", "title": "تعزيز الرغبة والوظيفة الجنسية", "text": "تحسين الرغبة الجنسية والأداء." },
+        { "emoji": "⏳", "title": "الحفاظ على العمر البيولوجي", "text": "الحفاظ على حيوية الشباب وإبطاء آثار الشيخوخة." },
+        { "emoji": "🛡️", "title": "تقوية المناعة والهرمونات", "text": "تقوية الجهاز المناعي وتوازن الهرمونات." }
+      ]
+    },
+    "what_we_offer": {
+      "kicker": "إيه اللي بنقدّمه ليك",
+      "title": "منهج متكامل — مش أداة واحدة بس.",
+      "items": [
+        {
+          "emoji": "🔬",
+          "title": "تقنيات متقدّمة لصحّة أفضل",
+          "text": "استفد من أحدث الابتكارات في عالم الصحة والتغذية — اعتمادنا على الجمع بين التغذية السليمة، والتمرين المناسب، والعلاجات الطبيعية لمساعدتك على مقاومة علامات الزمن."
+        },
+        {
+          "emoji": "🌿",
+          "title": "علاجات طبيعية ومكمّلات مضمونة",
+          "text": "برامجنا مُصمَّمة لتقديم أفضل المكمّلات الطبيعية والمنتجات العضوية اللي بتدعم صحة الجسم والبشرة وشبابهما."
+        },
+        {
+          "emoji": "💪",
+          "title": "خطط لياقة مُفصّلة ليك",
+          "text": "استمتع بجلسات لياقة متخصّصة هدفها تعزيز المرونة، بناء القوة، وتجديد طاقتك."
+        }
+      ]
+    },
+    "timeline": {
+      "title": "قد إيه محتاج وقت تبدأ رحلة الشباب المتجدّد؟",
+      "description": "بنؤمن إن التحوّل الحقيقي بييجي مع الاستمرار — وبرنامجنا مُصمَّم خصّيصًا يقدّم لك نتائج ملحوظة دائمة.",
+      "items": [
+        {
+          "label": "٣ش",
+          "title": "في أول ٣ شهور",
+          "text": "هتحسّ بفرق كبير. طاقة متجدّدة، مظهر أكثر إشراقًا، وصحّة أحسن من جوّة ومن برّة. المدة دي كافية إنك تبدأ تشوف نتائج ملموسة في حياتك اليومية."
+        },
+        {
+          "label": "٦ش",
+          "title": "في ٦ شهور",
+          "text": "هتعيش تحوّل كامل! مش بس في مظهرك الخارجي، لكن كمان في مستويات طاقتك وثقتك بنفسك. هتبني عادات صحية مستدامة ترجع ليك شبابك الحقيقي."
+        }
+      ],
+      "closing": "الشباب مش مجرّد حلم — خلّيه واقعك النهارده."
+    },
+    "founder": {
+      "title": "بتحسّ بعلامات الشيخوخة؟",
+      "paragraphs": [
+        "الشيخوخة المبكّرة بقت من أكبر تحديات حياتنا المعاصرة. بنجري ورا حلول طول الوقت — أحيانًا بعلاجات كيميائية، وأحيانًا بعادات متوارثة ومفاهيم خاطئة.",
+        "أنا اخترت طريق مختلف. درست وبحثت وجرّبت لسنين — واتحمّلت مسؤولية إني ألاقي حلّ <strong class=\"text-brand-mint\">حقيقي</strong>.",
+        "وأنا دليل حيّ: فوق الأربعين ولسه متمتع بصحة توازي — بل وتفوق — سني. ليه الانتظار، والنتائج بتتكلم بنفسها؟ انضم لرحلتي ونثبت سوا إن <em>السن مجرّد رقم</em>."
+      ]
+    },
+    "package": {
+      "kicker": "تفاصيل الباقة",
+      "title": "باقة الشباب الدائم",
+      "items": [
+        {
+          "emoji": "🗓️",
+          "title": "استشارات شخصية",
+          "points": [
+            { "bold": "جلسات تقييم العمر البيولوجي مقابل العمر الزمني:", "text": "اكتشف عمر جسمك الحقيقي بناءً على صحّتك وأسلوب حياتك." },
+            { "bold": "استشارات تغذية مخصّصة لتحفيز مكافحة الشيخوخة:", "text": "نصائح غذائية مُصمَّمة خصّيصًا لدعم صحّتك العامة ومكافحة آثار الزمن." }
+          ]
+        },
+        {
+          "emoji": "🌱",
+          "title": "التغذية والعلاجات الطبيعية",
+          "points": [
+            { "bold": "برامج غذائية معزّزة للكولاجين:", "text": "لتقوية البشرة وتحسين مرونة المفاصل من أجل مظهر وإحساس أصغر سنًا." },
+            { "bold": "وصفات أعشاب طبيعية:", "text": "مكوّنات طبيعية لدعم الصحة العامة وتحفيز تجديد الخلايا." }
+          ]
+        },
+        {
+          "emoji": "🏋️",
+          "title": "تدريب رياضي مخصّص",
+          "points": [
+            { "bold": "تمارين لتحفيز هرمونات الشباب والطاقة:", "text": "زي هرمون النمو لضمان جسم نشيط وحيوي." },
+            { "bold": "برامج مرونة وتقوية عضلات:", "text": "لتقليل الضغط الجسدي وتحسين الأداء اليومي." }
+          ]
+        },
+        {
+          "emoji": "🧘",
+          "title": "إدارة أسلوب الحياة",
+          "points": [
+            { "bold": "تقنيات إدارة التوتر والضغط:", "text": "لأن التوتر بيزوّد علامات الشيخوخة، بنقدّم لك حلول لتقليل تأثيره." },
+            { "bold": "برامج تحسين النوم:", "text": "استراتيجيات لتحسين نومك الليلي، اللي بيدعم عمليات الإصلاح الطبيعية في جسمك." }
+          ]
+        },
+        {
+          "emoji": "💆",
+          "title": "العناية بالبشرة والجسم",
+          "points": [
+            { "bold": "نصائح للعناية بالبشرة بمكوّنات طبيعية:", "text": "لدعم صحة البشرة بطريقة آمنة وفعّالة." },
+            { "bold": "ماسكات ووصفات أعشاب:", "text": "لتجديد خلايا البشرة واستعادة الحيوية." }
+          ]
+        },
+        {
+          "emoji": "💊",
+          "title": "المكمّلات الغذائية ومضادّات الأكسدة",
+          "points": [
+            { "bold": "تعريف بأهم المكمّلات الغذائية:", "text": "زي الكولاجين، الكركم، ومضادات الأكسدة لدعم الشباب الأبدي." },
+            { "bold": "دليل الاستخدام الآمن:", "text": "بمتابعة متخصّصة لضمان أفضل النتائج." }
+          ]
+        }
+      ]
+    },
+    "pricing": {
+      "kicker": "عروض لفترة محدودة",
+      "title": "اختار رحلتك.",
+      "note": "الأسعار بتتغيّر حسب المنطقة — تواصل معانا للأسعار داخل مصر أو الدولية.",
+      "plans": [
+        {
+          "label": "باقة ٣ شهور",
+          "price": "1200",
+          "currency": "ر.س",
+          "description": "ابدأ تشوف تحوّل ملحوظ.",
+          "cta": "احجز ٣ شهور",
+          "highlight": false
+        },
+        {
+          "label": "باقة ٦ شهور",
+          "price": "2000",
+          "currency": "ر.س",
+          "description": "تحوّل كامل — عادات ونتائج بتدوم.",
+          "cta": "احجز ٦ شهور",
+          "badge": "أفضل قيمة",
+          "highlight": true
+        }
+      ]
+    },
+    "cta": {
+      "title": "ابدأ رحلة تجديد شبابك النهارده.",
+      "description": "الشباب مش مجرّد حلم — خلّيه واقعك النهارده.",
+      "button": "احجز استشارة"
+    }
+  }
+}

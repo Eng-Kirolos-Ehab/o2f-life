@@ -5,41 +5,27 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
 
 <section class="grid-bg">
   <div class="container-x py-16 sm:py-20">
-    <p class="section-kicker">About</p>
-    <h1 class="section-title text-balance mb-6">Welcome to Coach Osama's world.</h1>
+    <p class="section-kicker">{{ pages.about.en.hero.kicker }}</p>
+    <h1 class="section-title text-balance mb-6">{{ pages.about.en.hero.title }}</h1>
 
     <div class="grid lg:grid-cols-[1.1fr,1fr] gap-10 items-start">
       <div class="prose prose-invert max-w-none">
-        <p class="text-lg text-brand-off/80">
-          Hi, I'm <strong>Osama Omran</strong>, an online fitness coach who
-          believes in transformation <em>from the inside out</em>.
-        </p>
-        <p class="text-brand-off/75">
-          My background in naturopathic medicine fuels my passion for understanding
-          how food interacts with your body — not just the numbers on the scale.
-          I build custom training programs and weekly-tuned nutrition plans, but
-          what truly sets me apart is my focus on a <strong>holistic approach</strong>
-          to health and fitness.
-        </p>
-        <p class="text-brand-off/75">
-          My goal is to empower you to reach your fitness goals — from weight loss
-          to strength and mobility. Together, we'll build a personalized plan that
-          fits your lifestyle and helps you unlock your full potential.
-        </p>
+        <p class="text-lg text-brand-off/80">{{ pages.about.en.hero.intro | safe }}</p>
+        <p class="text-brand-off/75">{{ pages.about.en.hero.bio1 | safe }}</p>
+        <p class="text-brand-off/75">{{ pages.about.en.hero.bio2 }}</p>
 
-        <h2 class="text-2xl font-bold mt-8 mb-3">My promise</h2>
+        <h2 class="text-2xl font-bold mt-8 mb-3">{{ pages.about.en.hero.promise_title }}</h2>
         <ul class="text-brand-off/75 space-y-2">
-          <li>✓ A plan designed for <em>your</em> body and <em>your</em> goals — not a template.</li>
-          <li>✓ Ongoing, direct communication — you're never left alone.</li>
-          <li>✓ A sustainable approach you'll enjoy long after you hit your target.</li>
-          <li>✓ Science and nature, working together.</li>
+          {% for item in pages.about.en.hero.promise_items %}
+          <li>✓ {{ item | safe }}</li>
+          {% endfor %}
         </ul>
       </div>
 
       <div class="relative">
         <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-br from-brand-mint/30 to-brand-gold/20 blur-2xl"></div>
         <img src="{{ '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp' | url }}"
-             alt="Coach Osama Omran"
+             alt="{{ pages.about.en.hero.photo_alt }}"
              class="relative rounded-xl2 w-full object-cover shadow-card">
       </div>
     </div>
@@ -48,20 +34,14 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
 
 <section class="section">
   <div class="container-x">
-    <h2 class="section-title mb-8">Philosophy</h2>
+    <h2 class="section-title mb-8">{{ pages.about.en.philosophy.title }}</h2>
     <div class="grid md:grid-cols-3 gap-5">
+      {% for item in pages.about.en.philosophy.items %}
       <div class="card">
-        <h3 class="text-xl mb-2">Holistic</h3>
-        <p class="text-brand-off/70 text-sm">Real transformation touches training, nutrition, sleep, stress and biology. We work on all of it.</p>
+        <h3 class="text-xl mb-2">{{ item.title }}</h3>
+        <p class="text-brand-off/70 text-sm">{{ item.text }}</p>
       </div>
-      <div class="card">
-        <h3 class="text-xl mb-2">Personal</h3>
-        <p class="text-brand-off/70 text-sm">Your plan is designed around your body, schedule, culture and taste — not copy-pasted.</p>
-      </div>
-      <div class="card">
-        <h3 class="text-xl mb-2">Sustainable</h3>
-        <p class="text-brand-off/70 text-sm">Over 90% of our clients keep following their plans after hitting their goals. That's not luck — that's design.</p>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -69,8 +49,8 @@ description: "Meet Coach Osama Omran — online fitness coach with a naturopathi
 <section class="section">
   <div class="container-x">
     <div class="card text-center">
-      <h2 class="text-2xl sm:text-3xl mb-3">Let's start your transformation.</h2>
-      <a href="{{ '/en/contact/' | url }}" class="btn-primary mt-6">Book a free call</a>
+      <h2 class="text-2xl sm:text-3xl mb-3">{{ pages.about.en.cta.title }}</h2>
+      <a href="{{ '/en/contact/' | url }}" class="btn-primary mt-6">{{ pages.about.en.cta.button }}</a>
     </div>
   </div>
 </section>

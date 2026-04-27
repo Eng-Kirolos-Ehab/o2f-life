@@ -1,0 +1,166 @@
+{
+  "en": {
+    "seo": {
+      "title": "Methylene Blue",
+      "description": "Methylene Blue supplement — boost mental focus, cellular energy and long-term vitality. Trusted in science, medicine and wellness."
+    },
+    "hero": {
+      "badge": "Science-Backed Supplement",
+      "title_line1": "Fuel your mind.",
+      "title_line2_gradient": "Power your cells.",
+      "description": "A powerful and versatile <strong class=\"text-brand-off\">Methylene Blue</strong> supplement, trusted in science, medicine and wellness. Enhance cellular energy, sharpen <strong class=\"text-brand-off\">mental focus</strong>, and protect your body at the deepest levels.",
+      "cta_primary": "Order now →",
+      "cta_secondary": "How it works",
+      "trust_items": [
+        "Premium Quality",
+        "Science-Backed",
+        "Fast Shipping",
+        "Satisfaction Guarantee"
+      ]
+    },
+    "how_it_works": {
+      "kicker": "⚡ Supercharge your body & mind",
+      "title": "Methylene Blue works where energy begins.",
+      "description": "By boosting <strong>ATP production in the mitochondria</strong>, it powers every cell in your body and brain.",
+      "items": [
+        { "emoji": "🧠", "title": "Laser Focus", "text": "Sharper concentration and heightened productivity for work, study, and creative flow." },
+        { "emoji": "⚡", "title": "Cellular Energy", "text": "Boost cellular energy production at the mitochondrial level to keep you energized all day." },
+        { "emoji": "🛡️", "title": "Antioxidant Shield", "text": "Neutralizes free radicals and reduces oxidative stress to protect long-term health." },
+        { "emoji": "🔥", "title": "Mood Resilience", "text": "Improves emotional balance and supports a positive mindset for daily well-being." }
+      ]
+    },
+    "science": {
+      "kicker": "🔬 The science behind Methylene Blue",
+      "title": "How it works at the cellular level.",
+      "description": "Understanding why this remarkable supplement has become a sought-after nootropic.",
+      "items": [
+        { "emoji": "🔋", "title": "Mitochondrial Enhancement", "text": "Boost cellular energy by improving mitochondrial efficiency and ATP production." },
+        { "emoji": "🧬", "title": "Neuroprotection", "text": "Acts as a powerful antioxidant supporting neural pathways and cognitive function." },
+        { "emoji": "⚗️", "title": "Redox Cycling", "text": "Supports cellular respiration and may improve focus through enhanced metabolism." }
+      ]
+    },
+    "stats": {
+      "kicker": "📊 Proven Results",
+      "title": "Numbers that speak for themselves.",
+      "items": [
+        { "value": "95%", "label": "Customer Satisfaction" },
+        { "value": "10K+", "label": "Happy Users" },
+        { "value": "50+", "label": "Scientific Studies" },
+        { "value": "24/7", "label": "Support Available" }
+      ]
+    },
+    "use_cases": {
+      "kicker": "🎯 Where Methylene Blue Works",
+      "title": "Used across disciplines.",
+      "description": "From research labs to personal wellness — Methylene Blue shows promise across multiple fields.",
+      "items": [
+        { "emoji": "🔬", "title": "Research", "text": "Used for staining, mitochondrial research and cellular function testing." },
+        { "emoji": "💊", "title": "Medicine", "text": "Applied clinically under supervision for specific approved indications." },
+        { "emoji": "🧩", "title": "Brain Power", "text": "A popular nootropic context for focus, memory and learning support." },
+        { "emoji": "🌿", "title": "Wellness", "text": "Fights oxidative stress and promotes healthy aging and vitality." }
+      ]
+    },
+    "testimonials": {
+      "kicker": "💬 What people are saying",
+      "title": "Real stories from real customers.",
+      "items": [
+        { "quote": "Noticeable clarity and focus. Helped me power through long study sessions.", "name": "Omar S.", "role": "Medical Student" },
+        { "quote": "Great boost for productivity at work. Energy felt smoother and more stable.", "name": "Maya A.", "role": "Product Designer" },
+        { "quote": "My focus window got longer. Exactly what I needed for deep work.", "name": "Youssef K.", "role": "Software Engineer" }
+      ]
+    },
+    "cta": {
+      "title": "⚡ Ready to unlock your full potential?",
+      "description": "Don't settle for ordinary energy. With premium <strong>Methylene Blue</strong>, you can boost cellular energy, sharpen focus, and feel your best.",
+      "chips": ["Premium Quality", "Fast Shipping", "Science-Backed", "Satisfaction Guarantee", "24/7 Support"],
+      "button": "Order now"
+    },
+    "founder_quote": {
+      "text": "At our laboratory, we craft every batch of Methylene Blue with precision and strict quality control. We believe in the power of this compound to energize your cells and strengthen your mind and body. Our goal is simple: to deliver a product you can trust — pure, potent, and designed to help you perform at your absolute best.",
+      "name": "Coach Osama Omran",
+      "role": "CEO of O2F.life"
+    }
+  },
+  "ar": {
+    "seo": {
+      "title": "ميثيلين بلو",
+      "description": "مكمّل ميثيلين الأزرق — طاقة خلوية، تركيز ذهني، وحيوية طويلة الأمد. موثوق في العلم والطب والعافية."
+    },
+    "hero": {
+      "badge": "مكمّل مدعوم علميًا",
+      "title_line1": "اشحن عقلك.",
+      "title_line2_gradient": "قوّي خلاياك.",
+      "description": "مكمّل <strong class=\"text-brand-off\">ميثيلين أزرق</strong> قوي ومتعدّد الاستخدامات، موثوق في العلم والطب والعافية. يحسّن إنتاج الطاقة الخلوية، يدعم <strong class=\"text-brand-off\">التركيز الذهني</strong>، ويحمي جسمك على أعمق المستويات.",
+      "cta_primary": "اطلب الآن ←",
+      "cta_secondary": "إزاي بيشتغل",
+      "trust_items": [
+        "جودة عالية",
+        "مدعوم علميًا",
+        "شحن سريع",
+        "ضمان الرضا"
+      ]
+    },
+    "how_it_works": {
+      "kicker": "⚡ اشحن جسمك وعقلك",
+      "title": "ميثيلين بلو بيشتغل من أصل الطاقة.",
+      "description": "بيزوّد <strong>إنتاج الـATP في الميتوكوندريا</strong>، وبكده بيمدّ كل خلية في جسمك ومخك بالطاقة.",
+      "items": [
+        { "emoji": "🧠", "title": "تركيز ليزري", "text": "تركيز أعلى وإنتاجية أقوى للعمل، المذاكرة، والإبداع." },
+        { "emoji": "⚡", "title": "طاقة خلوية", "text": "يزوّد إنتاج الطاقة على مستوى الميتوكوندريا ليخلّيك نشيط طول اليوم." },
+        { "emoji": "🛡️", "title": "درع مضاد للأكسدة", "text": "يعادل الجذور الحرّة ويقلّل الإجهاد التأكسدي لحماية صحّتك على المدى البعيد." },
+        { "emoji": "🔥", "title": "استقرار مزاجي", "text": "يحسّن التوازن العاطفي ويدعم مزاج إيجابي في يومك." }
+      ]
+    },
+    "science": {
+      "kicker": "🔬 العلم وراء ميثيلين بلو",
+      "title": "إزاي بيشتغل على المستوى الخلوي.",
+      "description": "فهم إزاي المكمّل المميّز ده بيشتغل على مستوى الخلية بيوضّح ليه بقى من أهم المكمّلات المطلوبة.",
+      "items": [
+        { "emoji": "🔋", "title": "تحسين الميتوكوندريا", "text": "يزوّد الطاقة الخلوية بتحسين كفاءة الميتوكوندريا وإنتاج الـATP." },
+        { "emoji": "🧬", "title": "حماية عصبية", "text": "بيشتغل كمضاد أكسدة قوي لدعم المسارات العصبية والوظائف الإدراكية." },
+        { "emoji": "⚗️", "title": "دورة الأكسدة والاختزال", "text": "يدعم التنفّس الخلوي ويمكن يحسّن التركيز من خلال تعزيز الأيض." }
+      ]
+    },
+    "stats": {
+      "kicker": "📊 نتائج موثّقة",
+      "title": "أرقام تتكلّم عن نفسها.",
+      "items": [
+        { "value": "95%", "label": "رضا العملاء" },
+        { "value": "+10K", "label": "مستخدم سعيد" },
+        { "value": "+50", "label": "دراسة علمية" },
+        { "value": "24/7", "label": "دعم متاح" }
+      ]
+    },
+    "use_cases": {
+      "kicker": "🎯 فين ميثيلين بلو بيتستخدم",
+      "title": "استخدامات متعدّدة المجالات.",
+      "description": "من معامل البحث لصحّتك الشخصية — ميثيلين بلو بيقدّم فوايد في أكتر من مجال.",
+      "items": [
+        { "emoji": "🔬", "title": "الأبحاث", "text": "بيتستخدم في الصبغ، وأبحاث الميتوكوندريا، واختبار وظائف الخلايا." },
+        { "emoji": "💊", "title": "الطب", "text": "بيتستخدم إكلينيكيًا تحت إشراف طبي في حالات معتمدة." },
+        { "emoji": "🧩", "title": "قوّة المخ", "text": "معروف كمحسّن للتركيز، الذاكرة، والقدرة على التعلّم." },
+        { "emoji": "🌿", "title": "العافية", "text": "يحارب الإجهاد التأكسدي ويدعم الشيخوخة الصحية والحيوية." }
+      ]
+    },
+    "testimonials": {
+      "kicker": "💬 آراء العملاء",
+      "title": "قصص حقيقية من عملاء جرّبوا المنتج.",
+      "items": [
+        { "quote": "تركيز وصفاء ذهني ملحوظ. ساعدني أركّز في جلسات المذاكرة الطويلة.", "name": "عمر س.", "role": "طالب طب" },
+        { "quote": "دفعة إنتاجية ممتازة في الشغل. الطاقة كانت سلسة ومستقرة.", "name": "مايا أ.", "role": "مصمّمة منتجات" },
+        { "quote": "فترة تركيزي طوّلت. دا بالظبط اللي كنت محتاجه للشغل العميق.", "name": "يوسف ك.", "role": "مهندس برمجيات" }
+      ]
+    },
+    "cta": {
+      "title": "⚡ جاهز تفتح إمكاناتك الكاملة؟",
+      "description": "متقبلش طاقة عادية. مع <strong>ميثيلين بلو</strong> المميّز، تقدر ترفع طاقتك الخلوية، تحدّد تركيزك، وتحسّ بأحسن نسخة منك.",
+      "chips": ["جودة عالية", "شحن سريع", "مدعوم علميًا", "ضمان الرضا", "دعم 24/7"],
+      "button": "اطلب الآن"
+    },
+    "founder_quote": {
+      "text": "في معملنا، بنُعدّ كل دفعة من ميثيلين بلو بدقّة وتحت مراقبة جودة صارمة. بنؤمن بقدرة هذا المركّب على شحن خلاياك وتقوية عقلك وجسمك. هدفنا بسيط: منتج تقدر تثق فيه — نقي، قوي، ومُصمَّم يساعدك تقدّم أحسن أداء ممكن.",
+      "name": "الكابتن أسامة عمران",
+      "role": "مؤسّس O2F.life"
+    }
+  }
+}
