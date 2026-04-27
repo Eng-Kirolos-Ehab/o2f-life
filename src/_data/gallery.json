@@ -22,5 +22,51 @@
       "desc_en": "Transformation is not a solo journey. We’re here to support and motivate you until you reach your goal."
     }
   ],
-  "images": []
+  "images": [
+    {
+      "src": "/assets/images/1777309558771_9.png",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309562489_8.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309563723_7.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309564893_6.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309566489_5.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309567839_4.png",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309570055_3.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309571346_2.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    },
+    {
+      "src": "/assets/images/1777309572625_1.webp",
+      "alt_en": "New image",
+      "alt_ar": "صورة جديدة"
+    }
+  ]
 }
