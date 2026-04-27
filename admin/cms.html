@@ -483,25 +483,8 @@
       <!-- ══ PAGES SECTION ══ -->
       <div id="section-pages" style="display:none">
 
-        <!-- Token gate (shares sessionStorage key with JSON editor) -->
-        <div id="pages-token-gate" class="token-gate">
-          <div class="info-box">
-            <svg class="info-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <div class="info-text">
-              تحتاج <strong>GitHub Personal Access Token</strong> لتعديل محتوى الصفحات.
-              إذا اتصلت سابقًا في قسم <strong>محرر JSON</strong>، اضغط "اتصال" مباشرة.
-            </div>
-          </div>
-          <div class="token-row">
-            <input type="password" id="pagesGhToken" class="token-input"
-                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-            <button class="btn-connect" onclick="connectPagesToken()">اتصال</button>
-          </div>
-          <div id="pages-token-error" style="display:none;margin-top:.5rem;font-size:.8rem;color:#fca5a5"></div>
-        </div>
-
-        <!-- Pages visual editor (shown after token validated) -->
-        <div id="pages-editor" style="display:none">
+        <!-- Pages visual editor -->
+        <div id="pages-editor">
 
           <!-- Page selector -->
           <div class="file-tabs">
@@ -532,7 +515,6 @@
           </div>
 
           <div class="editor-actions">
-            <button class="btn-disconnect" onclick="disconnectPagesToken()">قطع الاتصال</button>
             <button class="btn-save" id="pagesSaveBtn" onclick="savePageFile()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
               حفظ ونشر
@@ -560,26 +542,8 @@
       <!-- ══ JSON EDITOR SECTION ══ -->
       <div id="section-json" style="display:none">
 
-        <!-- Token gate -->
-        <div id="token-gate" class="token-gate">
-          <div class="info-box">
-            <svg class="info-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <div class="info-text">
-              تحتاج <strong>GitHub Personal Access Token</strong> بصلاحية
-              <strong>Contents: Read &amp; Write</strong> لتعديل وحفظ الملفات مباشرة.
-              يُخزَّن الـ token محليًا في جلسة المتصفح فقط ولا يُرسَل لأي خادم خارجي.
-            </div>
-          </div>
-          <div class="token-row">
-            <input type="password" id="ghToken" class="token-input"
-                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-            <button class="btn-connect" onclick="connectToken()">اتصال</button>
-          </div>
-          <div id="token-error" style="display:none;margin-top:.5rem;font-size:.8rem;color:#fca5a5"></div>
-        </div>
-
-        <!-- Editor (shown after token validated) -->
-        <div id="json-editor" style="display:none">
+        <!-- Editor -->
+        <div id="json-editor">
           <div class="file-tabs">
             <button class="file-tab" id="tab-site"    onclick="switchFile('site')">site.json</button>
             <button class="file-tab" id="tab-plans"   onclick="switchFile('plans')">plans.json</button>
@@ -599,7 +563,6 @@
           </div>
 
           <div class="editor-actions">
-            <button class="btn-disconnect" onclick="disconnectToken()">قطع الاتصال</button>
             <button class="btn-validate" onclick="validateJSON()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><polyline points="20 6 9 17 4 12"/></svg>
               تحقق
@@ -654,50 +617,7 @@
 
     function initJsonEditor() {
       setupRawEditorTracking();
-      const token = sessionStorage.getItem('o2f-gh-token');
-      if (token) {
-        document.getElementById('token-gate').style.display = 'none';
-        document.getElementById('json-editor').style.display = '';
-        switchFile('site');
-      } else {
-        document.getElementById('token-gate').style.display = '';
-        document.getElementById('json-editor').style.display = 'none';
-      }
-    }
-
-    async function connectToken() {
-      const token = document.getElementById('ghToken').value.trim();
-      const errEl = document.getElementById('token-error');
-      errEl.style.display = 'none';
-      if (!token) return;
-
-      setStatus('جاري التحقق من الصلاحيات...', 'loading');
-      try {
-        const res = await fetch(
-          `https://api.github.com/repos/${REPO}/contents/${FILES.site}`,
-          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
-        );
-        if (res.status === 401) throw new Error('التوكن غير صالح أو منتهي الصلاحية.');
-        if (res.status === 403) throw new Error('لا توجد صلاحية كافية. تأكد من تفعيل Contents: Write.');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        sessionStorage.setItem('o2f-gh-token', token);
-        document.getElementById('token-gate').style.display = 'none';
-        document.getElementById('json-editor').style.display = '';
-        switchFile('site');
-      } catch(e) {
-        errEl.textContent = e.message;
-        errEl.style.display = 'block';
-        setStatus('فشل التحقق', 'error');
-      }
-    }
-
-    function disconnectToken() {
-      sessionStorage.removeItem('o2f-gh-token');
-      document.getElementById('ghToken').value = '';
-      document.getElementById('json-editor').style.display = 'none';
-      document.getElementById('token-gate').style.display = '';
-      document.getElementById('token-error').style.display = 'none';
-      setStatus('جاهز', '');
+      switchFile('site');
     }
 
     function setupRawEditorTracking() {
@@ -714,7 +634,7 @@
       document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + key).classList.add('active');
 
-      const token = sessionStorage.getItem('o2f-gh-token');
+      const token = localStorage.getItem('o2f-gh-token');
       setStatus('جاري التحميل...', 'loading');
       document.getElementById('saveBtn').disabled = true;
 
@@ -747,7 +667,7 @@
     }
 
     async function saveFile() {
-      const token = sessionStorage.getItem('o2f-gh-token');
+      const token = localStorage.getItem('o2f-gh-token');
       try {
         maybeSyncFromRawEditor();
       } catch(e) {
@@ -964,7 +884,7 @@
 
     async function handleGalleryUpload(files) {
       if (!files.length) return;
-      const token = sessionStorage.getItem('o2f-gh-token');
+      const token = localStorage.getItem('o2f-gh-token');
       if (!token) return setStatus('برجاء توصيل GitHub token أولًا.', 'error');
       setStatus('جاري رفع الصور...', 'loading');
       for (const file of files) {
@@ -1200,15 +1120,7 @@
 
     function initPagesEditor() {
       setupPagesRawTracking();
-      const token = sessionStorage.getItem('o2f-gh-token');
-      if (token) {
-        document.getElementById('pages-token-gate').style.display = 'none';
-        document.getElementById('pages-editor').style.display = '';
-        switchPageFile('home');
-      } else {
-        document.getElementById('pages-token-gate').style.display = '';
-        document.getElementById('pages-editor').style.display = 'none';
-      }
+      switchPageFile('home');
     }
 
     function setupPagesRawTracking() {
@@ -1216,40 +1128,6 @@
       if (!rawEl || rawEl.dataset.bound === '1') return;
       rawEl.dataset.bound = '1';
       rawEl.addEventListener('input', () => { pagesRawDirty = true; });
-    }
-
-    async function connectPagesToken() {
-      const inputToken = document.getElementById('pagesGhToken').value.trim();
-      const token = inputToken || sessionStorage.getItem('o2f-gh-token') || '';
-      const errEl = document.getElementById('pages-token-error');
-      errEl.style.display = 'none';
-      if (!token) { errEl.textContent = 'أدخل الـ token أولًا.'; errEl.style.display = 'block'; return; }
-
-      setPagesStatus('جاري التحقق...', 'loading');
-      try {
-        const res = await fetch(
-          `https://api.github.com/repos/${REPO}/contents/${PAGE_FILES.home}`,
-          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
-        );
-        if (res.status === 401) throw new Error('التوكن غير صالح أو منتهي الصلاحية.');
-        if (res.status === 403) throw new Error('لا توجد صلاحية كافية. تأكد من تفعيل Contents: Write.');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        sessionStorage.setItem('o2f-gh-token', token);
-        document.getElementById('pages-token-gate').style.display = 'none';
-        document.getElementById('pages-editor').style.display = '';
-        switchPageFile('home');
-      } catch(e) {
-        errEl.textContent = e.message;
-        errEl.style.display = 'block';
-        setPagesStatus('فشل التحقق', 'error');
-      }
-    }
-
-    function disconnectPagesToken() {
-      document.getElementById('pages-editor').style.display = 'none';
-      document.getElementById('pages-token-gate').style.display = '';
-      document.getElementById('pagesGhToken').value = '';
-      setPagesStatus('جاهز', '');
     }
 
     async function switchPageFile(key) {
@@ -1264,7 +1142,7 @@
       const ltabAr = document.getElementById('ltab-ar');
       if (ltabAr) ltabAr.classList.add('active');
 
-      const token = sessionStorage.getItem('o2f-gh-token');
+      const token = localStorage.getItem('o2f-gh-token');
       setPagesStatus('جاري التحميل...', 'loading');
       document.getElementById('pagesSaveBtn').disabled = true;
 
@@ -1295,7 +1173,7 @@
     }
 
     async function savePageFile() {
-      const token = sessionStorage.getItem('o2f-gh-token');
+      const token = localStorage.getItem('o2f-gh-token');
       try {
         maybeSyncFromPagesRaw();
       } catch(e) {

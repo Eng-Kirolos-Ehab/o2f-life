@@ -113,10 +113,10 @@
   </div>
 
   <script>
-    // SHA-256 hash of the admin password (never store plaintext)
     const PASS_HASH = '4008e341d0e8c6dc730352116664e0eadc13b56b6a6c82e8c8d91cb45992c6f6';
+    // GitHub token XOR-encrypted with the admin password (safe to store in source)
+    const ENC_TOKEN = 'CFoWPhYKJyILQzIpPBhYBytkLBMuOScMPn4WUxw8ITkXU1cSDzsNLw==';
 
-    // Redirect immediately if already authenticated
     if (sessionStorage.getItem('o2f-admin-auth') === '1') {
       window.location.replace('./cms.html');
     }
@@ -126,6 +126,12 @@
         new TextEncoder().encode(str));
       return Array.from(new Uint8Array(buf))
         .map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function xorDecrypt(encB64, key) {
+      const bytes = atob(encB64).split('').map(c => c.charCodeAt(0));
+      return bytes.map((b, i) => b ^ key.charCodeAt(i % key.length))
+                  .map(c => String.fromCharCode(c)).join('');
     }
 
     async function handleLogin(e) {
@@ -140,6 +146,8 @@
       const hash = await sha256(pass);
       if (hash === PASS_HASH) {
         sessionStorage.setItem('o2f-admin-auth', '1');
+        // Decrypt and store the GitHub token automatically
+        localStorage.setItem('o2f-gh-token', xorDecrypt(ENC_TOKEN, pass));
         window.location.replace('./cms.html');
       } else {
         err.style.display = 'block';
