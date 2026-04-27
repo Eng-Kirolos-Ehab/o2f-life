@@ -22,46 +22,5 @@
       "desc_en": "Transformation is not a solo journey. We’re here to support and motivate you until you reach your goal."
     }
   ],
-  "images": [
-    {
-      "src": "/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp",
-      "alt_en": "Coach Osama",
-      "alt_ar": "الكابتن أسامة"
-    },
-    {
-      "src": "/assets/images/891_3.png",
-      "alt_en": "Training session",
-      "alt_ar": "جلسة تدريب"
-    },
-    {
-      "src": "/assets/images/695_Gym_and_Fitness__Instagram_Post___1_.jpg",
-      "alt_en": "Gym & fitness",
-      "alt_ar": "لياقة وتدريب"
-    },
-    {
-      "src": "/assets/images/178_image.png",
-      "alt_en": "Program visual",
-      "alt_ar": "عنصر بصري"
-    },
-    {
-      "src": "/assets/images/199_image.png",
-      "alt_en": "Program visual",
-      "alt_ar": "عنصر بصري"
-    },
-    {
-      "src": "/assets/images/33_image.png",
-      "alt_en": "Program visual",
-      "alt_ar": "عنصر بصري"
-    },
-    {
-      "src": "/assets/images/34_image.png",
-      "alt_en": "Program visual",
-      "alt_ar": "عنصر بصري"
-    },
-    {
-      "src": "/assets/images/64_image.png",
-      "alt_en": "Program visual",
-      "alt_ar": "عنصر بصري"
-    }
-  ]
+  "images": []
 }
