@@ -1,9 +1,9 @@
 {
-  "name": "O2F.life",
+  "name": "O2F life",
   "logoUrl": "/assets/images/logo.webp",
   "faviconUrl": "/assets/images/favicon.webp",
   "domain": "o2f.life",
-  "url": "https://o2f.life",
+  "url": "https://o2-f.com",
   "owner": "Coach Osama Omran",
   "email": "info@o2f.life",
   "whatsapp": "+201279777609",
@@ -29,7 +29,7 @@
     }
   ],
   "seo": {
-    "titleSuffix": "O2F.life — Coach Osama Omran",
+    "titleSuffix": "O2F life — Coach Osama Omran",
     "ogImage": "/assets/images/og-default.jpg"
   },
   "analytics": {
