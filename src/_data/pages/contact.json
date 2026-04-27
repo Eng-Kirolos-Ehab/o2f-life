@@ -1,0 +1,74 @@
+{
+  "en": {
+    "seo": {
+      "title": "Contact",
+      "description": "Get in touch with Coach Osama Omran. Fill in the signup form, message on WhatsApp, or email us."
+    },
+    "hero": {
+      "kicker": "Contact",
+      "title": "Let's talk.",
+      "description": "Pick the way that works best for you — the signup form, WhatsApp, or email. We reply within 24 hours."
+    },
+    "cards": {
+      "form": {
+        "badge": "Recommended",
+        "title": "Signup form",
+        "description": "Tell us about yourself, your goals and your schedule. Takes about 3 minutes. Coach Osama reviews every response personally and replies within 24 hours.",
+        "cta": "Open the form"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "Quick questions? Message us directly."
+      },
+      "email": {
+        "title": "Email",
+        "description": "Prefer a longer message? Drop us an email."
+      },
+      "instagram": {
+        "title": "Instagram",
+        "description": "Daily tips, transformations and behind the scenes.",
+        "handle": "@osama.fit"
+      }
+    },
+    "process": {
+      "title": "What happens after you sign up?",
+      "description": "Coach Osama reviews your answers, sends a short follow-up if needed, and schedules your onboarding call within 24 hours."
+    }
+  },
+  "ar": {
+    "seo": {
+      "title": "تواصل",
+      "description": "تواصل مع الكابتن أسامة عمران. املأ فورم التسجيل، ابعت على واتساب، أو راسلنا إيميل."
+    },
+    "hero": {
+      "kicker": "تواصل",
+      "title": "يلا نتكلّم.",
+      "description": "اختر الطريقة الأنسب ليك — فورم التسجيل، واتساب، أو إيميل. بنرد في خلال ٢٤ ساعة."
+    },
+    "cards": {
+      "form": {
+        "badge": "مُفضّل",
+        "title": "فورم التسجيل",
+        "description": "قوللنا عن نفسك، أهدافك، ووقتك المتاح. ميحتاجش أكتر من ٣ دقايق. الكابتن أسامة بيراجع كل الردود بنفسه وبيرد في خلال ٢٤ ساعة.",
+        "cta": "افتح الفورم"
+      },
+      "whatsapp": {
+        "title": "واتساب",
+        "description": "أسئلة سريعة؟ ابعتلنا رسالة على طول."
+      },
+      "email": {
+        "title": "إيميل",
+        "description": "مفضّل رسالة أطول؟ ابعتلنا إيميل."
+      },
+      "instagram": {
+        "title": "إنستغرام",
+        "description": "نصايح يومية، نتايج العملاء، وكواليس التدريب.",
+        "handle": "@osama.fit"
+      }
+    },
+    "process": {
+      "title": "بيحصل إيه بعد ما تسجّل؟",
+      "description": "الكابتن أسامة بيراجع إجاباتك، وبيبعتلك رسالة متابعة قصيرة لو محتاج، وبيحدّد معاد مكالمة الـonboarding في خلال ٢٤ ساعة."
+    }
+  }
+}

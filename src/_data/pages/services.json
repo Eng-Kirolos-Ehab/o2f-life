@@ -1,0 +1,116 @@
+{
+  "en": {
+    "seo": {
+      "title": "Services",
+      "description": "Online training, personalized nutrition, naturopathic guidance, and the anti-aging program — everything Coach Osama offers."
+    },
+    "hero": {
+      "kicker": "What we do",
+      "title": "Services",
+      "description": "A complete toolkit to transform your body and support your long-term health."
+    },
+    "services": [
+      {
+        "id": "training",
+        "title": "Online Training",
+        "description": "Custom workout programs you can run from home or any gym — designed for your level and built for progress, not exhaustion.",
+        "items": [
+          "Assessment of current level and mobility",
+          "Progressive programming (strength, conditioning, mobility)",
+          "Video demos for every movement",
+          "Weekly load/volume adjustments"
+        ]
+      },
+      {
+        "id": "nutrition",
+        "title": "Nutrition Coaching",
+        "description": "Meal plans that respect your preferences, culture and goals — simple to follow, enjoyable, and easy to sustain long-term.",
+        "items": [
+          "Personalized calorie and macro targets",
+          "Food preference and culture-aware menus",
+          "Re-tuning every 2 weeks (weekly in advanced)",
+          "Practical substitution list for travel and events"
+        ]
+      },
+      {
+        "id": "naturopathy",
+        "title": "Naturopathic Guidance",
+        "description": "Holistic protocols for energy, recovery and long-term health — herbs, sleep, stress and lifestyle, backed by science.",
+        "items": [
+          "Therapeutic herb recommendations",
+          "Sleep and stress protocols",
+          "Optional medical supervision (advanced plan)",
+          "Long-term health markers tracking"
+        ]
+      },
+      {
+        "id": "anti-aging",
+        "title": "Anti-aging Program",
+        "description": "A dedicated package to rejuvenate body and mind — skin, mood, memory, mobility, hormones and immunity.",
+        "link_text": "Learn more →"
+      }
+    ],
+    "cta": {
+      "title": "Not sure where to start?",
+      "description": "Book a free 15-minute intro call and we'll recommend the right fit.",
+      "button": "Book a call"
+    }
+  },
+  "ar": {
+    "seo": {
+      "title": "الخدمات",
+      "description": "تدريب أونلاين، تغذية مخصّصة، إرشاد طب طبيعي، وباقة مكافحة الشيخوخة — كل ما يقدمه الكابتن أسامة."
+    },
+    "hero": {
+      "kicker": "خدماتنا",
+      "title": "الخدمات",
+      "description": "مجموعة متكاملة لتحويل جسمك ودعم صحتك على المدى البعيد."
+    },
+    "services": [
+      {
+        "id": "training",
+        "title": "التدريب أونلاين",
+        "description": "برامج تمرين مخصّصة تنفّذها في البيت أو الجيم — مصمّمة لمستواك وللتقدّم الثابت لا للإرهاق.",
+        "items": [
+          "تقييم المستوى الحالي والمرونة",
+          "تدرّج القوة والتحمّل والمرونة",
+          "فيديوهات شرح لكل حركة",
+          "تعديلات أسبوعية على الحِمل والحجم"
+        ]
+      },
+      {
+        "id": "nutrition",
+        "title": "التغذية",
+        "description": "خطط وجبات تحترم ذوقك وثقافتك وأهدافك — بسيطة وممتعة وقابلة للاستمرار.",
+        "items": [
+          "سعرات وماكروز مخصّصة",
+          "قوائم متوافقة مع ذوقك وثقافتك",
+          "تعديل كل أسبوعين (أسبوعيًا في المتطوّرة)",
+          "قائمة بدائل عملية للسفر والمناسبات"
+        ]
+      },
+      {
+        "id": "naturopathy",
+        "title": "الإرشاد الطبيعي",
+        "description": "بروتوكولات شاملة للطاقة والاستشفاء وصحة المدى البعيد — أعشاب، نوم، ضغط، ونمط حياة بدعم علمي.",
+        "items": [
+          "ترشيحات أعشاب علاجية",
+          "بروتوكولات النوم وإدارة الضغط",
+          "إشراف طبي اختياري (الخطة المتقدّمة)",
+          "متابعة مؤشرات صحية طويلة المدى"
+        ]
+      },
+      {
+        "id": "anti-aging",
+        "title": "برنامج مكافحة الشيخوخة",
+        "description": "باقة متخصّصة لتجديد الجسم والعقل — البشرة، المزاج، الذاكرة، المفاصل، الهرمونات والمناعة.",
+        "link_text": "اعرف أكثر ←"
+      }
+    ],
+    "cta": {
+      "title": "محتار تبدأ بإيه؟",
+      "description": "احجز مكالمة تعارف ١٥ دقيقة مجانية ونرشّحلك الخطة المناسبة.",
+      "button": "احجز مكالمة"
+    }
+  }
+}

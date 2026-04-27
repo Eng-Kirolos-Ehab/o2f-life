@@ -1,0 +1,86 @@
+{
+  "en": {
+    "seo": {
+      "title": "About Coach Osama",
+      "description": "Meet Coach Osama Omran — online fitness coach with a naturopathic background, helping you transform from the inside out."
+    },
+    "hero": {
+      "kicker": "About",
+      "title": "Welcome to Coach Osama's world.",
+      "intro": "Hi, I'm <strong>Osama Omran</strong>, an online fitness coach who believes in transformation <em>from the inside out</em>.",
+      "bio1": "My background in naturopathic medicine fuels my passion for understanding how food interacts with your body — not just the numbers on the scale. I build custom training programs and weekly-tuned nutrition plans, but what truly sets me apart is my focus on a <strong>holistic approach</strong> to health and fitness.",
+      "bio2": "My goal is to empower you to reach your fitness goals — from weight loss to strength and mobility. Together, we'll build a personalized plan that fits your lifestyle and helps you unlock your full potential.",
+      "promise_title": "My promise",
+      "promise_items": [
+        "A plan designed for <em>your</em> body and <em>your</em> goals — not a template.",
+        "Ongoing, direct communication — you're never left alone.",
+        "A sustainable approach you'll enjoy long after you hit your target.",
+        "Science and nature, working together."
+      ],
+      "photo_alt": "Coach Osama Omran"
+    },
+    "philosophy": {
+      "title": "Philosophy",
+      "items": [
+        {
+          "title": "Holistic",
+          "text": "Real transformation touches training, nutrition, sleep, stress and biology. We work on all of it."
+        },
+        {
+          "title": "Personal",
+          "text": "Your plan is designed around your body, schedule, culture and taste — not copy-pasted."
+        },
+        {
+          "title": "Sustainable",
+          "text": "Over 90% of our clients keep following their plans after hitting their goals. That's not luck — that's design."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Let's start your transformation.",
+      "button": "Book a free call"
+    }
+  },
+  "ar": {
+    "seo": {
+      "title": "عن الكابتن",
+      "description": "تعرّف على الكابتن أسامة عمران — مدرب لياقة أونلاين بخلفية في الطب الطبيعي، يساعدك تتحوّل من الداخل للخارج."
+    },
+    "hero": {
+      "kicker": "عن الكابتن",
+      "title": "مرحبًا بك في عالم الكابتن أسامة.",
+      "intro": "مرحبًا، أنا <strong>أسامة عمران</strong>، مدرب لياقة بدنية أونلاين يؤمن بالتحوّل <em>من الداخل للخارج</em>.",
+      "bio1": "خلفيتي في الطب الطبيعي بتغذّي شغفي بفهم كيف يتفاعل الطعام مع جسمك — مش بس الأرقام على الميزان. بصمّم برامج تدريب مخصّصة وخطط تغذية أسبوعية، لكن اللي بيميّزني حقًا هو تركيزي على <strong>نهج شامل</strong> للصحة واللياقة.",
+      "bio2": "هدفي أمكّنك من تحقيق أهدافك — من فقدان الوزن لبناء القوة والمرونة. سوا، نحط خطة مخصّصة تناسب نمط حياتك وتساعدك تطلق إمكاناتك الكاملة.",
+      "promise_title": "وعدي ليك",
+      "promise_items": [
+        "خطة مصمّمة لجسمك وأهدافك — مش تمبليت جاهز.",
+        "تواصل مستمر ومباشر — مش هتبقى لوحدك.",
+        "نهج مستدام تستمر عليه بعد وصولك لهدفك.",
+        "العلم والطبيعة شغالين مع بعض."
+      ],
+      "photo_alt": "الكابتن أسامة عمران"
+    },
+    "philosophy": {
+      "title": "الفلسفة",
+      "items": [
+        {
+          "title": "شامل",
+          "text": "التحوّل الحقيقي بيشمل التدريب والتغذية والنوم والضغط والبيولوجي. بنشتغل على كله."
+        },
+        {
+          "title": "شخصي",
+          "text": "خطتك بتتصمم حوالين جسمك وجدولك وثقافتك وذوقك — مش منسوخة."
+        },
+        {
+          "title": "مستدام",
+          "text": "أكتر من ٩٠٪ من عملائنا بيكمّلوا خططهم بعد الوصول لأهدافهم. مش صدفة — ده تصميم."
+        }
+      ]
+    },
+    "cta": {
+      "title": "يلا نبدأ رحلتك.",
+      "button": "احجز مكالمة مجانية"
+    }
+  }
+}
