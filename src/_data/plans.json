@@ -1,51 +1,80 @@
 {
   "basic": {
-    "slug": "basic",
+    "slug": "باقة التحول الشامل",
     "visible": true,
     "highlight": false,
     "order": 1,
     "pricing": {
-      "egypt":         { "amount": "2,500", "currency": "EGP",  "period": "per month",  "period_ar": "شهريًا" },
-      "gulf":          { "amount": "350",   "currency": "SAR",  "period": "per month",  "period_ar": "شهريًا" },
-      "international": { "amount": "99",    "currency": "USD",  "period": "per month",  "period_ar": "شهريًا" }
+      "egypt": {
+        "amount": "5000",
+        "currency": "EGP",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      },
+      "gulf": {
+        "amount": "1200",
+        "currency": "SAR",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      },
+      "international": {
+        "amount": "320",
+        "currency": "USD",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      }
     },
     "en": {
-      "name": "Basic Plan",
-      "tagline": "Start strong with the essentials",
-      "blurb": "Your first step toward a stronger, healthier you — with guided nutrition and flexible online training.",
+      "name": "Full Transformation Plan",
+      "tagline": "Complete Fitness & Nutrition Transformation",
+      "blurb": "A complete transformation program combining personalized nutrition, training, and daily follow-up to help you achieve long-term results.",
       "features": [
-        "Goal-oriented personalized nutrition plan",
-        "Customizable workout program (home or gym)",
-        "Weekly check-ins to track progress",
-        "Nutrition adjustments every 2 weeks",
-        "Train anytime, anywhere (full online flexibility)"
+        "Personalized nutrition and training plan",
+        "Daily WhatsApp follow-up",
+        "Weekly updates",
+        "Medical supervision",
+        "Supplements and herbal support"
       ],
-      "cta": "Start the Basic Plan"
+      "cta": "Request this plan"
     },
     "ar": {
-      "name": "الخطة البسيطة",
-      "tagline": "ابدأ رحلتك بالأساسيات",
-      "blurb": "خطوتك الأولى نحو لياقة أفضل — مع إرشاد غذائي ومرونة تدريب أونلاين.",
+      "name": "باقة التحول الشامل",
+      "tagline": "برنامج متكامل للتغذية والتدريب والتحول الكامل",
+      "blurb": "برنامج متكامل يجمع بين التغذية والتدريب والمتابعة اليومية لتحقيق أفضل نتائج التحول على المدى الطويل.",
       "features": [
-        "خطة تغذية مخصّصة حسب هدفك",
-        "برنامج تمرين قابل للتخصيص (بيت أو جيم)",
-        "متابعة أسبوعية لتقدّمك",
-        "تعديل خطة التغذية كل أسبوعين",
-        "تدرّب في أي وقت ومن أي جهاز"
+        "خطة تغذية وتدريب مخصصة",
+        "متابعة يومية عبر واتساب",
+        "تحديث أسبوعي",
+        "متابعة طبية",
+        "مكملات وأعشاب"
       ],
-      "cta": "ابدأ الخطة البسيطة"
+      "cta": "اطلب هذه الباقة"
     }
   },
-
   "standard": {
     "slug": "standard",
     "visible": true,
     "highlight": true,
     "order": 2,
     "pricing": {
-      "egypt":         { "amount": "4,500", "currency": "EGP",  "period": "per month",  "period_ar": "شهريًا" },
-      "gulf":          { "amount": "650",   "currency": "SAR",  "period": "per month",  "period_ar": "شهريًا" },
-      "international": { "amount": "179",   "currency": "USD",  "period": "per month",  "period_ar": "شهريًا" }
+      "egypt": {
+        "amount": "4,500",
+        "currency": "EGP",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      },
+      "gulf": {
+        "amount": "650",
+        "currency": "SAR",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      },
+      "international": {
+        "amount": "179",
+        "currency": "USD",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      }
     },
     "en": {
       "name": "Standard Plan",
@@ -76,16 +105,30 @@
       "cta": "ابدأ الخطة الأساسية"
     }
   },
-
   "advanced": {
     "slug": "advanced",
-    "visible": true,
+    "visible": false,
     "highlight": false,
     "order": 3,
     "pricing": {
-      "egypt":         { "amount": "7,500", "currency": "EGP",  "period": "per month",  "period_ar": "شهريًا" },
-      "gulf":          { "amount": "1,100", "currency": "SAR",  "period": "per month",  "period_ar": "شهريًا" },
-      "international": { "amount": "299",   "currency": "USD",  "period": "per month",  "period_ar": "شهريًا" }
+      "egypt": {
+        "amount": "7,500",
+        "currency": "EGP",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      },
+      "gulf": {
+        "amount": "1,100",
+        "currency": "SAR",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      },
+      "international": {
+        "amount": "299",
+        "currency": "USD",
+        "period": "per month",
+        "period_ar": "شهريًا"
+      }
     },
     "en": {
       "name": "Advanced Plan",
