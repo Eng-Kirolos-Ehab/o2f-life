@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "discount": {
+    "egypt":         { "amount": "500", "currency": "EGP" },
+    "gulf":          { "amount": "38",  "currency": "SAR" },
+    "international": { "amount": "10",  "currency": "USD" }
+  },
+  "en": {
+    "title": "Bring a Friend 🎁",
+    "badge": "Referral Discount",
+    "toggle_label": "I was referred by someone",
+    "promo_headline": "You & your friend each get a discount!",
+    "promo_body": "Refer a friend (or get referred) and you both save off your plan. Just mention the referrer's name in the form below.",
+    "card_note": "Mention referrer in form for discount"
+  },
+  "ar": {
+    "title": "جيب صديق 🎁",
+    "badge": "خصم التوصية",
+    "toggle_label": "جاتلك توصية من حد",
+    "promo_headline": "إنت وصاحبك، كل واحد هياخد خصم!",
+    "promo_body": "رشّح صاحبك أو اتوصّى بيه، واتنين منكم هياخدوا خصم على الباقة. بس اذكر اسم اللي بعتك في الفورم الجاي.",
+    "card_note": "اذكر اسم المُوصّي في الفورم للحصول على الخصم"
+  }
+}

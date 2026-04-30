@@ -1,155 +1,128 @@
 {
   "basic": {
-    "slug": "باقة التحول الشامل",
+    "slug": "basic",
     "visible": true,
     "highlight": false,
     "order": 1,
+    "duration": 4,
     "pricing": {
-      "egypt": {
-        "m1": { "amount": "5,000", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "4,500", "currency": "EGP", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "13,500", "save": "10%" },
-        "m6": { "amount": "4,000", "currency": "EGP", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "24,000", "save": "20%" }
-      },
-      "gulf": {
-        "m1": { "amount": "1,200", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "1,020", "currency": "SAR", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "3,060", "save": "15%" },
-        "m6": { "amount": "900", "currency": "SAR", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "5,400", "save": "25%" }
-      },
-      "international": {
-        "m1": { "amount": "320", "currency": "USD", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "272", "currency": "USD", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "816", "save": "15%" },
-        "m6": { "amount": "240", "currency": "USD", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "1,440", "save": "25%" }
-      }
+      "egypt":         { "total": "5,000",  "per_month": "1,250", "currency": "EGP", "savings": null },
+      "gulf":          { "total": "375",    "per_month": "94",    "currency": "SAR", "savings": null },
+      "international": { "total": "100",    "per_month": "25",    "currency": "USD", "savings": null }
     },
     "en": {
-      "name": "Full Transformation Plan",
-      "tagline": "Complete Fitness & Nutrition Transformation",
-      "blurb": "A complete transformation program combining personalized nutrition, training, and daily follow-up to help you achieve long-term results.",
+      "name": "Basic Package",
+      "tagline": "4-Month Commitment",
+      "blurb": "The perfect starting point. A complete transformation program with daily WhatsApp follow-up and personalized nutrition & training.",
       "features": [
         "Personalized nutrition and training plan",
         "Daily WhatsApp follow-up",
-        "Weekly updates",
+        "Weekly plan updates",
         "Medical supervision",
-        "Supplements and herbal support"
+        "Supplements and herbal support",
+        "4-month commitment"
       ],
-      "cta": "Request this plan"
+      "cta": "Choose Basic"
     },
     "ar": {
-      "name": "باقة التحول الشامل",
-      "tagline": "برنامج متكامل للتغذية والتدريب والتحول الكامل",
-      "blurb": "برنامج متكامل يجمع بين التغذية والتدريب والمتابعة اليومية لتحقيق أفضل نتائج التحول على المدى الطويل.",
+      "name": "الباقة الأساسية",
+      "tagline": "4 أشهر التزام",
+      "blurb": "نقطة البداية المثالية. برنامج تحول متكامل مع متابعة يومية عبر الواتساب وخطة تغذية وتدريب مخصصة.",
       "features": [
         "خطة تغذية وتدريب مخصصة",
         "متابعة يومية عبر واتساب",
-        "تحديث أسبوعي",
+        "تحديث أسبوعي للخطة",
         "متابعة طبية",
-        "مكملات وأعشاب"
+        "مكملات وأعشاب",
+        "التزام 4 أشهر"
       ],
-      "cta": "اطلب هذه الباقة"
+      "cta": "اختر الأساسية"
     }
   },
-  "standard": {
-    "slug": "الخطة العلاجية",
+  "premium": {
+    "slug": "premium",
     "visible": true,
     "highlight": true,
     "order": 2,
+    "duration": 6,
     "pricing": {
-      "egypt": {
-        "m1": { "amount": "2,400", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "2,160", "currency": "EGP", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "6,480", "save": "10%" },
-        "m6": { "amount": "1,920", "currency": "EGP", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "11,520", "save": "20%" }
-      },
-      "gulf": {
-        "m1": { "amount": "600", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "510", "currency": "SAR", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "1,530", "save": "15%" },
-        "m6": { "amount": "450", "currency": "SAR", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "2,700", "save": "25%" }
-      },
-      "international": {
-        "m1": { "amount": "160", "currency": "USD", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "136", "currency": "USD", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "408", "save": "15%" },
-        "m6": { "amount": "120", "currency": "USD", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "720", "save": "25%" }
-      }
+      "egypt":         { "total": "6,500",  "per_month": "1,083", "currency": "EGP", "savings": "1,000" },
+      "gulf":          { "total": "490",    "per_month": "82",    "currency": "SAR", "savings": "74"    },
+      "international": { "total": "130",    "per_month": "22",    "currency": "USD", "savings": "20"    }
     },
     "en": {
-      "name": "Therapeutic Nutrition Plan",
-      "tagline": "Medical Nutrition Plan Without Training",
-      "blurb": "A specialized therapeutic nutrition plan designed for medical conditions with professional analysis and weekly follow-up.",
+      "name": "Premium Package",
+      "tagline": "6-Month Commitment — Save 1,000 EGP",
+      "blurb": "More time, better results. Everything in Basic plus deeper medical analysis and bi-weekly video check-ins for serious commitment.",
       "features": [
+        "Personalized nutrition and training plan",
+        "Daily WhatsApp follow-up",
+        "Weekly plan updates",
         "Full medical case analysis",
-        "Personalized therapeutic nutrition plan",
-        "Weekly follow-up",
-        "Herbal treatments",
-        "Natural medical consultations",
-        "Suitable for diabetes, hypertension, cholesterol, digestive issues, and inflammation"
+        "Bi-weekly video check-in",
+        "Supplements and herbal protocol",
+        "6-month commitment"
       ],
-      "cta": "Request this plan"
+      "cta": "Choose Premium"
     },
     "ar": {
-      "name": "الخطة العلاجية",
-      "tagline": "خطة تغذية علاجية للحالات الطبية بدون تدريب",
-      "blurb": "خطة تغذية علاجية مخصصة للحالات الطبية مع تحليل شامل ومتابعة أسبوعية لضمان أفضل النتائج.",
+      "name": "الباقة المميزة",
+      "tagline": "6 أشهر التزام — وفّر 1,000 جنيه",
+      "blurb": "وقت أكتر، نتائج أحسن. كل حاجة في الأساسية بالإضافة لتحليل طبي أعمق ومكالمات متابعة كل أسبوعين.",
       "features": [
-        "تحليل شامل للحالة الطبية",
-        "خطة تغذية علاجية مخصصة",
-        "متابعة أسبوعية",
-        "أعشاب علاجية",
-        "استشارات طبية طبيعية",
-        "مناسبة لمرضى السكري والضغط والكوليسترول ومشاكل الهضم والالتهابات"
+        "خطة تغذية وتدريب مخصصة",
+        "متابعة يومية عبر واتساب",
+        "تحديث أسبوعي للخطة",
+        "تحليل طبي شامل للحالة",
+        "مكالمة متابعة كل أسبوعين",
+        "مكملات وبروتوكول أعشاب",
+        "التزام 6 أشهر"
       ],
-      "cta": "اطلب هذه الباقة"
+      "cta": "اختر المميزة"
     }
   },
-  "advanced": {
-    "slug": "advanced",
-    "visible": false,
+  "gold": {
+    "slug": "gold",
+    "visible": true,
     "highlight": false,
     "order": 3,
+    "duration": 8,
     "pricing": {
-      "egypt": {
-        "m1": { "amount": "7,500", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "6,750", "currency": "EGP", "label": "/mo · 3 months", "label_ar": "شهريًا · 3 شهور", "total": "20,250", "save": "10%" },
-        "m6": { "amount": "6,000", "currency": "EGP", "label": "/mo · 6 months", "label_ar": "شهريًا · 6 شهور", "total": "36,000", "save": "20%" }
-      },
-      "gulf": {
-        "m1": { "amount": "1,100", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "935", "currency": "SAR", "label": "/mo · 3 months", "label_ar": "شهريًا · 3 شهور", "total": "2,805", "save": "15%" },
-        "m6": { "amount": "825", "currency": "SAR", "label": "/mo · 6 months", "label_ar": "شهريًا · 6 شهور", "total": "4,950", "save": "25%" }
-      },
-      "international": {
-        "m1": { "amount": "299", "currency": "USD", "label": "per month", "label_ar": "شهريًا" },
-        "m3": { "amount": "254", "currency": "USD", "label": "/mo · 3 months", "label_ar": "شهريًا · 3 شهور", "total": "762", "save": "15%" },
-        "m6": { "amount": "224", "currency": "USD", "label": "/mo · 6 months", "label_ar": "شهريًا · 6 شهور", "total": "1,344", "save": "25%" }
-      }
+      "egypt":         { "total": "8,000",  "per_month": "1,000", "currency": "EGP", "savings": "2,000" },
+      "gulf":          { "total": "600",    "per_month": "75",    "currency": "SAR", "savings": "150"   },
+      "international": { "total": "160",    "per_month": "20",    "currency": "USD", "savings": "40"    }
     },
     "en": {
-      "name": "Advanced Plan",
-      "tagline": "Unlock your full potential",
-      "blurb": "Live coaching with Osama, daily follow-up, and medical supervision for the most committed results.",
+      "name": "Gold Package",
+      "tagline": "8-Month Commitment — Save 2,000 EGP",
+      "blurb": "The ultimate transformation experience. Maximum commitment, maximum results — with live coaching sessions and elite-level tracking.",
       "features": [
-        "Tailor-made workout program",
-        "Live sessions with Coach Osama",
-        "Daily follow-up & accountability",
-        "Personalized nutrition plan, weekly-tuned",
-        "Therapeutic herbs protocol",
-        "Medical supervision add-on",
-        "Full online convenience"
+        "Personalized nutrition and training plan",
+        "Daily WhatsApp follow-up",
+        "Weekly plan updates",
+        "Full medical case analysis",
+        "Weekly live video sessions with Coach Osama",
+        "Premium supplements and herbal protocol",
+        "Priority response & dedicated support",
+        "8-month commitment"
       ],
-      "cta": "Start the Advanced Plan"
+      "cta": "Choose Gold"
     },
     "ar": {
-      "name": "الخطة المتطوّرة",
-      "tagline": "أطلق إمكاناتك الكاملة",
-      "blurb": "تدريب مباشر مع الكابتن أسامة، متابعة يومية، وإشراف طبي لأفضل النتائج.",
+      "name": "الباقة الذهبية",
+      "tagline": "8 أشهر التزام — وفّر 2,000 جنيه",
+      "blurb": "تجربة التحول الأقصى. أقصى التزام وأقصى نتائج — مع جلسات تدريب مباشرة ومتابعة على أعلى مستوى.",
       "features": [
-        "برنامج تمرين مُفصّل لك",
-        "جلسات مباشرة مع الكابتن أسامة",
-        "متابعة يومية ومسؤولية مشتركة",
-        "خطة تغذية بتعديل أسبوعي",
-        "بروتوكول أعشاب علاجية",
-        "إشراف طبي إضافي",
-        "مرونة كاملة أونلاين"
+        "خطة تغذية وتدريب مخصصة",
+        "متابعة يومية عبر واتساب",
+        "تحديث أسبوعي للخطة",
+        "تحليل طبي شامل للحالة",
+        "جلسات فيديو أسبوعية مباشرة مع الكابتن",
+        "مكملات ممتازة وبروتوكول أعشاب",
+        "أولوية في الرد ودعم مخصص",
+        "التزام 8 أشهر"
       ],
-      "cta": "ابدأ الخطة المتطوّرة"
+      "cta": "اختر الذهبية"
     }
   }
 }

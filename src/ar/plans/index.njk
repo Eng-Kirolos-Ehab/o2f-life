@@ -1,126 +1,137 @@
 ---
 title: "الباقات"
-description: "اختر الباقة المناسبة — التحول الشامل أو العلاجية — مع تسعير مرن لـ 1 أو 3 أو 6 أشهر لمصر والخليج والعملاء الدوليين."
+description: "اختر باقتك — الأساسية (4 أشهر)، المميزة (6 أشهر)، أو الذهبية (8 أشهر) — مع تسعير لمصر والخليج والعملاء الدوليين."
 ---
 
 <section class="grid-bg relative overflow-hidden">
   <div class="absolute top-10 -left-20 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl animate-pulse-soft pointer-events-none"></div>
   <div class="container-x py-16 sm:py-20 relative">
     <p class="section-kicker" data-aos="fade-up">اختر الباقة</p>
-    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">باقات مبنيّة <span class="gradient-mint-text">حواليك.</span></h1>
+    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">🔥 أسعار خاصة <span class="gradient-mint-text">حسب مدة الالتزام.</span></h1>
     <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-      كل باقة مخصّصة بالكامل. اختر مستوى الدعم اللي يناسب وضعك دلوقتي.
+      التزام أطول = سعر شهري أقل. كل باقة مخصّصة بالكامل من اليوم الأول.
     </p>
   </div>
 </section>
 
-{# CONTROLS: REGION + DURATION + REFERRAL #}
+{# REGION SWITCHER #}
 <section class="pt-4 pb-2">
   <div class="container-x">
-
-    {# Row 1: Region + Duration #}
-    <div class="flex flex-wrap items-center justify-center gap-3 mb-4" data-aos="fade-up">
-
-      {# Region switcher #}
-      <div class="flex items-center gap-2">
-        <span class="text-brand-off/60 text-xs hidden sm:inline">المنطقة:</span>
-        <div id="region-switcher" class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
-          <button type="button" data-region="egypt"         class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">🇪🇬 مصر</button>
-          <button type="button" data-region="gulf"          class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">🇸🇦 الخليج</button>
-          <button type="button" data-region="international" class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">🌍 دولي</button>
-        </div>
-      </div>
-
-      {# Divider #}
-      <span class="hidden sm:inline text-brand-line">|</span>
-
-      {# Duration switcher #}
-      <div class="flex items-center gap-2">
-        <span class="text-brand-off/60 text-xs hidden sm:inline">المدة:</span>
-        <div id="duration-switcher" class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
-          <button type="button" data-duration="m1" class="duration-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">شهر</button>
-          <button type="button" data-duration="m3" class="duration-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
-            3 شهور
-            <span class="mr-1 text-brand-mint text-[10px] font-bold duration-save-m3"></span>
-          </button>
-          <button type="button" data-duration="m6" class="duration-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
-            6 شهور
-            <span class="mr-1 text-brand-mint text-[10px] font-bold duration-save-m6"></span>
-          </button>
-        </div>
+    <div class="flex flex-wrap items-center justify-center gap-2" data-aos="fade-up">
+      <span class="text-brand-off/60 text-sm">التسعير لـ:</span>
+      <div id="region-switcher" class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
+        <button type="button" data-region="egypt"         class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇪🇬 مصر</button>
+        <button type="button" data-region="gulf"          class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇸🇦 الخليج</button>
+        <button type="button" data-region="international" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🌍 دولي</button>
       </div>
     </div>
-
-    {# Row 2: Referral toggle #}
-    <div class="flex justify-center" data-aos="fade-up" data-aos-delay="100">
-      <label class="referral-toggle flex items-center gap-2.5 cursor-pointer select-none group">
-        <div class="relative">
-          <input type="checkbox" id="referral-check" class="sr-only peer">
-          <div class="w-10 h-5 rounded-full bg-brand-line peer-checked:bg-brand-mint/40 transition-colors border border-brand-line peer-checked:border-brand-mint/60"></div>
-          <div class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-brand-off/40 peer-checked:bg-brand-mint peer-checked:translate-x-5 transition-all"></div>
-        </div>
-        <span class="text-sm text-brand-off/70 group-hover:text-brand-off transition-colors">
-          جاتلك توصية من حد
-          <span class="referral-badge hidden mr-1.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/30">🎁 عروض خاصة متاحة</span>
-        </span>
-      </label>
-    </div>
-
-    {# Referral message #}
-    <div id="referral-msg" class="hidden mt-3 text-center text-sm text-brand-gold bg-brand-gold/10 border border-brand-gold/25 rounded-xl px-4 py-2.5 max-w-lg mx-auto" data-aos="fade-up">
-      🎁 رائع! بما إنك جيت بتوصية، عندك <strong>خصومات خاصة</strong> — اسكرول تحت واملا الفورم واذكر اسم اللي بعتك.
-    </div>
-
   </div>
 </section>
 
-{# PLAN CARDS #}
-<section class="section pt-8">
+{# REFERRAL TOGGLE #}
+{% if referral.enabled %}
+<section class="pb-4">
   <div class="container-x">
-    <div id="plans-grid" class="flex flex-wrap justify-center gap-5 items-stretch">
+    <div class="flex flex-col items-center gap-2" data-aos="fade-up">
+      <label class="flex items-center gap-3 cursor-pointer select-none group">
+        <div class="relative">
+          <input type="checkbox" id="referral-check" class="sr-only peer">
+          <div class="w-11 h-6 rounded-full bg-brand-line peer-checked:bg-brand-mint/40 border border-brand-line peer-checked:border-brand-mint/60 transition-colors"></div>
+          <div class="absolute top-1 left-1 w-4 h-4 rounded-full bg-brand-off/40 peer-checked:bg-brand-mint peer-checked:translate-x-5 transition-all"></div>
+        </div>
+        <span class="text-sm text-brand-off/70 group-hover:text-brand-off transition-colors">
+          {{ referral.ar.toggle_label }}
+          <span id="referral-badge" class="hidden mr-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/30">
+            🎁 {{ referral.ar.badge }}
+          </span>
+        </span>
+      </label>
 
-      {% set orderedKeys = ["basic","standard","advanced"] %}
+      <div id="referral-banner" class="hidden w-full max-w-xl">
+        <div class="mt-1 flex items-start gap-3 bg-brand-gold/8 border border-brand-gold/25 rounded-xl px-4 py-3 text-sm">
+          <span class="text-xl leading-none mt-0.5">🎁</span>
+          <div>
+            <p class="font-bold text-brand-gold mb-0.5">{{ referral.ar.promo_headline }}</p>
+            <p class="text-brand-off/70 text-xs leading-relaxed">{{ referral.ar.promo_body }}</p>
+            <p class="mt-1.5 text-brand-gold font-semibold text-xs referral-discount-line"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# PLAN CARDS #}
+<section class="section pt-6">
+  <div class="container-x">
+    <div class="flex flex-wrap justify-center gap-6 items-stretch">
+
+      {% set orderedKeys = ["basic","premium","gold"] %}
       {% for key in orderedKeys %}
         {% set p = plans[key] %}
         {% if p.visible !== false %}
-        <div class="plan-card card card-hover flex flex-col relative w-full sm:w-80 lg:w-96 {% if p.highlight %}ring-2 ring-brand-mint/50{% endif %}"
-             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 100 }}"
-             data-egypt-m1-amount="{{ p.pricing.egypt.m1.amount }}"   data-egypt-m1-currency="{{ p.pricing.egypt.m1.currency }}"   data-egypt-m1-label="{{ p.pricing.egypt.m1.label_ar }}"
-             data-egypt-m3-amount="{{ p.pricing.egypt.m3.amount }}"   data-egypt-m3-currency="{{ p.pricing.egypt.m3.currency }}"   data-egypt-m3-label="{{ p.pricing.egypt.m3.label_ar }}"   data-egypt-m3-save="{{ p.pricing.egypt.m3.save }}"   data-egypt-m3-total="{{ p.pricing.egypt.m3.total }}"
-             data-egypt-m6-amount="{{ p.pricing.egypt.m6.amount }}"   data-egypt-m6-currency="{{ p.pricing.egypt.m6.currency }}"   data-egypt-m6-label="{{ p.pricing.egypt.m6.label_ar }}"   data-egypt-m6-save="{{ p.pricing.egypt.m6.save }}"   data-egypt-m6-total="{{ p.pricing.egypt.m6.total }}"
-             data-gulf-m1-amount="{{ p.pricing.gulf.m1.amount }}"     data-gulf-m1-currency="{{ p.pricing.gulf.m1.currency }}"     data-gulf-m1-label="{{ p.pricing.gulf.m1.label_ar }}"
-             data-gulf-m3-amount="{{ p.pricing.gulf.m3.amount }}"     data-gulf-m3-currency="{{ p.pricing.gulf.m3.currency }}"     data-gulf-m3-label="{{ p.pricing.gulf.m3.label_ar }}"     data-gulf-m3-save="{{ p.pricing.gulf.m3.save }}"     data-gulf-m3-total="{{ p.pricing.gulf.m3.total }}"
-             data-gulf-m6-amount="{{ p.pricing.gulf.m6.amount }}"     data-gulf-m6-currency="{{ p.pricing.gulf.m6.currency }}"     data-gulf-m6-label="{{ p.pricing.gulf.m6.label_ar }}"     data-gulf-m6-save="{{ p.pricing.gulf.m6.save }}"     data-gulf-m6-total="{{ p.pricing.gulf.m6.total }}"
-             data-intl-m1-amount="{{ p.pricing.international.m1.amount }}" data-intl-m1-currency="{{ p.pricing.international.m1.currency }}" data-intl-m1-label="{{ p.pricing.international.m1.label_ar }}"
-             data-intl-m3-amount="{{ p.pricing.international.m3.amount }}" data-intl-m3-currency="{{ p.pricing.international.m3.currency }}" data-intl-m3-label="{{ p.pricing.international.m3.label_ar }}" data-intl-m3-save="{{ p.pricing.international.m3.save }}" data-intl-m3-total="{{ p.pricing.international.m3.total }}"
-             data-intl-m6-amount="{{ p.pricing.international.m6.amount }}" data-intl-m6-currency="{{ p.pricing.international.m6.currency }}" data-intl-m6-label="{{ p.pricing.international.m6.label_ar }}" data-intl-m6-save="{{ p.pricing.international.m6.save }}" data-intl-m6-total="{{ p.pricing.international.m6.total }}">
+        <div class="plan-card card flex flex-col relative w-full sm:w-80 lg:w-[22rem]
+                    {% if p.highlight %}ring-2 ring-brand-mint/60{% endif %}"
+             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 120 + 100 }}"
+             data-egypt-total="{{ p.pricing.egypt.total }}"
+             data-egypt-per-month="{{ p.pricing.egypt.per_month }}"
+             data-egypt-currency="{{ p.pricing.egypt.currency }}"
+             data-egypt-savings="{{ p.pricing.egypt.savings or '' }}"
+             data-gulf-total="{{ p.pricing.gulf.total }}"
+             data-gulf-per-month="{{ p.pricing.gulf.per_month }}"
+             data-gulf-currency="{{ p.pricing.gulf.currency }}"
+             data-gulf-savings="{{ p.pricing.gulf.savings or '' }}"
+             data-intl-total="{{ p.pricing.international.total }}"
+             data-intl-per-month="{{ p.pricing.international.per_month }}"
+             data-intl-currency="{{ p.pricing.international.currency }}"
+             data-intl-savings="{{ p.pricing.international.savings or '' }}"
+             data-duration="{{ p.duration }}">
 
-          {# Badges row #}
-          <div class="flex flex-wrap gap-2 mb-3">
+          {# Top badges #}
+          <div class="flex flex-wrap gap-2 mb-3 min-h-[1.75rem]">
             {% if p.highlight %}
               <span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأكثر شعبية</span>
             {% endif %}
-            <span class="save-badge hidden chip bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
-            <span class="referral-plan-badge hidden chip bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 خصم التوصية</span>
+            <span class="savings-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
+            <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">
+              🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}
+            </span>
           </div>
 
-          <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
+          {# Duration tag #}
+          <div class="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-lg bg-brand-off/5 border border-brand-line w-fit">
+            <span class="text-brand-mint text-xs">📅</span>
+            <span class="text-brand-off/60 text-xs font-medium">التزام {{ p.duration }} أشهر</span>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-1">{{ p.ar.name }}</h2>
           <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
 
           {# Price block #}
-          <div class="mb-1">
+          <div class="mb-4 p-3 rounded-xl bg-brand-off/3 border border-brand-line">
             <div class="flex items-baseline gap-2 flex-wrap">
-              <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.m1.amount }}</span>
-              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.m1.currency }}</span>
+              <span class="text-3xl font-bold text-brand-mint price-total">{{ p.pricing.egypt.total }}</span>
+              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.currency }}</span>
+              <span class="text-brand-off/40 text-xs">إجمالي</span>
             </div>
-            <div class="text-brand-off/50 text-xs price-label mt-0.5">{{ p.pricing.egypt.m1.label_ar }}</div>
-            <div class="price-total text-brand-off/40 text-xs mt-0.5 hidden"></div>
+            <div class="text-brand-off/50 text-xs mt-1">
+              <span class="price-per-month">{{ p.pricing.egypt.per_month }}</span>
+              <span class="price-currency2"> {{ p.pricing.egypt.currency }}</span>
+              / شهريًا
+            </div>
+            <div class="price-savings-line text-brand-mint text-xs font-semibold mt-1
+                        {% if not p.pricing.egypt.savings %}hidden{% endif %}">
+              {% if p.pricing.egypt.savings %}وفّر {{ p.pricing.egypt.savings }} {{ p.pricing.egypt.currency }}!{% endif %}
+            </div>
           </div>
 
-          <p class="text-brand-off/70 text-sm mt-3">{{ p.ar.blurb }}</p>
-          <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
+          <p class="text-brand-off/70 text-sm">{{ p.ar.blurb }}</p>
+
+          <ul class="mt-4 space-y-1.5 text-sm text-brand-off/75 flex-1">
             {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
           </ul>
+
           <a href="{{ ('/ar/plans/' + p.slug + '/') | url }}"
              class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
             {{ p.ar.cta }}
@@ -133,25 +144,19 @@ description: "اختر الباقة المناسبة — التحول الشام
       {% if customPlans.items %}
         {% for p in customPlans.items %}
           {% if p.visible !== false and p.ar %}
-          <div class="plan-card card card-hover flex flex-col relative w-full sm:w-80 lg:w-96 border-brand-gold/30"
+          <div class="plan-card card flex flex-col relative w-full sm:w-80 lg:w-[22rem] border-brand-gold/30"
                data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 400 }}">
             <div class="flex flex-wrap gap-2 mb-3">
               <span class="chip text-brand-gold border-brand-gold/30 text-xs">✨ خاصة</span>
-              <span class="referral-plan-badge hidden chip bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 خصم التوصية</span>
+              <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">
+                🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}
+              </span>
             </div>
-            <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
+            <h2 class="text-2xl font-bold mb-1">{{ p.ar.name }}</h2>
             <p class="text-brand-gold text-sm mb-4">{{ p.ar.tagline }}</p>
-            {% if p.pricing %}
-            <div class="mb-1">
-              <div class="flex items-baseline gap-2">
-                <span class="text-4xl font-bold text-brand-gold">{{ p.pricing.egypt.m1.amount if p.pricing.egypt.m1 else p.pricing.egypt.amount }}</span>
-                <span class="text-brand-off/70 text-sm">{{ p.pricing.egypt.m1.currency if p.pricing.egypt.m1 else p.pricing.egypt.currency }}</span>
-              </div>
-            </div>
-            {% endif %}
-            <p class="text-brand-off/70 text-sm mt-3">{{ p.ar.blurb }}</p>
+            <p class="text-brand-off/70 text-sm flex-1">{{ p.ar.blurb }}</p>
             {% if p.ar.features %}
-            <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
+            <ul class="mt-4 space-y-1.5 text-sm text-brand-off/75 flex-1">
               {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-gold flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
             </ul>
             {% endif %}
@@ -184,17 +189,18 @@ description: "اختر الباقة المناسبة — التحول الشام
     <div class="text-center mb-8" data-aos="fade-up">
       <p class="section-kicker">مستعد تبدأ؟</p>
       <h2 class="text-2xl font-bold mb-2">اطلب باقتك</h2>
-      <p class="text-brand-off/60 text-sm max-w-md mx-auto">املا الفورم الجاي وهنرجعلك بعرض مخصوص. لو جاتلك توصية من حد، اذكر اسمه في الفورم.</p>
+      <p class="text-brand-off/60 text-sm max-w-md mx-auto">
+        املا الفورم الجاي وهنرجعلك بعرض مخصوص.
+        {% if referral.enabled %}لو جاتلك توصية من حد، اذكر اسمه في الفورم — وإنت وهو هتاخدوا خصم.{% endif %}
+      </p>
     </div>
     <div class="card p-0 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
         width="100%"
-        style="min-height:680px; border:none; display:block;"
+        style="min-height:700px; border:none; display:block;"
         title="اطلب باقة"
-        loading="lazy"
-        scrolling="no"
-        onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px'">
+        loading="lazy">
         جاري تحميل الفورم…
       </iframe>
     </div>
@@ -202,142 +208,111 @@ description: "اختر الباقة المناسبة — التحول الشام
 </section>
 
 <style>
-  .region-btn   { color: rgba(247,248,250,0.6); }
-  .region-btn.active   { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
+  .region-btn { color: rgba(247,248,250,0.6); }
+  .region-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
   .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
 
-  .duration-btn { color: rgba(247,248,250,0.6); }
-  .duration-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
-  .duration-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
-
   .plan-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-  .plan-card:hover { transform: translateY(-4px); }
+  .plan-card:hover { transform: translateY(-5px); }
 
-  @media (max-width: 639px) {
-    .plan-card { width: 100%; }
-  }
+  @media (max-width: 639px) { .plan-card { width: 100%; } }
 </style>
 
 <script>
 (function () {
-  const REGION_KEY  = 'o2f_region';
-  const DURATION_KEY = 'o2f_duration';
-  const DEFAULT_REGION   = 'egypt';
-  const DEFAULT_DURATION = 'm1';
-
-  var SAVE_LABELS = { m3: 'وفّر ', m6: 'وفّر ' };
-  var TOTAL_LABEL = 'الإجمالي: ';
-
-  let currentRegion   = DEFAULT_REGION;
-  let currentDuration = DEFAULT_DURATION;
-
+  const KEY = 'o2f_region';
+  const DEFAULT = 'egypt';
   const regionMap = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
 
-  function camel(str) {
-    return str.replace(/-([a-z])/g, function(_, c){ return c.toUpperCase(); });
-  }
+  const REFERRAL = {
+    egypt:         { amount: '{{ referral.discount.egypt.amount if referral else "500" }}',  currency: '{{ referral.discount.egypt.currency if referral else "EGP" }}' },
+    gulf:          { amount: '{{ referral.discount.gulf.amount if referral else "38" }}',   currency: '{{ referral.discount.gulf.currency if referral else "SAR" }}' },
+    international: { amount: '{{ referral.discount.international.amount if referral else "10" }}', currency: '{{ referral.discount.international.currency if referral else "USD" }}' }
+  };
 
-  function updateDurationBadges() {
-    var card = document.querySelector('.plan-card[data-egypt-m3-save]');
-    if (!card) return;
-    var s3 = card.dataset.egyptM3Save || '';
-    var s6 = card.dataset.egyptM6Save || '';
-    document.querySelectorAll('.duration-save-m3').forEach(function(el){ el.textContent = s3 ? (SAVE_LABELS.m3 + s3) : ''; });
-    document.querySelectorAll('.duration-save-m6').forEach(function(el){ el.textContent = s6 ? (SAVE_LABELS.m6 + s6) : ''; });
-  }
+  const SAVE_WORD = 'وفّر ';
 
-  function updateCards() {
-    var prefix = regionMap[currentRegion];
+  let currentRegion = DEFAULT;
 
-    document.querySelectorAll('.plan-card').forEach(function(card) {
+  function camel(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
+
+  function updateCards(region) {
+    var prefix = regionMap[region];
+    document.querySelectorAll('.plan-card[data-' + prefix + '-total]').forEach(function (card) {
       var ds = card.dataset;
+      var total    = ds[camel(prefix + '-total')]     || '';
+      var perMonth = ds[camel(prefix + '-per-month')] || '';
+      var currency = ds[camel(prefix + '-currency')]  || '';
+      var savings  = ds[camel(prefix + '-savings')]   || '';
 
-      var amount   = ds[camel(prefix + '-' + currentDuration + '-amount')]   || '';
-      var currency = ds[camel(prefix + '-' + currentDuration + '-currency')] || '';
-      var label    = ds[camel(prefix + '-' + currentDuration + '-label')]    || '';
-      var save     = ds[camel(prefix + '-' + currentDuration + '-save')]     || '';
-      var total    = ds[camel(prefix + '-' + currentDuration + '-total')]    || '';
-
-      var elAmount   = card.querySelector('.price-amount');
-      var elCurrency = card.querySelector('.price-currency');
-      var elLabel    = card.querySelector('.price-label');
       var elTotal    = card.querySelector('.price-total');
-      var elSave     = card.querySelector('.save-badge');
+      var elPM       = card.querySelector('.price-per-month');
+      var elCur      = card.querySelector('.price-currency');
+      var elCur2     = card.querySelector('.price-currency2');
+      var elSavLine  = card.querySelector('.price-savings-line');
+      var elSavBadge = card.querySelector('.savings-badge');
 
-      if (elAmount)   elAmount.textContent   = amount;
-      if (elCurrency) elCurrency.textContent = currency;
-      if (elLabel)    elLabel.textContent    = label;
+      if (elTotal)  elTotal.textContent  = total;
+      if (elPM)     elPM.textContent     = perMonth;
+      if (elCur)    elCur.textContent    = currency;
+      if (elCur2)   elCur2.textContent   = ' ' + currency;
 
-      if (elTotal) {
-        if (total) {
-          elTotal.textContent = TOTAL_LABEL + total + ' ' + currency;
-          elTotal.classList.remove('hidden');
+      if (elSavLine) {
+        if (savings) {
+          elSavLine.textContent = SAVE_WORD + savings + ' ' + currency + '!';
+          elSavLine.classList.remove('hidden');
         } else {
-          elTotal.classList.add('hidden');
+          elSavLine.classList.add('hidden');
         }
       }
-
-      if (elSave) {
-        if (save) {
-          elSave.textContent = SAVE_LABELS.m3 + save;
-          elSave.classList.remove('hidden');
+      if (elSavBadge) {
+        if (savings) {
+          elSavBadge.textContent = SAVE_WORD + savings + ' ' + currency;
+          elSavBadge.classList.remove('hidden');
         } else {
-          elSave.classList.add('hidden');
+          elSavBadge.classList.add('hidden');
         }
       }
+    });
+
+    var r = REFERRAL[region] || REFERRAL.egypt;
+    document.querySelectorAll('.referral-discount-line').forEach(function (el) {
+      el.textContent = 'كل واحد منكم يوفّر ' + r.amount + ' ' + r.currency + ' على الباقة!';
     });
   }
 
   function setRegion(region) {
-    if (!regionMap[region]) region = DEFAULT_REGION;
+    if (!regionMap[region]) region = DEFAULT;
     currentRegion = region;
-    try { localStorage.setItem(REGION_KEY, region); } catch(e) {}
-    document.querySelectorAll('.region-btn').forEach(function(b){
+    try { localStorage.setItem(KEY, region); } catch (e) {}
+    document.querySelectorAll('.region-btn').forEach(function (b) {
       b.classList.toggle('active', b.dataset.region === region);
     });
-    updateCards();
-  }
-
-  function setDuration(duration) {
-    currentDuration = duration;
-    try { localStorage.setItem(DURATION_KEY, duration); } catch(e) {}
-    document.querySelectorAll('.duration-btn').forEach(function(b){
-      b.classList.toggle('active', b.dataset.duration === duration);
-    });
-    updateCards();
+    updateCards(region);
   }
 
   function setReferral(active) {
-    var msg = document.getElementById('referral-msg');
-    if (msg) msg.classList.toggle('hidden', !active);
-    document.querySelectorAll('.referral-badge').forEach(function(el){ el.classList.toggle('hidden', !active); });
-    document.querySelectorAll('.referral-plan-badge').forEach(function(el){ el.classList.toggle('hidden', !active); });
+    var banner = document.getElementById('referral-banner');
+    var badge  = document.getElementById('referral-badge');
+    if (banner) banner.classList.toggle('hidden', !active);
+    if (badge)  badge.classList.toggle('hidden', !active);
+    document.querySelectorAll('.referral-plan-badge').forEach(function (el) {
+      el.classList.toggle('hidden', !active);
+    });
     if (active) {
       var form = document.getElementById('request-form');
-      if (form) setTimeout(function(){ form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400);
+      if (form) setTimeout(function () { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 500);
     }
   }
 
-  /* ── init ── */
-  updateDurationBadges();
+  var saved = DEFAULT;
+  try { saved = localStorage.getItem(KEY) || DEFAULT; } catch (e) {}
+  setRegion(saved);
 
-  var savedRegion   = DEFAULT_REGION;
-  var savedDuration = DEFAULT_DURATION;
-  try { savedRegion   = localStorage.getItem(REGION_KEY)   || DEFAULT_REGION;   } catch(e) {}
-  try { savedDuration = localStorage.getItem(DURATION_KEY) || DEFAULT_DURATION; } catch(e) {}
-
-  setRegion(savedRegion);
-  setDuration(savedDuration);
-
-  document.querySelectorAll('.region-btn').forEach(function(b){
-    b.addEventListener('click', function(){ setRegion(b.dataset.region); });
+  document.querySelectorAll('.region-btn').forEach(function (b) {
+    b.addEventListener('click', function () { setRegion(b.dataset.region); });
   });
-  document.querySelectorAll('.duration-btn').forEach(function(b){
-    b.addEventListener('click', function(){ setDuration(b.dataset.duration); });
-  });
-  var referralCheck = document.getElementById('referral-check');
-  if (referralCheck) {
-    referralCheck.addEventListener('change', function(){ setReferral(referralCheck.checked); });
-  }
+  var ref = document.getElementById('referral-check');
+  if (ref) ref.addEventListener('change', function () { setReferral(ref.checked); });
 })();
 </script>
