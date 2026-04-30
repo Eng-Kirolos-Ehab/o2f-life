@@ -52,57 +52,57 @@
     }
   },
   "standard": {
-    "slug": "standard",
+    "slug": "الخطة العلاجية",
     "visible": true,
     "highlight": true,
     "order": 2,
     "pricing": {
       "egypt": {
-        "amount": "4,500",
+        "amount": "2400",
         "currency": "EGP",
         "period": "per month",
         "period_ar": "شهريًا"
       },
       "gulf": {
-        "amount": "650",
+        "amount": "600",
         "currency": "SAR",
         "period": "per month",
         "period_ar": "شهريًا"
       },
       "international": {
-        "amount": "179",
+        "amount": "160",
         "currency": "USD",
         "period": "per month",
         "period_ar": "شهريًا"
       }
     },
     "en": {
-      "name": "Standard Plan",
-      "tagline": "Build a solid foundation",
-      "blurb": "The sweet spot: daily support, weekly tuning, and optional herbal add-ons for a more holistic approach.",
+      "name": "Therapeutic Nutrition Plan",
+      "tagline": "Medical Nutrition Plan Without Training",
+      "blurb": "A specialized therapeutic nutrition plan designed for medical conditions with professional analysis and weekly follow-up.",
       "features": [
-        "Goal-oriented personalized nutrition plan",
-        "Customizable workout program",
-        "Daily support & check-ins",
-        "Weekly nutrition adjustments",
-        "Optional therapeutic herbs guidance",
-        "Full online flexibility"
+        "Full medical case analysis",
+        "Personalized therapeutic nutrition plan",
+        "Weekly follow-up",
+        "Herbal treatments",
+        "Natural medical consultations",
+        "Suitable for diabetes, hypertension, cholesterol, digestive issues, and inflammation"
       ],
-      "cta": "Start the Standard Plan"
+      "cta": "Request this plan"
     },
     "ar": {
-      "name": "الخطة الأساسية",
-      "tagline": "ابنِ أساسًا قويًا",
-      "blurb": "الخيار الأمثل: دعم يومي، تعديلات أسبوعية، وخيار إضافة الأعشاب العلاجية لنهج أشمل.",
+      "name": "الخطة العلاجية",
+      "tagline": "خطة تغذية علاجية للحالات الطبية بدون تدريب",
+      "blurb": "خطة تغذية علاجية مخصصة للحالات الطبية مع تحليل شامل ومتابعة أسبوعية لضمان أفضل النتائج.",
       "features": [
-        "خطة تغذية مخصّصة",
-        "برنامج تمرين قابل للتخصيص",
-        "دعم ومتابعة يومية",
-        "تعديل خطة التغذية أسبوعيًا",
-        "إرشاد اختياري للأعشاب العلاجية",
-        "مرونة كاملة أونلاين"
+        "تحليل شامل للحالة الطبية",
+        "خطة تغذية علاجية مخصصة",
+        "متابعة أسبوعية",
+        "أعشاب علاجية",
+        "استشارات طبية طبيعية",
+        "مناسبة لمرضى السكري والضغط والكوليسترول ومشاكل الهضم والالتهابات"
       ],
-      "cta": "ابدأ الخطة الأساسية"
+      "cta": "اطلب هذه الباقة"
     }
   },
   "advanced": {
