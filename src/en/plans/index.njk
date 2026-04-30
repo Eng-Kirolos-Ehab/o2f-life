@@ -51,9 +51,9 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
             <p class="font-bold text-brand-gold mb-0.5">{{ referral.en.promo_headline }}</p>
             <p class="text-brand-off/70 text-xs leading-relaxed">{{ referral.en.promo_body }}</p>
             <p class="mt-1.5 text-brand-gold font-semibold text-xs referral-discount-line"></p>
-            <button onclick="openFormModal()" class="mt-2 px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-ink hover:opacity-90 transition-opacity">
+            <a href="{{ '/en/contact/' | url }}" class="mt-2 inline-block px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-ink hover:opacity-90 transition-opacity">
               🎁 Claim my referral discount →
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -118,10 +118,10 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
             {% for f in p.en.features %}<li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
           </ul>
 
-          <button onclick="openFormModal('{{ p.en.name }}')"
-                  class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 w-full justify-center">
+          <a href="{{ '/en/contact/' | url }}"
+             class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 w-full justify-center">
             {{ p.en.cta }}
-          </button>
+          </a>
         </div>
         {% endif %}
       {% endfor %}
@@ -143,9 +143,9 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
               {% for f in p.en.features %}<li class="flex gap-2"><span class="text-brand-gold flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
             </ul>
             {% endif %}
-            <button onclick="openFormModal('{{ p.en.name }}')" class="btn-ghost mt-6 w-full justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
+            <a href="{{ '/en/contact/' | url }}" class="btn-ghost mt-6 w-full justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
               {{ p.en.cta or "Request this plan" }}
-            </button>
+            </a>
           </div>
           {% endif %}
         {% endfor %}
@@ -166,28 +166,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   </div>
 </section>
 
-{# ── FORM MODAL ── #}
-<div id="form-modal" class="form-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="form-modal-box">
-    <div class="form-modal-header">
-      <div>
-        <p class="text-xs text-brand-off/50 mb-0.5">Ready to start?</p>
-        <h2 id="modal-title" class="text-lg font-bold">Request Your Plan</h2>
-      </div>
-      <button class="form-modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
-    </div>
-    <div class="form-modal-body">
-      <iframe id="form-iframe"
-        src=""
-        data-src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
-        width="100%" height="100%"
-        frameborder="0"
-        title="Request a Plan">
-        Loading…
-      </iframe>
-    </div>
-  </div>
-</div>
 
 <style>
   .region-btn { color: rgba(247,248,250,0.6); }
@@ -202,49 +180,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   .plan-card:hover { transform: translateY(-5px); }
   @media (max-width: 639px) { .plan-card { width: 100%; } }
 
-  /* Modal */
-  .form-modal-overlay {
-    position: fixed; inset: 0; z-index: 9000;
-    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
-    display: flex; align-items: center; justify-content: center;
-    padding: 1rem;
-    opacity: 0; pointer-events: none;
-    transition: opacity .25s ease;
-  }
-  .form-modal-overlay.open { opacity: 1; pointer-events: all; }
-
-  .form-modal-box {
-    background: #111827; border: 1px solid rgba(255,255,255,.1);
-    border-radius: 20px; overflow: hidden;
-    width: 100%; max-width: 680px;
-    height: 90vh; max-height: 780px;
-    display: flex; flex-direction: column;
-    transform: translateY(24px) scale(.97);
-    transition: transform .3s ease;
-    box-shadow: 0 32px 80px rgba(0,0,0,.6);
-  }
-  .form-modal-overlay.open .form-modal-box { transform: translateY(0) scale(1); }
-
-  .form-modal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.08);
-    flex-shrink: 0;
-  }
-  .form-modal-close {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: rgba(255,255,255,.08); border: none; color: #F7F8FA;
-    font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
-  }
-  .form-modal-close:hover { background: rgba(255,255,255,.15); }
-
-  .form-modal-body { flex: 1; overflow: hidden; background: #fff; }
-  .form-modal-body iframe { display: block; border: none; width: 100%; height: 100%; }
-
-  @media (max-width: 640px) {
-    .form-modal-overlay { padding: 0; align-items: flex-end; }
-    .form-modal-box { border-radius: 20px 20px 0 0; height: 92vh; max-height: none; }
-  }
 </style>
 
 <script>
@@ -261,29 +196,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   let currentRegion = DEFAULT_REGION;
 
   function cam(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
-
-  /* ── Modal ── */
-  var formLoaded = false;
-  window.openFormModal = function (planName) {
-    var overlay = document.getElementById('form-modal');
-    if (!formLoaded) {
-      var iframe = document.getElementById('form-iframe');
-      iframe.src = iframe.dataset.src;
-      formLoaded = true;
-    }
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-  window.closeFormModal = function () {
-    document.getElementById('form-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  document.getElementById('form-modal').addEventListener('click', function (e) {
-    if (e.target === this) closeFormModal();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeFormModal();
-  });
 
   /* ── Price refresh ── */
   function refreshCard(card, region, dur) {
@@ -334,7 +246,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
     if (banner) banner.classList.toggle('hidden', !active);
     if (badge)  badge.classList.toggle('hidden', !active);
     document.querySelectorAll('.referral-plan-badge').forEach(function (el) { el.classList.toggle('hidden', !active); });
-    if (active) openFormModal();
   }
 
   /* Duration tabs per card */
