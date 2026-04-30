@@ -6,22 +6,19 @@
     "order": 1,
     "pricing": {
       "egypt": {
-        "amount": "5000",
-        "currency": "EGP",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "5,000", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "4,500", "currency": "EGP", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "13,500", "save": "10%" },
+        "m6": { "amount": "4,000", "currency": "EGP", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "24,000", "save": "20%" }
       },
       "gulf": {
-        "amount": "1200",
-        "currency": "SAR",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "1,200", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "1,020", "currency": "SAR", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "3,060", "save": "15%" },
+        "m6": { "amount": "900", "currency": "SAR", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "5,400", "save": "25%" }
       },
       "international": {
-        "amount": "320",
-        "currency": "USD",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "320", "currency": "USD", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "272", "currency": "USD", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "816", "save": "15%" },
+        "m6": { "amount": "240", "currency": "USD", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "1,440", "save": "25%" }
       }
     },
     "en": {
@@ -58,22 +55,19 @@
     "order": 2,
     "pricing": {
       "egypt": {
-        "amount": "2400",
-        "currency": "EGP",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "2,400", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "2,160", "currency": "EGP", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "6,480", "save": "10%" },
+        "m6": { "amount": "1,920", "currency": "EGP", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "11,520", "save": "20%" }
       },
       "gulf": {
-        "amount": "600",
-        "currency": "SAR",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "600", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "510", "currency": "SAR", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "1,530", "save": "15%" },
+        "m6": { "amount": "450", "currency": "SAR", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "2,700", "save": "25%" }
       },
       "international": {
-        "amount": "160",
-        "currency": "USD",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "160", "currency": "USD", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "136", "currency": "USD", "label": "/mo · billed every 3 months", "label_ar": "شهريًا · كل 3 شهور", "total": "408", "save": "15%" },
+        "m6": { "amount": "120", "currency": "USD", "label": "/mo · billed every 6 months", "label_ar": "شهريًا · كل 6 شهور", "total": "720", "save": "25%" }
       }
     },
     "en": {
@@ -112,22 +106,19 @@
     "order": 3,
     "pricing": {
       "egypt": {
-        "amount": "7,500",
-        "currency": "EGP",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "7,500", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "6,750", "currency": "EGP", "label": "/mo · 3 months", "label_ar": "شهريًا · 3 شهور", "total": "20,250", "save": "10%" },
+        "m6": { "amount": "6,000", "currency": "EGP", "label": "/mo · 6 months", "label_ar": "شهريًا · 6 شهور", "total": "36,000", "save": "20%" }
       },
       "gulf": {
-        "amount": "1,100",
-        "currency": "SAR",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "1,100", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "935", "currency": "SAR", "label": "/mo · 3 months", "label_ar": "شهريًا · 3 شهور", "total": "2,805", "save": "15%" },
+        "m6": { "amount": "825", "currency": "SAR", "label": "/mo · 6 months", "label_ar": "شهريًا · 6 شهور", "total": "4,950", "save": "25%" }
       },
       "international": {
-        "amount": "299",
-        "currency": "USD",
-        "period": "per month",
-        "period_ar": "شهريًا"
+        "m1": { "amount": "299", "currency": "USD", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "254", "currency": "USD", "label": "/mo · 3 months", "label_ar": "شهريًا · 3 شهور", "total": "762", "save": "15%" },
+        "m6": { "amount": "224", "currency": "USD", "label": "/mo · 6 months", "label_ar": "شهريًا · 6 شهور", "total": "1,344", "save": "25%" }
       }
     },
     "en": {

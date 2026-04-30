@@ -1,6 +1,6 @@
 ---
 title: "الباقات"
-description: "اختر الباقة المناسبة — البسيطة، الأساسية، أو المتطوّرة — مع تسعير إقليمي لمصر، الخليج، والعملاء الدوليين."
+description: "اختر الباقة المناسبة — التحول الشامل أو العلاجية — مع تسعير مرن لـ 1 أو 3 أو 6 أشهر لمصر والخليج والعملاء الدوليين."
 ---
 
 <section class="grid-bg relative overflow-hidden">
@@ -14,105 +14,161 @@ description: "اختر الباقة المناسبة — البسيطة، الأ
   </div>
 </section>
 
-<section class="pt-4">
+{# CONTROLS: REGION + DURATION + REFERRAL #}
+<section class="pt-4 pb-2">
   <div class="container-x">
-    <div class="flex flex-wrap items-center justify-center gap-2" data-aos="fade-up">
-      <span class="text-brand-off/60 text-sm ml-2">التسعير لـ:</span>
-      <div id="region-switcher" class="inline-flex rounded-xl2 border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
-        <button type="button" data-region="egypt" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇪🇬 مصر</button>
-        <button type="button" data-region="gulf" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇸🇦 الخليج / العربي</button>
-        <button type="button" data-region="international" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🌍 دولي</button>
+
+    {# Row 1: Region + Duration #}
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-4" data-aos="fade-up">
+
+      {# Region switcher #}
+      <div class="flex items-center gap-2">
+        <span class="text-brand-off/60 text-xs hidden sm:inline">المنطقة:</span>
+        <div id="region-switcher" class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
+          <button type="button" data-region="egypt"         class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">🇪🇬 مصر</button>
+          <button type="button" data-region="gulf"          class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">🇸🇦 الخليج</button>
+          <button type="button" data-region="international" class="region-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">🌍 دولي</button>
+        </div>
+      </div>
+
+      {# Divider #}
+      <span class="hidden sm:inline text-brand-line">|</span>
+
+      {# Duration switcher #}
+      <div class="flex items-center gap-2">
+        <span class="text-brand-off/60 text-xs hidden sm:inline">المدة:</span>
+        <div id="duration-switcher" class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
+          <button type="button" data-duration="m1" class="duration-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">شهر</button>
+          <button type="button" data-duration="m3" class="duration-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
+            3 شهور
+            <span class="mr-1 text-brand-mint text-[10px] font-bold duration-save-m3"></span>
+          </button>
+          <button type="button" data-duration="m6" class="duration-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
+            6 شهور
+            <span class="mr-1 text-brand-mint text-[10px] font-bold duration-save-m6"></span>
+          </button>
+        </div>
       </div>
     </div>
+
+    {# Row 2: Referral toggle #}
+    <div class="flex justify-center" data-aos="fade-up" data-aos-delay="100">
+      <label class="referral-toggle flex items-center gap-2.5 cursor-pointer select-none group">
+        <div class="relative">
+          <input type="checkbox" id="referral-check" class="sr-only peer">
+          <div class="w-10 h-5 rounded-full bg-brand-line peer-checked:bg-brand-mint/40 transition-colors border border-brand-line peer-checked:border-brand-mint/60"></div>
+          <div class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-brand-off/40 peer-checked:bg-brand-mint peer-checked:translate-x-5 transition-all"></div>
+        </div>
+        <span class="text-sm text-brand-off/70 group-hover:text-brand-off transition-colors">
+          جاتلك توصية من حد
+          <span class="referral-badge hidden mr-1.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/30">🎁 عروض خاصة متاحة</span>
+        </span>
+      </label>
+    </div>
+
+    {# Referral message #}
+    <div id="referral-msg" class="hidden mt-3 text-center text-sm text-brand-gold bg-brand-gold/10 border border-brand-gold/25 rounded-xl px-4 py-2.5 max-w-lg mx-auto" data-aos="fade-up">
+      🎁 رائع! بما إنك جيت بتوصية، عندك <strong>خصومات خاصة</strong> — اسكرول تحت واملا الفورم واذكر اسم اللي بعتك.
+    </div>
+
   </div>
 </section>
 
-<section class="section pt-10">
-  <div class="container-x grid md:grid-cols-3 gap-5 items-stretch">
-    {% set orderedKeys = ["basic","standard","advanced"] %}
-    {% for key in orderedKeys %}
-      {% set p = plans[key] %}
-      {% if p.visible !== false %}
-      <div class="card card-hover flex flex-col relative {% if p.highlight %}ring-2 ring-brand-mint/50{% endif %}"
-           data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 100 }}">
-        {% if p.highlight %}
-          <span class="chip bg-brand-mint text-brand-ink border-brand-mint mb-3 self-start text-xs font-bold">★ الأكثر شعبية</span>
-        {% endif %}
-        <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
-        <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
+{# PLAN CARDS #}
+<section class="section pt-8">
+  <div class="container-x">
+    <div id="plans-grid" class="flex flex-wrap justify-center gap-5 items-stretch">
 
-        <div class="mb-4 price-container"
-             data-egypt-amount="{{ p.pricing.egypt.amount }}"
-             data-egypt-currency="{{ p.pricing.egypt.currency }}"
-             data-egypt-period="{{ p.pricing.egypt.period_ar }}"
-             data-gulf-amount="{{ p.pricing.gulf.amount }}"
-             data-gulf-currency="{{ p.pricing.gulf.currency }}"
-             data-gulf-period="{{ p.pricing.gulf.period_ar }}"
-             data-intl-amount="{{ p.pricing.international.amount }}"
-             data-intl-currency="{{ p.pricing.international.currency }}"
-             data-intl-period="{{ p.pricing.international.period_ar }}">
-          <div class="flex items-baseline gap-2">
-            <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.amount }}</span>
-            <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.currency }}</span>
+      {% set orderedKeys = ["basic","standard","advanced"] %}
+      {% for key in orderedKeys %}
+        {% set p = plans[key] %}
+        {% if p.visible !== false %}
+        <div class="plan-card card card-hover flex flex-col relative w-full sm:w-80 lg:w-96 {% if p.highlight %}ring-2 ring-brand-mint/50{% endif %}"
+             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 100 }}"
+             data-egypt-m1-amount="{{ p.pricing.egypt.m1.amount }}"   data-egypt-m1-currency="{{ p.pricing.egypt.m1.currency }}"   data-egypt-m1-label="{{ p.pricing.egypt.m1.label_ar }}"
+             data-egypt-m3-amount="{{ p.pricing.egypt.m3.amount }}"   data-egypt-m3-currency="{{ p.pricing.egypt.m3.currency }}"   data-egypt-m3-label="{{ p.pricing.egypt.m3.label_ar }}"   data-egypt-m3-save="{{ p.pricing.egypt.m3.save }}"   data-egypt-m3-total="{{ p.pricing.egypt.m3.total }}"
+             data-egypt-m6-amount="{{ p.pricing.egypt.m6.amount }}"   data-egypt-m6-currency="{{ p.pricing.egypt.m6.currency }}"   data-egypt-m6-label="{{ p.pricing.egypt.m6.label_ar }}"   data-egypt-m6-save="{{ p.pricing.egypt.m6.save }}"   data-egypt-m6-total="{{ p.pricing.egypt.m6.total }}"
+             data-gulf-m1-amount="{{ p.pricing.gulf.m1.amount }}"     data-gulf-m1-currency="{{ p.pricing.gulf.m1.currency }}"     data-gulf-m1-label="{{ p.pricing.gulf.m1.label_ar }}"
+             data-gulf-m3-amount="{{ p.pricing.gulf.m3.amount }}"     data-gulf-m3-currency="{{ p.pricing.gulf.m3.currency }}"     data-gulf-m3-label="{{ p.pricing.gulf.m3.label_ar }}"     data-gulf-m3-save="{{ p.pricing.gulf.m3.save }}"     data-gulf-m3-total="{{ p.pricing.gulf.m3.total }}"
+             data-gulf-m6-amount="{{ p.pricing.gulf.m6.amount }}"     data-gulf-m6-currency="{{ p.pricing.gulf.m6.currency }}"     data-gulf-m6-label="{{ p.pricing.gulf.m6.label_ar }}"     data-gulf-m6-save="{{ p.pricing.gulf.m6.save }}"     data-gulf-m6-total="{{ p.pricing.gulf.m6.total }}"
+             data-intl-m1-amount="{{ p.pricing.international.m1.amount }}" data-intl-m1-currency="{{ p.pricing.international.m1.currency }}" data-intl-m1-label="{{ p.pricing.international.m1.label_ar }}"
+             data-intl-m3-amount="{{ p.pricing.international.m3.amount }}" data-intl-m3-currency="{{ p.pricing.international.m3.currency }}" data-intl-m3-label="{{ p.pricing.international.m3.label_ar }}" data-intl-m3-save="{{ p.pricing.international.m3.save }}" data-intl-m3-total="{{ p.pricing.international.m3.total }}"
+             data-intl-m6-amount="{{ p.pricing.international.m6.amount }}" data-intl-m6-currency="{{ p.pricing.international.m6.currency }}" data-intl-m6-label="{{ p.pricing.international.m6.label_ar }}" data-intl-m6-save="{{ p.pricing.international.m6.save }}" data-intl-m6-total="{{ p.pricing.international.m6.total }}">
+
+          {# Badges row #}
+          <div class="flex flex-wrap gap-2 mb-3">
+            {% if p.highlight %}
+              <span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأكثر شعبية</span>
+            {% endif %}
+            <span class="save-badge hidden chip bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
+            <span class="referral-plan-badge hidden chip bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 خصم التوصية</span>
           </div>
-          <div class="text-brand-off/50 text-xs price-period">{{ p.pricing.egypt.period_ar }}</div>
-        </div>
 
-        <p class="text-brand-off/70 text-sm">{{ p.ar.blurb }}</p>
-        <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
-          {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint">✓</span>{{ f }}</li>{% endfor %}
-        </ul>
-        <a href="{{ ('/ar/plans/' + p.slug + '/') | url }}"
-           class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
-          {{ p.ar.cta }}
-        </a>
-      </div>
-      {% endif %}
-    {% endfor %}
-
-    {% if customPlans.items %}
-      {% for p in customPlans.items %}
-        {% if p.visible !== false and p.ar %}
-        <div class="card card-hover flex flex-col relative border-brand-gold/30"
-             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 400 }}">
-          <span class="chip text-brand-gold mb-3 self-start">✨ خاصة</span>
           <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
-          <p class="text-brand-gold text-sm mb-4">{{ p.ar.tagline }}</p>
-          {% if p.pricing %}
-          <div class="mb-4 price-container"
-               data-egypt-amount="{{ p.pricing.egypt.amount }}"
-               data-egypt-currency="{{ p.pricing.egypt.currency }}"
-               data-egypt-period="{{ p.pricing.egypt.period_ar }}"
-               data-gulf-amount="{{ p.pricing.gulf.amount }}"
-               data-gulf-currency="{{ p.pricing.gulf.currency }}"
-               data-gulf-period="{{ p.pricing.gulf.period_ar }}"
-               data-intl-amount="{{ p.pricing.international.amount }}"
-               data-intl-currency="{{ p.pricing.international.currency }}"
-               data-intl-period="{{ p.pricing.international.period_ar }}">
-            <div class="flex items-baseline gap-2">
-              <span class="text-4xl font-bold text-brand-gold price-amount">{{ p.pricing.egypt.amount }}</span>
-              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.currency }}</span>
+          <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
+
+          {# Price block #}
+          <div class="mb-1">
+            <div class="flex items-baseline gap-2 flex-wrap">
+              <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.m1.amount }}</span>
+              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.m1.currency }}</span>
             </div>
-            <div class="text-brand-off/50 text-xs price-period">{{ p.pricing.egypt.period_ar }}</div>
+            <div class="text-brand-off/50 text-xs price-label mt-0.5">{{ p.pricing.egypt.m1.label_ar }}</div>
+            <div class="price-total text-brand-off/40 text-xs mt-0.5 hidden"></div>
           </div>
-          {% endif %}
-          <p class="text-brand-off/70 text-sm">{{ p.ar.blurb }}</p>
-          {% if p.ar.features %}
+
+          <p class="text-brand-off/70 text-sm mt-3">{{ p.ar.blurb }}</p>
           <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
-            {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-gold">✓</span>{{ f }}</li>{% endfor %}
+            {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
           </ul>
-          {% endif %}
-          <a href="{{ ('/ar/contact/?service=' + p.slug) | url }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
-            {{ p.ar.cta or "اطلب هذه الخطة" }}
+          <a href="{{ ('/ar/plans/' + p.slug + '/') | url }}"
+             class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
+            {{ p.ar.cta }}
           </a>
         </div>
         {% endif %}
       {% endfor %}
-    {% endif %}
+
+      {# CUSTOM PLANS #}
+      {% if customPlans.items %}
+        {% for p in customPlans.items %}
+          {% if p.visible !== false and p.ar %}
+          <div class="plan-card card card-hover flex flex-col relative w-full sm:w-80 lg:w-96 border-brand-gold/30"
+               data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 400 }}">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="chip text-brand-gold border-brand-gold/30 text-xs">✨ خاصة</span>
+              <span class="referral-plan-badge hidden chip bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 خصم التوصية</span>
+            </div>
+            <h2 class="text-2xl mb-1">{{ p.ar.name }}</h2>
+            <p class="text-brand-gold text-sm mb-4">{{ p.ar.tagline }}</p>
+            {% if p.pricing %}
+            <div class="mb-1">
+              <div class="flex items-baseline gap-2">
+                <span class="text-4xl font-bold text-brand-gold">{{ p.pricing.egypt.m1.amount if p.pricing.egypt.m1 else p.pricing.egypt.amount }}</span>
+                <span class="text-brand-off/70 text-sm">{{ p.pricing.egypt.m1.currency if p.pricing.egypt.m1 else p.pricing.egypt.currency }}</span>
+              </div>
+            </div>
+            {% endif %}
+            <p class="text-brand-off/70 text-sm mt-3">{{ p.ar.blurb }}</p>
+            {% if p.ar.features %}
+            <ul class="mt-5 space-y-1.5 text-sm text-brand-off/75 flex-1">
+              {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-gold flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+            <a href="{{ ('/ar/contact/?service=' + p.slug) | url }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
+              {{ p.ar.cta or "اطلب هذه الخطة" }}
+            </a>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+
+    </div>
   </div>
 </section>
 
-<section class="section">
+{# ANTI-AGING CARD #}
+<section class="section pt-4">
   <div class="container-x">
     <div class="card card-hover text-center" data-aos="fade-up">
       <h3 class="text-xl mb-2">بتدوّر على برنامج مكافحة الشيخوخة؟</h3>
@@ -122,41 +178,166 @@ description: "اختر الباقة المناسبة — البسيطة، الأ
   </div>
 </section>
 
+{# EMBEDDED GOOGLE FORM #}
+<section class="section" id="request-form">
+  <div class="container-x">
+    <div class="text-center mb-8" data-aos="fade-up">
+      <p class="section-kicker">مستعد تبدأ؟</p>
+      <h2 class="text-2xl font-bold mb-2">اطلب باقتك</h2>
+      <p class="text-brand-off/60 text-sm max-w-md mx-auto">املا الفورم الجاي وهنرجعلك بعرض مخصوص. لو جاتلك توصية من حد، اذكر اسمه في الفورم.</p>
+    </div>
+    <div class="card p-0 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
+        width="100%"
+        style="min-height:680px; border:none; display:block;"
+        title="اطلب باقة"
+        loading="lazy"
+        scrolling="no"
+        onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px'">
+        جاري تحميل الفورم…
+      </iframe>
+    </div>
+  </div>
+</section>
+
 <style>
-  .region-btn { color: rgba(247,248,250,0.6); }
-  .region-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
+  .region-btn   { color: rgba(247,248,250,0.6); }
+  .region-btn.active   { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
   .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
+
+  .duration-btn { color: rgba(247,248,250,0.6); }
+  .duration-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
+  .duration-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
+
+  .plan-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .plan-card:hover { transform: translateY(-4px); }
+
+  @media (max-width: 639px) {
+    .plan-card { width: 100%; }
+  }
 </style>
 
 <script>
 (function () {
-  const KEY = 'o2f_region';
-  const DEFAULT = 'egypt';
-  const keys = {
-    egypt: { a: 'egyptAmount', c: 'egyptCurrency', p: 'egyptPeriod' },
-    gulf: { a: 'gulfAmount', c: 'gulfCurrency', p: 'gulfPeriod' },
-    international: { a: 'intlAmount', c: 'intlCurrency', p: 'intlPeriod' }
-  };
-  function setRegion(region) {
-    if (!keys[region]) region = DEFAULT;
-    try { localStorage.setItem(KEY, region); } catch (e) {}
-    document.querySelectorAll('.region-btn').forEach(function (b) {
-      b.classList.toggle('active', b.dataset.region === region);
-    });
-    document.querySelectorAll('.price-container').forEach(function (el) {
-      const a = el.querySelector('.price-amount');
-      const c = el.querySelector('.price-currency');
-      const p = el.querySelector('.price-period');
-      if (a) a.textContent = el.dataset[keys[region].a] || '';
-      if (c) c.textContent = el.dataset[keys[region].c] || '';
-      if (p) p.textContent = el.dataset[keys[region].p] || '';
+  const REGION_KEY  = 'o2f_region';
+  const DURATION_KEY = 'o2f_duration';
+  const DEFAULT_REGION   = 'egypt';
+  const DEFAULT_DURATION = 'm1';
+
+  var SAVE_LABELS = { m3: 'وفّر ', m6: 'وفّر ' };
+  var TOTAL_LABEL = 'الإجمالي: ';
+
+  let currentRegion   = DEFAULT_REGION;
+  let currentDuration = DEFAULT_DURATION;
+
+  const regionMap = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
+
+  function camel(str) {
+    return str.replace(/-([a-z])/g, function(_, c){ return c.toUpperCase(); });
+  }
+
+  function updateDurationBadges() {
+    var card = document.querySelector('.plan-card[data-egypt-m3-save]');
+    if (!card) return;
+    var s3 = card.dataset.egyptM3Save || '';
+    var s6 = card.dataset.egyptM6Save || '';
+    document.querySelectorAll('.duration-save-m3').forEach(function(el){ el.textContent = s3 ? (SAVE_LABELS.m3 + s3) : ''; });
+    document.querySelectorAll('.duration-save-m6').forEach(function(el){ el.textContent = s6 ? (SAVE_LABELS.m6 + s6) : ''; });
+  }
+
+  function updateCards() {
+    var prefix = regionMap[currentRegion];
+
+    document.querySelectorAll('.plan-card').forEach(function(card) {
+      var ds = card.dataset;
+
+      var amount   = ds[camel(prefix + '-' + currentDuration + '-amount')]   || '';
+      var currency = ds[camel(prefix + '-' + currentDuration + '-currency')] || '';
+      var label    = ds[camel(prefix + '-' + currentDuration + '-label')]    || '';
+      var save     = ds[camel(prefix + '-' + currentDuration + '-save')]     || '';
+      var total    = ds[camel(prefix + '-' + currentDuration + '-total')]    || '';
+
+      var elAmount   = card.querySelector('.price-amount');
+      var elCurrency = card.querySelector('.price-currency');
+      var elLabel    = card.querySelector('.price-label');
+      var elTotal    = card.querySelector('.price-total');
+      var elSave     = card.querySelector('.save-badge');
+
+      if (elAmount)   elAmount.textContent   = amount;
+      if (elCurrency) elCurrency.textContent = currency;
+      if (elLabel)    elLabel.textContent    = label;
+
+      if (elTotal) {
+        if (total) {
+          elTotal.textContent = TOTAL_LABEL + total + ' ' + currency;
+          elTotal.classList.remove('hidden');
+        } else {
+          elTotal.classList.add('hidden');
+        }
+      }
+
+      if (elSave) {
+        if (save) {
+          elSave.textContent = SAVE_LABELS.m3 + save;
+          elSave.classList.remove('hidden');
+        } else {
+          elSave.classList.add('hidden');
+        }
+      }
     });
   }
-  let saved = DEFAULT;
-  try { saved = localStorage.getItem(KEY) || DEFAULT; } catch (e) {}
-  setRegion(saved);
-  document.querySelectorAll('.region-btn').forEach(function (b) {
-    b.addEventListener('click', function () { setRegion(b.dataset.region); });
+
+  function setRegion(region) {
+    if (!regionMap[region]) region = DEFAULT_REGION;
+    currentRegion = region;
+    try { localStorage.setItem(REGION_KEY, region); } catch(e) {}
+    document.querySelectorAll('.region-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.region === region);
+    });
+    updateCards();
+  }
+
+  function setDuration(duration) {
+    currentDuration = duration;
+    try { localStorage.setItem(DURATION_KEY, duration); } catch(e) {}
+    document.querySelectorAll('.duration-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.duration === duration);
+    });
+    updateCards();
+  }
+
+  function setReferral(active) {
+    var msg = document.getElementById('referral-msg');
+    if (msg) msg.classList.toggle('hidden', !active);
+    document.querySelectorAll('.referral-badge').forEach(function(el){ el.classList.toggle('hidden', !active); });
+    document.querySelectorAll('.referral-plan-badge').forEach(function(el){ el.classList.toggle('hidden', !active); });
+    if (active) {
+      var form = document.getElementById('request-form');
+      if (form) setTimeout(function(){ form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 400);
+    }
+  }
+
+  /* ── init ── */
+  updateDurationBadges();
+
+  var savedRegion   = DEFAULT_REGION;
+  var savedDuration = DEFAULT_DURATION;
+  try { savedRegion   = localStorage.getItem(REGION_KEY)   || DEFAULT_REGION;   } catch(e) {}
+  try { savedDuration = localStorage.getItem(DURATION_KEY) || DEFAULT_DURATION; } catch(e) {}
+
+  setRegion(savedRegion);
+  setDuration(savedDuration);
+
+  document.querySelectorAll('.region-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setRegion(b.dataset.region); });
   });
+  document.querySelectorAll('.duration-btn').forEach(function(b){
+    b.addEventListener('click', function(){ setDuration(b.dataset.duration); });
+  });
+  var referralCheck = document.getElementById('referral-check');
+  if (referralCheck) {
+    referralCheck.addEventListener('change', function(){ setReferral(referralCheck.checked); });
+  }
 })();
 </script>
