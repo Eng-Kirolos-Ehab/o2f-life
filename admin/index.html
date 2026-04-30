@@ -1,40 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Content Manager</title>
-    <!--
-      This page provides a visual admin interface for your Eleventy site using
-      Decap CMS. To deploy it, place this file in your site's `admin` folder
-      alongside a `config.yml` file that defines your collections (for example,
-      site settings, plans, custom plans, gallery, blog posts, etc.).
-
-      When a user visits this page, Decap CMS will load the configuration
-      automatically and render form fields for each entry. The user can edit
-      content through a friendly UI (text inputs, lists, drag‑and‑drop
-      uploads) without touching code or raw JSON files. Upon save, changes
-      are committed back to the repository via GitHub using OAuth or a token,
-      depending on your backend configuration.
-
-      For more information, see the official installation guide:
-      https://decapcms.org/docs/intro/
-    -->
-    <!-- Load Decap CMS from the CDN. Using the latest version ensures you
-         receive bug fixes and new features automatically. -->
-    <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
-    <!-- Optionally include the default Netlify identity widget if you're using
-         Decap's built‑in authentication. Remove this line if you manage
-         authentication separately (e.g., via GitHub OAuth App). -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <!--
-      The Decap CMS application inserts itself into the page automatically,
-      replacing this fallback message when the script loads. If you see this
-      message, check the console for errors or network issues preventing
-      Decap from loading.
-    -->
-    <p>Loading content manager…</p>
-  </body>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=./cms.html">
+  <title>Admin</title>
+</head>
+<body>
+  <script>window.location.replace('./cms.html');</script>
+</body>
 </html>
