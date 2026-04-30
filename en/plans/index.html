@@ -142,7 +142,7 @@
     <p class="section-kicker" data-aos="fade-up">Choose your plan</p>
     <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">Plans built <span class="gradient-mint-text">around you.</span></h1>
     <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-      Every plan is fully personalized. Longer commitment = lower monthly cost. Pick the level of support you need right now.
+      Every plan is fully personalized. Longer commitment = lower monthly cost.
     </p>
   </div>
 </section>
@@ -184,6 +184,9 @@
             <p class="font-bold text-brand-gold mb-0.5">You &amp; your friend each get a discount!</p>
             <p class="text-brand-off/70 text-xs leading-relaxed">Refer a friend (or get referred) and you both save off your plan. Just mention the referrer&#39;s name in the form below.</p>
             <p class="mt-1.5 text-brand-gold font-semibold text-xs referral-discount-line"></p>
+            <button onclick="openFormModal()" class="mt-2 px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-ink hover:opacity-90 transition-opacity">
+              🎁 Claim my referral discount →
+            </button>
           </div>
         </div>
       </div>
@@ -201,8 +204,6 @@
       
         
         
-
-        
         <div class="plan-card card flex flex-col relative w-full sm:w-[22rem] lg:w-96
                     "
              data-aos="fade-up" data-aos-delay="100"
@@ -216,7 +217,6 @@
              data-intl-m3-amount="272" data-intl-m3-currency="USD" data-intl-m3-label="/mo · 3-month plan" data-intl-m3-save="15%" data-intl-m3-total="816"
              data-intl-m6-amount="240" data-intl-m6-currency="USD" data-intl-m6-label="/mo · 6-month plan" data-intl-m6-save="25%" data-intl-m6-total="1,440">
 
-          
           <div class="flex flex-wrap gap-2 mb-3 min-h-[1.75rem]">
             
             <span class="save-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
@@ -230,16 +230,13 @@
           <div class="dur-tabs inline-flex rounded-lg border border-brand-line bg-white/3 p-0.5 gap-0.5 mb-4 self-start" role="tablist">
             <button type="button" class="dur-btn active px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">1 Month</button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
-              3 Months
-              <span class="save-tip-m3 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+              3 Months<span class="save-tip-m3 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m6">
-              6 Months
-              <span class="save-tip-m6 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+              6 Months<span class="save-tip-m6 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
           </div>
 
-          
           <div class="mb-1">
             <div class="flex items-baseline gap-2 flex-wrap">
               <span class="text-4xl font-bold text-brand-mint price-amount">5,000</span>
@@ -250,22 +247,18 @@
           </div>
 
           <p class="text-brand-off/70 text-sm mt-3">A complete transformation program combining personalized nutrition, training, and daily follow-up to help you achieve long-term results.</p>
-
           <ul class="mt-4 space-y-1.5 text-sm text-brand-off/75 flex-1">
             <li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Personalized nutrition and training plan</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Daily WhatsApp follow-up</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Weekly updates</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Medical supervision</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Supplements and herbal support</li>
           </ul>
 
-          <a href="/en/plans/باقة التحول الشامل/"
-             class="btn-ghost mt-6 justify-center">
+          <button onclick="openFormModal('Full Transformation Plan')"
+                  class="btn-ghost mt-6 w-full justify-center">
             Request this plan
-          </a>
+          </button>
         </div>
-
         
       
         
-        
-
         
         <div class="plan-card card flex flex-col relative w-full sm:w-[22rem] lg:w-96
                     ring-2 ring-brand-mint/60"
@@ -280,7 +273,6 @@
              data-intl-m3-amount="136" data-intl-m3-currency="USD" data-intl-m3-label="/mo · 3-month plan" data-intl-m3-save="15%" data-intl-m3-total="408"
              data-intl-m6-amount="120" data-intl-m6-currency="USD" data-intl-m6-label="/mo · 6-month plan" data-intl-m6-save="25%" data-intl-m6-total="720">
 
-          
           <div class="flex flex-wrap gap-2 mb-3 min-h-[1.75rem]">
             <span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ Most popular</span>
             <span class="save-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
@@ -294,16 +286,13 @@
           <div class="dur-tabs inline-flex rounded-lg border border-brand-line bg-white/3 p-0.5 gap-0.5 mb-4 self-start" role="tablist">
             <button type="button" class="dur-btn active px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">1 Month</button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
-              3 Months
-              <span class="save-tip-m3 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+              3 Months<span class="save-tip-m3 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m6">
-              6 Months
-              <span class="save-tip-m6 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+              6 Months<span class="save-tip-m6 absolute -top-2 -right-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
           </div>
 
-          
           <div class="mb-1">
             <div class="flex items-baseline gap-2 flex-wrap">
               <span class="text-4xl font-bold text-brand-mint price-amount">2,400</span>
@@ -314,24 +303,21 @@
           </div>
 
           <p class="text-brand-off/70 text-sm mt-3">A specialized therapeutic nutrition plan designed for medical conditions with professional analysis and weekly follow-up.</p>
-
           <ul class="mt-4 space-y-1.5 text-sm text-brand-off/75 flex-1">
             <li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Full medical case analysis</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Personalized therapeutic nutrition plan</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Weekly follow-up</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Herbal treatments</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Natural medical consultations</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Suitable for diabetes, hypertension, cholesterol, digestive issues, and inflammation</li>
           </ul>
 
-          <a href="/en/plans/الخطة العلاجية/"
-             class="btn-primary mt-6 justify-center">
+          <button onclick="openFormModal('Therapeutic Nutrition Plan')"
+                  class="btn-primary mt-6 w-full justify-center">
             Request this plan
-          </a>
+          </button>
         </div>
-
         
       
         
         
       
 
-      
       
         
       
@@ -352,24 +338,27 @@
 </section>
 
 
-<section class="section" id="request-form">
-  <div class="container-x">
-    <div class="text-center mb-8" data-aos="fade-up">
-      <p class="section-kicker">Ready to start?</p>
-      <h2 class="text-2xl font-bold mb-2">Request Your Plan</h2>
-      <p class="text-brand-off/60 text-sm max-w-md mx-auto">
-        Fill in the form below and we'll get back to you with a tailored offer.
-        If you were referred by someone, mention their name — you both get a discount.
-      </p>
+<div id="form-modal" class="form-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="form-modal-box">
+    <div class="form-modal-header">
+      <div>
+        <p class="text-xs text-brand-off/50 mb-0.5">Ready to start?</p>
+        <h2 id="modal-title" class="text-lg font-bold">Request Your Plan</h2>
+      </div>
+      <button class="form-modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
     </div>
-    <div class="card p-0 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
-        width="100%" style="min-height:700px;border:none;display:block;"
-        title="Request a Plan" loading="lazy">Loading form…</iframe>
+    <div class="form-modal-body">
+      <iframe id="form-iframe"
+        src=""
+        data-src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
+        width="100%" height="100%"
+        frameborder="0"
+        title="Request a Plan">
+        Loading…
+      </iframe>
     </div>
   </div>
-</section>
+</div>
 
 <style>
   .region-btn { color: rgba(247,248,250,0.6); }
@@ -382,8 +371,51 @@
 
   .plan-card { transition: transform .25s ease, box-shadow .25s ease; }
   .plan-card:hover { transform: translateY(-5px); }
-
   @media (max-width: 639px) { .plan-card { width: 100%; } }
+
+  /* Modal */
+  .form-modal-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease;
+  }
+  .form-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .form-modal-box {
+    background: #111827; border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px; overflow: hidden;
+    width: 100%; max-width: 680px;
+    height: 90vh; max-height: 780px;
+    display: flex; flex-direction: column;
+    transform: translateY(24px) scale(.97);
+    transition: transform .3s ease;
+    box-shadow: 0 32px 80px rgba(0,0,0,.6);
+  }
+  .form-modal-overlay.open .form-modal-box { transform: translateY(0) scale(1); }
+
+  .form-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.08);
+    flex-shrink: 0;
+  }
+  .form-modal-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,.08); border: none; color: #F7F8FA;
+    font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+  }
+  .form-modal-close:hover { background: rgba(255,255,255,.15); }
+
+  .form-modal-body { flex: 1; overflow: hidden; background: #fff; }
+  .form-modal-body iframe { display: block; border: none; width: 100%; height: 100%; }
+
+  @media (max-width: 640px) {
+    .form-modal-overlay { padding: 0; align-items: flex-end; }
+    .form-modal-box { border-radius: 20px 20px 0 0; height: 92vh; max-height: none; }
+  }
 </style>
 
 <script>
@@ -391,8 +423,6 @@
   const REGION_KEY = 'o2f_region';
   const DEFAULT_REGION = 'egypt';
   const regionPrefix = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
-
-  /* Referral discount per region */
   const REFERRAL_DISC = {
     egypt:         { amount: '500',  currency: 'EGP' },
     gulf:          { amount: '38',   currency: 'SAR' },
@@ -401,13 +431,35 @@
 
   let currentRegion = DEFAULT_REGION;
 
-  /* camelCase a hyphenated key for dataset access */
   function cam(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
 
-  /* ── Update a single card's price display ── */
+  /* ── Modal ── */
+  var formLoaded = false;
+  window.openFormModal = function (planName) {
+    var overlay = document.getElementById('form-modal');
+    if (!formLoaded) {
+      var iframe = document.getElementById('form-iframe');
+      iframe.src = iframe.dataset.src;
+      formLoaded = true;
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeFormModal = function () {
+    document.getElementById('form-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.getElementById('form-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeFormModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeFormModal();
+  });
+
+  /* ── Price refresh ── */
   function refreshCard(card, region, dur) {
     var pref = regionPrefix[region] || 'egypt';
-    var ds   = card.dataset;
+    var ds = card.dataset;
     var amount   = ds[cam(pref + '-' + dur + '-amount')]   || '';
     var currency = ds[cam(pref + '-' + dur + '-currency')] || '';
     var label    = ds[cam(pref + '-' + dur + '-label')]    || '';
@@ -423,70 +475,40 @@
     if (elAmt)  elAmt.textContent  = amount;
     if (elCur)  elCur.textContent  = currency;
     if (elLbl)  elLbl.textContent  = label;
+    if (elTot) { total ? (elTot.textContent = 'Total: ' + total + ' ' + currency, elTot.classList.remove('hidden')) : elTot.classList.add('hidden'); }
+    if (elSave) { save ? (elSave.textContent = 'Save ' + save, elSave.classList.remove('hidden')) : elSave.classList.add('hidden'); }
 
-    if (elTot) {
-      if (total) { elTot.textContent = 'Total: ' + total + ' ' + currency; elTot.classList.remove('hidden'); }
-      else       { elTot.classList.add('hidden'); }
-    }
-    if (elSave) {
-      if (save) { elSave.textContent = 'Save ' + save; elSave.classList.remove('hidden'); }
-      else      { elSave.classList.add('hidden'); }
-    }
-
-    /* Save tip badges on duration buttons */
-    var tipM3 = card.querySelector('.save-tip-m3');
-    var tipM6 = card.querySelector('.save-tip-m6');
-    if (tipM3) {
-      var s3 = ds[cam(pref + '-m3-save')] || '';
-      if (s3) { tipM3.textContent = '-' + s3; tipM3.classList.remove('hidden'); }
-      else    { tipM3.classList.add('hidden'); }
-    }
-    if (tipM6) {
-      var s6 = ds[cam(pref + '-m6-save')] || '';
-      if (s6) { tipM6.textContent = '-' + s6; tipM6.classList.remove('hidden'); }
-      else    { tipM6.classList.add('hidden'); }
-    }
+    ['m3','m6'].forEach(function (d) {
+      var tip = card.querySelector('.save-tip-' + d);
+      if (tip) { var s = ds[cam(pref + '-' + d + '-save')] || ''; s ? (tip.textContent = '-' + s, tip.classList.remove('hidden')) : tip.classList.add('hidden'); }
+    });
   }
 
-  /* ── Change region (affects all cards) ── */
   function setRegion(region) {
     if (!regionPrefix[region]) region = DEFAULT_REGION;
     currentRegion = region;
     try { localStorage.setItem(REGION_KEY, region); } catch (e) {}
-
-    document.querySelectorAll('.region-btn').forEach(function (b) {
-      b.classList.toggle('active', b.dataset.region === region);
-    });
-
-    /* Refresh each card using its current selected duration */
+    document.querySelectorAll('.region-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.region === region); });
     document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
-      var activeDur = (card.querySelector('.dur-btn.active') || {}).dataset && card.querySelector('.dur-btn.active').dataset.dur || 'm1';
-      refreshCard(card, region, activeDur);
+      var activeDurBtn = card.querySelector('.dur-btn.active');
+      refreshCard(card, region, activeDurBtn ? activeDurBtn.dataset.dur : 'm1');
     });
-
-    /* Update referral discount line */
     var r = REFERRAL_DISC[region] || REFERRAL_DISC.egypt;
     document.querySelectorAll('.referral-discount-line').forEach(function (el) {
       el.textContent = 'Each of you saves ' + r.amount + ' ' + r.currency + ' off the plan!';
     });
   }
 
-  /* ── Referral toggle ── */
   function setReferral(active) {
     var banner = document.getElementById('referral-banner');
     var badge  = document.getElementById('referral-badge');
     if (banner) banner.classList.toggle('hidden', !active);
     if (badge)  badge.classList.toggle('hidden', !active);
-    document.querySelectorAll('.referral-plan-badge').forEach(function (el) {
-      el.classList.toggle('hidden', !active);
-    });
-    if (active) {
-      var form = document.getElementById('request-form');
-      if (form) setTimeout(function () { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 500);
-    }
+    document.querySelectorAll('.referral-plan-badge').forEach(function (el) { el.classList.toggle('hidden', !active); });
+    if (active) openFormModal();
   }
 
-  /* ── Init duration tabs per card ── */
+  /* Duration tabs per card */
   document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
     card.querySelectorAll('.dur-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -497,16 +519,11 @@
     });
   });
 
-  /* ── Init region ── */
+  /* Init */
   var saved = DEFAULT_REGION;
   try { saved = localStorage.getItem(REGION_KEY) || DEFAULT_REGION; } catch (e) {}
   setRegion(saved);
-
-  document.querySelectorAll('.region-btn').forEach(function (b) {
-    b.addEventListener('click', function () { setRegion(b.dataset.region); });
-  });
-
-  /* ── Init referral toggle ── */
+  document.querySelectorAll('.region-btn').forEach(function (b) { b.addEventListener('click', function () { setRegion(b.dataset.region); }); });
   var refCheck = document.getElementById('referral-check');
   if (refCheck) refCheck.addEventListener('change', function () { setReferral(refCheck.checked); });
 })();
