@@ -448,6 +448,13 @@
             <div class="card-arrow">فتح المحرر ←</div>
           </div>
 
+          <div class="card" onclick="openEditor('json','referral')" style="cursor:pointer">
+            <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
+            <div class="card-title">نظام جيب صديق</div>
+            <div class="card-desc">تفعيل التوصية، قيمة الخصم بالعملات الثلاثة، النصوص</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
           <div class="card" onclick="openEditor('gallery','')" style="cursor:pointer">
             <div class="card-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3"/></svg>
@@ -625,7 +632,8 @@
             <button class="file-tab" id="tab-site"    onclick="switchFile('site')">site.json</button>
             <button class="file-tab" id="tab-plans"   onclick="switchFile('plans')">plans.json</button>
             <button class="file-tab" id="tab-custom"  onclick="switchFile('custom')">customPlans.json</button>
-            <button class="file-tab" id="tab-gallery" onclick="switchFile('gallery')">gallery.json</button>
+            <button class="file-tab" id="tab-gallery"   onclick="switchFile('gallery')">gallery.json</button>
+            <button class="file-tab" id="tab-referral" onclick="switchFile('referral')">referral.json</button>
           </div>
 
           <div id="editor-status" class="editor-status">جاهز</div>
@@ -702,10 +710,11 @@
     /* ── JSON Editor ── */
     const REPO  = 'Eng-Kirolos-Ehab/o2f-life';
     const FILES = {
-      site:    'src/_data/site.json',
-      plans:   'src/_data/plans.json',
-      custom:  'src/_data/customPlans.json',
-      gallery: 'src/_data/gallery.json',
+      site:     'src/_data/site.json',
+      plans:    'src/_data/plans.json',
+      custom:   'src/_data/customPlans.json',
+      gallery:  'src/_data/gallery.json',
+      referral: 'src/_data/referral.json',
     };
     let currentFile = 'site';
     let currentSha  = '';
@@ -813,10 +822,11 @@
       const container = document.getElementById('visual-editor');
       if (!container || !currentData) return;
 
-      if (currentFile === 'site') renderSiteEditor(container);
-      if (currentFile === 'plans') renderPlansEditor(container, currentData);
-      if (currentFile === 'custom') renderCustomPlansEditor(container);
-      if (currentFile === 'gallery') renderGalleryEditor(container);
+      if (currentFile === 'site')     renderSiteEditor(container);
+      if (currentFile === 'plans')    renderPlansEditor(container, currentData);
+      if (currentFile === 'custom')   renderCustomPlansEditor(container);
+      if (currentFile === 'gallery')  renderGalleryEditor(container);
+      if (currentFile === 'referral') renderReferralEditor(container);
     }
 
     function syncFromRawEditor() {
@@ -1140,14 +1150,34 @@
             ${fieldHTML('Tagline AR', `${prefix}.ar.tagline`, plan.ar?.tagline)}
             ${fieldHTML('Tagline EN', `${prefix}.en.tagline`, plan.en?.tagline)}
           </div>
-          <div class="editor-grid">
-            ${fieldHTML('سعر مصر', `${prefix}.pricing.egypt.amount`, plan.pricing?.egypt?.amount)}
-            ${fieldHTML('عملة مصر', `${prefix}.pricing.egypt.currency`, plan.pricing?.egypt?.currency)}
-            ${fieldHTML('سعر الخليج', `${prefix}.pricing.gulf.amount`, plan.pricing?.gulf?.amount)}
-            ${fieldHTML('عملة الخليج', `${prefix}.pricing.gulf.currency`, plan.pricing?.gulf?.currency)}
-            ${fieldHTML('سعر دولي', `${prefix}.pricing.international.amount`, plan.pricing?.international?.amount)}
-            ${fieldHTML('عملة دولي', `${prefix}.pricing.international.currency`, plan.pricing?.international?.currency)}
-          </div>
+          ${['egypt','gulf','international'].map(region => {
+            const icons = { egypt: '🇪🇬 مصر', gulf: '🇸🇦 الخليج', international: '🌍 دولي' };
+            const cur   = { egypt: 'EGP', gulf: 'SAR', international: 'USD' };
+            const pr = plan.pricing?.[region] || {};
+            return `
+              <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
+                <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">${icons[region]}</div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600">📅 1 شهر</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر (${cur[region]})`, `${prefix}.pricing.${region}.m1.amount`, pr.m1?.amount ?? '')}
+                  ${fieldHTML('تسمية EN', `${prefix}.pricing.${region}.m1.label`, pr.m1?.label ?? 'per month')}
+                  ${fieldHTML('تسمية AR', `${prefix}.pricing.${region}.m1.label_ar`, pr.m1?.label_ar ?? 'شهريًا')}
+                </div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600;margin-top:.5rem">📅 3 شهور</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر/شهر (${cur[region]})`, `${prefix}.pricing.${region}.m3.amount`, pr.m3?.amount ?? '')}
+                  ${fieldHTML('إجمالي 3 شهور', `${prefix}.pricing.${region}.m3.total`, pr.m3?.total ?? '')}
+                  ${fieldHTML('نسبة التوفير', `${prefix}.pricing.${region}.m3.save`, pr.m3?.save ?? '')}
+                </div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600;margin-top:.5rem">📅 6 شهور</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر/شهر (${cur[region]})`, `${prefix}.pricing.${region}.m6.amount`, pr.m6?.amount ?? '')}
+                  ${fieldHTML('إجمالي 6 شهور', `${prefix}.pricing.${region}.m6.total`, pr.m6?.total ?? '')}
+                  ${fieldHTML('نسبة التوفير', `${prefix}.pricing.${region}.m6.save`, pr.m6?.save ?? '')}
+                </div>
+              </div>
+            `;
+          }).join('')}
           <div class="editor-grid">
             ${textAreaHTML('نبذة عربية', `${prefix}.ar.blurb`, plan.ar?.blurb)}
             ${textAreaHTML('English blurb', `${prefix}.en.blurb`, plan.en?.blurb)}
@@ -1231,14 +1261,69 @@
       });
     }
 
+    function renderReferralEditor(container) {
+      if (!currentData) return;
+      const d = currentData;
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>نظام جيب صديق 🎁</h3>
+
+          <div style="background:rgba(0,217,163,.06);border:1px solid rgba(0,217,163,.2);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div class="switch-row" style="margin-bottom:.25rem">
+              <input type="checkbox" ${d.enabled ? 'checked' : ''} data-path="enabled" data-type="checkbox">
+              <span style="font-weight:700">تفعيل نظام التوصية على صفحة الباقات</span>
+            </div>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.35rem">لما يكون مفعّل، بيظهر Toggle "جيب صديق" على صفحة الباقات</p>
+          </div>
+
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div style="font-size:.72rem;color:var(--mint);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">💰 قيمة الخصم لكل عميل</div>
+            <div class="editor-grid">
+              ${fieldHTML('خصم مصر (EGP)', 'discount.egypt.amount',         d.discount?.egypt?.amount         ?? '500')}
+              ${fieldHTML('خصم الخليج (SAR)', 'discount.gulf.amount',        d.discount?.gulf?.amount          ?? '38')}
+              ${fieldHTML('خصم دولي (USD)',   'discount.international.amount', d.discount?.international?.amount ?? '10')}
+            </div>
+          </div>
+
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇸🇦 النصوص العربية</div>
+            <div class="editor-grid">
+              ${fieldHTML('عنوان (AR)',        'ar.title',         d.ar?.title         ?? '')}
+              ${fieldHTML('بادج الكارت (AR)',  'ar.badge',         d.ar?.badge         ?? '')}
+              ${fieldHTML('نص الـ Toggle (AR)','ar.toggle_label',  d.ar?.toggle_label  ?? '')}
+              ${fieldHTML('العنوان الرئيسي',  'ar.promo_headline', d.ar?.promo_headline ?? '')}
+            </div>
+            ${textAreaHTML('النص التفصيلي (AR)', 'ar.promo_body', d.ar?.promo_body ?? '')}
+          </div>
+
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇬🇧 English Text</div>
+            <div class="editor-grid">
+              ${fieldHTML('Title (EN)',         'en.title',         d.en?.title         ?? '')}
+              ${fieldHTML('Card badge (EN)',    'en.badge',         d.en?.badge         ?? '')}
+              ${fieldHTML('Toggle label (EN)',  'en.toggle_label',  d.en?.toggle_label  ?? '')}
+              ${fieldHTML('Promo headline (EN)','en.promo_headline', d.en?.promo_headline ?? '')}
+            </div>
+            ${textAreaHTML('Promo body (EN)', 'en.promo_body', d.en?.promo_body ?? '')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+    }
+
     function defaultPlan(slug) {
+      const tier = (dur, cur) => ({
+        m1: { amount: '', currency: cur, label: 'per month', label_ar: 'شهريًا' },
+        m3: { amount: '', currency: cur, label: '/mo · 3-month plan', label_ar: 'شهريًا · باقة 3 شهور', total: '', save: '' },
+        m6: { amount: '', currency: cur, label: '/mo · 6-month plan', label_ar: 'شهريًا · باقة 6 شهور', total: '', save: '' },
+      });
       return {
         slug,
         visible: true,
         pricing: {
-          egypt: { amount: '', currency: 'EGP', period: 'per month', period_ar: 'شهريًا' },
-          gulf: { amount: '', currency: 'SAR', period: 'per month', period_ar: 'شهريًا' },
-          international: { amount: '', currency: 'USD', period: 'per month', period_ar: 'شهريًا' }
+          egypt:         tier(null, 'EGP'),
+          gulf:          tier(null, 'SAR'),
+          international: tier(null, 'USD'),
         },
         en: { name: '', tagline: '', blurb: '', features: [], cta: 'Request this plan' },
         ar: { name: '', tagline: '', blurb: '', features: [], cta: 'اطلب هذه الخطة' },
