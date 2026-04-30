@@ -6,7 +6,6 @@ backend:
   repo: Eng-Kirolos-Ehab/o2f-life
   branch: main
 
-publish_mode: editorial_workflow
 
 media_folder: "site/src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
