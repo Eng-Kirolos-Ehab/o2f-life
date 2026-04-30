@@ -9,7 +9,7 @@ description: "اختر الباقة المناسبة — التحول الشام
     <p class="section-kicker" data-aos="fade-up">اختر الباقة</p>
     <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">باقات مبنيّة <span class="gradient-mint-text">حواليك.</span></h1>
     <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-      كل باقة مخصّصة بالكامل. التزام أطول = سعر شهري أقل. اختر المستوى اللي يناسبك دلوقتي.
+      كل باقة مخصّصة بالكامل. التزام أطول = سعر شهري أقل.
     </p>
   </div>
 </section>
@@ -51,6 +51,9 @@ description: "اختر الباقة المناسبة — التحول الشام
             <p class="font-bold text-brand-gold mb-0.5">{{ referral.ar.promo_headline }}</p>
             <p class="text-brand-off/70 text-xs leading-relaxed">{{ referral.ar.promo_body }}</p>
             <p class="mt-1.5 text-brand-gold font-semibold text-xs referral-discount-line"></p>
+            <button onclick="openFormModal()" class="mt-2 px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-ink hover:opacity-90 transition-opacity">
+              🎁 احصل على خصم التوصية ←
+            </button>
           </div>
         </div>
       </div>
@@ -68,7 +71,6 @@ description: "اختر الباقة المناسبة — التحول الشام
       {% for key in orderedKeys %}
         {% set p = plans[key] %}
         {% if p.visible !== false %}
-
         <div class="plan-card card flex flex-col relative w-full sm:w-[22rem] lg:w-96
                     {% if p.highlight %}ring-2 ring-brand-mint/60{% endif %}"
              data-aos="fade-up" data-aos-delay="{{ loop.index0 * 120 + 100 }}"
@@ -82,7 +84,6 @@ description: "اختر الباقة المناسبة — التحول الشام
              data-intl-m3-amount="{{ p.pricing.international.m3.amount }}" data-intl-m3-currency="{{ p.pricing.international.m3.currency }}" data-intl-m3-label="{{ p.pricing.international.m3.label_ar }}" data-intl-m3-save="{{ p.pricing.international.m3.save }}" data-intl-m3-total="{{ p.pricing.international.m3.total }}"
              data-intl-m6-amount="{{ p.pricing.international.m6.amount }}" data-intl-m6-currency="{{ p.pricing.international.m6.currency }}" data-intl-m6-label="{{ p.pricing.international.m6.label_ar }}" data-intl-m6-save="{{ p.pricing.international.m6.save }}" data-intl-m6-total="{{ p.pricing.international.m6.total }}">
 
-          {# Top badges #}
           <div class="flex flex-wrap gap-2 mb-3 min-h-[1.75rem]">
             {% if p.highlight %}<span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأكثر شعبية</span>{% endif %}
             <span class="save-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
@@ -92,20 +93,17 @@ description: "اختر الباقة المناسبة — التحول الشام
           <h2 class="text-2xl font-bold mb-1">{{ p.ar.name }}</h2>
           <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
 
-          {# ── DURATION TABS (inside card) ── #}
+          {# Duration tabs #}
           <div class="dur-tabs inline-flex rounded-lg border border-brand-line bg-white/3 p-0.5 gap-0.5 mb-4 self-start" role="tablist">
             <button type="button" class="dur-btn active px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">شهر</button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
-              3 شهور
-              <span class="save-tip-m3 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+              3 شهور<span class="save-tip-m3 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m6">
-              6 شهور
-              <span class="save-tip-m6 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+              6 شهور<span class="save-tip-m6 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
           </div>
 
-          {# Price block #}
           <div class="mb-1">
             <div class="flex items-baseline gap-2 flex-wrap">
               <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.m1.amount }}</span>
@@ -116,21 +114,18 @@ description: "اختر الباقة المناسبة — التحول الشام
           </div>
 
           <p class="text-brand-off/70 text-sm mt-3">{{ p.ar.blurb }}</p>
-
           <ul class="mt-4 space-y-1.5 text-sm text-brand-off/75 flex-1">
             {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
           </ul>
 
-          <a href="{{ ('/ar/plans/' + p.slug + '/') | url }}"
-             class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 justify-center">
+          <button onclick="openFormModal('{{ p.ar.name }}')"
+                  class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 w-full justify-center">
             {{ p.ar.cta }}
-          </a>
+          </button>
         </div>
-
         {% endif %}
       {% endfor %}
 
-      {# CUSTOM PLANS #}
       {% if customPlans.items %}
         {% for p in customPlans.items %}
           {% if p.visible !== false and p.ar %}
@@ -148,9 +143,9 @@ description: "اختر الباقة المناسبة — التحول الشام
               {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-gold flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
             </ul>
             {% endif %}
-            <a href="{{ ('/ar/contact/?service=' + p.slug) | url }}" class="btn-ghost mt-6 justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
+            <button onclick="openFormModal('{{ p.ar.name }}')" class="btn-ghost mt-6 w-full justify-center border-brand-gold/50 text-brand-gold hover:border-brand-gold">
               {{ p.ar.cta or "اطلب هذه الخطة" }}
-            </a>
+            </button>
           </div>
           {% endif %}
         {% endfor %}
@@ -171,25 +166,28 @@ description: "اختر الباقة المناسبة — التحول الشام
   </div>
 </section>
 
-{# EMBEDDED FORM #}
-<section class="section" id="request-form">
-  <div class="container-x">
-    <div class="text-center mb-8" data-aos="fade-up">
-      <p class="section-kicker">مستعد تبدأ؟</p>
-      <h2 class="text-2xl font-bold mb-2">اطلب باقتك</h2>
-      <p class="text-brand-off/60 text-sm max-w-md mx-auto">
-        املا الفورم الجاي وهنرجعلك بعرض مخصوص.
-        {% if referral.enabled %}لو جاتلك توصية من حد، اذكر اسمه في الفورم — وإنت وهو هتاخدوا خصم.{% endif %}
-      </p>
+{# ── FORM MODAL ── #}
+<div id="form-modal" class="form-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="form-modal-box">
+    <div class="form-modal-header">
+      <div>
+        <p class="text-xs text-brand-off/50 mb-0.5">مستعد تبدأ؟</p>
+        <h2 id="modal-title" class="text-lg font-bold">اطلب باقتك</h2>
+      </div>
+      <button class="form-modal-close" onclick="closeFormModal()" aria-label="إغلاق">✕</button>
     </div>
-    <div class="card p-0 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
-        width="100%" style="min-height:700px;border:none;display:block;"
-        title="اطلب باقة" loading="lazy">جاري تحميل الفورم…</iframe>
+    <div class="form-modal-body">
+      <iframe id="form-iframe"
+        src=""
+        data-src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
+        width="100%" height="100%"
+        frameborder="0"
+        title="اطلب باقة">
+        جاري التحميل…
+      </iframe>
     </div>
   </div>
-</section>
+</div>
 
 <style>
   .region-btn { color: rgba(247,248,250,0.6); }
@@ -202,8 +200,50 @@ description: "اختر الباقة المناسبة — التحول الشام
 
   .plan-card { transition: transform .25s ease, box-shadow .25s ease; }
   .plan-card:hover { transform: translateY(-5px); }
-
   @media (max-width: 639px) { .plan-card { width: 100%; } }
+
+  .form-modal-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease;
+  }
+  .form-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .form-modal-box {
+    background: #111827; border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px; overflow: hidden;
+    width: 100%; max-width: 680px;
+    height: 90vh; max-height: 780px;
+    display: flex; flex-direction: column;
+    transform: translateY(24px) scale(.97);
+    transition: transform .3s ease;
+    box-shadow: 0 32px 80px rgba(0,0,0,.6);
+  }
+  .form-modal-overlay.open .form-modal-box { transform: translateY(0) scale(1); }
+
+  .form-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.08);
+    flex-shrink: 0;
+  }
+  .form-modal-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,.08); border: none; color: #F7F8FA;
+    font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+  }
+  .form-modal-close:hover { background: rgba(255,255,255,.15); }
+
+  .form-modal-body { flex: 1; overflow: hidden; background: #fff; }
+  .form-modal-body iframe { display: block; border: none; width: 100%; height: 100%; }
+
+  @media (max-width: 640px) {
+    .form-modal-overlay { padding: 0; align-items: flex-end; }
+    .form-modal-box { border-radius: 20px 20px 0 0; height: 92vh; max-height: none; }
+  }
 </style>
 
 <script>
@@ -211,13 +251,11 @@ description: "اختر الباقة المناسبة — التحول الشام
   const REGION_KEY = 'o2f_region';
   const DEFAULT_REGION = 'egypt';
   const regionPrefix = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
-
   const REFERRAL_DISC = {
     egypt:         { amount: '{{ referral.discount.egypt.amount if referral else "500" }}',  currency: '{{ referral.discount.egypt.currency if referral else "EGP" }}' },
     gulf:          { amount: '{{ referral.discount.gulf.amount if referral else "38" }}',   currency: '{{ referral.discount.gulf.currency if referral else "SAR" }}' },
     international: { amount: '{{ referral.discount.international.amount if referral else "10" }}', currency: '{{ referral.discount.international.currency if referral else "USD" }}' }
   };
-
   const SAVE_AR = 'وفّر ';
   const TOTAL_AR = 'الإجمالي: ';
 
@@ -225,9 +263,30 @@ description: "اختر الباقة المناسبة — التحول الشام
 
   function cam(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
 
+  var formLoaded = false;
+  window.openFormModal = function () {
+    if (!formLoaded) {
+      var iframe = document.getElementById('form-iframe');
+      iframe.src = iframe.dataset.src;
+      formLoaded = true;
+    }
+    document.getElementById('form-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeFormModal = function () {
+    document.getElementById('form-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.getElementById('form-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeFormModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeFormModal();
+  });
+
   function refreshCard(card, region, dur) {
     var pref = regionPrefix[region] || 'egypt';
-    var ds   = card.dataset;
+    var ds = card.dataset;
     var amount   = ds[cam(pref + '-' + dur + '-amount')]   || '';
     var currency = ds[cam(pref + '-' + dur + '-currency')] || '';
     var label    = ds[cam(pref + '-' + dur + '-label')]    || '';
@@ -243,45 +302,24 @@ description: "اختر الباقة المناسبة — التحول الشام
     if (elAmt)  elAmt.textContent  = amount;
     if (elCur)  elCur.textContent  = currency;
     if (elLbl)  elLbl.textContent  = label;
+    if (elTot) { total ? (elTot.textContent = TOTAL_AR + total + ' ' + currency, elTot.classList.remove('hidden')) : elTot.classList.add('hidden'); }
+    if (elSave) { save ? (elSave.textContent = SAVE_AR + save, elSave.classList.remove('hidden')) : elSave.classList.add('hidden'); }
 
-    if (elTot) {
-      if (total) { elTot.textContent = TOTAL_AR + total + ' ' + currency; elTot.classList.remove('hidden'); }
-      else       { elTot.classList.add('hidden'); }
-    }
-    if (elSave) {
-      if (save) { elSave.textContent = SAVE_AR + save; elSave.classList.remove('hidden'); }
-      else      { elSave.classList.add('hidden'); }
-    }
-
-    var tipM3 = card.querySelector('.save-tip-m3');
-    var tipM6 = card.querySelector('.save-tip-m6');
-    if (tipM3) {
-      var s3 = ds[cam(pref + '-m3-save')] || '';
-      if (s3) { tipM3.textContent = '-' + s3; tipM3.classList.remove('hidden'); }
-      else    { tipM3.classList.add('hidden'); }
-    }
-    if (tipM6) {
-      var s6 = ds[cam(pref + '-m6-save')] || '';
-      if (s6) { tipM6.textContent = '-' + s6; tipM6.classList.remove('hidden'); }
-      else    { tipM6.classList.add('hidden'); }
-    }
+    ['m3','m6'].forEach(function (d) {
+      var tip = card.querySelector('.save-tip-' + d);
+      if (tip) { var s = ds[cam(pref + '-' + d + '-save')] || ''; s ? (tip.textContent = '-' + s, tip.classList.remove('hidden')) : tip.classList.add('hidden'); }
+    });
   }
 
   function setRegion(region) {
     if (!regionPrefix[region]) region = DEFAULT_REGION;
     currentRegion = region;
     try { localStorage.setItem(REGION_KEY, region); } catch (e) {}
-
-    document.querySelectorAll('.region-btn').forEach(function (b) {
-      b.classList.toggle('active', b.dataset.region === region);
-    });
-
+    document.querySelectorAll('.region-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.region === region); });
     document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
-      var activeDurBtn = card.querySelector('.dur-btn.active');
-      var activeDur = activeDurBtn ? activeDurBtn.dataset.dur : 'm1';
-      refreshCard(card, region, activeDur);
+      var btn = card.querySelector('.dur-btn.active');
+      refreshCard(card, region, btn ? btn.dataset.dur : 'm1');
     });
-
     var r = REFERRAL_DISC[region] || REFERRAL_DISC.egypt;
     document.querySelectorAll('.referral-discount-line').forEach(function (el) {
       el.textContent = 'كل واحد منكم يوفّر ' + r.amount + ' ' + r.currency + ' على الباقة!';
@@ -293,13 +331,8 @@ description: "اختر الباقة المناسبة — التحول الشام
     var badge  = document.getElementById('referral-badge');
     if (banner) banner.classList.toggle('hidden', !active);
     if (badge)  badge.classList.toggle('hidden', !active);
-    document.querySelectorAll('.referral-plan-badge').forEach(function (el) {
-      el.classList.toggle('hidden', !active);
-    });
-    if (active) {
-      var form = document.getElementById('request-form');
-      if (form) setTimeout(function () { form.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 500);
-    }
+    document.querySelectorAll('.referral-plan-badge').forEach(function (el) { el.classList.toggle('hidden', !active); });
+    if (active) openFormModal();
   }
 
   document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
@@ -315,11 +348,7 @@ description: "اختر الباقة المناسبة — التحول الشام
   var saved = DEFAULT_REGION;
   try { saved = localStorage.getItem(REGION_KEY) || DEFAULT_REGION; } catch (e) {}
   setRegion(saved);
-
-  document.querySelectorAll('.region-btn').forEach(function (b) {
-    b.addEventListener('click', function () { setRegion(b.dataset.region); });
-  });
-
+  document.querySelectorAll('.region-btn').forEach(function (b) { b.addEventListener('click', function () { setRegion(b.dataset.region); }); });
   var refCheck = document.getElementById('referral-check');
   if (refCheck) refCheck.addEventListener('change', function () { setReferral(refCheck.checked); });
 })();
