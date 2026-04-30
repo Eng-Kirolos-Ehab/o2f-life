@@ -1150,34 +1150,34 @@
             ${fieldHTML('Tagline AR', `${prefix}.ar.tagline`, plan.ar?.tagline)}
             ${fieldHTML('Tagline EN', `${prefix}.en.tagline`, plan.en?.tagline)}
           </div>
-          <div style="background:rgba(0,217,163,.05);border:1px solid rgba(0,217,163,.15);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
-            <div style="font-size:.7rem;color:var(--mint);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">📅 مدة الالتزام</div>
-            ${fieldHTML('عدد الأشهر', `${prefix}.duration`, plan.duration, 'number')}
-          </div>
-          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
-            <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">🇪🇬 مصر</div>
-            <div class="editor-grid">
-              ${fieldHTML('الإجمالي (EGP)', `${prefix}.pricing.egypt.total`, plan.pricing?.egypt?.total)}
-              ${fieldHTML('شهريًا (EGP)', `${prefix}.pricing.egypt.per_month`, plan.pricing?.egypt?.per_month)}
-              ${fieldHTML('التوفير (EGP)', `${prefix}.pricing.egypt.savings`, plan.pricing?.egypt?.savings ?? '')}
-            </div>
-          </div>
-          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
-            <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">🇸🇦 الخليج</div>
-            <div class="editor-grid">
-              ${fieldHTML('الإجمالي (SAR)', `${prefix}.pricing.gulf.total`, plan.pricing?.gulf?.total)}
-              ${fieldHTML('شهريًا (SAR)', `${prefix}.pricing.gulf.per_month`, plan.pricing?.gulf?.per_month)}
-              ${fieldHTML('التوفير (SAR)', `${prefix}.pricing.gulf.savings`, plan.pricing?.gulf?.savings ?? '')}
-            </div>
-          </div>
-          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
-            <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">🌍 دولي</div>
-            <div class="editor-grid">
-              ${fieldHTML('الإجمالي (USD)', `${prefix}.pricing.international.total`, plan.pricing?.international?.total)}
-              ${fieldHTML('شهريًا (USD)', `${prefix}.pricing.international.per_month`, plan.pricing?.international?.per_month)}
-              ${fieldHTML('التوفير (USD)', `${prefix}.pricing.international.savings`, plan.pricing?.international?.savings ?? '')}
-            </div>
-          </div>
+          ${['egypt','gulf','international'].map(region => {
+            const icons = { egypt: '🇪🇬 مصر', gulf: '🇸🇦 الخليج', international: '🌍 دولي' };
+            const cur   = { egypt: 'EGP', gulf: 'SAR', international: 'USD' };
+            const pr = plan.pricing?.[region] || {};
+            return `
+              <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
+                <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">${icons[region]}</div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600">📅 1 شهر</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر (${cur[region]})`, `${prefix}.pricing.${region}.m1.amount`, pr.m1?.amount ?? '')}
+                  ${fieldHTML('تسمية EN', `${prefix}.pricing.${region}.m1.label`, pr.m1?.label ?? 'per month')}
+                  ${fieldHTML('تسمية AR', `${prefix}.pricing.${region}.m1.label_ar`, pr.m1?.label_ar ?? 'شهريًا')}
+                </div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600;margin-top:.5rem">📅 3 شهور</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر/شهر (${cur[region]})`, `${prefix}.pricing.${region}.m3.amount`, pr.m3?.amount ?? '')}
+                  ${fieldHTML('إجمالي 3 شهور', `${prefix}.pricing.${region}.m3.total`, pr.m3?.total ?? '')}
+                  ${fieldHTML('نسبة التوفير', `${prefix}.pricing.${region}.m3.save`, pr.m3?.save ?? '')}
+                </div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600;margin-top:.5rem">📅 6 شهور</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر/شهر (${cur[region]})`, `${prefix}.pricing.${region}.m6.amount`, pr.m6?.amount ?? '')}
+                  ${fieldHTML('إجمالي 6 شهور', `${prefix}.pricing.${region}.m6.total`, pr.m6?.total ?? '')}
+                  ${fieldHTML('نسبة التوفير', `${prefix}.pricing.${region}.m6.save`, pr.m6?.save ?? '')}
+                </div>
+              </div>
+            `;
+          }).join('')}
           <div class="editor-grid">
             ${textAreaHTML('نبذة عربية', `${prefix}.ar.blurb`, plan.ar?.blurb)}
             ${textAreaHTML('English blurb', `${prefix}.en.blurb`, plan.en?.blurb)}
@@ -1312,14 +1312,18 @@
     }
 
     function defaultPlan(slug) {
+      const tier = (dur, cur) => ({
+        m1: { amount: '', currency: cur, label: 'per month', label_ar: 'شهريًا' },
+        m3: { amount: '', currency: cur, label: '/mo · 3-month plan', label_ar: 'شهريًا · باقة 3 شهور', total: '', save: '' },
+        m6: { amount: '', currency: cur, label: '/mo · 6-month plan', label_ar: 'شهريًا · باقة 6 شهور', total: '', save: '' },
+      });
       return {
         slug,
         visible: true,
-        duration: 4,
         pricing: {
-          egypt:         { total: '', per_month: '', currency: 'EGP', savings: null },
-          gulf:          { total: '', per_month: '', currency: 'SAR', savings: null },
-          international: { total: '', per_month: '', currency: 'USD', savings: null },
+          egypt:         tier(null, 'EGP'),
+          gulf:          tier(null, 'SAR'),
+          international: tier(null, 'USD'),
         },
         en: { name: '', tagline: '', blurb: '', features: [], cta: 'Request this plan' },
         ar: { name: '', tagline: '', blurb: '', features: [], cta: 'اطلب هذه الخطة' },

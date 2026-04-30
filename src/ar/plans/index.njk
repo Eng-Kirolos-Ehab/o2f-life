@@ -1,15 +1,15 @@
 ---
 title: "الباقات"
-description: "اختر باقتك — الأساسية (4 أشهر)، المميزة (6 أشهر)، أو الذهبية (8 أشهر) — مع تسعير لمصر والخليج والعملاء الدوليين."
+description: "اختر الباقة المناسبة — التحول الشامل أو العلاجية — مع تسعير مرن لـ 1 أو 3 أو 6 أشهر لمصر والخليج والعملاء الدوليين."
 ---
 
 <section class="grid-bg relative overflow-hidden">
   <div class="absolute top-10 -left-20 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl animate-pulse-soft pointer-events-none"></div>
   <div class="container-x py-16 sm:py-20 relative">
     <p class="section-kicker" data-aos="fade-up">اختر الباقة</p>
-    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">🔥 أسعار خاصة <span class="gradient-mint-text">حسب مدة الالتزام.</span></h1>
+    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">باقات مبنيّة <span class="gradient-mint-text">حواليك.</span></h1>
     <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-      التزام أطول = سعر شهري أقل. كل باقة مخصّصة بالكامل من اليوم الأول.
+      كل باقة مخصّصة بالكامل. التزام أطول = سعر شهري أقل. اختر المستوى اللي يناسبك دلوقتي.
     </p>
   </div>
 </section>
@@ -41,12 +41,9 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
         </div>
         <span class="text-sm text-brand-off/70 group-hover:text-brand-off transition-colors">
           {{ referral.ar.toggle_label }}
-          <span id="referral-badge" class="hidden mr-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/30">
-            🎁 {{ referral.ar.badge }}
-          </span>
+          <span id="referral-badge" class="hidden mr-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-brand-gold/20 text-brand-gold border border-brand-gold/30">🎁 {{ referral.ar.badge }}</span>
         </span>
       </label>
-
       <div id="referral-banner" class="hidden w-full max-w-xl">
         <div class="mt-1 flex items-start gap-3 bg-brand-gold/8 border border-brand-gold/25 rounded-xl px-4 py-3 text-sm">
           <span class="text-xl leading-none mt-0.5">🎁</span>
@@ -67,66 +64,58 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
   <div class="container-x">
     <div class="flex flex-wrap justify-center gap-6 items-stretch">
 
-      {% set orderedKeys = ["basic","premium","gold"] %}
+      {% set orderedKeys = ["basic","standard","advanced"] %}
       {% for key in orderedKeys %}
         {% set p = plans[key] %}
         {% if p.visible !== false %}
-        <div class="plan-card card flex flex-col relative w-full sm:w-80 lg:w-[22rem]
+
+        <div class="plan-card card flex flex-col relative w-full sm:w-[22rem] lg:w-96
                     {% if p.highlight %}ring-2 ring-brand-mint/60{% endif %}"
              data-aos="fade-up" data-aos-delay="{{ loop.index0 * 120 + 100 }}"
-             data-egypt-total="{{ p.pricing.egypt.total }}"
-             data-egypt-per-month="{{ p.pricing.egypt.per_month }}"
-             data-egypt-currency="{{ p.pricing.egypt.currency }}"
-             data-egypt-savings="{{ p.pricing.egypt.savings or '' }}"
-             data-gulf-total="{{ p.pricing.gulf.total }}"
-             data-gulf-per-month="{{ p.pricing.gulf.per_month }}"
-             data-gulf-currency="{{ p.pricing.gulf.currency }}"
-             data-gulf-savings="{{ p.pricing.gulf.savings or '' }}"
-             data-intl-total="{{ p.pricing.international.total }}"
-             data-intl-per-month="{{ p.pricing.international.per_month }}"
-             data-intl-currency="{{ p.pricing.international.currency }}"
-             data-intl-savings="{{ p.pricing.international.savings or '' }}"
-             data-duration="{{ p.duration }}">
+             data-egypt-m1-amount="{{ p.pricing.egypt.m1.amount }}"   data-egypt-m1-currency="{{ p.pricing.egypt.m1.currency }}"   data-egypt-m1-label="{{ p.pricing.egypt.m1.label_ar }}"
+             data-egypt-m3-amount="{{ p.pricing.egypt.m3.amount }}"   data-egypt-m3-currency="{{ p.pricing.egypt.m3.currency }}"   data-egypt-m3-label="{{ p.pricing.egypt.m3.label_ar }}"   data-egypt-m3-save="{{ p.pricing.egypt.m3.save }}"   data-egypt-m3-total="{{ p.pricing.egypt.m3.total }}"
+             data-egypt-m6-amount="{{ p.pricing.egypt.m6.amount }}"   data-egypt-m6-currency="{{ p.pricing.egypt.m6.currency }}"   data-egypt-m6-label="{{ p.pricing.egypt.m6.label_ar }}"   data-egypt-m6-save="{{ p.pricing.egypt.m6.save }}"   data-egypt-m6-total="{{ p.pricing.egypt.m6.total }}"
+             data-gulf-m1-amount="{{ p.pricing.gulf.m1.amount }}"     data-gulf-m1-currency="{{ p.pricing.gulf.m1.currency }}"     data-gulf-m1-label="{{ p.pricing.gulf.m1.label_ar }}"
+             data-gulf-m3-amount="{{ p.pricing.gulf.m3.amount }}"     data-gulf-m3-currency="{{ p.pricing.gulf.m3.currency }}"     data-gulf-m3-label="{{ p.pricing.gulf.m3.label_ar }}"     data-gulf-m3-save="{{ p.pricing.gulf.m3.save }}"     data-gulf-m3-total="{{ p.pricing.gulf.m3.total }}"
+             data-gulf-m6-amount="{{ p.pricing.gulf.m6.amount }}"     data-gulf-m6-currency="{{ p.pricing.gulf.m6.currency }}"     data-gulf-m6-label="{{ p.pricing.gulf.m6.label_ar }}"     data-gulf-m6-save="{{ p.pricing.gulf.m6.save }}"     data-gulf-m6-total="{{ p.pricing.gulf.m6.total }}"
+             data-intl-m1-amount="{{ p.pricing.international.m1.amount }}" data-intl-m1-currency="{{ p.pricing.international.m1.currency }}" data-intl-m1-label="{{ p.pricing.international.m1.label_ar }}"
+             data-intl-m3-amount="{{ p.pricing.international.m3.amount }}" data-intl-m3-currency="{{ p.pricing.international.m3.currency }}" data-intl-m3-label="{{ p.pricing.international.m3.label_ar }}" data-intl-m3-save="{{ p.pricing.international.m3.save }}" data-intl-m3-total="{{ p.pricing.international.m3.total }}"
+             data-intl-m6-amount="{{ p.pricing.international.m6.amount }}" data-intl-m6-currency="{{ p.pricing.international.m6.currency }}" data-intl-m6-label="{{ p.pricing.international.m6.label_ar }}" data-intl-m6-save="{{ p.pricing.international.m6.save }}" data-intl-m6-total="{{ p.pricing.international.m6.total }}">
 
           {# Top badges #}
           <div class="flex flex-wrap gap-2 mb-3 min-h-[1.75rem]">
-            {% if p.highlight %}
-              <span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأكثر شعبية</span>
-            {% endif %}
-            <span class="savings-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
-            <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">
-              🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}
-            </span>
-          </div>
-
-          {# Duration tag #}
-          <div class="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-lg bg-brand-off/5 border border-brand-line w-fit">
-            <span class="text-brand-mint text-xs">📅</span>
-            <span class="text-brand-off/60 text-xs font-medium">التزام {{ p.duration }} أشهر</span>
+            {% if p.highlight %}<span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأكثر شعبية</span>{% endif %}
+            <span class="save-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
+            <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}</span>
           </div>
 
           <h2 class="text-2xl font-bold mb-1">{{ p.ar.name }}</h2>
           <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
 
-          {# Price block #}
-          <div class="mb-4 p-3 rounded-xl bg-brand-off/3 border border-brand-line">
-            <div class="flex items-baseline gap-2 flex-wrap">
-              <span class="text-3xl font-bold text-brand-mint price-total">{{ p.pricing.egypt.total }}</span>
-              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.currency }}</span>
-              <span class="text-brand-off/40 text-xs">إجمالي</span>
-            </div>
-            <div class="text-brand-off/50 text-xs mt-1">
-              <span class="price-per-month">{{ p.pricing.egypt.per_month }}</span>
-              <span class="price-currency2"> {{ p.pricing.egypt.currency }}</span>
-              / شهريًا
-            </div>
-            <div class="price-savings-line text-brand-mint text-xs font-semibold mt-1
-                        {% if not p.pricing.egypt.savings %}hidden{% endif %}">
-              {% if p.pricing.egypt.savings %}وفّر {{ p.pricing.egypt.savings }} {{ p.pricing.egypt.currency }}!{% endif %}
-            </div>
+          {# ── DURATION TABS (inside card) ── #}
+          <div class="dur-tabs inline-flex rounded-lg border border-brand-line bg-white/3 p-0.5 gap-0.5 mb-4 self-start" role="tablist">
+            <button type="button" class="dur-btn active px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">شهر</button>
+            <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
+              3 شهور
+              <span class="save-tip-m3 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+            </button>
+            <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m6">
+              6 شهور
+              <span class="save-tip-m6 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
+            </button>
           </div>
 
-          <p class="text-brand-off/70 text-sm">{{ p.ar.blurb }}</p>
+          {# Price block #}
+          <div class="mb-1">
+            <div class="flex items-baseline gap-2 flex-wrap">
+              <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.m1.amount }}</span>
+              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.m1.currency }}</span>
+            </div>
+            <div class="text-brand-off/50 text-xs price-label mt-0.5">{{ p.pricing.egypt.m1.label_ar }}</div>
+            <div class="price-total text-brand-off/40 text-xs mt-0.5 hidden"></div>
+          </div>
+
+          <p class="text-brand-off/70 text-sm mt-3">{{ p.ar.blurb }}</p>
 
           <ul class="mt-4 space-y-1.5 text-sm text-brand-off/75 flex-1">
             {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
@@ -137,6 +126,7 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
             {{ p.ar.cta }}
           </a>
         </div>
+
         {% endif %}
       {% endfor %}
 
@@ -144,13 +134,11 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
       {% if customPlans.items %}
         {% for p in customPlans.items %}
           {% if p.visible !== false and p.ar %}
-          <div class="plan-card card flex flex-col relative w-full sm:w-80 lg:w-[22rem] border-brand-gold/30"
+          <div class="plan-card card flex flex-col relative w-full sm:w-[22rem] lg:w-96 border-brand-gold/30"
                data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 + 400 }}">
             <div class="flex flex-wrap gap-2 mb-3">
               <span class="chip text-brand-gold border-brand-gold/30 text-xs">✨ خاصة</span>
-              <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">
-                🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}
-              </span>
+              <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}</span>
             </div>
             <h2 class="text-2xl font-bold mb-1">{{ p.ar.name }}</h2>
             <p class="text-brand-gold text-sm mb-4">{{ p.ar.tagline }}</p>
@@ -172,7 +160,7 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
   </div>
 </section>
 
-{# ANTI-AGING CARD #}
+{# ANTI-AGING #}
 <section class="section pt-4">
   <div class="container-x">
     <div class="card card-hover text-center" data-aos="fade-up">
@@ -183,7 +171,7 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
   </div>
 </section>
 
-{# EMBEDDED GOOGLE FORM #}
+{# EMBEDDED FORM #}
 <section class="section" id="request-form">
   <div class="container-x">
     <div class="text-center mb-8" data-aos="fade-up">
@@ -197,22 +185,22 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
     <div class="card p-0 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
-        width="100%"
-        style="min-height:700px; border:none; display:block;"
-        title="اطلب باقة"
-        loading="lazy">
-        جاري تحميل الفورم…
-      </iframe>
+        width="100%" style="min-height:700px;border:none;display:block;"
+        title="اطلب باقة" loading="lazy">جاري تحميل الفورم…</iframe>
     </div>
   </div>
 </section>
 
 <style>
   .region-btn { color: rgba(247,248,250,0.6); }
-  .region-btn.active { background-color: rgba(0,217,163,0.15); color: #00D9A3; }
-  .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,0.05); }
+  .region-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
+  .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,.05); }
 
-  .plan-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .dur-btn { color: rgba(247,248,250,0.5); }
+  .dur-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
+  .dur-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,.06); }
+
+  .plan-card { transition: transform .25s ease, box-shadow .25s ease; }
   .plan-card:hover { transform: translateY(-5px); }
 
   @media (max-width: 639px) { .plan-card { width: 100%; } }
@@ -220,75 +208,84 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
 
 <script>
 (function () {
-  const KEY = 'o2f_region';
-  const DEFAULT = 'egypt';
-  const regionMap = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
+  const REGION_KEY = 'o2f_region';
+  const DEFAULT_REGION = 'egypt';
+  const regionPrefix = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
 
-  const REFERRAL = {
+  const REFERRAL_DISC = {
     egypt:         { amount: '{{ referral.discount.egypt.amount if referral else "500" }}',  currency: '{{ referral.discount.egypt.currency if referral else "EGP" }}' },
     gulf:          { amount: '{{ referral.discount.gulf.amount if referral else "38" }}',   currency: '{{ referral.discount.gulf.currency if referral else "SAR" }}' },
     international: { amount: '{{ referral.discount.international.amount if referral else "10" }}', currency: '{{ referral.discount.international.currency if referral else "USD" }}' }
   };
 
-  const SAVE_WORD = 'وفّر ';
+  const SAVE_AR = 'وفّر ';
+  const TOTAL_AR = 'الإجمالي: ';
 
-  let currentRegion = DEFAULT;
+  let currentRegion = DEFAULT_REGION;
 
-  function camel(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
+  function cam(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
 
-  function updateCards(region) {
-    var prefix = regionMap[region];
-    document.querySelectorAll('.plan-card[data-' + prefix + '-total]').forEach(function (card) {
-      var ds = card.dataset;
-      var total    = ds[camel(prefix + '-total')]     || '';
-      var perMonth = ds[camel(prefix + '-per-month')] || '';
-      var currency = ds[camel(prefix + '-currency')]  || '';
-      var savings  = ds[camel(prefix + '-savings')]   || '';
+  function refreshCard(card, region, dur) {
+    var pref = regionPrefix[region] || 'egypt';
+    var ds   = card.dataset;
+    var amount   = ds[cam(pref + '-' + dur + '-amount')]   || '';
+    var currency = ds[cam(pref + '-' + dur + '-currency')] || '';
+    var label    = ds[cam(pref + '-' + dur + '-label')]    || '';
+    var save     = ds[cam(pref + '-' + dur + '-save')]     || '';
+    var total    = ds[cam(pref + '-' + dur + '-total')]    || '';
 
-      var elTotal    = card.querySelector('.price-total');
-      var elPM       = card.querySelector('.price-per-month');
-      var elCur      = card.querySelector('.price-currency');
-      var elCur2     = card.querySelector('.price-currency2');
-      var elSavLine  = card.querySelector('.price-savings-line');
-      var elSavBadge = card.querySelector('.savings-badge');
+    var elAmt  = card.querySelector('.price-amount');
+    var elCur  = card.querySelector('.price-currency');
+    var elLbl  = card.querySelector('.price-label');
+    var elTot  = card.querySelector('.price-total');
+    var elSave = card.querySelector('.save-badge');
 
-      if (elTotal)  elTotal.textContent  = total;
-      if (elPM)     elPM.textContent     = perMonth;
-      if (elCur)    elCur.textContent    = currency;
-      if (elCur2)   elCur2.textContent   = ' ' + currency;
+    if (elAmt)  elAmt.textContent  = amount;
+    if (elCur)  elCur.textContent  = currency;
+    if (elLbl)  elLbl.textContent  = label;
 
-      if (elSavLine) {
-        if (savings) {
-          elSavLine.textContent = SAVE_WORD + savings + ' ' + currency + '!';
-          elSavLine.classList.remove('hidden');
-        } else {
-          elSavLine.classList.add('hidden');
-        }
-      }
-      if (elSavBadge) {
-        if (savings) {
-          elSavBadge.textContent = SAVE_WORD + savings + ' ' + currency;
-          elSavBadge.classList.remove('hidden');
-        } else {
-          elSavBadge.classList.add('hidden');
-        }
-      }
-    });
+    if (elTot) {
+      if (total) { elTot.textContent = TOTAL_AR + total + ' ' + currency; elTot.classList.remove('hidden'); }
+      else       { elTot.classList.add('hidden'); }
+    }
+    if (elSave) {
+      if (save) { elSave.textContent = SAVE_AR + save; elSave.classList.remove('hidden'); }
+      else      { elSave.classList.add('hidden'); }
+    }
 
-    var r = REFERRAL[region] || REFERRAL.egypt;
-    document.querySelectorAll('.referral-discount-line').forEach(function (el) {
-      el.textContent = 'كل واحد منكم يوفّر ' + r.amount + ' ' + r.currency + ' على الباقة!';
-    });
+    var tipM3 = card.querySelector('.save-tip-m3');
+    var tipM6 = card.querySelector('.save-tip-m6');
+    if (tipM3) {
+      var s3 = ds[cam(pref + '-m3-save')] || '';
+      if (s3) { tipM3.textContent = '-' + s3; tipM3.classList.remove('hidden'); }
+      else    { tipM3.classList.add('hidden'); }
+    }
+    if (tipM6) {
+      var s6 = ds[cam(pref + '-m6-save')] || '';
+      if (s6) { tipM6.textContent = '-' + s6; tipM6.classList.remove('hidden'); }
+      else    { tipM6.classList.add('hidden'); }
+    }
   }
 
   function setRegion(region) {
-    if (!regionMap[region]) region = DEFAULT;
+    if (!regionPrefix[region]) region = DEFAULT_REGION;
     currentRegion = region;
-    try { localStorage.setItem(KEY, region); } catch (e) {}
+    try { localStorage.setItem(REGION_KEY, region); } catch (e) {}
+
     document.querySelectorAll('.region-btn').forEach(function (b) {
       b.classList.toggle('active', b.dataset.region === region);
     });
-    updateCards(region);
+
+    document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
+      var activeDurBtn = card.querySelector('.dur-btn.active');
+      var activeDur = activeDurBtn ? activeDurBtn.dataset.dur : 'm1';
+      refreshCard(card, region, activeDur);
+    });
+
+    var r = REFERRAL_DISC[region] || REFERRAL_DISC.egypt;
+    document.querySelectorAll('.referral-discount-line').forEach(function (el) {
+      el.textContent = 'كل واحد منكم يوفّر ' + r.amount + ' ' + r.currency + ' على الباقة!';
+    });
   }
 
   function setReferral(active) {
@@ -305,14 +302,25 @@ description: "اختر باقتك — الأساسية (4 أشهر)، الممي
     }
   }
 
-  var saved = DEFAULT;
-  try { saved = localStorage.getItem(KEY) || DEFAULT; } catch (e) {}
+  document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
+    card.querySelectorAll('.dur-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        card.querySelectorAll('.dur-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        refreshCard(card, currentRegion, btn.dataset.dur);
+      });
+    });
+  });
+
+  var saved = DEFAULT_REGION;
+  try { saved = localStorage.getItem(REGION_KEY) || DEFAULT_REGION; } catch (e) {}
   setRegion(saved);
 
   document.querySelectorAll('.region-btn').forEach(function (b) {
     b.addEventListener('click', function () { setRegion(b.dataset.region); });
   });
-  var ref = document.getElementById('referral-check');
-  if (ref) ref.addEventListener('change', function () { setReferral(ref.checked); });
+
+  var refCheck = document.getElementById('referral-check');
+  if (refCheck) refCheck.addEventListener('change', function () { setReferral(refCheck.checked); });
 })();
 </script>
