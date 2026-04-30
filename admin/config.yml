@@ -7,7 +7,7 @@ backend:
   branch: main
 
 
-media_folder: "site/src/assets/images/uploads"
+media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
 site_url: https://o2f.life
@@ -26,7 +26,7 @@ collections:
     files:
       - name: site
         label: "Global Site Info"
-        file: "site/src/_data/site.json"
+        file: "src/_data/site.json"
         fields:
           - { name: name,       label: "Site Name",            widget: string }
           - { name: domain,     label: "Domain (no https://)", widget: string }
@@ -79,7 +79,7 @@ collections:
     files:
       - name: plans-data
         label: "Basic / Standard / Advanced"
-        file: "site/src/_data/plans.json"
+        file: "src/_data/plans.json"
         fields:
           - label: "Basic Plan"
             name: basic
@@ -229,7 +229,7 @@ collections:
       # ─── Custom / special plans ───────────────────────────────
       - name: custom-plans
         label: "✨ Custom / Special Plans"
-        file: "site/src/_data/customPlans.json"
+        file: "src/_data/customPlans.json"
         description: "Add any number of extra plans (e.g. family plan, team plan, seasonal offer...)"
         fields:
           - label: "Custom Plans"
@@ -289,7 +289,7 @@ collections:
     files:
       - name: gallery-data
         label: "Gallery images"
-        file: "site/src/_data/gallery.json"
+        file: "src/_data/gallery.json"
         fields:
           - label: "Images"
             name: images
@@ -305,7 +305,7 @@ collections:
   # ════════════════════════════════════════════════════════════
   - name: blog-en
     label: "📝 Blog — English"
-    folder: "site/src/en/blog"
+    folder: "src/en/blog"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -322,7 +322,7 @@ collections:
   # ════════════════════════════════════════════════════════════
   - name: blog-ar
     label: "📝 المقالات — عربي"
-    folder: "site/src/ar/blog"
+    folder: "src/ar/blog"
     create: true
     slug: "{{slug}}"
     extension: md
