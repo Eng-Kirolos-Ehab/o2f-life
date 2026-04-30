@@ -184,9 +184,9 @@
             <p class="font-bold text-brand-gold mb-0.5">You &amp; your friend each get a discount!</p>
             <p class="text-brand-off/70 text-xs leading-relaxed">Refer a friend (or get referred) and you both save off your plan. Just mention the referrer&#39;s name in the form below.</p>
             <p class="mt-1.5 text-brand-gold font-semibold text-xs referral-discount-line"></p>
-            <button onclick="openFormModal()" class="mt-2 px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-ink hover:opacity-90 transition-opacity">
+            <a href="/en/contact/" class="mt-2 inline-block px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold text-brand-ink hover:opacity-90 transition-opacity">
               🎁 Claim my referral discount →
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -251,10 +251,10 @@
             <li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Personalized nutrition and training plan</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Daily WhatsApp follow-up</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Weekly updates</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Medical supervision</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Supplements and herbal support</li>
           </ul>
 
-          <button onclick="openFormModal('Full Transformation Plan')"
-                  class="btn-ghost mt-6 w-full justify-center">
+          <a href="/en/contact/"
+             class="btn-ghost mt-6 w-full justify-center">
             Request this plan
-          </button>
+          </a>
         </div>
         
       
@@ -307,10 +307,10 @@
             <li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Full medical case analysis</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Personalized therapeutic nutrition plan</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Weekly follow-up</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Herbal treatments</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Natural medical consultations</li><li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>Suitable for diabetes, hypertension, cholesterol, digestive issues, and inflammation</li>
           </ul>
 
-          <button onclick="openFormModal('Therapeutic Nutrition Plan')"
-                  class="btn-primary mt-6 w-full justify-center">
+          <a href="/en/contact/"
+             class="btn-primary mt-6 w-full justify-center">
             Request this plan
-          </button>
+          </a>
         </div>
         
       
@@ -338,28 +338,6 @@
 </section>
 
 
-<div id="form-modal" class="form-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="form-modal-box">
-    <div class="form-modal-header">
-      <div>
-        <p class="text-xs text-brand-off/50 mb-0.5">Ready to start?</p>
-        <h2 id="modal-title" class="text-lg font-bold">Request Your Plan</h2>
-      </div>
-      <button class="form-modal-close" onclick="closeFormModal()" aria-label="Close">✕</button>
-    </div>
-    <div class="form-modal-body">
-      <iframe id="form-iframe"
-        src=""
-        data-src="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?embedded=true"
-        width="100%" height="100%"
-        frameborder="0"
-        title="Request a Plan">
-        Loading…
-      </iframe>
-    </div>
-  </div>
-</div>
-
 <style>
   .region-btn { color: rgba(247,248,250,0.6); }
   .region-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
@@ -373,49 +351,6 @@
   .plan-card:hover { transform: translateY(-5px); }
   @media (max-width: 639px) { .plan-card { width: 100%; } }
 
-  /* Modal */
-  .form-modal-overlay {
-    position: fixed; inset: 0; z-index: 9000;
-    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
-    display: flex; align-items: center; justify-content: center;
-    padding: 1rem;
-    opacity: 0; pointer-events: none;
-    transition: opacity .25s ease;
-  }
-  .form-modal-overlay.open { opacity: 1; pointer-events: all; }
-
-  .form-modal-box {
-    background: #111827; border: 1px solid rgba(255,255,255,.1);
-    border-radius: 20px; overflow: hidden;
-    width: 100%; max-width: 680px;
-    height: 90vh; max-height: 780px;
-    display: flex; flex-direction: column;
-    transform: translateY(24px) scale(.97);
-    transition: transform .3s ease;
-    box-shadow: 0 32px 80px rgba(0,0,0,.6);
-  }
-  .form-modal-overlay.open .form-modal-box { transform: translateY(0) scale(1); }
-
-  .form-modal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.08);
-    flex-shrink: 0;
-  }
-  .form-modal-close {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: rgba(255,255,255,.08); border: none; color: #F7F8FA;
-    font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
-  }
-  .form-modal-close:hover { background: rgba(255,255,255,.15); }
-
-  .form-modal-body { flex: 1; overflow: hidden; background: #fff; }
-  .form-modal-body iframe { display: block; border: none; width: 100%; height: 100%; }
-
-  @media (max-width: 640px) {
-    .form-modal-overlay { padding: 0; align-items: flex-end; }
-    .form-modal-box { border-radius: 20px 20px 0 0; height: 92vh; max-height: none; }
-  }
 </style>
 
 <script>
@@ -432,29 +367,6 @@
   let currentRegion = DEFAULT_REGION;
 
   function cam(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
-
-  /* ── Modal ── */
-  var formLoaded = false;
-  window.openFormModal = function (planName) {
-    var overlay = document.getElementById('form-modal');
-    if (!formLoaded) {
-      var iframe = document.getElementById('form-iframe');
-      iframe.src = iframe.dataset.src;
-      formLoaded = true;
-    }
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-  window.closeFormModal = function () {
-    document.getElementById('form-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  document.getElementById('form-modal').addEventListener('click', function (e) {
-    if (e.target === this) closeFormModal();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeFormModal();
-  });
 
   /* ── Price refresh ── */
   function refreshCard(card, region, dur) {
@@ -505,7 +417,6 @@
     if (banner) banner.classList.toggle('hidden', !active);
     if (badge)  badge.classList.toggle('hidden', !active);
     document.querySelectorAll('.referral-plan-badge').forEach(function (el) { el.classList.toggle('hidden', !active); });
-    if (active) openFormModal();
   }
 
   /* Duration tabs per card */
