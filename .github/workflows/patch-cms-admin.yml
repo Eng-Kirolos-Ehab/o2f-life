@@ -1,4 +1,4 @@
-name: Patch CMS Admin UI
+name: Restore and Patch CMS Admin UI
 
 on:
   push:
@@ -10,24 +10,25 @@ permissions:
   contents: write
 
 jobs:
-  patch-cms:
+  restore-and-patch-cms:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Patch admin/cms.html safely
+        with:
+          fetch-depth: 0
+      - name: Restore stable cms.html then patch safely
         run: |
+          set -e
+          git show bb4b8f2b7cd02fff4d9caa525fb9c2b5bc442662:admin/cms.html > admin/cms.html
           python3 <<'PY'
           from pathlib import Path
           p = Path('admin/cms.html')
           s = p.read_text(encoding='utf-8')
-          original = s
 
-          # 1) Update visible admin version only.
-          for old in ['v1.0.1','v1.2.0','v1.3.0','v1.3.1','v1.3.2']:
-              s = s.replace(old, 'v1.3.3')
+          for old in ['v1.0.1','v1.2.0','v1.3.0','v1.3.1','v1.3.2','v1.3.3']:
+              s = s.replace(old, 'v1.3.4')
 
-          # 2) Add sidebar links without touching old section logic.
-          if 'إدارة عروض الباقات' not in s:
+          if 'إضافات الإدارة' not in s:
               marker = '''      <div class="nav-section" style="margin-top:.75rem">الموقع</div>'''
               insert = '''      <div class="nav-section" style="margin-top:.75rem">إضافات الإدارة</div>
       <a class="nav-item" href="./offers.html">
@@ -40,19 +41,17 @@ jobs:
       </a>
 
 '''
-              if marker in s:
-                  s = s.replace(marker, insert + marker, 1)
+              s = s.replace(marker, insert + marker, 1)
 
-          # 3) Add cards inside the main content cards area, after referral card.
           if 'فتح العروض ←' not in s:
-              referral_end = '''          <div class="card" onclick="openEditor('json','referral')" style="cursor:pointer">
+              marker = '''          <div class="card" onclick="openEditor('json','referral')" style="cursor:pointer">
             <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
             <div class="card-title">نظام جيب صديق</div>
             <div class="card-desc">تفعيل التوصية، قيمة الخصم بالعملات الثلاثة، النصوص</div>
             <div class="card-arrow">فتح المحرر ←</div>
           </div>
 '''
-              new_cards = referral_end + '''
+              insert = marker + '''
           <a class="card" href="./offers.html" style="cursor:pointer">
             <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
             <div class="card-title">إدارة عروض الباقات</div>
@@ -67,16 +66,69 @@ jobs:
             <div class="card-arrow">فتح التعليقات ←</div>
           </a>
 '''
-              if referral_end in s:
-                  s = s.replace(referral_end, new_cards, 1)
+              s = s.replace(marker, insert, 1)
 
-          if s == original:
-              print('No changes applied. CMS may already be patched.')
-          else:
-              p.write_text(s, encoding='utf-8')
-              print('CMS patched successfully.')
+          if "offers:  'src/_data/offers.json'" not in s:
+              s = s.replace("      referral: 'src/_data/referral.json',\n", "      referral: 'src/_data/referral.json',\n      offers:  'src/_data/offers.json',\n", 1)
+
+          if 'id="tab-offers"' not in s:
+              s = s.replace("            <button class=\"file-tab\" id=\"tab-referral\" onclick=\"switchFile('referral')\">referral.json</button>\n", "            <button class=\"file-tab\" id=\"tab-referral\" onclick=\"switchFile('referral')\">referral.json</button>\n            <button class=\"file-tab\" id=\"tab-offers\" onclick=\"switchFile('offers')\">offers.json</button>\n", 1)
+
+          if "currentFile === 'offers'" not in s:
+              s = s.replace("      if (currentFile === 'referral') renderReferralEditor(container);\n", "      if (currentFile === 'referral') renderReferralEditor(container);\n      if (currentFile === 'offers')   renderOffersEditor(container);\n", 1)
+
+          if 'function renderOffersEditor' not in s:
+              marker = '''    function defaultPlan(slug) {
+'''
+              fn = r'''    function renderOffersEditor(container) {
+      if (!currentData) return;
+      const d = currentData;
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>إدارة عروض الباقات 🎁</h3>
+          <div style="background:rgba(201,168,74,.08);border:1px solid rgba(201,168,74,.25);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div class="switch-row" style="margin-bottom:.25rem">
+              <input type="checkbox" ${d.enabled ? 'checked' : ''} data-path="enabled" data-type="checkbox">
+              <span style="font-weight:700">تفعيل العرض على صفحة الباقات</span>
+            </div>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.35rem">عند التفعيل يظهر بانر العرض في صفحة الباقات، ويظهر Badge عند اختيار مدة العرض.</p>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div style="font-size:.72rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">⚙️ إعدادات العرض</div>
+            <div class="editor-grid">
+              ${fieldHTML('مدة العرض m1 / m3 / m6', 'appliesTo', d.appliesTo ?? 'm3')}
+              ${fieldHTML('عدد الشهور المجانية', 'freeMonths', d.freeMonths ?? '1', 'number')}
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇸🇦 النصوص العربية</div>
+            <div class="editor-grid">
+              ${fieldHTML('Badge عربي', 'badge.ar', d.badge?.ar ?? '')}
+              ${fieldHTML('العنوان عربي', 'headline.ar', d.headline?.ar ?? '')}
+              ${fieldHTML('زر CTA عربي', 'cta.ar', d.cta?.ar ?? '')}
+            </div>
+            ${textAreaHTML('وصف العرض عربي', 'description.ar', d.description?.ar ?? '')}
+          </div>
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇬🇧 English Text</div>
+            <div class="editor-grid">
+              ${fieldHTML('Badge English', 'badge.en', d.badge?.en ?? '')}
+              ${fieldHTML('Headline English', 'headline.en', d.headline?.en ?? '')}
+              ${fieldHTML('CTA English', 'cta.en', d.cta?.en ?? '')}
+            </div>
+            ${textAreaHTML('Offer description English', 'description.en', d.description?.en ?? '')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+    }
+
+'''
+              s = s.replace(marker, fn + marker, 1)
+
+          p.write_text(s, encoding='utf-8')
           PY
-      - name: Commit patch
+      - name: Commit restored CMS patch
         run: |
           if git diff --quiet; then
             echo "No changes to commit"
@@ -85,5 +137,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add admin/cms.html
-          git commit -m "feat: add offers and comments cards to CMS"
+          git commit -m "feat: restore CMS and add offers comments controls"
           git push
