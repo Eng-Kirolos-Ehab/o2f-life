@@ -7,56 +7,78 @@
   <style>
     :root{--bg:#07111f;--panel:#0b1220;--line:rgba(255,255,255,.12);--text:#f7f8fa;--muted:rgba(247,248,250,.65);--mint:#00d9a3;--gold:#c9a84a;--danger:#ff6b6b}
     *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:radial-gradient(circle at 20% 10%,rgba(0,217,163,.13),transparent 28%),var(--bg);color:var(--text)}
-    .wrap{max-width:1180px;margin:auto;padding:28px 16px 60px}.top{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:22px}.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,217,163,.25);background:rgba(0,217,163,.08);color:var(--mint);border-radius:999px;padding:8px 12px;font-size:13px}.dot{width:9px;height:9px;border-radius:999px;background:var(--mint)}h1{font-size:34px;margin:10px 0}.muted{color:var(--muted);line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.25)}.list{display:grid;gap:12px}.comment{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.16)}.comment h3{margin:0 0 5px;font-size:18px}.service{color:var(--mint);font-size:12px}.text{line-height:1.7;color:rgba(247,248,250,.8);margin:10px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:10px 13px;font-weight:700;cursor:pointer;color:#07111f;background:var(--mint)}.btn.ghost{background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--line)}.btn.gold{background:var(--gold)}.btn.danger{background:rgba(255,107,107,.16);color:#ffd8d8;border:1px solid rgba(255,107,107,.35)}input,textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.06);color:var(--text);outline:0}textarea{min-height:120px;resize:vertical}.form{display:grid;gap:10px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{padding:20px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);text-align:center}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.jsonbox{direction:ltr;text-align:left;white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px;max-height:260px;overflow:auto}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);cursor:pointer;color:var(--text)}.tab.active{background:rgba(0,217,163,.14);border-color:rgba(0,217,163,.35);color:var(--mint)}@media(max-width:860px){.grid{grid-template-columns:1fr}.cols{grid-template-columns:1fr}h1{font-size:28px}}
+    .wrap{max-width:1180px;margin:auto;padding:28px 16px 60px}.top{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:22px}.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,217,163,.25);background:rgba(0,217,163,.08);color:var(--mint);border-radius:999px;padding:8px 12px;font-size:13px}.dot{width:9px;height:9px;border-radius:999px;background:var(--mint)}h1{font-size:34px;margin:10px 0}.muted{color:var(--muted);line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.25)}.list{display:grid;gap:12px}.comment{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(0,0,0,.16)}.comment h3{margin:0 0 5px;font-size:18px}.service{color:var(--mint);font-size:12px}.text{line-height:1.7;color:rgba(247,248,250,.8);margin:10px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:10px 13px;font-weight:700;cursor:pointer;color:#07111f;background:var(--mint)}.btn.ghost{background:rgba(255,255,255,.08);color:var(--text);border:1px solid var(--line)}.btn.gold{background:var(--gold)}.btn.danger{background:rgba(255,107,107,.16);color:#ffd8d8;border:1px solid rgba(255,107,107,.35)}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.06);color:var(--text);outline:0}textarea{min-height:120px;resize:vertical}.form{display:grid;gap:10px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{padding:20px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);text-align:center}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tab{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);cursor:pointer;color:var(--text)}.tab.active{background:rgba(0,217,163,.14);border-color:rgba(0,217,163,.35);color:var(--mint)}.hidden{display:none!important}.status{margin-top:10px;color:var(--gold);font-size:13px}.login{max-width:520px;margin:80px auto}.small{font-size:12px;color:var(--muted)}@media(max-width:860px){.grid{grid-template-columns:1fr}.cols{grid-template-columns:1fr}h1{font-size:28px}}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="top">
-      <div>
-        <span class="badge"><span class="dot"></span>Comments Moderation</span>
-        <h1>إدارة تعليقات العملاء</h1>
-        <p class="muted">راجع التعليقات الجديدة، عدّل النص لو محتاج، ثم اقبلها أو ارفضها. التعليقات المقبولة تظهر في الصفحة الرئيسية من نفس المتصفح، ويمكنك نسخ JSON لتثبيتها في ملف البيانات.</p>
-      </div>
-      <a class="btn ghost" href="./cms.html">الرجوع للوحة الإدارة</a>
-    </div>
-
-    <div class="tabs">
-      <button class="tab active" data-tab="pending">قيد المراجعة</button>
-      <button class="tab" data-tab="approved">مقبولة</button>
-      <button class="tab" data-tab="rejected">مرفوضة</button>
-      <button class="tab" data-tab="export">تصدير JSON</button>
-    </div>
-
-    <section id="pending" class="panel grid">
-      <div class="card"><h2>تعليقات قيد المراجعة</h2><div id="pendingList" class="list"></div></div>
-      <div class="card"><h2>تعديل التعليق المختار</h2><form id="editForm" class="form"><input id="editId" type="hidden"><div class="cols"><input id="editName" placeholder="الاسم"><input id="editService" placeholder="الخدمة"></div><textarea id="editComment" placeholder="التعليق"></textarea><div class="actions"><button class="btn" type="submit">حفظ التعديل</button><button class="btn gold" type="button" id="approveBtn">قبول</button><button class="btn danger" type="button" id="rejectBtn">رفض</button></div></form><p class="muted">اختار تعليق من القائمة لتعديله أو قبوله.</p></div>
+    <section id="loginPanel" class="card login">
+      <span class="badge"><span class="dot"></span>Supabase Auth</span>
+      <h1>تسجيل دخول الأدمن</h1>
+      <p class="muted">سجّل دخولك بحساب الأدمن الموجود في Supabase Authentication. بعد الدخول ستظهر التعليقات حسب صلاحيات RLS.</p>
+      <form id="loginForm" class="form">
+        <input id="adminEmail" type="email" required placeholder="Admin email">
+        <input id="adminPassword" type="password" required placeholder="Password">
+        <button class="btn" type="submit">دخول</button>
+      </form>
+      <p id="loginStatus" class="status"></p>
+      <p class="small">ملاحظة: لا يتم استخدام service_role داخل المتصفح.</p>
     </section>
 
-    <section id="approved" class="panel grid" hidden><div class="card"><h2>التعليقات المقبولة</h2><div id="approvedList" class="list"></div></div><div class="card"><h2>إضافة تعليق يدوي</h2><form id="addForm" class="form"><div class="cols"><input id="addName" required placeholder="الاسم"><input id="addService" placeholder="الخدمة"></div><textarea id="addComment" required placeholder="التعليق"></textarea><button class="btn" type="submit">إضافة كمقبول</button></form></div></section>
-    <section id="rejected" class="panel card" hidden><h2>التعليقات المرفوضة</h2><div id="rejectedList" class="list"></div></section>
-    <section id="export" class="panel card" hidden><h2>تصدير التعليقات المقبولة</h2><p class="muted">انسخ الكود التالي وضعه مكان محتوى ملف <b>src/_data/comments.json</b> لو عايز تثبيت التعليقات على الموقع لكل الزوار.</p><div class="tools"><button class="btn" id="copyJson">نسخ JSON</button><button class="btn ghost" id="clearLocal">مسح التخزين المحلي</button></div><pre id="jsonOutput" class="jsonbox card"></pre></section>
+    <section id="adminPanel" class="hidden">
+      <div class="top">
+        <div>
+          <span class="badge"><span class="dot"></span>Comments Moderation</span>
+          <h1>إدارة تعليقات العملاء</h1>
+          <p class="muted">التعليقات هنا متصلة مباشرة بجدول Supabase. يمكنك تعديل التعليق، قبوله، رفضه، أو إضافة تعليق يدوي.</p>
+        </div>
+        <div class="actions"><button class="btn ghost" id="refreshBtn">تحديث</button><button class="btn danger" id="logoutBtn">خروج</button><a class="btn ghost" href="./cms.html">لوحة الإدارة</a></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="pending">قيد المراجعة</button>
+        <button class="tab" data-tab="approved">مقبولة</button>
+        <button class="tab" data-tab="rejected">مرفوضة</button>
+      </div>
+
+      <section id="pending" class="panel grid">
+        <div class="card"><h2>تعليقات قيد المراجعة</h2><div id="pendingList" class="list"></div></div>
+        <div class="card"><h2>تعديل التعليق المختار</h2><form id="editForm" class="form"><input id="editId" type="hidden"><div class="cols"><input id="editName" placeholder="الاسم"><input id="editService" placeholder="الخدمة"></div><textarea id="editComment" placeholder="التعليق"></textarea><select id="editStatus"><option value="pending">pending</option><option value="approved">approved</option><option value="rejected">rejected</option></select><div class="actions"><button class="btn" type="submit">حفظ التعديل</button><button class="btn gold" type="button" id="approveBtn">قبول</button><button class="btn danger" type="button" id="rejectBtn">رفض</button></div></form><p id="editStatusText" class="status"></p></div>
+      </section>
+
+      <section id="approved" class="panel grid" hidden><div class="card"><h2>التعليقات المقبولة</h2><div id="approvedList" class="list"></div></div><div class="card"><h2>إضافة تعليق يدوي</h2><form id="addForm" class="form"><div class="cols"><input id="addName" required placeholder="الاسم"><input id="addService" placeholder="الخدمة"></div><textarea id="addComment" required placeholder="التعليق"></textarea><button class="btn" type="submit">إضافة كمقبول</button></form><p id="addStatusText" class="status"></p></div></section>
+      <section id="rejected" class="panel card" hidden><h2>التعليقات المرفوضة</h2><div id="rejectedList" class="list"></div></section>
+    </section>
   </main>
 <script>
 (function(){
-  function load(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
-  function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+  var SUPABASE_URL='https://qalzanmeusuqssrgxumg.supabase.co';
+  var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhbHphbm1ldXN1cXNzcmd4dW1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2MjAxMDMsImV4cCI6MjA5MzE5NjEwM30.PHP_zC5firTlCfA9zFLXO1iqzUXMbiTsM6-7wKsDPOU';
+  var session=null, allComments=[];
   function clean(v){return String(v||'').replace(/[<>]/g,'').trim()}
-  function getAll(){return{pending:load('o2f_pending_comments'),approved:load('o2f_approved_comments'),rejected:load('o2f_rejected_comments')}}
-  function setAll(x){save('o2f_pending_comments',x.pending);save('o2f_approved_comments',x.approved);save('o2f_rejected_comments',x.rejected)}
-  function itemHtml(x,kind){return '<div class="comment"><h3>'+clean(x.name)+'</h3><div class="service">'+clean(x.service||'O2F')+'</div><div class="text">'+clean(x.comment)+'</div><div class="actions"><button class="btn ghost" data-action="edit" data-kind="'+kind+'" data-id="'+x.id+'">تعديل</button>'+(kind==='pending'?'<button class="btn" data-action="approve" data-id="'+x.id+'">قبول</button><button class="btn danger" data-action="reject" data-id="'+x.id+'">رفض</button>':'')+(kind==='approved'?'<button class="btn danger" data-action="removeApproved" data-id="'+x.id+'">إزالة</button>':'')+'</div></div>'}
-  function render(){var x=getAll();pendingList.innerHTML=x.pending.map(function(i){return itemHtml(i,'pending')}).join('')||'<div class="empty">لا توجد تعليقات قيد المراجعة</div>';approvedList.innerHTML=x.approved.map(function(i){return itemHtml(i,'approved')}).join('')||'<div class="empty">لا توجد تعليقات مقبولة محليًا</div>';rejectedList.innerHTML=x.rejected.map(function(i){return itemHtml(i,'rejected')}).join('')||'<div class="empty">لا توجد تعليقات مرفوضة</div>';jsonOutput.textContent=JSON.stringify({items:x.approved.map(function(i){return{id:i.id,name:i.name,service:i.service,comment:i.comment,status:'approved',rating:5}})},null,2)}
-  function find(kind,id){var x=getAll(),arr=x[kind]||[];return arr.find(function(i){return i.id===id})}
-  function fill(i){if(!i)return;editId.value=i.id;editName.value=i.name||'';editService.value=i.service||'';editComment.value=i.comment||''}
-  document.body.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var a=b.dataset.action,id=b.dataset.id,k=b.dataset.kind,all=getAll();if(a==='edit')fill(find(k,id));if(a==='approve'){var i=find('pending',id);if(i){all.pending=all.pending.filter(function(x){return x.id!==id});i.status='approved';all.approved.unshift(i);setAll(all);render();fill(i)}}if(a==='reject'){var r=find('pending',id);if(r){all.pending=all.pending.filter(function(x){return x.id!==id});r.status='rejected';all.rejected.unshift(r);setAll(all);render()}}if(a==='removeApproved'){all.approved=all.approved.filter(function(x){return x.id!==id});setAll(all);render()}})
-  editForm.addEventListener('submit',function(e){e.preventDefault();var id=editId.value;if(!id)return;var all=getAll();['pending','approved','rejected'].forEach(function(k){all[k]=all[k].map(function(i){if(i.id===id){i.name=clean(editName.value);i.service=clean(editService.value);i.comment=clean(editComment.value)}return i})});setAll(all);render()})
-  approveBtn.onclick=function(){var id=editId.value;if(!id)return;var all=getAll(),i=find('pending',id);if(i){i.name=clean(editName.value);i.service=clean(editService.value);i.comment=clean(editComment.value);all.pending=all.pending.filter(function(x){return x.id!==id});i.status='approved';all.approved.unshift(i);setAll(all);render()}}
-  rejectBtn.onclick=function(){var id=editId.value;if(!id)return;var all=getAll(),i=find('pending',id);if(i){all.pending=all.pending.filter(function(x){return x.id!==id});i.status='rejected';all.rejected.unshift(i);setAll(all);render()}}
-  addForm.addEventListener('submit',function(e){e.preventDefault();var all=getAll();all.approved.unshift({id:'manual-'+Date.now(),name:clean(addName.value),service:clean(addService.value||'O2F'),comment:clean(addComment.value),status:'approved',rating:5});setAll(all);addForm.reset();render()})
+  function authHeaders(){return {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+(session&&session.access_token?session.access_token:SUPABASE_KEY),'Content-Type':'application/json','Prefer':'return=representation'}}
+  async function auth(path, body){var r=await fetch(SUPABASE_URL+'/auth/v1/'+path,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error(await r.text());return r.json()}
+  async function api(path, opts){opts=opts||{};opts.headers=Object.assign(authHeaders(),opts.headers||{});var r=await fetch(SUPABASE_URL+'/rest/v1/'+path,opts);if(!r.ok)throw new Error(await r.text());return r.status===204?null:r.json()}
+  function showAdmin(){loginPanel.classList.add('hidden');adminPanel.classList.remove('hidden')}
+  function showLogin(){adminPanel.classList.add('hidden');loginPanel.classList.remove('hidden')}
+  function itemHtml(x,kind){return '<div class="comment"><h3>'+clean(x.name)+'</h3><div class="service">'+clean(x.service||'O2F')+' · '+clean(x.status)+'</div><div class="text">'+clean(x.comment)+'</div><div class="actions"><button class="btn ghost" data-action="edit" data-id="'+x.id+'">تعديل</button>'+(kind!=='approved'?'<button class="btn" data-action="approve" data-id="'+x.id+'">قبول</button>':'')+(kind!=='rejected'?'<button class="btn danger" data-action="reject" data-id="'+x.id+'">رفض</button>':'')+'</div></div>'}
+  function render(){var p=allComments.filter(function(x){return x.status==='pending'}),a=allComments.filter(function(x){return x.status==='approved'}),r=allComments.filter(function(x){return x.status==='rejected'});pendingList.innerHTML=p.map(function(i){return itemHtml(i,'pending')}).join('')||'<div class="empty">لا توجد تعليقات قيد المراجعة</div>';approvedList.innerHTML=a.map(function(i){return itemHtml(i,'approved')}).join('')||'<div class="empty">لا توجد تعليقات مقبولة</div>';rejectedList.innerHTML=r.map(function(i){return itemHtml(i,'rejected')}).join('')||'<div class="empty">لا توجد تعليقات مرفوضة</div>'}
+  async function loadComments(){allComments=await api('comments?select=id,name,service,comment,status,rating,created_at,updated_at&order=created_at.desc');render()}
+  function find(id){return allComments.find(function(x){return x.id===id})}
+  function fill(i){if(!i)return;editId.value=i.id;editName.value=i.name||'';editService.value=i.service||'';editComment.value=i.comment||'';editStatus.value=i.status||'pending'}
+  async function updateComment(id, data){await api('comments?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify(data)});await loadComments();editStatusText.textContent='تم حفظ التعديل'}
+
+  loginForm.addEventListener('submit',async function(e){e.preventDefault();loginStatus.textContent='جاري تسجيل الدخول...';try{var res=await auth('token?grant_type=password',{email:adminEmail.value,password:adminPassword.value});session=res;localStorage.setItem('o2f_supabase_session',JSON.stringify(res));showAdmin();await loadComments();loginStatus.textContent=''}catch(err){loginStatus.textContent='فشل تسجيل الدخول أو الصلاحية غير مضافة في admin_users.'}})
+  logoutBtn.onclick=function(){localStorage.removeItem('o2f_supabase_session');session=null;showLogin()}
+  refreshBtn.onclick=function(){loadComments()}
+  document.body.addEventListener('click',async function(e){var b=e.target.closest('button');if(!b)return;var id=b.dataset.id,act=b.dataset.action;if(act==='edit')fill(find(id));if(act==='approve')await updateComment(id,{status:'approved'});if(act==='reject')await updateComment(id,{status:'rejected'})})
+  editForm.addEventListener('submit',async function(e){e.preventDefault();if(!editId.value)return;await updateComment(editId.value,{name:clean(editName.value),service:clean(editService.value||'O2F'),comment:clean(editComment.value),status:editStatus.value,rating:5})})
+  approveBtn.onclick=function(){if(editId.value)updateComment(editId.value,{name:clean(editName.value),service:clean(editService.value||'O2F'),comment:clean(editComment.value),status:'approved',rating:5})}
+  rejectBtn.onclick=function(){if(editId.value)updateComment(editId.value,{status:'rejected'})}
+  addForm.addEventListener('submit',async function(e){e.preventDefault();addStatusText.textContent='جاري الإضافة...';try{await api('comments',{method:'POST',body:JSON.stringify({name:clean(addName.value),service:clean(addService.value||'O2F'),comment:clean(addComment.value),status:'approved',rating:5})});addForm.reset();addStatusText.textContent='تمت الإضافة';await loadComments()}catch(err){addStatusText.textContent='تعذر الإضافة. تأكد من صلاحية الأدمن.'}})
   document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.querySelectorAll('.panel').forEach(function(p){p.hidden=true});document.getElementById(t.dataset.tab).hidden=false;render()}})
-  copyJson.onclick=function(){navigator.clipboard.writeText(jsonOutput.textContent)}
-  clearLocal.onclick=function(){if(confirm('مسح كل التعليقات المحلية؟')){localStorage.removeItem('o2f_pending_comments');localStorage.removeItem('o2f_approved_comments');localStorage.removeItem('o2f_rejected_comments');render()}}
-  render();
+  try{session=JSON.parse(localStorage.getItem('o2f_supabase_session')||'null')}catch(e){session=null}
+  if(session&&session.access_token){showAdmin();loadComments().catch(function(){showLogin();loginStatus.textContent='انتهت الجلسة أو لا توجد صلاحية أدمن.'})}else{showLogin()}
 })();
 </script>
 </body>
