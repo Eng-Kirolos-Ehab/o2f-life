@@ -1,91 +1,59 @@
-/* =========================================================================
-   O2F.life — Main JS
-   Mobile menu + language switcher + scroll polish + stat animations
-   ========================================================================= */
-
 (function () {
   "use strict";
 
-  // ---------- Mobile menu toggle ----------
-  const menuBtn   = document.querySelector("[data-menu-btn]");
-  const menuPanel = document.querySelector("[data-menu-panel]");
+  // THEME TOGGLE
+  const themeBtn = document.querySelector("[data-theme-toggle]");
+  const root = document.documentElement;
 
-  if (menuBtn && menuPanel) {
-    menuBtn.addEventListener("click", () => {
-      const open = menuPanel.classList.toggle("hidden") === false;
-      menuBtn.setAttribute("aria-expanded", String(open));
+  const applyTheme = (mode) => {
+    root.classList.toggle("light-mode", mode === "light");
+    localStorage.setItem("theme", mode);
+  };
+
+  const saved = localStorage.getItem("theme") || "dark";
+  applyTheme(saved);
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const next = root.classList.contains("light-mode") ? "dark" : "light";
+      applyTheme(next);
     });
   }
 
-  // ---------- Smooth scroll for in-page anchors ----------
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const id = a.getAttribute("href");
-      if (!id || id === "#") return;
-      const el = document.querySelector(id);
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
+  // CUSTOM CURSOR
+  const cursor = document.createElement("div");
+  cursor.className = "custom-cursor";
+  document.body.appendChild(cursor);
+
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   });
 
-  // ---------- Header shadow on scroll ----------
-  const header = document.querySelector("[data-site-header]");
-  if (header) {
-    const onScroll = () => {
-      header.classList.toggle("is-scrolled", window.scrollY > 8);
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  }
-
-  // ---------- Language switcher (preserves current path) ----------
-  document.querySelectorAll("[data-lang-switch]").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const target = link.getAttribute("data-lang-switch");
-      if (!target) return;
-      const other = target === "ar" ? "en" : "ar";
-      const path = window.location.pathname.replace(`/${other}/`, `/${target}/`);
-      e.preventDefault();
-      window.location.href = path === window.location.pathname
-        ? window.location.pathname.replace(/\/(en|ar)\/.*/, `/${target}/`)
-        : path;
-    });
+  document.querySelectorAll("a, button").forEach(el => {
+    el.addEventListener("mouseenter", () => cursor.classList.add("active"));
+    el.addEventListener("mouseleave", () => cursor.classList.remove("active"));
   });
 
-  // ---------- Stat card entrance animation ----------
-  // Adds the animate-number-pop class when the stat cards scroll into view
-  const statCards = document.querySelectorAll(".card-hover .glow-text-mint");
-  if (statCards.length && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-number-pop");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statCards.forEach((el) => io.observe(el));
-  }
+  // LOADING SCREEN
+  window.addEventListener("load", () => {
+    const loader = document.createElement("div");
+    loader.className = "page-loader";
+    loader.innerHTML = "<div class='loader-ring'></div>";
+    document.body.appendChild(loader);
 
-  // ---------- Parallax-lite on hero orbs ----------
-  const orbs = document.querySelectorAll(".hero-orb");
-  if (orbs.length) {
-    let ticking = false;
-    document.addEventListener("scroll", () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const y = window.scrollY;
-          orbs.forEach((orb, i) => {
-            const speed = (i + 1) * 0.04;
-            orb.style.transform = `translateY(${y * speed}px)`;
-          });
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-  }
+    setTimeout(() => {
+      loader.classList.add("hide");
+      setTimeout(() => loader.remove(), 600);
+    }, 800);
+  });
+
+  // PARALLAX SCROLL
+  const parallax = document.querySelectorAll(".premium-hero-mesh");
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    parallax.forEach(el => {
+      el.style.transform = `translateY(${y * 0.2}px)`;
+    });
+  });
 
 })();
