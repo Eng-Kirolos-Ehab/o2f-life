@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>إضافات لوحة التحكم — O2F.life</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}:root{--ink:#0B1220;--mint:#00D9A3;--gold:#C9A84A;--off:#F7F8FA;--muted:rgba(247,248,250,.62);--line:rgba(255,255,255,.1)}body{min-height:100vh;background:radial-gradient(circle at 20% 10%,rgba(0,217,163,.14),transparent 30%),var(--ink);color:var(--off);font-family:Tajawal,system-ui,sans-serif}.wrap{max-width:1080px;margin:auto;padding:34px 16px 70px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:28px}.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(0,217,163,.25);background:rgba(0,217,163,.08);color:var(--mint);border-radius:999px;padding:8px 12px;font-size:13px}.version{display:inline-flex;margin-inline-start:8px;border:1px solid rgba(201,168,74,.28);background:rgba(201,168,74,.1);color:var(--gold);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}.dot{width:8px;height:8px;border-radius:999px;background:var(--mint)}h1{font-size:34px;margin:10px 0}.muted{color:var(--muted);line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:22px;padding:22px;min-height:205px;transition:.2s;box-shadow:0 18px 50px rgba(0,0,0,.25)}.card:hover{transform:translateY(-4px);border-color:rgba(0,217,163,.42)}.icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(0,217,163,.1);font-size:24px;margin-bottom:16px}.card h2{font-size:22px;margin-bottom:8px}.card p{font-size:14px;line-height:1.7;color:var(--muted)}.arrow{margin-top:16px;color:var(--mint);font-weight:800}.btn{display:inline-flex;text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--off);border-radius:13px;padding:10px 14px}.note{margin-top:22px;border:1px solid rgba(201,168,74,.25);background:rgba(201,168,74,.07);border-radius:18px;padding:16px;line-height:1.7;color:rgba(247,248,250,.72)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <div><span class="badge"><span class="dot"></span>CMS Extensions</span><span class="version">Admin v1.3.0</span><h1>إضافات لوحة التحكم</h1><p class="muted">هنا كل التحكم الجديد الخاص بالعروض والتعليقات، بجانب لوحة المحتوى الأساسية.</p></div>
+    <a class="btn" href="./cms.html">الرجوع للـ CMS</a>
+  </div>
+  <section class="grid">
+    <a class="card" href="./cms.html"><div class="icon">⚙️</div><h2>لوحة المحتوى الأساسية</h2><p>إدارة الباقات، الصفحات، الصور، الإعدادات، ومعرض الصور.</p><div class="arrow">فتح الـ CMS ←</div></a>
+    <a class="card" href="./offers.html"><div class="icon">🎁</div><h2>إدارة عروض الباقات</h2><p>تفعيل أو إيقاف العرض، تعديل وصف العرض، والتحكم في عرض 3 شهور + شهر مجاني.</p><div class="arrow">فتح العروض ←</div></a>
+    <a class="card" href="./comments.html"><div class="icon">💬</div><h2>إدارة التعليقات</h2><p>قبول، رفض، وتعديل تعليقات العملاء وربطها بـ Supabase.</p><div class="arrow">فتح التعليقات ←</div></a>
+  </section>
+  <div class="note">ملاحظة: الصفحة دي مؤقتة كامتداد آمن للـ CMS لحد دمجها مباشرة داخل ملف cms.html بدون المساس بالمحرر القديم.</div>
+</main>
+</body>
+</html>
