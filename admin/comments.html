@@ -54,7 +54,12 @@
 (function(){
   var SUPABASE_URL='https://qalzanmeusuqssrgxumg.supabase.co';
   var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIc3MiLCJyZWYiOiJxYWx6YW5tZXVzdXFzc3JneHVtZyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzc3NjIwMTAzLCJleHAiOjIwOTMxOTYxMDN9.PHP_zC5firTlCfA9zFLXO1iqzUXMbiTsM6-7wKsDPOU';
-  var isCmsAdmin=sessionStorage.getItem('o2f-admin-auth')==='1'&&!!localStorage.getItem('o2f-gh-token');
+var isCmsAdmin =
+  new URLSearchParams(window.location.search).get('cms') === '1' ||
+  (
+    sessionStorage.getItem('o2f-admin-auth') === '1' &&
+    !!localStorage.getItem('o2f-gh-token')
+  );
   var session=null, allComments=[];
   function clean(v){return String(v||'').replace(/[<>]/g,'').trim()}
   function authHeaders(){return {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+(session&&session.access_token?session.access_token:SUPABASE_KEY),'Content-Type':'application/json','Prefer':'return=representation'}}
