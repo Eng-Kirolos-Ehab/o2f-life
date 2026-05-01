@@ -28,7 +28,10 @@
       font-family: 'Tajawal', system-ui, sans-serif;
       min-height: 100vh;
     }
+<div class="nav-section" style="margin-top:.75rem">إضافات الإدارة</div>
 
+<a class="nav-item" href="./offers.html">إدارة عروض الباقات</a>
+<a class="nav-item" href="./comments.html">إدارة التعليقات</a>
     /* ── Sidebar ── */
     .sidebar {
       position: fixed; top: 0; right: 0; bottom: 0; width: 240px;
@@ -388,7 +391,15 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         محرر JSON
       </button>
+<div class="nav-section" style="margin-top:.75rem">إضافات الإدارة</div>
 
+<a class="nav-item" href="./offers.html">
+  إدارة عروض الباقات
+</a>
+
+<a class="nav-item" href="./comments.html">
+  إدارة التعليقات
+</a>
       <div class="nav-section" style="margin-top:.75rem">الموقع</div>
       <a class="nav-item" href="https://eng-kirolos-ehab.github.io/o2f-life/" target="_blank">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -414,7 +425,7 @@
             مباشر
             <!-- رقم الإصدار الخاص بلوحة التحكم. قم بتحديثه عند إجراء تغييرات على الواجهة الإدارية -->
             <span class="admin-version" style="margin-right:.5rem; font-weight:700; font-size:.75rem;">
-              v1.0.1
+              v1.3.4
             </span>
           </div>
     </div>
@@ -468,6 +479,19 @@
             <div class="card-desc">تعديل كروت الهيرو الـ٣ + رفع صور بالـ drag &amp; drop</div>
             <div class="card-arrow">فتح المحرر ←</div>
           </div>
+          <a class="card" href="./offers.html" style="cursor:pointer">
+  <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
+  <div class="card-title">إدارة عروض الباقات</div>
+  <div class="card-desc">تفعيل أو إيقاف العرض</div>
+  <div class="card-arrow">فتح العروض ←</div>
+</a>
+
+<a class="card" href="./comments.html" style="cursor:pointer">
+  <div class="card-icon" style="font-size:1.25rem;line-height:1">💬</div>
+  <div class="card-title">إدارة التعليقات</div>
+  <div class="card-desc">مراجعة تعليقات العملاء</div>
+  <div class="card-arrow">فتح التعليقات ←</div>
+</a>
         </div>
 
         <p class="section-title">محتوى الصفحات</p>
@@ -639,6 +663,7 @@
             <button class="file-tab" id="tab-custom"  onclick="switchFile('custom')">customPlans.json</button>
             <button class="file-tab" id="tab-gallery"   onclick="switchFile('gallery')">gallery.json</button>
             <button class="file-tab" id="tab-referral" onclick="switchFile('referral')">referral.json</button>
+<button class="file-tab" id="tab-offers" onclick="switchFile('offers')">offers.json</button>
           </div>
 
           <div id="editor-status" class="editor-status">جاهز</div>
@@ -714,13 +739,14 @@
 
     /* ── JSON Editor ── */
     const REPO  = 'Eng-Kirolos-Ehab/o2f-life';
-    const FILES = {
-      site:     'src/_data/site.json',
-      plans:    'src/_data/plans.json',
-      custom:   'src/_data/customPlans.json',
-      gallery:  'src/_data/gallery.json',
-      referral: 'src/_data/referral.json',
-    };
+    const DATA_FILES = {
+  site: 'src/_data/site.json',
+  plans: 'src/_data/plans.json',
+  custom: 'src/_data/customPlans.json',
+  gallery: 'src/_data/gallery.json',
+  referral: 'src/_data/referral.json',
+  offers: 'src/_data/offers.json'
+};
     let currentFile = 'site';
     let currentSha  = '';
     let currentData = null;
@@ -832,6 +858,7 @@
       if (currentFile === 'custom')   renderCustomPlansEditor(container);
       if (currentFile === 'gallery')  renderGalleryEditor(container);
       if (currentFile === 'referral') renderReferralEditor(container);
+      if (currentFile === 'offers') renderOffersEditor(container);
     }
 
     function syncFromRawEditor() {
@@ -1357,6 +1384,39 @@
       `;
       bindSimpleFields(container);
     }
+    function renderOffersEditor(container) {
+  if (!currentData) return;
+  const d = currentData;
+
+  container.innerHTML = `
+    <div class="editor-panel">
+      <h3>إدارة عروض الباقات</h3>
+
+      <div style="background:rgba(201,168,74,.08);border:1px solid rgba(201,168,74,.25);border-radius:12px;padding:1rem;margin-bottom:1rem">
+        <div class="switch-row" style="margin-bottom:.25rem">
+          <input type="checkbox" ${d.enabled ? 'checked' : ''} data-path="enabled" data-type="checkbox">
+          <span style="font-weight:700">تفعيل العرض على صفحة الباقات</span>
+        </div>
+      </div>
+
+      <div class="editor-grid">
+        ${fieldHTML('مدة العرض m1 / m3 / m6', 'appliesTo', d.appliesTo ?? 'm3')}
+        ${fieldHTML('عدد الشهور المجانية', 'freeMonths', d.freeMonths ?? '1', 'number')}
+        ${fieldHTML('Badge عربي', 'badge.ar', d.badge?.ar ?? '')}
+        ${fieldHTML('Badge English', 'badge.en', d.badge?.en ?? '')}
+        ${fieldHTML('Headline عربي', 'headline.ar', d.headline?.ar ?? '')}
+        ${fieldHTML('Headline English', 'headline.en', d.headline?.en ?? '')}
+        ${fieldHTML('CTA عربي', 'cta.ar', d.cta?.ar ?? '')}
+        ${fieldHTML('CTA English', 'cta.en', d.cta?.en ?? '')}
+      </div>
+
+      ${textAreaHTML('وصف العرض عربي', 'description.ar', d.description?.ar ?? '')}
+      ${textAreaHTML('Offer description English', 'description.en', d.description?.en ?? '')}
+    </div>
+  `;
+
+  bindSimpleFields(container);
+}
 
     function defaultPlan(slug) {
       const tier = (dur, cur) => ({
