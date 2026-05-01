@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>إدارة العروض — O2F.life</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+  <script>
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1' || !localStorage.getItem('o2f-gh-token')) {
+      sessionStorage.removeItem('o2f-admin-auth');
+      window.location.replace('./login.html');
+    }
+  </script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:radial-gradient(circle at 15% 10%,rgba(0,217,163,.14),transparent 28%),#0B1220;color:#F7F8FA;font-family:'Tajawal',system-ui,sans-serif}.wrap{max-width:980px;margin:auto;padding:34px 16px 70px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(0,217,163,.25);background:rgba(0,217,163,.08);color:#00D9A3;border-radius:999px;padding:8px 12px;font-size:13px}.dot{width:8px;height:8px;border-radius:999px;background:#00D9A3}h1{font-size:34px;margin:10px 0}.muted{color:rgba(247,248,250,.64);line-height:1.7}.card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.25)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}label{font-size:13px;color:rgba(247,248,250,.64)}input,textarea,select{width:100%;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:rgba(255,255,255,.06);color:#F7F8FA;padding:12px;font-family:inherit;outline:0}textarea{min-height:92px;resize:vertical}.switch{display:flex;align-items:center;gap:10px;margin-bottom:14px}.switch input{width:auto;transform:scale(1.25)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:0;border-radius:13px;background:#00D9A3;color:#0B1220;font-weight:800;padding:11px 16px;cursor:pointer;text-decoration:none;font-family:inherit}.btn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#F7F8FA}.btn.danger{background:rgba(239,68,68,.13);border:1px solid rgba(239,68,68,.3);color:#fca5a5}.status{margin-top:14px;color:#C9A84A;font-size:14px}.preview{margin-top:22px;border:1px solid rgba(201,168,74,.28);background:radial-gradient(circle at top right,rgba(201,168,74,.18),transparent 42%),rgba(201,168,74,.07);border-radius:20px;padding:18px}.preview span{display:inline-flex;color:#C9A84A;font-weight:800;font-size:12px;border:1px solid rgba(201,168,74,.32);background:rgba(201,168,74,.1);border-radius:999px;padding:5px 10px}.preview h2{margin:10px 0 6px}.preview p{color:rgba(247,248,250,.68);line-height:1.7}.version{display:inline-flex;margin-inline-start:8px;color:#C9A84A;background:rgba(201,168,74,.1);border:1px solid rgba(201,168,74,.25);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}@media(max-width:720px){.grid{grid-template-columns:1fr}h1{font-size:28px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <div>
+        <span class="badge"><span class="dot"></span>Offers Editor</span><span class="version">Admin v1.2.0</span>
+        <h1>إدارة عروض الباقات</h1>
+        <p class="muted">فعّل أو أوقف عرض الباقات، وعدّل نص العرض الظاهر في صفحة الباقات عربي وإنجليزي.</p>
+      </div>
+      <div class="actions"><a class="btn ghost" href="./">الرئيسية</a><a class="btn ghost" href="./cms.html">المحتوى</a></div>
+    </div>
+
+    <section class="card">
+      <div class="switch"><input id="enabled" type="checkbox"><label for="enabled">تفعيل العرض على صفحة الباقات</label></div>
+      <div class="grid">
+        <div class="field"><label>مدة العرض</label><select id="appliesTo"><option value="m1">شهر</option><option value="m3">3 شهور</option><option value="m6">6 شهور</option></select></div>
+        <div class="field"><label>عدد الشهور المجانية</label><input id="freeMonths" type="number" min="0" max="12" step="1"></div>
+        <div class="field"><label>Badge عربي</label><input id="badgeAr"></div>
+        <div class="field"><label>Badge English</label><input id="badgeEn"></div>
+        <div class="field"><label>Headline عربي</label><input id="headlineAr"></div>
+        <div class="field"><label>Headline English</label><input id="headlineEn"></div>
+        <div class="field full"><label>وصف العرض عربي</label><textarea id="descriptionAr"></textarea></div>
+        <div class="field full"><label>Offer description English</label><textarea id="descriptionEn"></textarea></div>
+        <div class="field"><label>CTA عربي</label><input id="ctaAr"></div>
+        <div class="field"><label>CTA English</label><input id="ctaEn"></div>
+      </div>
+      <div class="actions"><button class="btn" id="saveBtn">حفظ العرض</button><button class="btn ghost" id="reloadBtn">إعادة تحميل</button><button class="btn danger" id="disableBtn">إيقاف العرض</button></div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section class="preview" id="preview">
+      <span id="previewBadge">عرض محدود</span>
+      <h2 id="previewHeadline">اشترك 3 شهور وخد شهر مجانًا</h2>
+      <p id="previewDesc">فعّل باقة 3 شهور واحصل على شهر إضافي مجاني للمتابعة والاستمرارية.</p>
+    </section>
+  </main>
+<script>
+(function(){
+  var REPO='Eng-Kirolos-Ehab/o2f-life';
+  var PATH='src/_data/offers.json';
+  var token=localStorage.getItem('o2f-gh-token');
+  var sha=null;
+  function $(id){return document.getElementById(id)}
+  function setStatus(msg){$('status').textContent=msg}
+  async function gh(url,opts){opts=opts||{};opts.headers=Object.assign({'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},opts.headers||{});var r=await fetch(url,opts);if(!r.ok)throw new Error(await r.text());return r.json()}
+  function fill(d){$('enabled').checked=!!d.enabled;$('appliesTo').value=d.appliesTo||'m3';$('freeMonths').value=d.freeMonths||1;$('badgeAr').value=(d.badge&&d.badge.ar)||'';$('badgeEn').value=(d.badge&&d.badge.en)||'';$('headlineAr').value=(d.headline&&d.headline.ar)||'';$('headlineEn').value=(d.headline&&d.headline.en)||'';$('descriptionAr').value=(d.description&&d.description.ar)||'';$('descriptionEn').value=(d.description&&d.description.en)||'';$('ctaAr').value=(d.cta&&d.cta.ar)||'';$('ctaEn').value=(d.cta&&d.cta.en)||'';updatePreview()}
+  function collect(){return{enabled:$('enabled').checked,appliesTo:$('appliesTo').value,freeMonths:Number($('freeMonths').value||0),badge:{ar:$('badgeAr').value,en:$('badgeEn').value},headline:{ar:$('headlineAr').value,en:$('headlineEn').value},description:{ar:$('descriptionAr').value,en:$('descriptionEn').value},cta:{ar:$('ctaAr').value,en:$('ctaEn').value}}}
+  function updatePreview(){var d=collect();$('previewBadge').textContent=d.badge.ar||'عرض';$('previewHeadline').textContent=d.headline.ar||'';$('previewDesc').textContent=d.description.ar||''}
+  async function load(){setStatus('جاري تحميل بيانات العرض...');var data=await gh('https://api.github.com/repos/'+REPO+'/contents/'+PATH+'?ref=main');sha=data.sha;var json=JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,'')))));fill(json);setStatus('تم تحميل بيانات العرض.')} 
+  async function save(){setStatus('جاري الحفظ...');var content=btoa(unescape(encodeURIComponent(JSON.stringify(collect(),null,2)+'\n')));await gh('https://api.github.com/repos/'+REPO+'/contents/'+PATH,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'chore: update plans offer settings',content:content,sha:sha,branch:'main'})});setStatus('تم حفظ العرض بنجاح.');await load()}
+  ['enabled','appliesTo','freeMonths','badgeAr','badgeEn','headlineAr','headlineEn','descriptionAr','descriptionEn','ctaAr','ctaEn'].forEach(function(id){$(id).addEventListener('input',updatePreview);$(id).addEventListener('change',updatePreview)});
+  $('saveBtn').onclick=save;$('reloadBtn').onclick=load;$('disableBtn').onclick=function(){$('enabled').checked=false;save()};
+  load().catch(function(e){setStatus('تعذر تحميل العرض. تأكد من GitHub token والصلاحيات.')});
+})();
+</script>
+</body>
+</html>
