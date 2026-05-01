@@ -40,59 +40,67 @@
 <body class="min-h-screen flex flex-col">
   <div class="premium-aurora-bg" aria-hidden="true"><span></span><span></span><span></span></div>
 
-  <header data-site-header class="premium-site-header fixed top-0 left-0 right-0 z-50">
-  <div class="container-x pt-3">
-    <div class="premium-nav-wrap">
-      <a href="/ar/" class="premium-brand" aria-label="O2F home">
-        
-          <img src="/assets/images/logo.webp" alt="O2F life" class="h-10 w-auto object-contain">
-        
+  <header data-site-header
+        class="sticky top-0 z-40 border-b border-brand-line bg-brand-ink/80 backdrop-blur-md transition-shadow">
+  <div class="container-x flex h-16 items-center justify-between">
+    <a href="/ar/" class="flex items-center gap-2 font-display text-lg font-bold">
+      
+        <img src="/assets/images/logo.webp" alt="O2F life" class="h-9 w-auto object-contain">
+      
+    </a>
+
+    
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      <a href="/ar/"                   class="text-brand-off/80 hover:text-brand-mint">الرئيسية</a>
+      <a href="/ar/about/"             class="text-brand-off/80 hover:text-brand-mint">عن الكابتن</a>
+      <a href="/ar/services/"          class="text-brand-off/80 hover:text-brand-mint">الخدمات</a>
+      <a href="/ar/plans/"             class="text-brand-off/80 hover:text-brand-mint">الباقات</a>
+      <a href="/ar/gallery/"           class="text-brand-off/80 hover:text-brand-mint">المعرض</a>
+      <a href="/ar/blog/"              class="text-brand-off/80 hover:text-brand-mint">المقالات</a>
+      <a href="/ar/methylene-blue/"    class="text-brand-off/80 hover:text-brand-mint">ميثيلين بلو</a>
+      <a href="/ar/anti-aging/"        class="text-brand-off/80 hover:text-brand-mint">مكافحة الشيخوخة</a>
+      <a href="/ar/contact/"           class="text-brand-off/80 hover:text-brand-mint">تواصل</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      
+      
+        <a href="/en/" data-lang-switch="en" class="chip hover:border-brand-mint hover:text-brand-mint">EN</a>
+      
+
+      <a href="/ar/plans/" class="btn-primary hidden sm:inline-flex">
+        اشترك الآن
       </a>
 
-      <nav class="premium-main-nav hidden lg:flex" aria-label="Main navigation">
-        <a href="/ar/">الرئيسية</a>
-        <a href="/ar/services/">الخدمات</a>
-        <a href="/ar/plans/">الباقات</a>
-        <a href="/ar/gallery/">المعرض</a>
-        <a href="/ar/contact/">تواصل</a>
-      </nav>
-
-      <div class="premium-nav-actions">
-        <button type="button" data-theme-toggle class="premium-icon-btn" aria-label="Toggle theme">
-          <span class="theme-icon-sun">☀</span><span class="theme-icon-moon">☾</span>
-        </button>
-
-        
-          <a href="/en/" data-lang-switch="en" class="premium-lang">EN</a>
-        
-
-        <a href="/ar/plans/" class="btn-primary hidden sm:inline-flex">
-          ابدأ التحول
-        </a>
-
-        <button data-menu-btn aria-expanded="false" class="premium-menu-btn" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+      
+      <button data-menu-btn aria-expanded="false"
+              class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-brand-line">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
     </div>
   </div>
 
-  <div data-menu-panel class="premium-mobile-drawer hidden">
-    <div class="container-x">
-      <nav class="premium-drawer-card" aria-label="Mobile navigation">
-        <a href="/ar/">الرئيسية</a>
-        <a href="/ar/about/">عن الكابتن</a>
-        <a href="/ar/services/">الخدمات</a>
-        <a href="/ar/plans/">الباقات</a>
-        <a href="/ar/gallery/">المعرض</a>
-        <a href="/ar/blog/">المقالات</a>
-        <a href="/ar/methylene-blue/">ميثيلين بلو</a>
-        <a href="/ar/anti-aging/">مكافحة الشيخوخة</a>
-        <a href="/ar/contact/" class="drawer-cta">احجز استشارة</a>
-      </nav>
-    </div>
+  
+  <div data-menu-panel class="hidden md:hidden border-t border-brand-line">
+    <nav class="container-x py-4 grid gap-2 text-sm">
+      <a href="/ar/"                   class="py-2 text-brand-off/80 hover:text-brand-mint">الرئيسية</a>
+      <a href="/ar/about/"             class="py-2 text-brand-off/80 hover:text-brand-mint">عن الكابتن</a>
+      <a href="/ar/services/"          class="py-2 text-brand-off/80 hover:text-brand-mint">الخدمات</a>
+      <a href="/ar/plans/"             class="py-2 text-brand-off/80 hover:text-brand-mint">الباقات</a>
+      <a href="/ar/gallery/"           class="py-2 text-brand-off/80 hover:text-brand-mint">المعرض</a>
+      <a href="/ar/blog/"              class="py-2 text-brand-off/80 hover:text-brand-mint">المقالات</a>
+      <a href="/ar/methylene-blue/"    class="py-2 text-brand-off/80 hover:text-brand-mint">ميثيلين بلو</a>
+      <a href="/ar/anti-aging/"        class="py-2 text-brand-off/80 hover:text-brand-mint">مكافحة الشيخوخة</a>
+      <a href="/ar/contact/"           class="py-2 text-brand-off/80 hover:text-brand-mint">تواصل</a>
+    </nav>
   </div>
 </header>
+
+<style>
+  [data-site-header].is-scrolled { box-shadow: 0 6px 20px -10px rgba(0,0,0,.6); }
+</style>
 
 
   <main class="flex-1 site-content-layer">
