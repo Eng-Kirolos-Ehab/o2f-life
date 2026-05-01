@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "cmt-001",
+      "name": "Mariam A.",
+      "service": "Transformation Plan",
+      "comment": "The follow-up made the difference. I finally understood how to eat without feeling restricted.",
+      "status": "approved",
+      "rating": 5
+    },
+    {
+      "id": "cmt-002",
+      "name": "أحمد م.",
+      "service": "خسارة وزن",
+      "comment": "أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.",
+      "status": "approved",
+      "rating": 5
+    },
+    {
+      "id": "cmt-003",
+      "name": "Noura K.",
+      "service": "Nutrition Coaching",
+      "comment": "Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.",
+      "status": "approved",
+      "rating": 5
+    },
+    {
+      "id": "cmt-004",
+      "name": "سارة ع.",
+      "service": "مكافحة الشيخوخة",
+      "comment": "حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.",
+      "status": "approved",
+      "rating": 5
+    },
+    {
+      "id": "cmt-005",
+      "name": "Omar H.",
+      "service": "Strength Training",
+      "comment": "The training plan was realistic. I could follow it at the gym without overcomplicating everything.",
+      "status": "approved",
+      "rating": 5
+    },
+    {
+      "id": "cmt-006",
+      "name": "ليلى ك.",
+      "service": "متابعة وتغذية",
+      "comment": "كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.",
+      "status": "approved",
+      "rating": 5
+    }
+  ]
+}
