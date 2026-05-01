@@ -126,6 +126,10 @@ jobs:
 '''
               s = s.replace(marker, fn + marker, 1)
 
+          required = ['v1.3.4','إضافات الإدارة','إدارة عروض الباقات','إدارة التعليقات','فتح العروض','فتح التعليقات','offers.json','src/_data/offers.json','renderOffersEditor']
+          missing = [x for x in required if x not in s]
+          if missing:
+              raise SystemExit('Missing required CMS markers: ' + ', '.join(missing))
           p.write_text(s, encoding='utf-8')
           PY
       - name: Commit restored CMS patch
@@ -139,3 +143,4 @@ jobs:
           git add admin/cms.html
           git commit -m "feat: restore CMS and add offers comments controls"
           git push
+# trigger: cms-admin-patch-v1.3.4
