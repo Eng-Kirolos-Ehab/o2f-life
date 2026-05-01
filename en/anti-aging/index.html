@@ -485,6 +485,478 @@
   </svg>
 </a>
 
+  
+<div id="o2f-chatbot" class="o2f-chatbot" data-lang="en">
+  <button id="o2f-chat-toggle" class="o2f-chat-toggle" type="button" aria-label="Open smart assistant">
+    <span class="o2f-chat-dot"></span>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+      <path d="M8 10h8M8 14h5"/>
+    </svg>
+  </button>
+
+  <section id="o2f-chat-panel" class="o2f-chat-panel" aria-live="polite" aria-label="O2F Smart Assistant">
+    <header class="o2f-chat-head">
+      <div>
+        <strong>O2F Smart Assistant</strong>
+        <span>Instant answers about plans, nutrition, training and anti-aging</span>
+      </div>
+      <button id="o2f-chat-close" type="button" aria-label="Close">×</button>
+    </header>
+
+    <div id="o2f-chat-messages" class="o2f-chat-messages"></div>
+
+    <div class="o2f-chat-quick" id="o2f-chat-quick"></div>
+
+    <form id="o2f-chat-form" class="o2f-chat-form">
+      <input id="o2f-chat-input" type="text" autocomplete="off" placeholder="Type your question...">
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</div>
+
+<style>
+  .o2f-chatbot, .o2f-chatbot * { box-sizing: border-box; }
+  .o2f-chatbot { position: fixed; z-index: 80; font-family: inherit; }
+  html[dir="ltr"] .o2f-chatbot { right: 1.25rem; bottom: 5.9rem; }
+  html[dir="rtl"] .o2f-chatbot { right: 1.25rem; bottom: 1.25rem; }
+
+  .o2f-chat-toggle {
+    position: relative;
+    width: 3.6rem;
+    height: 3.6rem;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #07111F;
+    background: linear-gradient(135deg, #00D9A3, #C9A84A);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .35);
+    transition: transform .2s ease, filter .2s ease;
+  }
+  .o2f-chat-toggle:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .o2f-chat-dot {
+    position: absolute;
+    top: .45rem;
+    right: .45rem;
+    width: .65rem;
+    height: .65rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid #0B1220;
+  }
+
+  .o2f-chat-panel {
+    position: absolute;
+    bottom: 4.4rem;
+    right: 0;
+    width: min(380px, calc(100vw - 2rem));
+    max-height: min(640px, calc(100vh - 8rem));
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    color: #F7F8FA;
+    background: rgba(11, 18, 32, .96);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 1.4rem;
+    box-shadow: 0 28px 70px rgba(0,0,0,.48);
+    backdrop-filter: blur(18px);
+  }
+  html[dir="rtl"] .o2f-chat-panel { right: 0; }
+  .o2f-chatbot.is-open .o2f-chat-panel { display: flex; }
+
+  .o2f-chat-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1rem .85rem;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    background: radial-gradient(circle at top right, rgba(0,217,163,.18), transparent 48%);
+  }
+  .o2f-chat-head strong { display: block; font-size: 1rem; line-height: 1.3; }
+  .o2f-chat-head span { display: block; margin-top: .25rem; font-size: .75rem; line-height: 1.45; color: rgba(247,248,250,.62); }
+  .o2f-chat-head button {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 999px;
+    color: rgba(247,248,250,.8);
+    background: rgba(255,255,255,.06);
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .o2f-chat-messages {
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    min-height: 270px;
+  }
+  .o2f-msg { display: flex; width: 100%; }
+  .o2f-msg.bot { justify-content: flex-start; }
+  .o2f-msg.user { justify-content: flex-end; }
+  .o2f-bubble {
+    max-width: 88%;
+    padding: .75rem .85rem;
+    border-radius: 1rem;
+    font-size: .86rem;
+    line-height: 1.65;
+    white-space: pre-line;
+  }
+  .o2f-msg.bot .o2f-bubble {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.09);
+    color: rgba(247,248,250,.88);
+    border-start-start-radius: .3rem;
+  }
+  .o2f-msg.user .o2f-bubble {
+    background: rgba(0,217,163,.16);
+    border: 1px solid rgba(0,217,163,.28);
+    color: #F7F8FA;
+    border-end-end-radius: .3rem;
+  }
+
+  .o2f-chat-quick {
+    padding: 0 1rem .9rem;
+    display: flex;
+    gap: .45rem;
+    flex-wrap: wrap;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  .o2f-chip {
+    border: 1px solid rgba(0,217,163,.28);
+    color: #00D9A3;
+    background: rgba(0,217,163,.08);
+    border-radius: 999px;
+    padding: .45rem .65rem;
+    font-size: .74rem;
+    cursor: pointer;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .o2f-chip:hover { background: rgba(0,217,163,.16); transform: translateY(-1px); }
+
+  .o2f-chat-form {
+    display: flex;
+    gap: .5rem;
+    padding: .85rem;
+    border-top: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.03);
+  }
+  .o2f-chat-form input {
+    min-width: 0;
+    flex: 1;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: .9rem;
+    padding: .75rem .85rem;
+    color: #F7F8FA;
+    background: rgba(255,255,255,.06);
+    outline: none;
+  }
+  .o2f-chat-form input:focus { border-color: rgba(0,217,163,.55); box-shadow: 0 0 0 3px rgba(0,217,163,.1); }
+  .o2f-chat-form button {
+    border: 0;
+    border-radius: .9rem;
+    padding: .75rem .95rem;
+    color: #07111F;
+    background: #00D9A3;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    html[dir="ltr"] .o2f-chatbot { right: 1rem; bottom: 5.75rem; }
+    html[dir="rtl"] .o2f-chatbot { right: 1rem; bottom: 1rem; }
+    .o2f-chat-panel {
+      position: fixed;
+      left: 1rem;
+      right: 1rem;
+      bottom: 5.8rem;
+      width: auto;
+      max-height: calc(100vh - 7rem);
+    }
+  }
+</style>
+
+<script>
+(function () {
+  var root = document.getElementById('o2f-chatbot');
+  if (!root) return;
+
+  var lang = root.getAttribute('data-lang') === 'ar' ? 'ar' : 'en';
+  var isAr = lang === 'ar';
+  var whatsappNumber = '201279777609';
+  var contactUrl = isAr ? '/ar/contact/' : '/en/contact/';
+  var antiAgingUrl = isAr ? '/ar/anti-aging/' : '/en/anti-aging/';
+  var plansUrl = isAr ? '/ar/plans/' : '/en/plans/';
+  var blogUrl = isAr ? '/ar/blog/' : '/en/blog/';
+
+  var elToggle = document.getElementById('o2f-chat-toggle');
+  var elClose = document.getElementById('o2f-chat-close');
+  var elMessages = document.getElementById('o2f-chat-messages');
+  var elQuick = document.getElementById('o2f-chat-quick');
+  var elForm = document.getElementById('o2f-chat-form');
+  var elInput = document.getElementById('o2f-chat-input');
+
+  var i18n = {
+    ar: {
+      hello: 'أهلًا 👋 أنا مساعد O2F الذكي. أقدر أساعدك تعرف الباقات، الأسعار، التغذية، التدريب، مكافحة الشيخوخة، أو أحوّلك لواتساب برسالة جاهزة.',
+      fallback: 'فهمت سؤالك، بس محتاج أوضح لك بشكل أدق. اختار من الاختيارات السريعة أو ابعت لنا على واتساب وسنرد عليك بتفاصيل مناسبة لحالتك.',
+      safety: 'معلومة مهمة: الشات للتوجيه العام فقط، وليس تشخيصًا طبيًا أو وصفة علاجية. أي حالة صحية أو استخدام مواد متقدمة يحتاج تقييمًا متخصصًا.',
+      whatsapp: 'فتح واتساب',
+      contact: 'صفحة التواصل',
+      plans: 'عرض الباقات',
+      blog: 'المقالات',
+      restart: 'ابدأ من جديد',
+      leadPrompt: 'تمام، أقدر أجهز لك رسالة واتساب. اكتب هدفك + العمر + الوزن + هل تتمرن؟ وسأحوّلها لرسالة مرتبة.',
+      waMessage: 'مرحبا كابتن أسامة، أريد الاستفسار عن خدمات O2F. هذه تفاصيل مبدئية: ',
+      quickStart: ['الباقات', 'الأسعار', 'خسارة وزن', 'زيادة عضل', 'مكافحة الشيخوخة', 'الميثيلين بلو', 'التغذية', 'الحجز']
+    },
+    en: {
+      hello: 'Hi 👋 I am the O2F smart assistant. I can help with plans, pricing, nutrition, training, anti-aging, or prepare a WhatsApp message for you.',
+      fallback: 'I got your question, but I need a bit more context. Choose one of the quick options or send us your details on WhatsApp for a personalized reply.',
+      safety: 'Important note: this chat is for general guidance only. It does not provide diagnosis, prescriptions, or emergency medical advice.',
+      whatsapp: 'Open WhatsApp',
+      contact: 'Contact page',
+      plans: 'View plans',
+      blog: 'Articles',
+      restart: 'Start again',
+      leadPrompt: 'Great. I can prepare a WhatsApp message. Type your goal + age + current weight + whether you train, and I will format it for you.',
+      waMessage: 'Hi Coach Osama, I would like to ask about O2F services. My initial details: ',
+      quickStart: ['Plans', 'Pricing', 'Weight loss', 'Muscle gain', 'Anti-aging', 'Methylene blue', 'Nutrition', 'Booking']
+    }
+  }[lang];
+
+  var topics = [
+    {
+      id: 'plans',
+      keywords: ['plans','plan','package','packages','program','programs','باقة','باقات','برنامج','برامج','الخطة','خطة'],
+      ar: 'عندنا باقات مخصصة حسب الهدف: خسارة وزن، زيادة عضل، تحسين الصحة، تغذية علاجية، ومكافحة الشيخوخة. الباقات تختلف حسب مدة الالتزام والمتابعة المطلوبة.\n\nالأفضل تختار الهدف الأول، وبعدها نرشح لك الأنسب.',
+      en: 'We offer personalized plans based on your goal: weight loss, muscle gain, health improvement, therapeutic nutrition, and anti-aging. Plans vary by duration and level of follow-up.\n\nStart with your goal, then we can guide you to the best fit.',
+      quick: ['pricing','weight_loss','muscle','anti_aging','booking']
+    },
+    {
+      id: 'pricing',
+      keywords: ['price','pricing','cost','fees','money','subscription','سعر','اسعار','الأسعار','التكلفة','كام','اشتراك','فلوس'],
+      ar: 'الأسعار تظهر تلقائيًا حسب موقع الزائر: مصر بالجنيه، الخليج بالريال، وباقي الدول بالدولار. يوجد اختيار مدة شهر، 3 شهور، أو 6 شهور، وغالبًا الالتزام الأطول يعطي سعر شهري أفضل.',
+      en: 'Prices are shown automatically based on the visitor location: Egypt in EGP, Gulf countries in SAR, and other countries in USD. You can compare 1, 3, or 6 months, with longer commitments usually giving a better monthly rate.',
+      quick: ['plans','booking','referral']
+    },
+    {
+      id: 'weight_loss',
+      keywords: ['weight loss','fat loss','lose weight','slim','diet','cutting','تخسيس','خسارة وزن','نزول وزن','دايت','حرق دهون','تنشيف'],
+      ar: 'خسارة الوزن في O2F لا تعتمد على تجويع أو نظام قاسٍ. الفكرة هي خطة تغذية مناسبة، تدريب تدريجي، متابعة، وتعديل أسبوعي حسب الاستجابة. الهدف إن الوزن ينزل مع الحفاظ على الطاقة والعضلات قدر الإمكان.',
+      en: 'Weight loss at O2F is not about starvation or extreme dieting. The idea is a suitable nutrition plan, progressive training, follow-up, and weekly adjustments based on your response, while preserving energy and muscle as much as possible.',
+      quick: ['nutrition','training','booking']
+    },
+    {
+      id: 'muscle',
+      keywords: ['muscle','gain muscle','bulk','hypertrophy','strength','عضل','زيادة عضل','ضخامة','قوة','تمرين مقاومة'],
+      ar: 'زيادة العضلات تحتاج سعرات محسوبة، بروتين كافي، تدريب مقاومة منظم، ونوم جيد. نركز على زيادة تدريجية بدون دهون زائدة قدر الإمكان، مع متابعة الأداء والقياسات.',
+      en: 'Muscle gain needs calculated calories, enough protein, structured resistance training, and good sleep. We focus on gradual progress while limiting unnecessary fat gain, with performance and measurements follow-up.',
+      quick: ['nutrition','training','plans']
+    },
+    {
+      id: 'nutrition',
+      keywords: ['nutrition','food','meal','meals','diet plan','protein','calories','تغذية','اكل','أكل','وجبات','بروتين','سعرات','نظام غذائي'],
+      ar: 'خطة التغذية بتكون مبنية على هدفك، مواعيدك، تفضيلاتك، وحالتك العامة. بنهتم بالبروتين، الألياف، جودة الطعام، الترطيب، وسهولة الالتزام. الخطة مش لازم تكون معقدة؛ لازم تكون قابلة للتطبيق.',
+      en: 'The nutrition plan is built around your goal, schedule, preferences, and general condition. We focus on protein, fiber, food quality, hydration, and adherence. The plan does not have to be complicated; it has to be realistic.',
+      quick: ['weight_loss','muscle','booking']
+    },
+    {
+      id: 'training',
+      keywords: ['training','workout','exercise','gym','home workout','تمرين','تدريب','جيم','رياضة','تمارين','من البيت'],
+      ar: 'التدريب يتم تخصيصه حسب مستواك: جيم أو منزل، مبتدئ أو متقدم، ومع مراعاة الإصابات إن وجدت. الهدف هو خطة واضحة قابلة للتقدم، مش تمرين عشوائي كل يوم.',
+      en: 'Training is customized to your level: gym or home, beginner or advanced, while considering injuries if present. The goal is a clear progressive plan, not random daily workouts.',
+      quick: ['plans','weight_loss','muscle']
+    },
+    {
+      id: 'anti_aging',
+      keywords: ['anti aging','anti-aging','longevity','aging','healthy aging','mitochondria','مكافحة الشيخوخة','شيخوخة','طول العمر','صحة الخلايا','الميتوكوندريا'],
+      ar: 'مكافحة الشيخوخة عندنا معناها دعم الطاقة، النوم، العضلات، الأيض، التعافي وصحة الخلايا. الأساس بيكون حركة، تغذية، نوم، تقليل توتر، ومتابعة مناسبة. الأدوات المتقدمة يتم التعامل معها بحذر ووفق تقييم.',
+      en: 'Anti-aging here means supporting energy, sleep, muscle, metabolism, recovery, and cellular health. The foundation is movement, nutrition, sleep, stress control, and suitable follow-up. Advanced tools should be approached carefully and individually.',
+      quick: ['methylene_blue','nutrition','training','blog']
+    },
+    {
+      id: 'methylene_blue',
+      keywords: ['methylene blue','methyl blue','blue','الميثيلين بلو','ميثيلين بلو','الأزرق','methylene'],
+      ar: 'الميثيلين بلو موضوع متقدم مرتبط في النقاشات الحديثة بطاقة الخلايا والميتوكوندريا، لكنه ليس مكملًا عاديًا ولا يناسب الجميع. قد يتداخل مع أدوية معينة، خصوصًا أدوية تؤثر على السيروتونين. لذلك لا يتم استخدامه عشوائيًا ويفضل الرجوع لمختص.',
+      en: 'Methylene blue is an advanced topic often discussed in relation to cellular energy and mitochondria, but it is not a casual supplement and is not suitable for everyone. It may interact with certain medications, especially serotonin-related drugs, so it should not be used randomly.',
+      quick: ['anti_aging','blog','booking']
+    },
+    {
+      id: 'followup',
+      keywords: ['follow up','support','whatsapp','check in','متابعة','واتساب','دعم','تحديث','متابعه'],
+      ar: 'المتابعة تساعدنا نعدل الخطة حسب النتائج، الطاقة، الالتزام، النوم، والقياسات. بدل ما العميل يمشي على خطة ثابتة وتبطل تناسبه، نراجع ونعدل حسب الواقع.',
+      en: 'Follow-up helps us adjust the plan based on results, energy, adherence, sleep, and measurements. Instead of staying stuck with one fixed plan, we review and update based on real progress.',
+      quick: ['plans','booking']
+    },
+    {
+      id: 'referral',
+      keywords: ['referral','friend','discount','خصم','صديق','جيب صديق','توصية','عرض'],
+      ar: 'يوجد نظام توصية/جيب صديق عند تفعيله في الباقات. كل شخص يستفيد بخصم حسب العملة والمنطقة. راجع صفحة الباقات لرؤية الخصم المتاح.',
+      en: 'There is a referral system when enabled in the plans. Both people can benefit from a discount based on region and currency. Check the plans page to see the available referral discount.',
+      quick: ['plans','pricing','booking']
+    },
+    {
+      id: 'booking',
+      keywords: ['book','booking','start','join','contact','consultation','احجز','حجز','ابدأ','اشترك','تواصل','استشارة','اكلمكم'],
+      ar: 'للبدء، ابعت لنا هدفك الحالي، العمر، الوزن، الطول، هل تتمرن أم لا، وأي ملاحظات مهمة. بعدها يتم توجيهك للباقة الأنسب أو خطوة التواصل المناسبة.',
+      en: 'To start, send your current goal, age, weight, height, whether you train, and any important notes. Then we can guide you to the best plan or the next contact step.',
+      quick: ['lead','whatsapp','contact']
+    },
+    {
+      id: 'medical',
+      keywords: ['disease','injury','pain','diabetes','pressure','medical','therapy','اصابة','إصابة','الم','ألم','سكر','ضغط','مرض','علاجي','طبي'],
+      ar: 'لو عندك حالة صحية أو إصابة، الأفضل نعرف التفاصيل قبل ترشيح أي خطة. الشات لا يشخص ولا يصف علاج، لكنه يقدر يوجهك للتواصل المناسب وتجهيز المعلومات المطلوبة.',
+      en: 'If you have a health condition or injury, we need details before recommending any plan. This chat does not diagnose or prescribe treatment, but it can guide you on what information to send.',
+      quick: ['lead','whatsapp','contact']
+    }
+  ];
+
+  var actions = {
+    whatsapp: function () { openWhatsApp(i18n.waMessage); },
+    contact: function () { window.location.href = contactUrl; },
+    plans: function () { window.location.href = plansUrl; },
+    blog: function () { window.location.href = blogUrl; },
+    anti_aging_page: function () { window.location.href = antiAgingUrl; },
+    lead: function () { addBot(i18n.leadPrompt); renderQuick(['whatsapp','contact','restart']); },
+    restart: function () { resetChat(); }
+  };
+
+  var quickMap = {
+    ar: {
+      plans: 'الباقات', pricing: 'الأسعار', weight_loss: 'خسارة وزن', muscle: 'زيادة عضل', nutrition: 'التغذية', training: 'التدريب', anti_aging: 'مكافحة الشيخوخة', methylene_blue: 'الميثيلين بلو', followup: 'المتابعة', referral: 'خصم التوصية', booking: 'الحجز', lead: 'رشح لي باقة', whatsapp: 'واتساب', contact: 'تواصل', blog: 'المقالات', restart: 'البداية'
+    },
+    en: {
+      plans: 'Plans', pricing: 'Pricing', weight_loss: 'Weight loss', muscle: 'Muscle gain', nutrition: 'Nutrition', training: 'Training', anti_aging: 'Anti-aging', methylene_blue: 'Methylene blue', followup: 'Follow-up', referral: 'Referral discount', booking: 'Booking', lead: 'Recommend a plan', whatsapp: 'WhatsApp', contact: 'Contact', blog: 'Articles', restart: 'Start'
+    }
+  }[lang];
+
+  function normalize(text) {
+    return String(text || '')
+      .toLowerCase()
+      .replace(/[أإآا]/g, 'ا')
+      .replace(/[ى]/g, 'ي')
+      .replace(/[ة]/g, 'ه')
+      .replace(/[ًٌٍَُِّْ]/g, '')
+      .trim();
+  }
+
+  function addMessage(type, text) {
+    var row = document.createElement('div');
+    row.className = 'o2f-msg ' + type;
+    var bubble = document.createElement('div');
+    bubble.className = 'o2f-bubble';
+    bubble.textContent = text;
+    row.appendChild(bubble);
+    elMessages.appendChild(row);
+    elMessages.scrollTop = elMessages.scrollHeight;
+  }
+
+  function addBot(text) { addMessage('bot', text); }
+  function addUser(text) { addMessage('user', text); }
+
+  function topicById(id) {
+    return topics.find(function (t) { return t.id === id; });
+  }
+
+  function answerTopic(id) {
+    var topic = topicById(id);
+    if (!topic) {
+      if (actions[id]) return actions[id]();
+      addBot(i18n.fallback);
+      renderQuick(['plans','pricing','booking','whatsapp']);
+      return;
+    }
+    addBot(topic[lang]);
+    if (id === 'methylene_blue' || id === 'medical') addBot(i18n.safety);
+    renderQuick(topic.quick || ['plans','booking','whatsapp']);
+  }
+
+  function findBestTopic(text) {
+    var clean = normalize(text);
+    var best = null;
+    var bestScore = 0;
+    topics.forEach(function (topic) {
+      var score = 0;
+      topic.keywords.forEach(function (kw) {
+        var k = normalize(kw);
+        if (!k) return;
+        if (clean === k) score += 8;
+        else if (clean.indexOf(k) !== -1) score += Math.min(6, Math.max(2, k.length / 3));
+      });
+      if (score > bestScore) { bestScore = score; best = topic; }
+    });
+    return bestScore >= 2 ? best : null;
+  }
+
+  function renderQuick(ids) {
+    elQuick.innerHTML = '';
+    ids.forEach(function (id) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'o2f-chip';
+      btn.textContent = quickMap[id] || id;
+      btn.addEventListener('click', function () {
+        addUser(btn.textContent);
+        if (actions[id]) actions[id]();
+        else answerTopic(id);
+      });
+      elQuick.appendChild(btn);
+    });
+  }
+
+  function openWhatsApp(extra) {
+    var text = extra || i18n.waMessage;
+    if (elInput && elInput.value.trim()) text += elInput.value.trim();
+    var url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(text);
+    window.open(url, '_blank', 'noopener');
+  }
+
+  function resetChat() {
+    elMessages.innerHTML = '';
+    addBot(i18n.hello);
+    renderQuick(['plans','pricing','weight_loss','muscle','anti_aging','methylene_blue','nutrition','booking']);
+  }
+
+  elToggle.addEventListener('click', function () {
+    root.classList.toggle('is-open');
+    if (root.classList.contains('is-open') && !elMessages.children.length) resetChat();
+  });
+  elClose.addEventListener('click', function () { root.classList.remove('is-open'); });
+
+  elForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var text = elInput.value.trim();
+    if (!text) return;
+    addUser(text);
+    elInput.value = '';
+
+    var topic = findBestTopic(text);
+    if (topic) {
+      answerTopic(topic.id);
+    } else if (text.length > 20) {
+      addBot((isAr ? 'أقدر أجهز رسالتك للواتساب بالتفاصيل دي عشان الفريق يرد عليك بدقة.' : 'I can prepare this as a WhatsApp message so the team can reply accurately.'));
+      renderQuick(['whatsapp','contact','plans','restart']);
+    } else {
+      addBot(i18n.fallback);
+      renderQuick(['plans','pricing','booking','whatsapp']);
+    }
+  });
+
+  window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') root.classList.remove('is-open');
+  });
+})();
+</script>
+
 
   <script src="/assets/js/main.js" defer></script>
 
