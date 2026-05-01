@@ -25,7 +25,7 @@
       <div class="brand">
         <div class="mark"></div>
         <div>
-          <span class="badge"><span class="dot"></span>O2F Admin</span><span class="version">Admin v1.1.0</span>
+          <span class="badge"><span class="dot"></span>O2F Admin</span><span class="version">Admin v1.2.0</span>
           <h1>لوحة الإدارة الرئيسية</h1>
           <p class="muted">اختار القسم اللي عايز تتحكم فيه.</p>
         </div>
@@ -43,6 +43,12 @@
         <p>تعديل الباقات، الأسعار، الصفحات، الصور، إعدادات الموقع، ومعرض الصور.</p>
         <div class="arrow">فتح لوحة المحتوى ←</div>
       </a>
+      <a class="card" href="./offers.html">
+        <div class="icon">🎁</div>
+        <h2>إدارة عروض الباقات</h2>
+        <p>تفعيل أو إيقاف العرض، تعديل وصف العرض، والتحكم في فكرة: اشترك 3 شهور وخد شهر مجانًا.</p>
+        <div class="arrow">فتح العروض ←</div>
+      </a>
       <a class="card" href="./comments.html">
         <div class="icon">💬</div>
         <h2>إدارة التعليقات</h2>
@@ -57,7 +63,7 @@
       </a>
     </section>
 
-    <div class="info"><span class="highlight">ملاحظة:</span> إدارة التعليقات متصلة بـ Supabase. لازم حساب الأدمن يكون مضافًا في جدول <b>admin_users</b> حتى تعمل صلاحيات القبول والتعديل.</div>
+    <div class="info"><span class="highlight">ملاحظة:</span> صفحة العروض تعدّل ملف <b>src/_data/offers.json</b> مباشرة باستخدام GitHub token، والعرض يظهر تلقائيًا في صفحة الباقات عند تفعيله.</div>
   </main>
   <script>
     function logout(){sessionStorage.removeItem('o2f-admin-auth');localStorage.removeItem('o2f-gh-token');localStorage.removeItem('o2f_supabase_session');window.location.replace('./login.html')}
