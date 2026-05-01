@@ -5,339 +5,506 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>إدارة التعليقات | O2F Admin</title>
   <style>
-  :root{
-    --bg:#07111f;
-    --panel:#0b1220;
-    --panel2:#101a2d;
-    --line:rgba(255,255,255,.12);
-    --line2:rgba(0,217,163,.28);
-    --text:#f7f8fa;
-    --muted:rgba(247,248,250,.66);
-    --mint:#00d9a3;
-    --gold:#c9a84a;
-    --danger:#ff6b6b;
-    --shadow:0 22px 70px rgba(0,0,0,.34);
-  }
+    :root{
+      --bg:#07111f;
+      --panel:#0b1220;
+      --panel2:#101a2d;
+      --panel3:#0f172a;
+      --line:rgba(255,255,255,.11);
+      --text:#f7f8fa;
+      --muted:rgba(247,248,250,.62);
+      --mint:#00d9a3;
+      --gold:#c9a84a;
+      --danger:#ff6b6b;
+      --blue:#7dd3fc;
+      --shadow:0 24px 80px rgba(0,0,0,.35);
+    }
 
-  *{box-sizing:border-box}
+    *{box-sizing:border-box}
 
-  body{
-    margin:0;
-    font-family:'Tajawal',Arial,Tahoma,sans-serif;
-    background:
-      radial-gradient(circle at 18% 8%,rgba(0,217,163,.16),transparent 30%),
-      radial-gradient(circle at 85% 20%,rgba(201,168,74,.12),transparent 28%),
-      linear-gradient(180deg,#07111f 0%,#090f1d 100%);
-    color:var(--text);
-  }
+    body{
+      margin:0;
+      font-family:'Tajawal',Arial,Tahoma,sans-serif;
+      background:
+        radial-gradient(circle at 18% 8%,rgba(0,217,163,.16),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(201,168,74,.13),transparent 28%),
+        linear-gradient(180deg,#07111f 0%,#090f1d 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
 
-  .wrap{
-    max-width:1240px;
-    margin:auto;
-    padding:28px 18px 70px;
-  }
+    .wrap{
+      max-width:1440px;
+      margin:auto;
+      padding:24px 18px 50px;
+    }
 
-  .top{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:18px;
-    flex-wrap:wrap;
-    margin-bottom:22px;
-    padding:22px;
-    border:1px solid var(--line);
-    border-radius:24px;
-    background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
-    box-shadow:var(--shadow);
-  }
+    .login{
+      max-width:520px;
+      margin:80px auto;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
 
-  .badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    border:1px solid rgba(0,217,163,.28);
-    background:rgba(0,217,163,.09);
-    color:var(--mint);
-    border-radius:999px;
-    padding:8px 13px;
-    font-size:13px;
-    font-weight:700;
-  }
+    .hidden{display:none!important}
 
-  .dot{
-    width:9px;
-    height:9px;
-    border-radius:999px;
-    background:var(--mint);
-    box-shadow:0 0 18px rgba(0,217,163,.75);
-  }
+    .top{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:start;
+      margin-bottom:18px;
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+      box-shadow:var(--shadow);
+    }
 
-  h1{
-    font-size:34px;
-    margin:12px 0 8px;
-    letter-spacing:-.02em;
-  }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(0,217,163,.28);
+      background:rgba(0,217,163,.09);
+      color:var(--mint);
+      border-radius:999px;
+      padding:8px 13px;
+      font-size:13px;
+      font-weight:800;
+    }
 
-  h2{
-    font-size:18px;
-    margin:0 0 14px;
-  }
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      background:var(--mint);
+      box-shadow:0 0 18px rgba(0,217,163,.8);
+    }
 
-  .muted{
-    color:var(--muted);
-    line-height:1.8;
-    margin:0;
-    max-width:720px;
-  }
+    h1{
+      font-size:34px;
+      margin:12px 0 8px;
+      letter-spacing:-.02em;
+    }
 
-  .grid{
-    display:grid;
-    grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);
-    gap:18px;
-    align-items:start;
-  }
+    h2{
+      font-size:16px;
+      margin:0 0 12px;
+    }
 
-  .card{
-    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));
-    border:1px solid var(--line);
-    border-radius:22px;
-    padding:18px;
-    box-shadow:0 18px 50px rgba(0,0,0,.24);
-    backdrop-filter:blur(12px);
-  }
+    .muted{
+      color:var(--muted);
+      line-height:1.8;
+      margin:0;
+      max-width:760px;
+    }
 
-  .list{
-    display:grid;
-    gap:12px;
-  }
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
 
-  .comment{
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:15px;
-    background:
-      linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
-    transition:.18s ease;
-  }
+    .btn{
+      border:0;
+      border-radius:14px;
+      padding:10px 14px;
+      font-weight:800;
+      cursor:pointer;
+      color:#07111f;
+      background:var(--mint);
+      transition:.16s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      white-space:nowrap;
+      font-family:inherit;
+    }
 
-  .comment:hover{
-    border-color:var(--line2);
-    transform:translateY(-1px);
-    box-shadow:0 14px 32px rgba(0,0,0,.22);
-  }
+    .btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.07);
+    }
 
-  .comment h3{
-    margin:0 0 6px;
-    font-size:18px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
+    .btn.ghost{
+      background:rgba(255,255,255,.075);
+      color:var(--text);
+      border:1px solid var(--line);
+    }
 
-  .comment h3:before{
-    content:'';
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--mint),var(--gold));
-    display:inline-block;
-    flex:0 0 auto;
-  }
+    .btn.gold{background:var(--gold)}
 
-  .service{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    color:var(--mint);
-    font-size:12px;
-    font-weight:700;
-    padding:5px 9px;
-    border-radius:999px;
-    background:rgba(0,217,163,.08);
-    border:1px solid rgba(0,217,163,.18);
-  }
+    .btn.danger{
+      background:rgba(255,107,107,.14);
+      color:#ffd8d8;
+      border:1px solid rgba(255,107,107,.35);
+    }
 
-  .text{
-    line-height:1.8;
-    color:rgba(247,248,250,.84);
-    margin:12px 0;
-  }
+    .btn.small{
+      padding:7px 10px;
+      border-radius:11px;
+      font-size:12px;
+    }
 
-  .actions{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    align-items:center;
-  }
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-bottom:18px;
+    }
 
-  .btn{
-    border:0;
-    border-radius:13px;
-    padding:10px 14px;
-    font-weight:800;
-    cursor:pointer;
-    color:#07111f;
-    background:var(--mint);
-    transition:.16s ease;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
-  }
+    .stat{
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:15px;
+      background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+    }
 
-  .btn:hover{
-    transform:translateY(-1px);
-    filter:brightness(1.07);
-  }
+    .stat-label{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:7px;
+    }
 
-  .btn.ghost{
-    background:rgba(255,255,255,.075);
-    color:var(--text);
-    border:1px solid var(--line);
-  }
+    .stat-value{
+      font-size:28px;
+      font-weight:900;
+    }
 
-  .btn.gold{
-    background:var(--gold);
-  }
+    .stat.pending .stat-value{color:var(--gold)}
+    .stat.approved .stat-value{color:var(--mint)}
+    .stat.rejected .stat-value{color:var(--danger)}
 
-  .btn.danger{
-    background:rgba(255,107,107,.15);
-    color:#ffd8d8;
-    border:1px solid rgba(255,107,107,.35);
-  }
+    .toolbar{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(255,255,255,.045);
+      margin-bottom:14px;
+    }
 
-  input,textarea,select{
-    width:100%;
-    border:1px solid var(--line);
-    border-radius:15px;
-    padding:12px 13px;
-    background:rgba(255,255,255,.065);
-    color:var(--text);
-    outline:0;
-    transition:.16s ease;
-  }
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
 
-  input:focus,textarea:focus,select:focus{
-    border-color:rgba(0,217,163,.55);
-    box-shadow:0 0 0 4px rgba(0,217,163,.1);
-  }
+    .search{
+      min-width:260px;
+      flex:1;
+    }
 
-  textarea{
-    min-height:140px;
-    resize:vertical;
-    line-height:1.7;
-  }
+    input,textarea,select{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:11px 12px;
+      background:rgba(255,255,255,.065);
+      color:var(--text);
+      outline:0;
+      transition:.16s ease;
+      font-family:inherit;
+    }
 
-  select option{
-    background:#0b1220;
-    color:#fff;
-  }
+    input:focus,textarea:focus,select:focus{
+      border-color:rgba(0,217,163,.55);
+      box-shadow:0 0 0 4px rgba(0,217,163,.1);
+    }
 
-  .form{
-    display:grid;
-    gap:12px;
-  }
+    textarea{
+      min-height:170px;
+      resize:vertical;
+      line-height:1.75;
+    }
 
-  .cols{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
+    select option{
+      background:#0b1220;
+      color:#fff;
+    }
 
-  .empty{
-    padding:24px;
-    border:1px dashed rgba(255,255,255,.18);
-    border-radius:18px;
-    color:var(--muted);
-    text-align:center;
-    background:rgba(255,255,255,.03);
-  }
+    .tabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
 
-  .tabs{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin:0 0 16px;
-    padding:8px;
-    border:1px solid var(--line);
-    border-radius:18px;
-    background:rgba(255,255,255,.04);
-  }
+    .tab{
+      padding:9px 13px;
+      border-radius:999px;
+      background:transparent;
+      border:1px solid var(--line);
+      cursor:pointer;
+      color:var(--muted);
+      font-weight:800;
+      transition:.16s ease;
+      font-family:inherit;
+    }
 
-  .tab{
-    padding:10px 15px;
-    border-radius:999px;
-    background:transparent;
-    border:1px solid transparent;
-    cursor:pointer;
-    color:var(--muted);
-    font-weight:800;
-    transition:.16s ease;
-  }
+    .tab:hover{
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+    }
 
-  .tab:hover{
-    color:var(--text);
-    background:rgba(255,255,255,.06);
-  }
+    .tab.active{
+      background:rgba(0,217,163,.14);
+      border-color:rgba(0,217,163,.36);
+      color:var(--mint);
+    }
 
-  .tab.active{
-    background:rgba(0,217,163,.14);
-    border-color:rgba(0,217,163,.36);
-    color:var(--mint);
-    box-shadow:0 0 0 4px rgba(0,217,163,.06);
-  }
+    .workspace{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 380px;
+      gap:16px;
+      align-items:start;
+    }
 
-  .hidden{display:none!important}
+    .panel{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+      box-shadow:0 18px 55px rgba(0,0,0,.24);
+      overflow:hidden;
+    }
 
-  .status{
-    margin-top:10px;
-    color:var(--gold);
-    font-size:13px;
-    line-height:1.7;
-  }
+    .panel-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:15px 16px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+    }
 
-  .login{
-    max-width:540px;
-    margin:80px auto;
-  }
+    .table-wrap{
+      max-height:calc(100vh - 360px);
+      min-height:430px;
+      overflow:auto;
+    }
 
-  .small{
-    font-size:12px;
-    color:var(--muted);
-    line-height:1.7;
-  }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+    }
 
-  #adminPanel{
-    animation:fadeUp .22s ease both;
-  }
+    th,td{
+      padding:13px 12px;
+      border-bottom:1px solid rgba(255,255,255,.075);
+      vertical-align:middle;
+      text-align:right;
+      font-size:14px;
+    }
 
-  @keyframes fadeUp{
-    from{opacity:0;transform:translateY(8px)}
-    to{opacity:1;transform:translateY(0)}
-  }
+    th{
+      position:sticky;
+      top:0;
+      z-index:2;
+      background:#0d1728;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
 
-  @media(max-width:900px){
-    .grid{grid-template-columns:1fr}
-    .cols{grid-template-columns:1fr}
-    h1{font-size:28px}
-    .top{padding:18px}
-  }
-</style>
+    tr{
+      transition:.15s ease;
+    }
+
+    tbody tr:hover{
+      background:rgba(0,217,163,.045);
+    }
+
+    tbody tr.selected{
+      background:rgba(0,217,163,.09);
+      outline:1px solid rgba(0,217,163,.22);
+    }
+
+    .name-cell{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:160px;
+    }
+
+    .avatar{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,var(--mint),var(--gold));
+      color:#07111f;
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .person-name{
+      font-weight:900;
+      margin-bottom:2px;
+    }
+
+    .service{
+      display:inline-flex;
+      color:var(--blue);
+      font-size:12px;
+      font-weight:800;
+      max-width:180px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .comment-preview{
+      max-width:430px;
+      color:rgba(247,248,250,.78);
+      line-height:1.6;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid var(--line);
+      white-space:nowrap;
+    }
+
+    .pill.pending{
+      color:var(--gold);
+      background:rgba(201,168,74,.1);
+      border-color:rgba(201,168,74,.28);
+    }
+
+    .pill.approved{
+      color:var(--mint);
+      background:rgba(0,217,163,.1);
+      border-color:rgba(0,217,163,.28);
+    }
+
+    .pill.rejected{
+      color:#ffd8d8;
+      background:rgba(255,107,107,.1);
+      border-color:rgba(255,107,107,.28);
+    }
+
+    .row-actions{
+      display:flex;
+      gap:6px;
+      justify-content:flex-start;
+      flex-wrap:wrap;
+      min-width:210px;
+    }
+
+    .side-panel{
+      position:sticky;
+      top:16px;
+    }
+
+    .editor-body{
+      padding:16px;
+    }
+
+    .form{
+      display:grid;
+      gap:12px;
+    }
+
+    .cols{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .empty{
+      padding:30px;
+      color:var(--muted);
+      text-align:center;
+      line-height:1.8;
+    }
+
+    .status{
+      color:var(--gold);
+      font-size:13px;
+      line-height:1.7;
+      min-height:18px;
+    }
+
+    .hint{
+      padding:14px;
+      border:1px dashed rgba(255,255,255,.16);
+      border-radius:16px;
+      color:var(--muted);
+      line-height:1.8;
+      background:rgba(255,255,255,.03);
+    }
+
+    .manual-add{
+      margin-top:16px;
+    }
+
+    @media(max-width:1100px){
+      .workspace{
+        grid-template-columns:1fr;
+      }
+      .side-panel{
+        position:static;
+      }
+      .table-wrap{
+        max-height:none;
+      }
+    }
+
+    @media(max-width:760px){
+      .top,.toolbar{
+        grid-template-columns:1fr;
+      }
+      .stats{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .cols{
+        grid-template-columns:1fr;
+      }
+      h1{font-size:28px}
+      .wrap{padding:16px 12px 40px}
+      th:nth-child(3),td:nth-child(3){
+        display:none;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="wrap">
-    <section id="loginPanel" class="card login">
+    <section id="loginPanel" class="login">
       <span class="badge"><span class="dot"></span>Supabase Auth</span>
       <h1>تسجيل دخول الأدمن</h1>
       <p class="muted">سجّل دخولك بحساب الأدمن الموجود في Supabase Authentication. بعد الدخول ستظهر التعليقات حسب صلاحيات RLS.</p>
-      <form id="loginForm" class="form">
+      <form id="loginForm" class="form" style="margin-top:14px">
         <input id="adminEmail" type="email" required placeholder="Admin email">
         <input id="adminPassword" type="password" required placeholder="Password">
         <button class="btn" type="submit">دخول</button>
       </form>
       <p id="loginStatus" class="status"></p>
-      <p class="small">ملاحظة: لا يتم استخدام service_role داخل المتصفح.</p>
+      <p class="muted" style="font-size:12px">ملاحظة: لا يتم استخدام service_role داخل المتصفح.</p>
     </section>
 
     <section id="adminPanel" class="hidden">
@@ -345,61 +512,431 @@
         <div>
           <span class="badge"><span class="dot"></span>لوحة مراجعة التعليقات</span>
           <h1>إدارة تعليقات العملاء</h1>
-          <p class="muted">راجع تعليقات العملاء بسرعة، عدّل النصوص، وافق على التعليقات المناسبة أو ارفض غير المناسب منها من مكان واحد.</p>
+          <p class="muted">Dashboard سريع لمراجعة عدد كبير من التعليقات، فلترة الحالات، تعديل النصوص، وقبول أو رفض التعليقات من مكان واحد.</p>
         </div>
-        <div class="actions"><button class="btn ghost" id="refreshBtn">تحديث</button><button class="btn danger" id="logoutBtn">خروج</button><a class="btn ghost" href="./cms.html">لوحة الإدارة</a></div>
+        <div class="top-actions">
+          <button class="btn ghost" id="refreshBtn">تحديث</button>
+          <a class="btn ghost" href="./cms.html">لوحة الإدارة</a>
+          <button class="btn danger" id="logoutBtn">خروج</button>
+        </div>
       </div>
 
-      <div class="tabs">
-        <button class="tab active" data-tab="pending">قيد المراجعة</button>
-        <button class="tab" data-tab="approved">مقبولة</button>
-        <button class="tab" data-tab="rejected">مرفوضة</button>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">إجمالي التعليقات</div>
+          <div class="stat-value" id="totalCount">0</div>
+        </div>
+        <div class="stat pending">
+          <div class="stat-label">قيد المراجعة</div>
+          <div class="stat-value" id="pendingCount">0</div>
+        </div>
+        <div class="stat approved">
+          <div class="stat-label">مقبولة</div>
+          <div class="stat-value" id="approvedCount">0</div>
+        </div>
+        <div class="stat rejected">
+          <div class="stat-label">مرفوضة</div>
+          <div class="stat-value" id="rejectedCount">0</div>
+        </div>
       </div>
 
-      <section id="pending" class="panel grid">
-        <div class="card"><h2>تعليقات قيد المراجعة</h2><div id="pendingList" class="list"></div></div>
-        <div class="card"><h2>تعديل التعليق المختار</h2><form id="editForm" class="form"><input id="editId" type="hidden"><div class="cols"><input id="editName" placeholder="الاسم"><input id="editService" placeholder="الخدمة"></div><textarea id="editComment" placeholder="التعليق"></textarea><select id="editStatus"><option value="pending">pending</option><option value="approved">approved</option><option value="rejected">rejected</option></select><div class="actions"><button class="btn" type="submit">حفظ التعديل</button><button class="btn gold" type="button" id="approveBtn">قبول</button><button class="btn danger" type="button" id="rejectBtn">رفض</button></div></form><p id="editStatusText" class="status"></p></div>
-      </section>
+      <div class="toolbar">
+        <div class="filters">
+          <input id="searchInput" class="search" placeholder="ابحث بالاسم، الخدمة، أو نص التعليق...">
+          <select id="serviceFilter" style="max-width:220px">
+            <option value="">كل الخدمات</option>
+          </select>
+        </div>
+        <div class="tabs">
+          <button class="tab active" data-tab="all">الكل</button>
+          <button class="tab" data-tab="pending">قيد المراجعة</button>
+          <button class="tab" data-tab="approved">مقبولة</button>
+          <button class="tab" data-tab="rejected">مرفوضة</button>
+        </div>
+      </div>
 
-      <section id="approved" class="panel grid" hidden><div class="card"><h2>التعليقات المقبولة</h2><div id="approvedList" class="list"></div></div><div class="card"><h2>إضافة تعليق يدوي</h2><form id="addForm" class="form"><div class="cols"><input id="addName" required placeholder="الاسم"><input id="addService" placeholder="الخدمة"></div><textarea id="addComment" required placeholder="التعليق"></textarea><button class="btn" type="submit">إضافة كمقبول</button></form><p id="addStatusText" class="status"></p></div></section>
-      <section id="rejected" class="panel card" hidden><h2>التعليقات المرفوضة</h2><div id="rejectedList" class="list"></div></section>
+      <div class="workspace">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>قائمة التعليقات</h2>
+            <span class="pill approved" id="visibleCount">0 ظاهر</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>العميل</th>
+                  <th>التعليق</th>
+                  <th>التقييم</th>
+                  <th>الحالة</th>
+                  <th>إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="commentsTable">
+                <tr>
+                  <td colspan="5" class="empty">جاري تحميل التعليقات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="panel side-panel">
+          <div class="panel-head">
+            <h2>تعديل التعليق</h2>
+            <span class="pill pending" id="selectedBadge">لم يتم الاختيار</span>
+          </div>
+          <div class="editor-body">
+            <div id="selectHint" class="hint">
+              اختار أي تعليق من الجدول علشان يظهر هنا بالكامل وتقدر تعدله أو توافق عليه أو ترفضه.
+            </div>
+
+            <form id="editForm" class="form hidden">
+              <input id="editId" type="hidden">
+
+              <div class="cols">
+                <input id="editName" placeholder="الاسم">
+                <input id="editService" placeholder="الخدمة">
+              </div>
+
+              <textarea id="editComment" placeholder="التعليق"></textarea>
+
+              <div class="cols">
+                <select id="editStatus">
+                  <option value="pending">pending</option>
+                  <option value="approved">approved</option>
+                  <option value="rejected">rejected</option>
+                </select>
+                <select id="editRating">
+                  <option value="5">5 نجوم</option>
+                  <option value="4">4 نجوم</option>
+                  <option value="3">3 نجوم</option>
+                  <option value="2">2 نجوم</option>
+                  <option value="1">1 نجمة</option>
+                </select>
+              </div>
+
+              <div class="actions">
+                <button class="btn" type="submit">حفظ التعديل</button>
+                <button class="btn gold" type="button" id="approveBtn">قبول</button>
+                <button class="btn danger" type="button" id="rejectBtn">رفض</button>
+              </div>
+
+              <p id="editStatusText" class="status"></p>
+            </form>
+
+            <div class="manual-add">
+              <div class="panel-head" style="padding:0 0 12px;border:0;background:transparent">
+                <h2>إضافة تعليق يدوي</h2>
+              </div>
+              <form id="addForm" class="form">
+                <div class="cols">
+                  <input id="addName" required placeholder="الاسم">
+                  <input id="addService" placeholder="الخدمة">
+                </div>
+                <textarea id="addComment" required placeholder="التعليق"></textarea>
+                <button class="btn" type="submit">إضافة كمقبول</button>
+              </form>
+              <p id="addStatusText" class="status"></p>
+            </div>
+          </div>
+        </aside>
+      </div>
     </section>
   </main>
+
 <script>
 (function(){
   var SUPABASE_URL='https://qalzanmeusuqssrgxumg.supabase.co';
   var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhbHphbm1ldXN1cXNzcmd4dW1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2MjAxMDMsImV4cCI6MjA5MzE5NjEwM30.PHP_zC5firTlCfA9zFLXO1iqzUXMbiTsM6-7wKsDPOU';
-var isCmsAdmin =
-  new URLSearchParams(window.location.search).get('cms') === '1' ||
-  (
-    sessionStorage.getItem('o2f-admin-auth') === '1' &&
-    !!localStorage.getItem('o2f-gh-token')
-  );
-  var session=null, allComments=[];
-  function clean(v){return String(v||'').replace(/[<>]/g,'').trim()}
-  function authHeaders(){return {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+(session&&session.access_token?session.access_token:SUPABASE_KEY),'Content-Type':'application/json','Prefer':'return=representation'}}
-  async function auth(path, body){var r=await fetch(SUPABASE_URL+'/auth/v1/'+path,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error(await r.text());return r.json()}
-  async function api(path, opts){opts=opts||{};opts.headers=Object.assign(authHeaders(),opts.headers||{});var r=await fetch(SUPABASE_URL+'/rest/v1/'+path,opts);if(!r.ok)throw new Error(await r.text());return r.status===204?null:r.json()}
-  function showAdmin(){loginPanel.classList.add('hidden');adminPanel.classList.remove('hidden')}
-  function showLogin(){adminPanel.classList.add('hidden');loginPanel.classList.remove('hidden')}
-  function itemHtml(x,kind){return '<div class="comment"><h3>'+clean(x.name)+'</h3><div class="service">'+clean(x.service||'O2F')+' · '+clean(x.status)+'</div><div class="text">'+clean(x.comment)+'</div><div class="actions"><button class="btn ghost" data-action="edit" data-id="'+x.id+'">تعديل</button>'+(kind!=='approved'?'<button class="btn" data-action="approve" data-id="'+x.id+'">قبول</button>':'')+(kind!=='rejected'?'<button class="btn danger" data-action="reject" data-id="'+x.id+'">رفض</button>':'')+'</div></div>'}
-  function render(){var p=allComments.filter(function(x){return x.status==='pending'}),a=allComments.filter(function(x){return x.status==='approved'}),r=allComments.filter(function(x){return x.status==='rejected'});pendingList.innerHTML=p.map(function(i){return itemHtml(i,'pending')}).join('')||'<div class="empty">لا توجد تعليقات قيد المراجعة</div>';approvedList.innerHTML=a.map(function(i){return itemHtml(i,'approved')}).join('')||'<div class="empty">لا توجد تعليقات مقبولة</div>';rejectedList.innerHTML=r.map(function(i){return itemHtml(i,'rejected')}).join('')||'<div class="empty">لا توجد تعليقات مرفوضة</div>'}
-  async function loadComments(){allComments=await api('comments?select=id,name,service,comment,status,rating,created_at,updated_at&order=created_at.desc');render()}
-  function find(id){return allComments.find(function(x){return x.id===id})}
-  function fill(i){if(!i)return;editId.value=i.id;editName.value=i.name||'';editService.value=i.service||'';editComment.value=i.comment||'';editStatus.value=i.status||'pending'}
-  async function updateComment(id, data){await api('comments?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify(data)});await loadComments();editStatusText.textContent='تم حفظ التعديل'}
 
-  loginForm.addEventListener('submit',async function(e){e.preventDefault();loginStatus.textContent='جاري تسجيل الدخول...';try{var res=await auth('token?grant_type=password',{email:adminEmail.value,password:adminPassword.value});session=res;localStorage.setItem('o2f_supabase_session',JSON.stringify(res));showAdmin();await loadComments();loginStatus.textContent=''}catch(err){loginStatus.textContent='فشل تسجيل الدخول أو الصلاحية غير مضافة في admin_users.'}})
-  logoutBtn.onclick=function(){localStorage.removeItem('o2f_supabase_session');session=null;if(isCmsAdmin){showAdmin();loadComments().catch(function(){})}else{showLogin()}}
+  var isCmsAdmin =
+    new URLSearchParams(window.location.search).get('cms') === '1' ||
+    (
+      sessionStorage.getItem('o2f-admin-auth') === '1' &&
+      !!localStorage.getItem('o2f-gh-token')
+    );
+
+  var session=null;
+  var allComments=[];
+  var activeTab='all';
+  var selectedId='';
+
+  function clean(v){return String(v||'').replace(/[<>]/g,'').trim()}
+  function stars(n){n=Number(n||5);return '★'.repeat(n)+'☆'.repeat(5-n)}
+  function short(v,n){v=clean(v);return v.length>n?v.slice(0,n)+'...':v}
+  function statusText(s){return s==='approved'?'مقبول':s==='rejected'?'مرفوض':'قيد المراجعة'}
+
+  function authHeaders(){
+    return {
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+(session&&session.access_token?session.access_token:SUPABASE_KEY),
+      'Content-Type':'application/json',
+      'Prefer':'return=representation'
+    }
+  }
+
+  async function auth(path, body){
+    var r=await fetch(SUPABASE_URL+'/auth/v1/'+path,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!r.ok)throw new Error(await r.text());
+    return r.json()
+  }
+
+  async function api(path, opts){
+    opts=opts||{};
+    opts.headers=Object.assign(authHeaders(),opts.headers||{});
+    var r=await fetch(SUPABASE_URL+'/rest/v1/'+path,opts);
+    if(!r.ok)throw new Error(await r.text());
+    return r.status===204?null:r.json()
+  }
+
+  function showAdmin(){
+    loginPanel.classList.add('hidden');
+    adminPanel.classList.remove('hidden')
+  }
+
+  function showLogin(){
+    adminPanel.classList.add('hidden');
+    loginPanel.classList.remove('hidden')
+  }
+
+  function getFiltered(){
+    var q=clean(searchInput.value).toLowerCase();
+    var service=serviceFilter.value;
+
+    return allComments.filter(function(x){
+      var matchStatus = activeTab==='all' || x.status===activeTab;
+      var matchService = !service || (x.service||'O2F')===service;
+      var hay = [x.name,x.service,x.comment,x.status].join(' ').toLowerCase();
+      var matchSearch = !q || hay.indexOf(q)>-1;
+      return matchStatus && matchService && matchSearch;
+    });
+  }
+
+  function updateStats(){
+    totalCount.textContent=allComments.length;
+    pendingCount.textContent=allComments.filter(function(x){return x.status==='pending'}).length;
+    approvedCount.textContent=allComments.filter(function(x){return x.status==='approved'}).length;
+    rejectedCount.textContent=allComments.filter(function(x){return x.status==='rejected'}).length;
+  }
+
+  function updateServiceFilter(){
+    var current=serviceFilter.value;
+    var services=[...new Set(allComments.map(function(x){return x.service||'O2F'}).filter(Boolean))].sort();
+    serviceFilter.innerHTML='<option value="">كل الخدمات</option>'+services.map(function(s){
+      return '<option value="'+clean(s)+'">'+clean(s)+'</option>'
+    }).join('');
+    serviceFilter.value=current;
+  }
+
+  function render(){
+    updateStats();
+    updateServiceFilter();
+
+    var rows=getFiltered();
+    visibleCount.textContent=rows.length+' ظاهر';
+
+    if(!rows.length){
+      commentsTable.innerHTML='<tr><td colspan="5" class="empty">لا توجد تعليقات مطابقة للفلتر الحالي</td></tr>';
+      return;
+    }
+
+    commentsTable.innerHTML=rows.map(function(x){
+      var initial=clean(x.name||'?').charAt(0).toUpperCase();
+      return `
+        <tr data-id="${x.id}" class="${x.id===selectedId?'selected':''}">
+          <td>
+            <div class="name-cell">
+              <span class="avatar">${initial}</span>
+              <div>
+                <div class="person-name">${clean(x.name)}</div>
+                <span class="service">${clean(x.service||'O2F')}</span>
+              </div>
+            </div>
+          </td>
+          <td><div class="comment-preview">${clean(x.comment)}</div></td>
+          <td style="color:var(--gold);white-space:nowrap">${stars(x.rating)}</td>
+          <td><span class="pill ${clean(x.status)}">${statusText(x.status)}</span></td>
+          <td>
+            <div class="row-actions">
+              <button class="btn ghost small" data-action="edit" data-id="${x.id}">فتح</button>
+              ${x.status!=='approved'?`<button class="btn small" data-action="approve" data-id="${x.id}">قبول</button>`:''}
+              ${x.status!=='rejected'?`<button class="btn danger small" data-action="reject" data-id="${x.id}">رفض</button>`:''}
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  async function loadComments(){
+    commentsTable.innerHTML='<tr><td colspan="5" class="empty">جاري تحميل التعليقات...</td></tr>';
+    allComments=await api('comments?select=id,name,service,comment,status,rating,created_at,updated_at&order=created_at.desc');
+    render()
+  }
+
+  function find(id){
+    return allComments.find(function(x){return String(x.id)===String(id)})
+  }
+
+  function fill(i){
+    if(!i)return;
+    selectedId=i.id;
+    selectHint.classList.add('hidden');
+    editForm.classList.remove('hidden');
+    selectedBadge.textContent=statusText(i.status);
+    selectedBadge.className='pill '+i.status;
+
+    editId.value=i.id;
+    editName.value=i.name||'';
+    editService.value=i.service||'';
+    editComment.value=i.comment||'';
+    editStatus.value=i.status||'pending';
+    editRating.value=String(i.rating||5);
+    render();
+  }
+
+  async function updateComment(id, data){
+    editStatusText.textContent='جاري الحفظ...';
+    await api('comments?id=eq.'+encodeURIComponent(id),{
+      method:'PATCH',
+      body:JSON.stringify(data)
+    });
+    await loadComments();
+    fill(find(id));
+    editStatusText.textContent='تم حفظ التعديل بنجاح';
+  }
+
+  loginForm.addEventListener('submit',async function(e){
+    e.preventDefault();
+    loginStatus.textContent='جاري تسجيل الدخول...';
+    try{
+      var res=await auth('token?grant_type=password',{email:adminEmail.value,password:adminPassword.value});
+      session=res;
+      localStorage.setItem('o2f_supabase_session',JSON.stringify(res));
+      showAdmin();
+      await loadComments();
+      loginStatus.textContent='';
+    }catch(err){
+      loginStatus.textContent='فشل تسجيل الدخول أو الصلاحية غير مضافة في admin_users.';
+    }
+  });
+
+  logoutBtn.onclick=function(){
+    localStorage.removeItem('o2f_supabase_session');
+    session=null;
+    if(isCmsAdmin){
+      showAdmin();
+      loadComments().catch(function(){})
+    }else{
+      showLogin()
+    }
+  }
+
   refreshBtn.onclick=function(){loadComments()}
-  document.body.addEventListener('click',async function(e){var b=e.target.closest('button');if(!b)return;var id=b.dataset.id,act=b.dataset.action;if(act==='edit')fill(find(id));if(act==='approve')await updateComment(id,{status:'approved'});if(act==='reject')await updateComment(id,{status:'rejected'})})
-  editForm.addEventListener('submit',async function(e){e.preventDefault();if(!editId.value)return;await updateComment(editId.value,{name:clean(editName.value),service:clean(editService.value||'O2F'),comment:clean(editComment.value),status:editStatus.value,rating:5})})
-  approveBtn.onclick=function(){if(editId.value)updateComment(editId.value,{name:clean(editName.value),service:clean(editService.value||'O2F'),comment:clean(editComment.value),status:'approved',rating:5})}
-  rejectBtn.onclick=function(){if(editId.value)updateComment(editId.value,{status:'rejected'})}
-  addForm.addEventListener('submit',async function(e){e.preventDefault();addStatusText.textContent='جاري الإضافة...';try{await api('comments',{method:'POST',body:JSON.stringify({name:clean(addName.value),service:clean(addService.value||'O2F'),comment:clean(addComment.value),status:'approved',rating:5})});addForm.reset();addStatusText.textContent='تمت الإضافة';await loadComments()}catch(err){addStatusText.textContent='تعذر الإضافة. تأكد من صلاحية الأدمن.'}})
-  document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.querySelectorAll('.panel').forEach(function(p){p.hidden=true});document.getElementById(t.dataset.tab).hidden=false;render()}})
+  searchInput.oninput=render;
+  serviceFilter.onchange=render;
+
+  document.body.addEventListener('click',async function(e){
+    var b=e.target.closest('button');
+    var row=e.target.closest('tr[data-id]');
+
+    if(row && !b){
+      fill(find(row.dataset.id));
+      return;
+    }
+
+    if(!b)return;
+
+    var id=b.dataset.id;
+    var act=b.dataset.action;
+
+    if(act==='edit')fill(find(id));
+    if(act==='approve')await updateComment(id,{status:'approved'});
+    if(act==='reject')await updateComment(id,{status:'rejected'});
+  });
+
+  editForm.addEventListener('submit',async function(e){
+    e.preventDefault();
+    if(!editId.value)return;
+    await updateComment(editId.value,{
+      name:clean(editName.value),
+      service:clean(editService.value||'O2F'),
+      comment:clean(editComment.value),
+      status:editStatus.value,
+      rating:Number(editRating.value||5)
+    });
+  });
+
+  approveBtn.onclick=function(){
+    if(editId.value)updateComment(editId.value,{
+      name:clean(editName.value),
+      service:clean(editService.value||'O2F'),
+      comment:clean(editComment.value),
+      status:'approved',
+      rating:Number(editRating.value||5)
+    })
+  }
+
+  rejectBtn.onclick=function(){
+    if(editId.value)updateComment(editId.value,{status:'rejected'})
+  }
+
+  addForm.addEventListener('submit',async function(e){
+    e.preventDefault();
+    addStatusText.textContent='جاري الإضافة...';
+    try{
+      await api('comments',{
+        method:'POST',
+        body:JSON.stringify({
+          name:clean(addName.value),
+          service:clean(addService.value||'O2F'),
+          comment:clean(addComment.value),
+          status:'approved',
+          rating:5
+        })
+      });
+      addForm.reset();
+      addStatusText.textContent='تمت الإضافة';
+      await loadComments();
+    }catch(err){
+      addStatusText.textContent='تعذر الإضافة. تأكد من صلاحية الأدمن.';
+    }
+  });
+
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.onclick=function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+      t.classList.add('active');
+      activeTab=t.dataset.tab;
+      render();
+    }
+  });
+
   try{session=JSON.parse(localStorage.getItem('o2f_supabase_session')||'null')}catch(e){session=null}
-  if(session&&session.access_token){showAdmin();loadComments().catch(function(){if(isCmsAdmin){showAdmin()}else{showLogin();loginStatus.textContent='انتهت الجلسة أو لا توجد صلاحية أدمن.'}})}else if(isCmsAdmin){showAdmin();loadComments().catch(function(err){pendingList.innerHTML='<div class="empty">تعذر تحميل التعليقات. راجع صلاحيات Supabase RLS.</div>';approvedList.innerHTML='<div class="empty">تعذر تحميل التعليقات.</div>';rejectedList.innerHTML='<div class="empty">تعذر تحميل التعليقات.</div>'})}else{showLogin()}
+
+  if(session&&session.access_token){
+    showAdmin();
+    loadComments().catch(function(){
+      if(isCmsAdmin){
+        showAdmin()
+      }else{
+        showLogin();
+        loginStatus.textContent='انتهت الجلسة أو لا توجد صلاحية أدمن.'
+      }
+    })
+  }else if(isCmsAdmin){
+    showAdmin();
+    loadComments().catch(function(err){
+      commentsTable.innerHTML='<tr><td colspan="5" class="empty">تعذر تحميل التعليقات. راجع مفتاح Supabase أو صلاحيات RLS.</td></tr>';
+    })
+  }else{
+    showLogin()
+  }
 })();
 </script>
 </body>
