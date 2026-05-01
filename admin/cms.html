@@ -765,6 +765,30 @@ function openCommentsInsideCMS() {
     `;
   }
 }
+    function openCommentsInsideCMS() {
+  showSection('content');
+
+  const contentSection = document.getElementById('section-content');
+  const pageTitle = document.getElementById('pageTitle');
+
+  if (pageTitle) pageTitle.textContent = 'إدارة التعليقات';
+
+  if (contentSection) {
+    contentSection.innerHTML = `
+      <div class="editor-panel">
+        <h3>إدارة التعليقات</h3>
+        <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">
+          يتم فتح صفحة التعليقات داخل لوحة التحكم بدون الخروج من الـ CMS.
+        </p>
+
+        <iframe
+          src="./comments.html"
+          style="width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:14px;background:#0B1220"
+        ></iframe>
+      </div>
+    `;
+  }
+}
     // Called from content-section cards — navigates directly to the right editor + tab
     function openEditor(section, file) {
       ['content','pages','media','json','gallery'].forEach(s => {
