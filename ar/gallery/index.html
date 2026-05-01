@@ -456,189 +456,93 @@
 
   
 <div id="o2f-chatbot" class="o2f-chatbot" data-lang="ar">
-  <button id="o2f-chat-toggle" class="o2f-chat-toggle" type="button" aria-label="افتح المساعد الذكي">
-    <span class="o2f-chat-dot"></span>
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
-      <path d="M8 10h8M8 14h5"/>
-    </svg>
-  </button>
-
-  <section id="o2f-chat-panel" class="o2f-chat-panel" aria-live="polite" aria-label="مساعد O2F الذكي">
-    <header class="o2f-chat-head">
-      <div>
-        <strong>مساعد O2F الذكي</strong>
-        <span>مساعد مجاني يشرح الباقات، التدريب، التغذية، التعافي ومكافحة الشيخوخة</span>
-      </div>
-      <button id="o2f-chat-close" type="button" aria-label="إغلاق">×</button>
-    </header>
-
+  <button id="o2f-chat-toggle" class="o2f-chat-toggle" type="button" aria-label="افتح مساعد الباقات"><span class="o2f-chat-dot"></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8M8 14h5"/></svg></button>
+  <section id="o2f-chat-panel" class="o2f-chat-panel" aria-live="polite">
+    <header class="o2f-chat-head"><div><strong>مساعد O2F لاختيار الباقة</strong><span>يفهم هدفك ويرشح الباقة والمدة الأنسب</span></div><button id="o2f-chat-close" type="button">×</button></header>
     <div id="o2f-chat-messages" class="o2f-chat-messages"></div>
-    <div class="o2f-chat-quick" id="o2f-chat-quick"></div>
-
-    <form id="o2f-chat-form" class="o2f-chat-form">
-      <input id="o2f-chat-input" type="text" autocomplete="off" placeholder="اكتب سؤالك هنا...">
-      <button type="submit">إرسال</button>
-    </form>
+    <div id="o2f-chat-quick" class="o2f-chat-quick"></div>
+    <form id="o2f-chat-form" class="o2f-chat-form"><input id="o2f-chat-input" type="text" autocomplete="off" placeholder="مثال: عايز اخس 12 كيلو ومش بروح جيم"><button type="submit">إرسال</button></form>
   </section>
 </div>
 
 <style>
-  .o2f-chatbot, .o2f-chatbot * { box-sizing: border-box; }
-  .o2f-chatbot { position: fixed; z-index: 80; font-family: inherit; }
-  html[dir="ltr"] .o2f-chatbot { right: 1.25rem; bottom: 5.9rem; }
-  html[dir="rtl"] .o2f-chatbot { right: 1.25rem; bottom: 1.25rem; }
-  .o2f-chat-toggle { position: relative; width: 3.6rem; height: 3.6rem; border: 0; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: #07111F; background: linear-gradient(135deg, #00D9A3, #C9A84A); box-shadow: 0 20px 45px rgba(0,0,0,.35); transition: transform .2s ease, filter .2s ease; }
-  .o2f-chat-toggle:hover { transform: translateY(-2px); filter: brightness(1.05); }
-  .o2f-chat-dot { position: absolute; top: .45rem; right: .45rem; width: .65rem; height: .65rem; border-radius: 999px; background: #fff; border: 2px solid #0B1220; }
-  .o2f-chat-panel { position: absolute; bottom: 4.4rem; right: 0; width: min(400px, calc(100vw - 2rem)); max-height: min(680px, calc(100vh - 8rem)); overflow: hidden; display: none; flex-direction: column; color: #F7F8FA; background: rgba(11,18,32,.96); border: 1px solid rgba(255,255,255,.12); border-radius: 1.4rem; box-shadow: 0 28px 70px rgba(0,0,0,.48); backdrop-filter: blur(18px); }
-  .o2f-chatbot.is-open .o2f-chat-panel { display: flex; }
-  .o2f-chat-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1rem 1rem .85rem; border-bottom: 1px solid rgba(255,255,255,.1); background: radial-gradient(circle at top right, rgba(0,217,163,.18), transparent 48%); }
-  .o2f-chat-head strong { display: block; font-size: 1rem; line-height: 1.3; }
-  .o2f-chat-head span { display: block; margin-top: .25rem; font-size: .75rem; line-height: 1.45; color: rgba(247,248,250,.62); }
-  .o2f-chat-head button { width: 2rem; height: 2rem; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; color: rgba(247,248,250,.8); background: rgba(255,255,255,.06); cursor: pointer; font-size: 1.25rem; line-height: 1; }
-  .o2f-chat-messages { padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: .7rem; min-height: 300px; }
-  .o2f-msg { display: flex; width: 100%; animation: o2fMsgIn .18s ease-out; }
-  .o2f-msg.bot { justify-content: flex-start; }
-  .o2f-msg.user { justify-content: flex-end; }
-  .o2f-bubble { max-width: 90%; padding: .78rem .9rem; border-radius: 1rem; font-size: .86rem; line-height: 1.7; white-space: pre-line; }
-  .o2f-msg.bot .o2f-bubble { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.09); color: rgba(247,248,250,.9); border-start-start-radius: .3rem; }
-  .o2f-msg.user .o2f-bubble { background: rgba(0,217,163,.16); border: 1px solid rgba(0,217,163,.28); color: #F7F8FA; border-end-end-radius: .3rem; }
-  .o2f-typing .o2f-bubble { display: inline-flex; align-items: center; gap: .35rem; min-width: 4.4rem; }
-  .o2f-typing-dot { width: .38rem; height: .38rem; border-radius: 999px; background: rgba(247,248,250,.72); animation: o2fDot 1s infinite ease-in-out; }
-  .o2f-typing-dot:nth-child(2) { animation-delay: .15s; }
-  .o2f-typing-dot:nth-child(3) { animation-delay: .3s; }
-  .o2f-chat-quick { padding: 0 1rem .9rem; display: flex; gap: .45rem; flex-wrap: wrap; max-height: 165px; overflow-y: auto; }
-  .o2f-chip { border: 1px solid rgba(0,217,163,.28); color: #00D9A3; background: rgba(0,217,163,.08); border-radius: 999px; padding: .45rem .65rem; font-size: .74rem; cursor: pointer; transition: background .15s ease, transform .15s ease; }
-  .o2f-chip:hover { background: rgba(0,217,163,.16); transform: translateY(-1px); }
-  .o2f-chat-form { display: flex; gap: .5rem; padding: .85rem; border-top: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); }
-  .o2f-chat-form input { min-width: 0; flex: 1; border: 1px solid rgba(255,255,255,.12); border-radius: .9rem; padding: .75rem .85rem; color: #F7F8FA; background: rgba(255,255,255,.06); outline: none; }
-  .o2f-chat-form input:focus { border-color: rgba(0,217,163,.55); box-shadow: 0 0 0 3px rgba(0,217,163,.1); }
-  .o2f-chat-form button { border: 0; border-radius: .9rem; padding: .75rem .95rem; color: #07111F; background: #00D9A3; font-weight: 800; cursor: pointer; }
-  @keyframes o2fMsgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes o2fDot { 0%, 80%, 100% { transform: translateY(0); opacity: .35; } 40% { transform: translateY(-4px); opacity: 1; } }
-  @media (max-width: 640px) { html[dir="ltr"] .o2f-chatbot { right: 1rem; bottom: 5.75rem; } html[dir="rtl"] .o2f-chatbot { right: 1rem; bottom: 1rem; } .o2f-chat-panel { position: fixed; left: 1rem; right: 1rem; bottom: 5.8rem; width: auto; max-height: calc(100vh - 7rem); } }
+.o2f-chatbot,.o2f-chatbot *{box-sizing:border-box}.o2f-chatbot{position:fixed;z-index:80;font-family:inherit}html[dir="ltr"] .o2f-chatbot{right:1.25rem;bottom:5.9rem}html[dir="rtl"] .o2f-chatbot{right:1.25rem;bottom:1.25rem}.o2f-chat-toggle{position:relative;width:3.6rem;height:3.6rem;border:0;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:#07111F;background:linear-gradient(135deg,#00D9A3,#C9A84A);box-shadow:0 20px 45px rgba(0,0,0,.35);transition:.2s}.o2f-chat-toggle:hover{transform:translateY(-2px);filter:brightness(1.05)}.o2f-chat-dot{position:absolute;top:.45rem;right:.45rem;width:.65rem;height:.65rem;border-radius:999px;background:#fff;border:2px solid #0B1220}.o2f-chat-panel{position:absolute;bottom:4.4rem;right:0;width:min(410px,calc(100vw - 2rem));max-height:min(700px,calc(100vh - 8rem));overflow:hidden;display:none;flex-direction:column;color:#F7F8FA;background:rgba(11,18,32,.96);border:1px solid rgba(255,255,255,.12);border-radius:1.4rem;box-shadow:0 28px 70px rgba(0,0,0,.48);backdrop-filter:blur(18px)}.o2f-chatbot.is-open .o2f-chat-panel{display:flex}.o2f-chat-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1rem;border-bottom:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at top right,rgba(0,217,163,.18),transparent 48%)}.o2f-chat-head strong{display:block;font-size:1rem}.o2f-chat-head span{display:block;margin-top:.25rem;font-size:.75rem;line-height:1.45;color:rgba(247,248,250,.62)}.o2f-chat-head button{width:2rem;height:2rem;border:1px solid rgba(255,255,255,.12);border-radius:999px;color:rgba(247,248,250,.8);background:rgba(255,255,255,.06);cursor:pointer;font-size:1.25rem}.o2f-chat-messages{padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:.7rem;min-height:310px}.o2f-msg{display:flex;width:100%;animation:o2fMsgIn .18s ease-out}.o2f-msg.bot{justify-content:flex-start}.o2f-msg.user{justify-content:flex-end}.o2f-bubble{max-width:92%;padding:.78rem .9rem;border-radius:1rem;font-size:.86rem;line-height:1.7;white-space:pre-line}.o2f-msg.bot .o2f-bubble{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);color:rgba(247,248,250,.9);border-start-start-radius:.3rem}.o2f-msg.user .o2f-bubble{background:rgba(0,217,163,.16);border:1px solid rgba(0,217,163,.28);color:#F7F8FA;border-end-end-radius:.3rem}.o2f-typing .o2f-bubble{display:inline-flex;gap:.35rem;min-width:4.4rem}.o2f-typing-dot{width:.38rem;height:.38rem;border-radius:999px;background:rgba(247,248,250,.72);animation:o2fDot 1s infinite ease-in-out}.o2f-typing-dot:nth-child(2){animation-delay:.15s}.o2f-typing-dot:nth-child(3){animation-delay:.3s}.o2f-chat-quick{padding:0 1rem .9rem;display:flex;gap:.45rem;flex-wrap:wrap;max-height:180px;overflow-y:auto}.o2f-chip{border:1px solid rgba(0,217,163,.28);color:#00D9A3;background:rgba(0,217,163,.08);border-radius:999px;padding:.45rem .65rem;font-size:.74rem;cursor:pointer;transition:.15s}.o2f-chip:hover{background:rgba(0,217,163,.16);transform:translateY(-1px)}.o2f-chat-form{display:flex;gap:.5rem;padding:.85rem;border-top:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}.o2f-chat-form input{min-width:0;flex:1;border:1px solid rgba(255,255,255,.12);border-radius:.9rem;padding:.75rem .85rem;color:#F7F8FA;background:rgba(255,255,255,.06);outline:none}.o2f-chat-form button{border:0;border-radius:.9rem;padding:.75rem .95rem;color:#07111F;background:#00D9A3;font-weight:800;cursor:pointer}@keyframes o2fMsgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}@keyframes o2fDot{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-4px);opacity:1}}@media(max-width:640px){html[dir="ltr"] .o2f-chatbot{right:1rem;bottom:5.75rem}html[dir="rtl"] .o2f-chatbot{right:1rem;bottom:1rem}.o2f-chat-panel{position:fixed;left:1rem;right:1rem;bottom:5.8rem;width:auto;max-height:calc(100vh - 7rem)}}
 </style>
 
 <script>
-(function () {
-  var root = document.getElementById('o2f-chatbot');
-  if (!root) return;
-  var lang = root.getAttribute('data-lang') === 'ar' ? 'ar' : 'en';
-  var isAr = lang === 'ar';
-  var whatsappNumber = '201279777609';
-  var elToggle = document.getElementById('o2f-chat-toggle');
-  var elClose = document.getElementById('o2f-chat-close');
-  var elMessages = document.getElementById('o2f-chat-messages');
-  var elQuick = document.getElementById('o2f-chat-quick');
-  var elForm = document.getElementById('o2f-chat-form');
-  var elInput = document.getElementById('o2f-chat-input');
-  var botBusy = false;
-  var leadMode = false;
-
-  var i18n = isAr ? {
-    hello: 'أهلًا 👋 أنا مساعد O2F الذكي. اسألني عن الباقات، الأسعار، التغذية، التدريب، خسارة الوزن، زيادة العضلات، التعافي، مكافحة الشيخوخة أو الميثيلين بلو. سأشرح لك هنا مباشرة بدون ما أوديك لصفحات خارجية.',
-    fallback: 'سؤالك محتاج تفاصيل أكتر. ممكن تسألني عن: الباقات، التغذية، التدريب، خسارة الوزن، زيادة العضلات، المكملات، النوم، التعافي، مكافحة الشيخوخة، أو الميثيلين بلو.',
-    safety: 'تنبيه مهم: الكلام هنا للتثقيف والتوجيه العام فقط. لا أقدّم تشخيصًا أو وصفة علاجية، وأي حالة صحية أو استخدام مواد متقدمة يحتاج تقييم مختص.',
-    leadPrompt: 'حاضر. اكتب لي: الهدف + العمر + الوزن + الطول + هل تتمرن؟ + أي إصابة أو حالة صحية مهمة. سأحوّلها لرسالة واتساب مرتبة.',
-    waMessage: 'مرحبا كابتن أسامة، أريد الاستفسار عن خدمات O2F. هذه تفاصيل مبدئية: ',
-    quick: ['الباقات','الأسعار','خسارة وزن','زيادة عضل','التغذية','التدريب','مكافحة الشيخوخة','الميثيلين بلو','رشح لي باقة']
-  } : {
-    hello: 'Hi 👋 I am the O2F smart assistant. Ask me about plans, pricing, nutrition, training, weight loss, muscle gain, recovery, anti-aging, or methylene blue. I will summarize the important info here instead of sending you away.',
-    fallback: 'I need a little more detail. You can ask about plans, nutrition, training, weight loss, muscle gain, supplements, sleep, recovery, anti-aging, or methylene blue.',
-    safety: 'Important note: this is general educational guidance only. I do not provide diagnosis, prescriptions, or emergency medical advice.',
-    leadPrompt: 'Sure. Type your goal + age + weight + height + training status + any injury or health note. I will turn it into a clean WhatsApp message.',
-    waMessage: 'Hi Coach Osama, I would like to ask about O2F services. My initial details: ',
-    quick: ['Plans','Pricing','Weight loss','Muscle gain','Nutrition','Training','Anti-aging','Methylene blue','Recommend a plan']
+(function(){
+  var root=document.getElementById('o2f-chatbot'); if(!root)return;
+  var lang=root.getAttribute('data-lang')==='ar'?'ar':'en', isAr=lang==='ar';
+  var whatsappNumber='201279777609';
+  var elToggle=document.getElementById('o2f-chat-toggle'), elClose=document.getElementById('o2f-chat-close'), elMessages=document.getElementById('o2f-chat-messages'), elQuick=document.getElementById('o2f-chat-quick'), elForm=document.getElementById('o2f-chat-form'), elInput=document.getElementById('o2f-chat-input');
+  var busy=false, leadDraft='', lastInsight=null;
+  var T=isAr?{
+    hello:'أهلًا 👋 أنا مش مجرد FAQ. احكيلي هدفك بصيغة طبيعية، مثلًا: “عايز أخس 10 كيلو ومش فاضي غير 3 أيام” أو “عايز أزيد عضل”. هحلل كلامك وأرشح لك الباقة والمدة الأنسب.',
+    ask:'احكيلي هدفك الحالي: تخس؟ تزيد عضل؟ طاقة وصحة؟ مكافحة شيخوخة؟ مع السن/الوزن/الطول لو متاح.',
+    fallback:'محتاج تفاصيل أكتر عشان أرشح صح. اكتب هدفك + هل تتمرن + المدة اللي عايز تشوف فيها نتيجة.',
+    safety:'تنبيه: لو عندك مرض، إصابة، أدوية، أو تفكر في الميثيلين بلو، لازم تقييم متخصص. الشات للتوجيه العام وليس وصف علاج.',
+    wa:'مرحبا كابتن أسامة، أريد ترشيح الباقة المناسبة. هذه بياناتي: ',
+    quick:['رشح لي باقة','عايز أخس','عايز أزيد عضل','مكافحة الشيخوخة','الأسعار والعروض','المتابعة','الميثيلين بلو']
+  }:{
+    hello:'Hi 👋 I am not just an FAQ. Tell me your goal naturally, for example: “I want to lose 10 kg and can train 3 days” or “I want to build muscle”. I will analyze it and recommend the best plan and duration.',
+    ask:'Tell me your goal: fat loss, muscle gain, energy, health, or anti-aging. Add age/weight/height if available.',
+    fallback:'I need more detail to recommend properly. Type your goal + training status + how fast you want results.',
+    safety:'Note: if you have a condition, injury, medication, or you are considering methylene blue, you need professional assessment. This chat is general guidance only.',
+    wa:'Hi Coach Osama, I want a plan recommendation. My details: ',
+    quick:['Recommend a plan','I want fat loss','I want muscle gain','Anti-aging','Pricing & offers','Follow-up','Methylene blue']
   };
 
-  var topics = [
-    { id:'plans', k:['plans','plan','package','program','باقة','باقات','برنامج','خطة'], ar:'الباقات عند O2F مبنية على الهدف مش مجرد اسم باقة. الفكرة إن الخطة تتقسم إلى: هدف واضح، تغذية مناسبة، تدريب قابل للتدرج، متابعة وتعديل حسب الاستجابة.\n\nالاختيار يعتمد على: هل هدفك خسارة وزن؟ زيادة عضل؟ تحسين صحة؟ متابعة علاجية؟ أو مكافحة شيخوخة وطاقة؟\n\nلو مش عارف تبدأ منين، اختار “رشح لي باقة” واكتب بياناتك الأساسية.', en:'O2F plans are goal-based, not just fixed packages. A good plan combines a clear goal, suitable nutrition, progressive training, and follow-up adjustments.\n\nThe right choice depends on whether you want fat loss, muscle gain, health improvement, therapeutic-style guidance, or anti-aging and energy support.\n\nIf you are unsure, choose “Recommend a plan” and send your basic details.', q:['pricing','weight','muscle','lead'] },
-    { id:'pricing', k:['price','cost','pricing','fees','سعر','اسعار','كام','تكلفة','اشتراك'], ar:'الأسعار تظهر تلقائيًا حسب مكان الزائر: مصر بالجنيه، الخليج بالريال، وباقي الدول بالدولار.\n\nفكرة التسعير مش بس رقم؛ المدة مهمة. شهر واحد مناسب للتجربة، 3 شهور أفضل للتغيير الواضح، و6 شهور مناسب للتحول الأقوى والاستمرارية. غالبًا المدة الأطول تجعل السعر الشهري أفضل.', en:'Prices are shown automatically by visitor location: Egypt in EGP, Gulf countries in SAR, and other countries in USD.\n\nPricing is not only a number; duration matters. One month is good for trying, 3 months is better for visible change, and 6 months works best for deeper transformation and consistency.', q:['plans','followup','lead'] },
-    { id:'weight', k:['weight loss','fat loss','diet','cutting','lose weight','تخسيس','خسارة وزن','نزول وزن','دايت','حرق دهون','تنشيف'], ar:'خسارة الوزن الصح مش تجويع. الخطة الجيدة تعمل عجز سعرات مناسب، تحافظ على البروتين، تزود الحركة، وتتابع القياسات والطاقة والنوم.\n\nالمهم: الميزان وحده مش كفاية. نتابع شكل الجسم، المقاسات، الأداء، الالتزام، والجوع. لو الوزن نزل بسرعة جدًا ممكن تخسر عضل وطاقة؛ ولو بطيء جدًا نراجع السعرات والحركة.', en:'Healthy weight loss is not starvation. A good plan creates a suitable calorie deficit, keeps protein high enough, increases movement, and tracks measurements, energy, and sleep.\n\nThe scale alone is not enough. We track body shape, waist, performance, adherence, and hunger. Too fast may cost muscle and energy; too slow means calories and activity need review.', q:['nutrition','training','recovery','lead'] },
-    { id:'muscle', k:['muscle','bulk','hypertrophy','strength','عضل','زيادة عضل','ضخامة','قوة'], ar:'زيادة العضلات تحتاج 4 عناصر: تدريب مقاومة بتدرج، بروتين كافي، سعرات مناسبة، ونوم جيد.\n\nمش لازم تضخم بأكل عشوائي. الأفضل زيادة محسوبة عشان تكسب عضل بأقل دهون ممكن. نتابع الأداء في التمارين، الوزن، المقاسات، وشكل الجسم.', en:'Muscle gain needs four things: progressive resistance training, enough protein, suitable calories, and good sleep.\n\nYou do not need a random dirty bulk. A controlled surplus helps build muscle while limiting unnecessary fat gain. We track exercise performance, weight, measurements, and body shape.', q:['protein','training','nutrition','lead'] },
-    { id:'nutrition', k:['nutrition','food','meal','protein','calories','fiber','تغذية','اكل','وجبات','بروتين','سعرات','ألياف','الياف'], ar:'التغذية الذكية معناها خطة قابلة للالتزام. نضبط البروتين لحماية العضلات، الكارب للطاقة، الدهون للهرمونات والشبع، والألياف للهضم والشبع.\n\nالخطة الجيدة تراعي أكلك المفضل، مواعيدك، ميزانيتك، وطبيعة يومك. مش مطلوب مثالية؛ المطلوب التزام واقعي.', en:'Smart nutrition means a plan you can actually follow. Protein supports muscle, carbs support training energy, fats help hormones and satiety, and fiber supports digestion and fullness.\n\nA good plan respects your favorite foods, schedule, budget, and lifestyle. Perfection is not required; realistic consistency is.', q:['protein','weight','muscle','meal_timing'] },
-    { id:'protein', k:['protein','بروتين'], ar:'البروتين مهم للحفاظ على العضلات، الشبع، والتعافي. مصادره ممكن تكون: بيض، فراخ، لحوم، سمك، زبادي يوناني، جبن قريش، بقوليات، أو مكمل بروتين عند الحاجة.\n\nالكمية تختلف حسب الوزن والهدف والتدريب، لذلك الأفضل تتحدد داخل الخطة بدل رقم عام لكل الناس.', en:'Protein supports muscle, satiety, and recovery. Sources include eggs, chicken, meat, fish, Greek yogurt, cottage cheese, legumes, or protein powder when needed.\n\nThe amount depends on body weight, goal, and training, so it should be personalized rather than one fixed number for everyone.', q:['nutrition','muscle','recovery'] },
-    { id:'training', k:['training','workout','exercise','gym','تمرين','تدريب','جيم','تمارين','رياضة'], ar:'التدريب الجيد لازم يكون بسيط وواضح وقابل للتدرج. نحدد عدد أيام التمرين، مستوى الشخص، المعدات المتاحة، والإصابات إن وجدت.\n\nلخسارة الوزن: مقاومة + حركة يومية. لزيادة العضل: مقاومة بتدرج وحمل مناسب. للصحة العامة: قوة + كارديو + مرونة.', en:'Good training should be simple, clear, and progressive. We define training days, level, available equipment, and injuries if any.\n\nFor fat loss: resistance training plus daily movement. For muscle gain: progressive resistance work. For general health: strength, cardio, and mobility.', q:['weight','muscle','cardio','recovery'] },
-    { id:'cardio', k:['cardio','walking','steps','aerobic','كارديو','مشي','خطوات'], ar:'الكارديو مش عقاب بعد الأكل. هو أداة لتحسين القلب، التنفس، حرق السعرات، والمزاج. المشي اليومي غالبًا أفضل بداية لأنه سهل ومستمر.\n\nنختار الشدة حسب الهدف: مشي خفيف للالتزام، كارديو متوسط للقلب، وتمارين أعلى شدة فقط لو مناسبة لمستواك.', en:'Cardio is not punishment for eating. It supports heart health, breathing, calorie expenditure, and mood. Daily walking is often the best start because it is easy to sustain.\n\nIntensity depends on the goal: easy walking for consistency, moderate cardio for fitness, and higher intensity only when suitable.', q:['training','weight','recovery'] },
-    { id:'recovery', k:['recovery','sleep','stress','rest','تعافي','نوم','راحة','توتر','استشفاء'], ar:'التعافي هو الجزء اللي بيحوّل التمرين لنتيجة. لو النوم ضعيف والتوتر عالي، الجسم يستجيب أبطأ.\n\nنركز على: مواعيد نوم ثابتة، ضوء صباح، تقليل شاشة قبل النوم، يوم راحة عند الحاجة، وشدة تمرين مناسبة. أحيانًا تقليل التمرين يحسن النتيجة.', en:'Recovery turns training into results. If sleep is poor and stress is high, the body responds more slowly.\n\nFocus on consistent sleep timing, morning light, less screen time before bed, rest days when needed, and suitable training intensity. Sometimes doing less improves progress.', q:['training','nutrition','anti_aging'] },
-    { id:'anti_aging', k:['anti aging','anti-aging','longevity','aging','mitochondria','مكافحة الشيخوخة','شيخوخة','طول العمر','ميتوكوندريا','صحة الخلايا'], ar:'مكافحة الشيخوخة مش منتج واحد. هي نظام يدعم الطاقة، العضلات، النوم، الأيض، الالتهاب، التعافي، وصحة الخلايا.\n\nالأساس: تمارين قوة، مشي، بروتين كافي، خضار وألياف، نوم جيد، تقليل توتر، ومتابعة مؤشرات الجسم. بعد الأساس ممكن نفكر في أدوات متقدمة بحذر.', en:'Anti-aging is not one product. It is a system supporting energy, muscle, sleep, metabolism, inflammation balance, recovery, and cellular health.\n\nThe foundation: strength training, walking, enough protein, vegetables and fiber, good sleep, stress control, and tracking body markers. Advanced tools come later and should be approached carefully.', q:['methylene','recovery','nutrition','training'] },
-    { id:'methylene', k:['methylene blue','methyl blue','methylene','blue','الميثيلين بلو','ميثيلين بلو','ازرق','الأزرق'], ar:'الميثيلين بلو موضوع متقدم في نقاشات طاقة الخلايا والميتوكوندريا. البعض يهتم به لأنه قد يرتبط بمسارات إنتاج الطاقة، لكنه ليس مكملًا عاديًا.\n\nمهم جدًا: قد يتداخل مع أدوية معينة خصوصًا أدوية تؤثر على السيروتونين، وقد لا يناسب حالات صحية محددة. لا يتم استخدامه عشوائيًا أو من منتج غير موثوق.', en:'Methylene blue is an advanced topic in cellular energy and mitochondrial discussions. Some people are interested because it may relate to energy-production pathways, but it is not a casual supplement.\n\nVery important: it may interact with certain medications, especially serotonin-related drugs, and may not suit specific health conditions. It should not be used randomly or from unreliable products.', q:['anti_aging','safety','lead'] },
-    { id:'supplements', k:['supplement','supplements','creatine','omega','vitamin','مكمل','مكملات','كرياتين','اوميجا','فيتامين'], ar:'المكملات تأتي بعد الأساس. الأكثر شيوعًا في المجال: بروتين عند نقص البروتين من الأكل، كرياتين للأداء والقوة، أوميجا 3 عند الحاجة، وفيتامينات فقط عند وجود نقص أو احتياج واضح.\n\nالمكمل لا يعوض نوم سيئ أو أكل عشوائي أو تمرين غير منتظم.', en:'Supplements come after the basics. Common examples: protein powder when food protein is low, creatine for performance and strength, omega-3 when needed, and vitamins only when there is a clear need or deficiency.\n\nA supplement cannot replace poor sleep, random eating, or inconsistent training.', q:['nutrition','protein','training','safety'] },
-    { id:'followup', k:['follow','support','whatsapp','متابعة','واتساب','دعم','تحديث'], ar:'المتابعة هي اللي تمنع الخطة من إنها تبقى ورقة وخلاص. نراجع الوزن، المقاسات، الجوع، الطاقة، الالتزام، النوم، والأداء.\n\nلو في ثبات، نعرف هل المشكلة في السعرات، الحركة، النوم، التوتر، أو الالتزام. بعدها التعديل يكون ذكي بدل تغيير عشوائي.', en:'Follow-up prevents the plan from becoming just a document. We review weight, measurements, hunger, energy, adherence, sleep, and performance.\n\nIf progress stalls, we check calories, activity, sleep, stress, or adherence, then adjust intelligently instead of guessing.', q:['plans','pricing','lead'] },
-    { id:'safety', k:['medical','injury','pain','diabetes','pressure','doctor','اصابة','الم','ألم','سكر','ضغط','مرض','طبيب','علاج'], ar:'لو عندك إصابة أو حالة صحية، نحتاج تفاصيل قبل أي ترشيح: التشخيص إن وجد، الأدوية، الممنوعات، مستوى الألم، والهدف.\n\nالشات لا يشخص ولا يصف علاج. دوره يوجّهك ويجهز أسئلة مهمة قبل التواصل مع المختص.', en:'If you have an injury or health condition, we need details before recommending anything: diagnosis if available, medications, restrictions, pain level, and goal.\n\nThis chat does not diagnose or prescribe. It helps organize the right questions before speaking with a professional.', q:['lead','training','nutrition'] },
-    { id:'lead', k:['recommend','help me','start','book','join','رشح','ابدأ','حجز','اشترك','استشارة','عايز ابدا'], ar:'أقدر أرشح لك الاتجاه المناسب. اكتب: هدفك، عمرك، وزنك، طولك، هل تتمرن؟ عدد أيامك المتاحة، وأي إصابة أو حالة صحية. بعدها أجهز لك رسالة واتساب منظمة.', en:'I can guide you toward the right direction. Type your goal, age, weight, height, training status, available days, and any injury or health condition. Then I will prepare a clean WhatsApp message.', q:['whatsapp','plans','pricing'] }
-  ];
+  var plans=isAr?{
+    basic:{name:'الباقة الأساسية', fit:'مناسبة كبداية لشخص هدفه بسيط أو يريد تنظيم الأكل والتمرين بدون متابعة مكثفة.', result:'نتائجها المتوقعة: تنظيم عادات، بداية نزول وزن أو تحسين أداء، وفهم أوضح للأكل والتمرين.', months:'شهر واحد مناسب للتجربة، لكن 3 شهور أفضل لو الهدف خسارة وزن واضحة.'},
+    standard:{name:'باقة التحول والمتابعة', fit:'أنسب اختيار لمعظم العملاء: خسارة وزن، شد جسم، زيادة عضل تدريجية، أو الالتزام الحقيقي.', result:'نتائجها المتوقعة: تغيير أوضح في المقاسات، التزام أعلى، تعديل أسبوعي، ومتابعة تساعدك تكمل.', months:'أرشح 3 شهور كحد أدنى. لو الهدف أكبر من 8–10 كيلو أو تغيير شكل الجسم بوضوح، 6 شهور أذكى.'},
+    advanced:{name:'الباقة المتقدمة / الشاملة', fit:'مناسبة لو الهدف كبير، عندك ثبات سابق، تحتاج متابعة دقيقة، أو تريد خطة صحة وطاقة ومكافحة شيخوخة بجانب الجسم.', result:'نتائجها المتوقعة: خطة أعمق، متابعة أدق، تحسين طاقة وتعافي وعادات، وتدرج أقوى في التدريب والتغذية.', months:'6 شهور هي الأفضل هنا لأن التغيير العميق في الصحة والجسم يحتاج وقت ومراجعة.'}
+  }:{
+    basic:{name:'Basic Plan', fit:'Best as a starting point for a simple goal or someone who needs structure without intensive follow-up.', result:'Expected results: better habits, early fat-loss or performance progress, and clearer nutrition/training structure.', months:'One month is fine for testing, but 3 months is better for visible fat-loss progress.'},
+    standard:{name:'Transformation & Follow-up Plan', fit:'Best for most clients: fat loss, body recomposition, steady muscle gain, and real accountability.', result:'Expected results: clearer measurement changes, better adherence, weekly adjustment, and stronger consistency.', months:'I recommend at least 3 months. If the goal is more than 8–10 kg or a visible body-shape change, 6 months is smarter.'},
+    advanced:{name:'Advanced / Complete Plan', fit:'Best for big goals, previous plateaus, detailed follow-up, or health, energy and anti-aging support alongside body goals.', result:'Expected results: deeper planning, closer follow-up, better energy/recovery habits, and stronger nutrition/training progression.', months:'6 months is best here because deep health and body transformation needs time and review.'}
+  };
 
-  var quickMap = isAr ? { plans:'الباقات', pricing:'الأسعار', weight:'خسارة وزن', muscle:'زيادة عضل', nutrition:'التغذية', protein:'البروتين', training:'التدريب', cardio:'الكارديو', recovery:'النوم والتعافي', anti_aging:'مكافحة الشيخوخة', methylene:'الميثيلين بلو', supplements:'المكملات', followup:'المتابعة', safety:'حالة صحية', lead:'رشح لي باقة', whatsapp:'واتساب', restart:'البداية' } : { plans:'Plans', pricing:'Pricing', weight:'Weight loss', muscle:'Muscle gain', nutrition:'Nutrition', protein:'Protein', training:'Training', cardio:'Cardio', recovery:'Sleep & recovery', anti_aging:'Anti-aging', methylene:'Methylene blue', supplements:'Supplements', followup:'Follow-up', safety:'Health condition', lead:'Recommend a plan', whatsapp:'WhatsApp', restart:'Start' };
-
-  function normalize(text) { return String(text || '').toLowerCase().replace(/[أإآا]/g,'ا').replace(/[ى]/g,'ي').replace(/[ة]/g,'ه').replace(/[ًٌٍَُِّْ]/g,'').trim(); }
-  function scrollDown() { elMessages.scrollTop = elMessages.scrollHeight; }
-  function addUser(text) { addMessage('user', text, false); }
-
-  function addMessage(type, text, animate, done) {
-    var row = document.createElement('div'); row.className = 'o2f-msg ' + type;
-    var bubble = document.createElement('div'); bubble.className = 'o2f-bubble'; row.appendChild(bubble); elMessages.appendChild(row); scrollDown();
-    if (!animate) { bubble.textContent = text; scrollDown(); if (done) done(); return; }
-    typeWords(bubble, text, done);
+  function n(s){return String(s||'').toLowerCase().replace(/[أإآا]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ًٌٍَُِّْ]/g,'')}
+  function score(text,arr){text=n(text);var v=0;arr.forEach(function(k){k=n(k); if(text.indexOf(k)>-1)v+=1});return v}
+  function extractKg(text){var m=String(text).match(/(\d+)\s*(kg|كيلو|kilo|pound|lb)?/i);return m?parseInt(m[1],10):0}
+  function analyze(text){
+    var t=n(text), kg=extractKg(text), s={fat:0,muscle:0,aging:0,medical:0,beginner:0,busy:0,serious:0,home:0,gym:0,fast:0};
+    s.fat+=score(t,['اخس','تخسيس','وزن','دهون','كرش','تنشيف','fat','weight loss','lose','cut']);
+    s.muscle+=score(t,['عضل','ضخامه','قوه','bulk','muscle','gain','strength']);
+    s.aging+=score(t,['شيخوخه','طاقه','خمول','نوم','تعافي','ميتوكوندريا','anti aging','longevity','energy','methylene','blue']);
+    s.medical+=score(t,['اصابه','الم','مرض','سكر','ضغط','ادويه','دواء','injury','pain','medical','diabetes','pressure']);
+    s.beginner+=score(t,['مبتدئ','اول مره','مش بتمرن','beginner','new']);
+    s.busy+=score(t,['مش فاضي','وقت قليل','مشغول','busy','no time']);
+    s.home+=score(t,['بيت','من البيت','home']); s.gym+=score(t,['جيم','gym']);
+    s.fast+=score(t,['سريع','فرح','مناسبه','شهر','fast','quick','wedding']);
+    if(kg>=8)s.serious+=2; if(kg>=15)s.serious+=3;
+    var primary='health'; if(s.fat>=s.muscle&&s.fat>=s.aging&&s.fat>0)primary='fat'; if(s.muscle>s.fat&&s.muscle>=s.aging)primary='muscle'; if(s.aging>s.fat&&s.aging>s.muscle)primary='aging';
+    var plan='standard'; if(s.aging>=2||s.medical>=1||s.serious>=3)plan='advanced'; else if(s.beginner>=1&&s.serious===0&&s.fast===0)plan='basic'; else plan='standard';
+    var months='3 شهور'; if(!isAr)months='3 months'; if(plan==='advanced'||s.serious>=3||(primary==='fat'&&kg>=10)){months=isAr?'6 شهور':'6 months'} if(plan==='basic'&&s.serious===0){months=isAr?'شهر للتجربة أو 3 شهور لنتيجة أوضح':'1 month to test or 3 months for clearer results'}
+    return {primary:primary, plan:plan, months:months, kg:kg, s:s, raw:text};
   }
-
-  function showTyping() {
-    var row = document.createElement('div'); row.className = 'o2f-msg bot o2f-typing'; row.setAttribute('data-typing','1');
-    var bubble = document.createElement('div'); bubble.className = 'o2f-bubble';
-    bubble.innerHTML = '<span class="o2f-typing-dot"></span><span class="o2f-typing-dot"></span><span class="o2f-typing-dot"></span>';
-    row.appendChild(bubble); elMessages.appendChild(row); scrollDown(); return row;
+  function recommendation(ins){
+    var p=plans[ins.plan]; var goal=isAr?{fat:'خسارة وزن/دهون',muscle:'زيادة عضل وقوة',aging:'طاقة ومكافحة شيخوخة',health:'تحسين صحة ولياقة'}[ins.primary]:{fat:'fat loss',muscle:'muscle gain and strength',aging:'energy and anti-aging',health:'health and fitness improvement'}[ins.primary];
+    lastInsight=ins; leadDraft=ins.raw;
+    if(isAr){return 'تحليلي لكلامك: هدفك الأقرب هو: '+goal+'.\n\nترشيحي: '+p.name+'.\nليه؟ '+p.fit+'\n\nالنتائج المتوقعة: '+p.result+'\n\nالمدة الأنسب: '+ins.months+'. '+p.months+'\n\nتسويقيًا، لو جاد في النتيجة: 3 شهور أفضل من شهر لأن الجسم يحتاج وقت للتكيف. ولو الهدف كبير أو فيه ثبات/إرهاق/صحة عامة، 6 شهور أوفر وأقوى على المدى الحقيقي.\n\n'+(ins.s.medical?'وبما إنك ذكرت إصابة/حالة صحية، لازم التقييم يكون أدق قبل أي خطة. ':'')+'تحب أجهز لك رسالة واتساب بالبيانات دي؟'}
+    return 'My analysis: your likely goal is '+goal+'.\n\nRecommendation: '+p.name+'.\nWhy? '+p.fit+'\n\nExpected results: '+p.result+'\n\nBest duration: '+ins.months+'. '+p.months+'\n\nSales-wise, if you are serious: 3 months is better than 1 month because the body needs time to adapt. If the goal is bigger, or there is plateau/fatigue/health focus, 6 months is stronger and usually better value.\n\n'+(ins.s.medical?'Since you mentioned a health/injury note, assessment should be more careful before any plan. ':'')+'Would you like me to prepare a WhatsApp message with these details?';
   }
-
-  function typeWords(el, text, done) {
-    var words = String(text).split(/(\s+)/); var i = 0; el.textContent = '';
-    var speed = text.length > 420 ? 18 : 26;
-    var timer = setInterval(function () { el.textContent += words[i] || ''; i++; scrollDown(); if (i >= words.length) { clearInterval(timer); if (done) done(); } }, speed);
-  }
-
-  function botSay(text, quickIds) {
-    if (botBusy) return;
-    botBusy = true; elQuick.innerHTML = '';
-    var typing = showTyping();
-    var delay = Math.min(1900, Math.max(850, text.length * 4));
-    setTimeout(function () { typing.remove(); addMessage('bot', text, true, function () { botBusy = false; renderQuick(quickIds || ['plans','pricing','nutrition','training','lead']); }); }, delay);
-  }
-
-  function topicById(id) { return topics.find(function(t){ return t.id === id; }); }
-  function findTopic(text) {
-    var clean = normalize(text), best = null, bestScore = 0;
-    topics.forEach(function(t){ var score = 0; t.k.forEach(function(kw){ var k = normalize(kw); if (clean === k) score += 10; else if (clean.indexOf(k) !== -1) score += Math.min(7, Math.max(2, k.length / 3)); }); if (score > bestScore) { bestScore = score; best = t; } });
-    return bestScore >= 2 ? best : null;
-  }
-
-  function answer(id) {
-    if (id === 'restart') return resetChat();
-    if (id === 'whatsapp') return openWhatsApp();
-    var topic = topicById(id);
-    if (!topic) return botSay(i18n.fallback, ['plans','pricing','nutrition','training','lead']);
-    if (id === 'lead') leadMode = true;
-    var txt = topic[lang];
-    if (id === 'methylene' || id === 'safety') txt += '\n\n' + i18n.safety;
-    botSay(txt, topic.q || ['plans','pricing','lead','whatsapp']);
-  }
-
-  function renderQuick(ids) {
-    elQuick.innerHTML = '';
-    ids.forEach(function(id){ var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'o2f-chip'; btn.textContent = quickMap[id] || id; btn.addEventListener('click', function(){ if (botBusy) return; addUser(btn.textContent); answer(id); }); elQuick.appendChild(btn); });
-  }
-
-  function openWhatsApp(extra) {
-    var text = extra || i18n.waMessage;
-    if (elInput && elInput.value.trim()) text += elInput.value.trim();
-    window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
-  }
-
-  function resetChat() { leadMode = false; elMessages.innerHTML = ''; botSay(i18n.hello, ['plans','pricing','weight','muscle','nutrition','training','anti_aging','methylene','lead']); }
-
-  elToggle.addEventListener('click', function(){ root.classList.toggle('is-open'); if (root.classList.contains('is-open') && !elMessages.children.length) resetChat(); });
-  elClose.addEventListener('click', function(){ root.classList.remove('is-open'); });
-  elForm.addEventListener('submit', function(e){ e.preventDefault(); if (botBusy) return; var text = elInput.value.trim(); if (!text) return; addUser(text); elInput.value = ''; if (leadMode || text.length > 45) { leadMode = true; botSay((isAr ? 'تمام، المعلومات دي تنفع كبداية. أقدر أفتح لك واتساب برسالة مرتبة للفريق عشان يردوا عليك بخطة مناسبة.' : 'Great, these details are enough to start. I can open WhatsApp with a clean message so the team can reply with the right plan.'), ['whatsapp','plans','pricing','restart']); return; } var topic = findTopic(text); topic ? answer(topic.id) : botSay(i18n.fallback, ['plans','pricing','nutrition','training','anti_aging','lead']); });
-  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') root.classList.remove('is-open'); });
+  var info={
+    ar:{pricing:'العروض تعتمد على المدة: شهر للتجربة، 3 شهور للتحول الواضح، و6 شهور لأفضل قيمة واستمرارية. الأسعار تظهر تلقائيًا حسب بلد الزائر: مصر بالجنيه، الخليج بالريال، وباقي العالم بالدولار.',follow:'المتابعة ليست مجرد سؤال: بنراجع الوزن، المقاسات، الالتزام، الجوع، الطاقة، النوم، الأداء، ونعدّل الخطة بناءً على الواقع.',blue:'الميثيلين بلو موضوع متقدم مرتبط بطاقة الخلايا والميتوكوندريا، لكنه ليس مكملًا عاديًا. قد يتداخل مع أدوية خصوصًا أدوية السيروتونين، لذلك لا يُستخدم عشوائيًا.',aging:'مكافحة الشيخوخة هنا تعني: عضلات أقوى، نوم أفضل، طاقة أعلى، أكل مضاد للالتهاب قدر الإمكان، حركة يومية، وتعافي ذكي. الأدوات المتقدمة تأتي بعد الأساس.'},
+    en:{pricing:'Offers depend on duration: 1 month to test, 3 months for visible transformation, and 6 months for best value and consistency. Prices auto-display by visitor country.',follow:'Follow-up is not just checking in. We review weight, measurements, adherence, hunger, energy, sleep, performance, and adjust based on reality.',blue:'Methylene blue is an advanced cellular-energy topic, not a casual supplement. It may interact with medications, especially serotonin-related drugs, so it should not be used randomly.',aging:'Anti-aging here means stronger muscle, better sleep, higher energy, smarter nutrition, daily movement, and better recovery. Advanced tools come after the foundation.'}
+  }[lang];
+  function scroll(){elMessages.scrollTop=elMessages.scrollHeight}
+  function add(type,text,anim,done){var r=document.createElement('div');r.className='o2f-msg '+type;var b=document.createElement('div');b.className='o2f-bubble';r.appendChild(b);elMessages.appendChild(r);scroll();if(!anim){b.textContent=text;scroll();done&&done();return}var w=String(text).split(/(\s+)/),i=0,sp=text.length>520?13:22;b.textContent='';var tm=setInterval(function(){b.textContent+=w[i]||'';i++;scroll();if(i>=w.length){clearInterval(tm);done&&done()}},sp)}
+  function typing(){var r=document.createElement('div');r.className='o2f-msg bot o2f-typing';var b=document.createElement('div');b.className='o2f-bubble';b.innerHTML='<span class="o2f-typing-dot"></span><span class="o2f-typing-dot"></span><span class="o2f-typing-dot"></span>';r.appendChild(b);elMessages.appendChild(r);scroll();return r}
+  function bot(text,qs){if(busy)return;busy=true;elQuick.innerHTML='';var t=typing();setTimeout(function(){t.remove();add('bot',text,true,function(){busy=false;quick(qs||['recommend','pricing','follow','aging','blue'])})},Math.min(1800,Math.max(900,text.length*3)))}
+  function user(text){add('user',text,false)}
+  function quick(ids){var map=isAr?{recommend:'رشح لي باقة',pricing:'الأسعار والعروض',follow:'المتابعة',aging:'مكافحة الشيخوخة',blue:'الميثيلين بلو',whatsapp:'واتساب',restart:'ابدأ من جديد'}:{recommend:'Recommend a plan',pricing:'Pricing & offers',follow:'Follow-up',aging:'Anti-aging',blue:'Methylene blue',whatsapp:'WhatsApp',restart:'Start again'};elQuick.innerHTML='';ids.forEach(function(id){var btn=document.createElement('button');btn.type='button';btn.className='o2f-chip';btn.textContent=map[id]||id;btn.onclick=function(){if(busy)return;user(btn.textContent);handle(id,true)};elQuick.appendChild(btn)})}
+  function openWa(){var txt=T.wa+(lastInsight?recommendation(lastInsight).replace(/\n+/g,' | '):leadDraft||'');window.open('https://wa.me/'+whatsappNumber+'?text='+encodeURIComponent(txt),'_blank','noopener')}
+  function handle(input,isId){if(input==='restart')return reset(); if(input==='whatsapp')return openWa(); if(input==='recommend')return bot(T.ask,['pricing','follow','whatsapp']); if(input==='pricing')return bot(info.pricing,['recommend','follow','whatsapp']); if(input==='follow')return bot(info.follow,['recommend','pricing','whatsapp']); if(input==='aging')return bot(info.aging,['blue','recommend','whatsapp']); if(input==='blue')return bot(info.blue+'\n\n'+T.safety,['aging','recommend','whatsapp']); var text=String(input); if(score(text,['سعر','اسعار','عرض','خصم','price','pricing','cost','offer']))return bot(info.pricing,['recommend','follow','whatsapp']); if(score(text,['متابعه','متابعة','support','follow']))return bot(info.follow,['recommend','pricing','whatsapp']); if(score(text,['ميثيلين','methylene','blue']))return bot(info.blue+'\n\n'+T.safety,['aging','recommend','whatsapp']); if(score(text,['شيخوخه','anti','aging','energy','طاقه']))return bot(info.aging,['blue','recommend','whatsapp']); var ins=analyze(text); if(ins.primary!=='health'||ins.kg||ins.s.beginner||ins.s.medical||text.length>18)return bot(recommendation(ins),['whatsapp','pricing','follow','restart']); return bot(T.fallback,['recommend','pricing','follow','aging'])}
+  function reset(){lastInsight=null;leadDraft='';elMessages.innerHTML='';bot(T.hello,['recommend','pricing','follow','aging','blue'])}
+  elToggle.onclick=function(){root.classList.toggle('is-open');if(root.classList.contains('is-open')&&!elMessages.children.length)reset()}; elClose.onclick=function(){root.classList.remove('is-open')};
+  elForm.onsubmit=function(e){e.preventDefault();if(busy)return;var text=elInput.value.trim();if(!text)return;user(text);elInput.value='';handle(text,false)};
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')root.classList.remove('is-open')});
 })();
 </script>
 
