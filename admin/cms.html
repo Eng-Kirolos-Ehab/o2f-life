@@ -1230,6 +1230,48 @@
       });
     }
 
+    function bindPageFields(container) {
+      container.querySelectorAll('[data-path]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.path;
+          const isCheckbox = e.target.dataset.type === 'checkbox';
+          setByPath(currentPageData, path, isCheckbox ? e.target.checked : e.target.value);
+          updatePagesRaw();
+        });
+      });
+    }
+
+    function bindPageListEditors(container) {
+      container.querySelectorAll('[data-list-add]').forEach(btn => {
+        btn.onclick = () => {
+          const arr = getByPath(currentPageData, btn.dataset.listAdd) || [];
+          arr.push('');
+          setByPath(currentPageData, btn.dataset.listAdd, arr);
+          renderPageEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-remove]').forEach(btn => {
+        btn.onclick = () => {
+          const path = btn.dataset.listRemove;
+          const idx = Number(btn.dataset.listIndex);
+          const arr = getByPath(currentPageData, path) || [];
+          arr.splice(idx, 1);
+          setByPath(currentPageData, path, arr);
+          renderPageEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-input]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.listInput;
+          const idx = Number(e.target.dataset.listIndex);
+          const arr = getByPath(currentPageData, path) || [];
+          arr[idx] = e.target.value;
+          setByPath(currentPageData, path, arr);
+          updatePagesRaw();
+        });
+      });
+    }
+
     function bindListEditors(container) {
       container.querySelectorAll('[data-list-add]').forEach(btn => {
         btn.onclick = () => {
@@ -1579,8 +1621,8 @@
           </div>`;
       }).join('');
 
-      bindSimpleFields(container);
-      bindListEditors(container);
+      bindPageFields(container);
+      bindPageListEditors(container);
     }
 
     function renderGenericField(path, key, value) {
