@@ -740,32 +740,16 @@ main.main {
       if (name === 'json')    initJsonEditor();
       if (name === 'pages')   initPagesEditor();
       if (name === 'gallery') initGallerySection();
-    }
-function openCommentsInsideCMS() {
-  showSection('content');
+    }function openCommentsInsideCMS() {
+  sessionStorage.setItem('o2f-admin-auth', '1');
 
-  const contentSection = document.getElementById('section-content');
-  const pageTitle = document.getElementById('pageTitle');
-
-  if (pageTitle) pageTitle.textContent = 'إدارة التعليقات';
-
-  if (contentSection) {
-    contentSection.innerHTML = `
-      <div class="editor-panel">
-        <h3>إدارة التعليقات</h3>
-        <p style="font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">
-          يتم فتح صفحة التعليقات داخل لوحة التحكم بدون الخروج من الـ CMS.
-        </p>
-
-        <iframe
-          src="./comments.html"
-          style="width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:14px;background:#0B1220"
-        ></iframe>
-      </div>
-    `;
+  const ghToken = localStorage.getItem('o2f-gh-token');
+  if (!ghToken) {
+    alert('GitHub token missing. Please login again.');
+    window.location.replace('./login.html');
+    return;
   }
-}
-    function openCommentsInsideCMS() {
+
   showSection('content');
 
   const contentSection = document.getElementById('section-content');
@@ -782,7 +766,7 @@ function openCommentsInsideCMS() {
         </p>
 
         <iframe
-          src="./comments.html"
+          src="./comments.html?cms=1"
           style="width:100%;height:calc(100vh - 170px);border:1px solid var(--line);border-radius:14px;background:#0B1220"
         ></iframe>
       </div>
