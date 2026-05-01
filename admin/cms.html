@@ -352,6 +352,37 @@
       .sidebar { display: none; }
       .main { margin-right: 0; }
     }
+    /* Force admin shell layout after CMS updates */
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+aside.sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 240px !important;
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 9999 !important;
+}
+
+main.main {
+  margin-right: 240px !important;
+  width: calc(100% - 240px) !important;
+  min-height: 100vh !important;
+}
+
+.sidebar-nav {
+  flex: 1 !important;
+  height: auto !important;
+  overflow-y: auto !important;
+}
   </style>
 </head>
 <body>
