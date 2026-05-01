@@ -1,28 +1,1970 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin CMS</title>
-    <script>
-        // Versioning system
-        let version = 1;
-        function incrementVersion() {
-            version++;
-            document.getElementById('version-display').innerText = 'Version: ' + version;
-        }
-        function saveChanges() {
-            alert('Changes saved! The changes will be reflected on the website immediately.');
-            incrementVersion();
-        }
-    </script>
+  <meta charset="utf-8">
+  <title>لوحة التحكم — O2F.life</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+  <script>
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1' ||
+        !localStorage.getItem('o2f-gh-token')) {
+      // Missing auth or missing token — re-login to restore both
+      sessionStorage.removeItem('o2f-admin-auth');
+      window.location.replace('./login.html');
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:  #0B1220; --ink2: #111827;
+      --mint: #00D9A3; --gold: #C9A84A;
+      --off:  #F7F8FA; --muted: rgba(247,248,250,.55);
+      --line: rgba(255,255,255,.08);
+    }
+    body {
+      background: var(--ink); color: var(--off);
+      font-family: 'Tajawal', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 240px;
+      background: rgba(255,255,255,.03);
+      border-left: 1px solid var(--line);
+      display: flex; flex-direction: column;
+      z-index: 20;
+    }
+    .sidebar-logo {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .logo-mark {
+      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--mint), var(--gold));
+    }
+    .logo-text {
+      font-size: 1.1rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--mint), var(--gold));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .logo-sub { font-size: .7rem; color: var(--muted); margin-top: 1px; }
+
+    .sidebar-nav { flex: 1; padding: 1rem .75rem; overflow-y: auto; }
+    .nav-section { font-size: .65rem; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .1em; padding: .5rem .75rem .25rem; }
+    .nav-item {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .55rem .75rem; border-radius: 10px; margin-bottom: 2px;
+      font-size: .875rem; color: var(--muted); cursor: pointer;
+      transition: all .15s; text-decoration: none; border: none; background: none;
+      width: 100%; text-align: right;
+    }
+    .nav-item:hover { background: rgba(255,255,255,.05); color: var(--off); }
+    .nav-item.active { background: rgba(0,217,163,.1); color: var(--mint); }
+    .nav-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: .7; }
+    .nav-item.active .nav-icon { opacity: 1; }
+
+    .sidebar-footer {
+      padding: 1rem .75rem; border-top: 1px solid var(--line);
+    }
+    .logout-btn {
+      display: flex; align-items: center; gap: .65rem;
+      width: 100%; padding: .55rem .75rem; border-radius: 10px;
+      font-size: .875rem; color: #fca5a5; cursor: pointer;
+      background: none; border: none; font-family: inherit;
+      transition: background .15s; text-align: right;
+    }
+    .logout-btn:hover { background: rgba(239,68,68,.1); }
+
+    /* ── Main ── */
+    .main { margin-right: 240px; min-height: 100vh; }
+
+    .topbar {
+      height: 56px; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(255,255,255,.02);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .topbar-title { font-weight: 700; font-size: 1.05rem; }
+    .topbar-badge {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .75rem; color: var(--mint);
+      background: rgba(0,217,163,.1); border: 1px solid rgba(0,217,163,.2);
+      border-radius: 999px; padding: .25rem .75rem;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint);
+      animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+
+    .content { padding: 2rem; }
+
+    /* ── Cards ── */
+    .section-title {
+      font-size: .7rem; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .1em; margin-bottom: 1rem;
+    }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+    .card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line); border-radius: 16px; padding: 1.25rem;
+      transition: all .2s; text-decoration: none; color: inherit; display: block;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 16px; opacity: 0;
+      background: radial-gradient(ellipse at top, rgba(0,217,163,.12), transparent 65%);
+      transition: opacity .3s;
+    }
+    .card:hover { border-color: rgba(0,217,163,.4); transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.3); }
+    .card:hover::before { opacity: 1; }
+    .card-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(0,217,163,.1); color: var(--mint);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: .875rem;
+    }
+    .card-title { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+    .card-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+    .card-arrow {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .78rem; color: var(--mint); margin-top: .875rem;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: rgba(0,217,163,.06); border: 1px solid rgba(0,217,163,.2);
+      border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 2rem;
+      display: flex; align-items: flex-start; gap: .75rem;
+    }
+    .info-icon { flex-shrink: 0; color: var(--mint); margin-top: 1px; }
+    .info-text { font-size: .85rem; color: rgba(247,248,250,.7); line-height: 1.6; }
+    .info-text strong { color: var(--mint); }
+
+    /* ── Quick links ── */
+    .quick-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .75rem 1rem; border-radius: 12px;
+      background: rgba(255,255,255,.03); border: 1px solid var(--line);
+      margin-bottom: .5rem; text-decoration: none; color: inherit;
+      transition: all .15s;
+    }
+    .quick-link:hover { border-color: rgba(0,217,163,.3); background: rgba(0,217,163,.05); }
+    .quick-link-label { font-size: .875rem; }
+    .quick-link-path { font-size: .75rem; color: var(--muted); font-family: monospace; }
+
+    /* ── JSON Editor ── */
+    .token-gate { max-width: 540px; }
+    .token-row {
+      display: flex; gap: .5rem; margin-top: .75rem;
+    }
+    .token-input {
+      flex: 1; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12); border-radius: 12px;
+      padding: .65rem 1rem; color: var(--off);
+      font-family: monospace; font-size: .875rem;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .token-input:focus {
+      border-color: rgba(0,217,163,.5);
+      box-shadow: 0 0 0 3px rgba(0,217,163,.12);
+    }
+    .token-input::placeholder { color: rgba(247,248,250,.3); }
+    .btn-connect {
+      background: var(--mint); color: var(--ink);
+      border: none; border-radius: 12px;
+      padding: .65rem 1.25rem; font-size: .875rem; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+      font-family: 'Tajawal', sans-serif;
+      transition: filter .15s, transform .15s;
+    }
+    .btn-connect:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .file-tabs {
+      display: flex; gap: .375rem; margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .file-tab {
+      padding: .45rem 1rem; border-radius: 10px; font-size: .8rem;
+      font-family: monospace; cursor: pointer; border: none;
+      background: rgba(255,255,255,.05); color: var(--muted);
+      transition: all .15s;
+    }
+    .file-tab:hover { background: rgba(255,255,255,.09); color: var(--off); }
+    .file-tab.active { background: rgba(0,217,163,.15); color: var(--mint); }
+
+    .editor-status {
+      font-size: .8rem; padding: .4rem .85rem; border-radius: 8px;
+      margin-bottom: .75rem; display: inline-block;
+      background: rgba(255,255,255,.05); color: var(--muted);
+    }
+    .editor-status.loading { color: var(--gold); background: rgba(201,168,74,.1); }
+    .editor-status.success { color: var(--mint); background: rgba(0,217,163,.1); }
+    .editor-status.error   { color: #fca5a5;   background: rgba(239,68,68,.1); }
+
+    .visual-editor { display: grid; gap: 1rem; }
+    .editor-panel {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+    .editor-panel h3 { margin-bottom: .75rem; font-size: .95rem; color: var(--mint); }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: .75rem;
+    }
+    .field { display: grid; gap: .35rem; }
+    .field label { font-size: .78rem; color: var(--muted); }
+    .field input, .field textarea {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      color: var(--off);
+      padding: .55rem .7rem;
+      font-family: inherit;
+      font-size: .86rem;
+    }
+    .field textarea { min-height: 90px; resize: vertical; }
+    .field input:focus, .field textarea:focus {
+      border-color: rgba(0,217,163,.5);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0,217,163,.12);
+    }
+    .switch-row { display: flex; align-items: center; gap: .4rem; font-size: .82rem; color: var(--off); }
+    .item-list { display: grid; gap: .5rem; margin-top: .75rem; }
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: .4rem;
+    }
+    .list-item input { flex: 1; }
+    .btn-mini {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--off);
+      border-radius: 8px;
+      padding: .35rem .65rem;
+      cursor: pointer;
+      font-size: .75rem;
+      font-family: inherit;
+    }
+    .btn-mini:hover { background: rgba(255,255,255,.12); }
+    .btn-danger { color: #fca5a5; border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.08); }
+    .btn-danger:hover { background: rgba(239,68,68,.16); }
+    .plan-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: .85rem;
+      display: grid;
+      gap: .8rem;
+      background: rgba(255,255,255,.02);
+    }
+    .plan-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .75rem;
+    }
+    .gallery-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+      display: grid;
+      gap: .6rem;
+      padding-bottom: .6rem;
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      background: rgba(0,0,0,.2);
+    }
+    .gallery-fields { padding: 0 .6rem; display: grid; gap: .45rem; }
+    .dropzone {
+      border: 2px dashed rgba(0,217,163,.35);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      background: rgba(0,217,163,.04);
+      color: rgba(247,248,250,.75);
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .dropzone.dragover { background: rgba(0,217,163,.1); border-color: rgba(0,217,163,.7); }
+    .raw-editor-wrap details { margin-top: .75rem; }
+    .raw-editor-wrap summary { cursor: pointer; font-size: .8rem; color: var(--muted); }
+    .json-textarea {
+      width: 100%; height: 230px;
+      margin-top: .5rem;
+      background: rgba(0,0,0,.35); border: 1px solid var(--line);
+      border-radius: 14px; padding: 1rem;
+      color: #a8d5c2; font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: .8rem; line-height: 1.55; resize: vertical;
+      outline: none; transition: border-color .2s;
+      direction: ltr; text-align: left;
+    }
+    .json-textarea:focus { border-color: rgba(0,217,163,.35); }
+
+    .editor-actions {
+      display: flex; gap: .5rem; margin-top: .75rem;
+    }
+    .btn-validate {
+      padding: .6rem 1.25rem; border-radius: 10px; font-size: .875rem;
+      font-family: 'Tajawal', sans-serif; cursor: pointer;
+      background: rgba(255,255,255,.07); border: 1px solid var(--line);
+      color: var(--off); transition: all .15s;
+    }
+    .btn-validate:hover { background: rgba(255,255,255,.12); }
+    .btn-save {
+      padding: .6rem 1.5rem; border-radius: 10px; font-size: .875rem;
+      font-family: 'Tajawal', sans-serif; cursor: pointer; font-weight: 700;
+      background: var(--mint); border: none; color: var(--ink);
+      transition: filter .15s, transform .15s;
+    }
+    .btn-save:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-save:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-disconnect {
+      margin-right: auto; padding: .6rem 1rem; border-radius: 10px;
+      font-size: .8rem; font-family: 'Tajawal', sans-serif; cursor: pointer;
+      background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2);
+      color: #fca5a5; transition: background .15s;
+    }
+    .btn-disconnect:hover { background: rgba(239,68,68,.15); }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 200px; }
+      .main { margin-right: 200px; }
+      .content { padding: 1rem; }
+    }
+    @media (max-width: 600px) {
+      .sidebar { display: none; }
+      .main { margin-right: 0; }
+    }
+  </style>
 </head>
 <body>
-    <div id="topbar">
-        <span id="version-display">Version: 1</span>
-        <button onclick="saveChanges()">Save Changes</button>
+
+  <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-text">O2F.life</div>
+        <div class="logo-sub">لوحة التحكم</div>
+      </div>
     </div>
-    <h1>Welcome to Admin CMS</h1>
-    <p>Edit your content here.</p>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">القسم</div>
+      <button class="nav-item active" onclick="showSection('content', event)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        المحتوى
+      </button>
+      <button class="nav-item" onclick="showSection('pages', event)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        الصفحات
+      </button>
+      <button class="nav-item" onclick="showSection('media', event)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+        الوسائط
+      </button>
+      <button class="nav-item" onclick="showSection('gallery', event)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3"/></svg>
+        معرض الصور
+      </button>
+      <button class="nav-item" onclick="showSection('json', event)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        محرر JSON
+      </button>
+
+      <div class="nav-section" style="margin-top:.75rem">الموقع</div>
+      <a class="nav-item" href="https://eng-kirolos-ehab.github.io/o2f-life/" target="_blank">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        زيارة الموقع
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="logout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        تسجيل الخروج
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════ MAIN ═══════════════════ -->
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar-title" id="pageTitle">إدارة المحتوى</span>
+          <div class="topbar-badge">
+            <!-- الحفاظ على النقطة الحية التي تشير إلى أن التعديلات تظهر فورًا -->
+            <span class="live-dot"></span>
+            مباشر
+            <!-- رقم الإصدار الخاص بلوحة التحكم. قم بتحديثه عند إجراء تغييرات على الواجهة الإدارية -->
+            <span class="admin-version" style="margin-right:.5rem; font-weight:700; font-size:.75rem;">
+              v1.0.1
+            </span>
+          </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══ CONTENT SECTION ══ -->
+      <div id="section-content">
+
+        <p class="section-title">إعدادات الموقع والهوية</p>
+        <div class="cards-grid">
+          <div class="card" onclick="openEditor('json','site')" style="cursor:pointer">
+            <div class="card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+            </div>
+            <div class="card-title">إعدادات عامة + SEO</div>
+            <div class="card-desc">الاسم، البريد، الواتساب، سوشيال ميديا، العنوان، الإحصاءات</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('json','plans')" style="cursor:pointer">
+            <div class="card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="card-title">الباقات الرئيسية</div>
+            <div class="card-desc">الأسعار، المميزات، عملات مصر والخليج والدولي</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('json','custom')" style="cursor:pointer">
+            <div class="card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div class="card-title">باقات مخصصة</div>
+            <div class="card-desc">عروض خاصة، باقات عائلية، أي باقات إضافية</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('json','referral')" style="cursor:pointer">
+            <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
+            <div class="card-title">نظام جيب صديق</div>
+            <div class="card-desc">تفعيل التوصية، قيمة الخصم بالعملات الثلاثة، النصوص</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('gallery','')" style="cursor:pointer">
+            <div class="card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 10.07 4h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 18.07 7H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div class="card-title">معرض الصور</div>
+            <div class="card-desc">تعديل كروت الهيرو الـ٣ + رفع صور بالـ drag &amp; drop</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+        </div>
+
+        <p class="section-title">محتوى الصفحات</p>
+        <div class="cards-grid">
+          <div class="card" onclick="openEditor('pages','home')" style="cursor:pointer">
+            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
+            <div class="card-title">الصفحة الرئيسية</div>
+            <div class="card-desc">العنوان، الوصف، الإحصاءات، الباقات، الـ CTA</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('pages','about')" style="cursor:pointer">
+            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="card-title">عن الكابتن</div>
+            <div class="card-desc">البيو، الوعد، الفلسفة، الـ CTA</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('pages','services')" style="cursor:pointer">
+            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
+            <div class="card-title">الخدمات</div>
+            <div class="card-desc">الخدمات الأربعة، الأوصاف، المميزات</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('pages','antiaging')" style="cursor:pointer">
+            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="card-title">مكافحة الشيخوخة</div>
+            <div class="card-desc">الهيرو، النتائج، الباقة، الأسعار</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('pages','methyleneblue')" style="cursor:pointer">
+            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
+            <div class="card-title">ميثيلين بلو</div>
+            <div class="card-desc">الهيرو، العلم، الإحصاءات، الشهادات</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+
+          <div class="card" onclick="openEditor('pages','contact')" style="cursor:pointer">
+            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg></div>
+            <div class="card-title">تواصل معنا</div>
+            <div class="card-desc">نصوص صفحة التواصل، الواتساب، الفورم</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+        </div>
+
+        <p class="section-title">المقالات</p>
+        <div class="cards-grid">
+          <a class="card" href="https://github.com/Eng-Kirolos-Ehab/o2f-life/tree/main/src/ar/blog" target="_blank">
+            <div class="card-icon" style="background:rgba(201,168,74,.1);color:var(--gold)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="card-title">مقالات عربية</div>
+            <div class="card-desc">إضافة أو تعديل مقالات الموقع العربية (عبر GitHub)</div>
+            <div class="card-arrow" style="color:var(--gold)">إدارة ←</div>
+          </a>
+
+          <a class="card" href="https://github.com/Eng-Kirolos-Ehab/o2f-life/tree/main/src/en/blog" target="_blank">
+            <div class="card-icon" style="background:rgba(201,168,74,.1);color:var(--gold)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="card-title">English Blog</div>
+            <div class="card-desc">Add or edit English blog posts (via GitHub)</div>
+            <div class="card-arrow" style="color:var(--gold)">Manage ←</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ══ PAGES SECTION ══ -->
+      <div id="section-pages" style="display:none">
+
+        <!-- Pages visual editor -->
+        <div id="pages-editor">
+
+          <!-- Page selector -->
+          <div class="file-tabs">
+            <button class="file-tab" id="ptab-home"          onclick="switchPageFile('home')">الرئيسية</button>
+            <button class="file-tab" id="ptab-about"         onclick="switchPageFile('about')">عن الكابتن</button>
+            <button class="file-tab" id="ptab-services"      onclick="switchPageFile('services')">الخدمات</button>
+            <button class="file-tab" id="ptab-contact"       onclick="switchPageFile('contact')">تواصل</button>
+            <button class="file-tab" id="ptab-antiaging"     onclick="switchPageFile('antiaging')">مكافحة الشيخوخة</button>
+            <button class="file-tab" id="ptab-methyleneblue" onclick="switchPageFile('methyleneblue')">ميثيلين بلو</button>
+          </div>
+
+          <!-- Language selector -->
+          <div class="file-tabs">
+            <button class="file-tab" id="ltab-ar" onclick="switchPageLang('ar')">عربي</button>
+            <button class="file-tab" id="ltab-en" onclick="switchPageLang('en')">English</button>
+          </div>
+
+          <div id="pages-status" class="editor-status">جاهز</div>
+
+          <div id="pages-visual-editor" class="visual-editor"></div>
+
+          <div class="raw-editor-wrap">
+            <details>
+              <summary>محرر JSON الخام (اختياري)</summary>
+              <textarea id="pages-json-textarea" class="json-textarea" spellcheck="false"
+                        placeholder="جاري التحميل..."></textarea>
+            </details>
+          </div>
+
+          <div class="editor-actions">
+            <button class="btn-save" id="pagesSaveBtn" onclick="savePageFile()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              حفظ ونشر
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ MEDIA SECTION ══ -->
+      <div id="section-media" style="display:none">
+        <div class="info-box">
+          <svg class="info-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div class="info-text">
+            لرفع صور جديدة، استخدم مجلد <strong>src/assets/images</strong> على GitHub.
+          </div>
+        </div>
+
+        <a class="quick-link" href="https://github.com/Eng-Kirolos-Ehab/o2f-life/tree/main/src/assets/images" target="_blank">
+          <div><div class="quick-link-label">مجلد الصور</div><div class="quick-link-path">src/assets/images/</div></div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <!-- ══ GALLERY SECTION ══ -->
+      <div id="section-gallery" style="display:none">
+
+        <div id="gallery-section-status" class="editor-status" style="margin-bottom:1.25rem">جاهز</div>
+
+        <!-- Sub-section A: Hero Cards -->
+        <p class="section-title">كروت الصور الرئيسية (٣ كروت تظهر في أعلى صفحة المعرض)</p>
+        <div id="hero-cards-editor" class="gallery-grid"
+             style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));margin-bottom:2.5rem">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Sub-section B: Gallery Images -->
+        <p class="section-title">صور المعرض الكاملة — اسحب وأفلت لإضافة صور أو استخدم الأزرار للترتيب والحذف</p>
+        <label class="dropzone" id="galleryDropzone2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:.35rem;opacity:.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><br>
+          اسحب الصور هنا أو اضغط للاختيار
+          <input type="file" id="galleryInput2" accept="image/*" multiple style="display:none">
+        </label>
+        <div id="gallery-images-editor" class="gallery-grid" style="margin-top:.9rem">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="editor-actions" style="margin-top:1.5rem">
+          <button class="btn-save" id="gallerySaveBtn" onclick="saveGallerySection()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            حفظ ونشر
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ══ JSON EDITOR SECTION ══ -->
+      <div id="section-json" style="display:none">
+
+        <!-- Editor -->
+        <div id="json-editor">
+          <div class="file-tabs">
+            <button class="file-tab" id="tab-site"    onclick="switchFile('site')">site.json</button>
+            <button class="file-tab" id="tab-plans"   onclick="switchFile('plans')">plans.json</button>
+            <button class="file-tab" id="tab-custom"  onclick="switchFile('custom')">customPlans.json</button>
+            <button class="file-tab" id="tab-gallery"   onclick="switchFile('gallery')">gallery.json</button>
+            <button class="file-tab" id="tab-referral" onclick="switchFile('referral')">referral.json</button>
+          </div>
+
+          <div id="editor-status" class="editor-status">جاهز</div>
+
+          <div id="visual-editor" class="visual-editor"></div>
+          <div class="raw-editor-wrap">
+            <details>
+              <summary>محرر JSON الخام (اختياري للمستخدم المتقدم)</summary>
+              <textarea id="json-textarea" class="json-textarea" spellcheck="false"
+                        placeholder="جاري التحميل..."></textarea>
+            </details>
+          </div>
+
+          <div class="editor-actions">
+            <button class="btn-validate" onclick="validateJSON()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><polyline points="20 6 9 17 4 12"/></svg>
+              تحقق
+            </button>
+            <button class="btn-save" id="saveBtn" onclick="saveFile()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:.35rem"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              حفظ ونشر
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function showSection(name, evt) {
+      ['content','pages','media','json','gallery'].forEach(s => {
+        document.getElementById('section-' + s).style.display = s === name ? '' : 'none';
+      });
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+      const titles = {
+        content: 'إدارة المحتوى',
+        pages:   'الصفحات',
+        media:   'الوسائط',
+        json:    'محرر JSON',
+        gallery: 'معرض الصور',
+      };
+      document.getElementById('pageTitle').textContent = titles[name];
+      if (name === 'json')    initJsonEditor();
+      if (name === 'pages')   initPagesEditor();
+      if (name === 'gallery') initGallerySection();
+    }
+
+    // Called from content-section cards — navigates directly to the right editor + tab
+    function openEditor(section, file) {
+      ['content','pages','media','json','gallery'].forEach(s => {
+        document.getElementById('section-' + s).style.display = s === section ? '' : 'none';
+      });
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => {
+        if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(`'${section}'`)) {
+          el.classList.add('active');
+        }
+      });
+      const titles = { content:'إدارة المحتوى', pages:'الصفحات', media:'الوسائط', json:'محرر JSON', gallery:'معرض الصور' };
+      document.getElementById('pageTitle').textContent = titles[section] || section;
+      if (section === 'json')    { initJsonEditor();    if (file) switchFile(file); }
+      if (section === 'pages')   { initPagesEditor();   if (file) switchPageFile(file); }
+      if (section === 'gallery') { initGallerySection(); }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('o2f-admin-auth');
+      window.location.replace('./login.html');
+    }
+
+    /* ── JSON Editor ── */
+    const REPO  = 'Eng-Kirolos-Ehab/o2f-life';
+    const FILES = {
+      site:     'src/_data/site.json',
+      plans:    'src/_data/plans.json',
+      custom:   'src/_data/customPlans.json',
+      gallery:  'src/_data/gallery.json',
+      referral: 'src/_data/referral.json',
+    };
+    let currentFile = 'site';
+    let currentSha  = '';
+    let currentData = null;
+    let rawEditorDirty = false;
+
+    function initJsonEditor() {
+      setupRawEditorTracking();
+      switchFile('site');
+    }
+
+    function setupRawEditorTracking() {
+      const rawEl = document.getElementById('json-textarea');
+      if (!rawEl || rawEl.dataset.bound === '1') return;
+      rawEl.dataset.bound = '1';
+      rawEl.addEventListener('input', () => {
+        rawEditorDirty = true;
+      });
+    }
+
+    async function switchFile(key) {
+      currentFile = key;
+      document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + key).classList.add('active');
+
+      const token = localStorage.getItem('o2f-gh-token');
+      setStatus('جاري التحميل...', 'loading');
+      document.getElementById('saveBtn').disabled = true;
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${FILES[key]}`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
+        const data = await res.json();
+        currentSha = data.sha;
+        const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        currentData = JSON.parse(raw);
+        renderEditor();
+        setStatus('تم التحميل ✓', 'success');
+        document.getElementById('saveBtn').disabled = false;
+      } catch(e) {
+        setStatus('خطأ في التحميل: ' + e.message, 'error');
+      }
+    }
+
+    function validateJSON() {
+      try {
+        maybeSyncFromRawEditor();
+        JSON.stringify(currentData);
+        setStatus('JSON صالح ✓', 'success');
+      } catch(e) {
+        setStatus('خطأ: ' + e.message, 'error');
+      }
+    }
+
+    async function saveFile() {
+      const token = localStorage.getItem('o2f-gh-token');
+      try {
+        maybeSyncFromRawEditor();
+      } catch(e) {
+        setStatus('JSON غير صالح — ' + e.message, 'error');
+        return;
+      }
+
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2) + '\n')));
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.disabled = true;
+      setStatus('جاري الحفظ والنشر...', 'loading');
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${FILES[currentFile]}`,
+          {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `admin: update ${FILES[currentFile]}`,
+              content: encoded,
+              sha: currentSha,
+            }),
+          }
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
+        currentSha = data.content.sha;
+        setStatus('✓ تم الحفظ! التغيير هيظهر خلال 1-2 دقيقة — لو مش ظاهر اضغط Ctrl+Shift+R على صفحة الموقع', 'success');
+      } catch(e) {
+        setStatus('فشل الحفظ: ' + e.message, 'error');
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    function renderEditor() {
+      updateRawEditor();
+      const container = document.getElementById('visual-editor');
+      if (!container || !currentData) return;
+
+      if (currentFile === 'site')     renderSiteEditor(container);
+      if (currentFile === 'plans')    renderPlansEditor(container, currentData);
+      if (currentFile === 'custom')   renderCustomPlansEditor(container);
+      if (currentFile === 'gallery')  renderGalleryEditor(container);
+      if (currentFile === 'referral') renderReferralEditor(container);
+    }
+
+    function syncFromRawEditor() {
+      const val = document.getElementById('json-textarea').value;
+      currentData = JSON.parse(val);
+      renderEditor();
+    }
+
+    function maybeSyncFromRawEditor() {
+      if (!rawEditorDirty) return;
+      syncFromRawEditor();
+      rawEditorDirty = false;
+    }
+
+    function updateRawEditor() {
+      document.getElementById('json-textarea').value = JSON.stringify(currentData, null, 2);
+      rawEditorDirty = false;
+    }
+
+    function fieldHTML(label, path, value, type = 'text') {
+      const escaped = escapeHtml(value ?? '');
+      return `
+        <div class="field">
+          <label>${label}</label>
+          <input type="${type}" data-path="${path}" value="${escaped}">
+        </div>
+      `;
+    }
+
+    function textAreaHTML(label, path, value) {
+      return `
+        <div class="field">
+          <label>${label}</label>
+          <textarea data-path="${path}">${escapeHtml(value ?? '')}</textarea>
+        </div>
+      `;
+    }
+
+    function renderSiteEditor(container) {
+      const logoPreview = currentData.logoUrl
+        ? `<img src="${escapeHtml(currentData.logoUrl)}" alt="logo" style="height:56px;border-radius:8px;margin-bottom:.5rem;border:1px solid var(--line)">`
+        : `<div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#00D9A3,#C9A84A);margin-bottom:.5rem"></div>`;
+      const faviconPreview = currentData.faviconUrl
+        ? `<img src="${escapeHtml(currentData.faviconUrl)}" alt="favicon" style="width:32px;height:32px;margin-bottom:.5rem;border:1px solid var(--line);border-radius:4px">`
+        : `<div style="width:32px;height:32px;background:var(--line);border-radius:4px;margin-bottom:.5rem"></div>`;
+      const heroPreview = currentData.heroImage
+        ? `<img src="${escapeHtml(currentData.heroImage)}" alt="hero" style="width:100%;max-height:200px;object-fit:cover;border-radius:10px;margin-bottom:.5rem;border:1px solid var(--line)">`
+        : `<div style="width:100%;height:120px;border-radius:10px;background:rgba(255,255,255,.03);border:2px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;margin-bottom:.5rem">لا توجد صورة — ارفع صورة الكابتن</div>`;
+
+      const ogImg   = currentData.seo?.ogImage   || '';
+      const ogTitle = currentData.seo?.titleSuffix || currentData.name || 'O2F.life';
+      const ogDesc  = currentData.seo?.description || '';
+      const ogDomain= currentData.domain || 'o2f.life';
+      const ogCardHTML = `
+        <div style="border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;background:#111827;max-width:440px">
+          ${ogImg
+            ? `<img src="${escapeHtml(ogImg)}" style="width:100%;height:180px;object-fit:cover;display:block">`
+            : `<div style="width:100%;height:180px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem">ارفع صورة OG لتظهر هنا</div>`}
+          <div style="padding:.85rem">
+            <div style="font-size:.65rem;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${escapeHtml(ogDomain)}</div>
+            <div style="font-size:.88rem;font-weight:700;color:#f9fafb;margin-bottom:.25rem;line-height:1.3">${escapeHtml(ogTitle)}</div>
+            <div style="font-size:.75rem;color:#9ca3af;line-height:1.45">${escapeHtml(ogDesc.slice(0, 120))}${ogDesc.length > 120 ? '...' : ''}</div>
+          </div>
+        </div>`;
+
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>اللوجو والفافيكون</h3>
+          <div class="editor-grid">
+            <div class="field">
+              <label>لوجو الموقع (يظهر في الهيدر والفوتر)</label>
+              ${logoPreview}
+              <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" class="btn-mini">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  رفع لوجو
+                  <input type="file" id="logoUpload" accept="image/*" style="display:none" onchange="uploadSiteImage(this,'logoUrl','logo')">
+                </label>
+                ${currentData.logoUrl ? `<button class="btn-mini btn-danger" onclick="setByPath(currentData,'logoUrl','');renderEditor()">حذف</button>` : ''}
+              </div>
+            </div>
+            <div class="field">
+              <label>فافيكون (أيقونة علامة التبويب)</label>
+              ${faviconPreview}
+              <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" class="btn-mini">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                رفع فافيكون
+                <input type="file" id="faviconUpload" accept="image/*,.svg,.ico" style="display:none" onchange="uploadSiteImage(this,'faviconUrl','favicon')">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-panel">
+          <h3>صورة الهيرو (الصورة الرئيسية في الصفحة الأولى)</h3>
+          <p style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">هي صورة الكابتن اللي بتظهر على يمين/يسار الصفحة الرئيسية</p>
+          ${heroPreview}
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" class="btn-mini">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              رفع صورة الهيرو
+              <input type="file" accept="image/*" style="display:none" onchange="uploadSiteImage(this,'heroImage','hero')">
+            </label>
+            ${currentData.heroImage ? `<button class="btn-mini btn-danger" onclick="setByPath(currentData,'heroImage','');renderEditor()">حذف</button>` : ''}
+          </div>
+        </div>
+
+        <div class="editor-panel">
+          <h3>اسم الموقع والهوية</h3>
+          <div class="editor-grid">
+            ${fieldHTML('اسم الموقع (يظهر إذا لم يكن هناك لوجو)', 'name', currentData.name)}
+            ${fieldHTML('المالك / المدرب', 'owner', currentData.owner)}
+            ${fieldHTML('رابط الموقع', 'url', currentData.url, 'url')}
+            ${fieldHTML('رابط الفورم (Google Form)', 'googleForm', currentData.googleForm, 'url')}
+          </div>
+        </div>
+        <div class="editor-panel">
+          <h3>بيانات التواصل</h3>
+          <div class="editor-grid">
+            ${fieldHTML('البريد الإلكتروني', 'email', currentData.email, 'email')}
+            ${fieldHTML('واتساب (بالكود الدولي)', 'whatsapp', currentData.whatsapp)}
+          </div>
+        </div>
+
+        <div class="editor-panel">
+          <h3>SEO + مشاركة السوشيال ميديا</h3>
+          <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem">هذه البيانات تظهر لما حد يشارك رابط الموقع على واتساب أو فيسبوك أو تويتر — الصورة والعنوان والوصف</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start">
+            <div style="display:grid;gap:.75rem">
+              ${fieldHTML('عنوان الموقع (Title)', 'seo.titleSuffix', currentData.seo?.titleSuffix)}
+              ${textAreaHTML('وصف الموقع (يظهر في الـ preview)', 'seo.description', currentData.seo?.description)}
+              <div class="field">
+                <label>صورة المشاركة (OG Image)</label>
+                ${ogImg ? `<img src="${escapeHtml(ogImg)}" style="width:100%;max-height:90px;object-fit:cover;border-radius:8px;margin-bottom:.4rem;border:1px solid var(--line)">` : ''}
+                <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                  <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem" class="btn-mini">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    رفع صورة OG
+                    <input type="file" accept="image/*" style="display:none" onchange="uploadSiteImage(this,'seo.ogImage','og-image')">
+                  </label>
+                  ${ogImg ? `<button class="btn-mini btn-danger" onclick="setByPath(currentData,'seo.ogImage','');renderEditor()">حذف</button>` : ''}
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:.5rem">معاينة — كده بيظهر الرابط على واتساب وفيسبوك</label>
+              ${ogCardHTML}
+            </div>
+          </div>
+        </div>
+        <div class="editor-panel">
+          <h3>السوشيال ميديا</h3>
+          <div class="editor-grid">
+            ${fieldHTML('Instagram', 'social.instagram', currentData.social?.instagram, 'url')}
+            ${fieldHTML('Facebook', 'social.facebook', currentData.social?.facebook, 'url')}
+            ${fieldHTML('YouTube', 'social.youtube', currentData.social?.youtube, 'url')}
+            ${fieldHTML('TikTok', 'social.tiktok', currentData.social?.tiktok, 'url')}
+            ${fieldHTML('X / Twitter', 'social.x', currentData.social?.x, 'url')}
+          </div>
+        </div>
+        <div class="editor-panel">
+          <h3>الإحصاءات (تظهر في الموقع)</h3>
+          <div class="editor-grid">
+            ${fieldHTML('سنين الخبرة', 'stats.years', currentData.stats?.years)}
+            ${fieldHTML('عدد العملاء', 'stats.clients', currentData.stats?.clients)}
+            ${fieldHTML('نسبة التخصيص', 'stats.custom', currentData.stats?.custom)}
+            ${fieldHTML('الدعم', 'stats.support', currentData.stats?.support)}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+    }
+
+    function renderPlansEditor(container, plansObj) {
+      const planEntries = Object.entries(plansObj);
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>الباقات الرئيسية</h3>
+          <div class="item-list">
+            ${planEntries.map(([key, plan]) => planCardHTML({ key, plan, mode: 'plans' })).join('')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+      bindListEditors(container);
+    }
+
+    function renderCustomPlansEditor(container) {
+      if (!Array.isArray(currentData.items)) currentData.items = [];
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>الباقات المخصصة</h3>
+          <button class="btn-mini" id="addCustomPlan">+ إضافة باقة مخصصة</button>
+          <div class="item-list" id="customPlansList">
+            ${currentData.items.map((plan, i) => customPlanCardHTML(plan, i)).join('')}
+          </div>
+        </div>
+      `;
+      document.getElementById('addCustomPlan').onclick = () => {
+        currentData.items.push(defaultPlan('custom-' + (currentData.items.length + 1)));
+        renderEditor();
+      };
+      bindSimpleFields(container);
+      bindListEditors(container);
+      container.querySelectorAll('[data-delete-custom]').forEach(btn => {
+        btn.onclick = () => {
+          currentData.items.splice(Number(btn.dataset.deleteCustom), 1);
+          renderEditor();
+        };
+      });
+    }
+
+    function renderGalleryEditor(container) {
+      if (!Array.isArray(currentData.images)) currentData.images = [];
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>معرض الصور</h3>
+          <label class="dropzone" id="galleryDropzone">
+            اسحب الصور هنا أو اضغط للاختيار
+            <input type="file" id="galleryInput" accept="image/*" multiple style="display:none">
+          </label>
+          <div class="gallery-grid" style="margin-top:.9rem">
+            ${currentData.images.map((img, index) => `
+              <div class="gallery-card">
+                <img src="..${escapeHtml(img.src || '')}" alt="">
+                <div class="gallery-fields">
+                  ${fieldHTML('مسار الصورة', `images.${index}.src`, img.src)}
+                  ${fieldHTML('Alt EN', `images.${index}.alt_en`, img.alt_en)}
+                  ${fieldHTML('Alt AR', `images.${index}.alt_ar`, img.alt_ar)}
+                  <button class="btn-mini btn-danger" data-delete-image="${index}">حذف الصورة</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+      container.querySelectorAll('[data-delete-image]').forEach(btn => {
+        btn.onclick = () => {
+          currentData.images.splice(Number(btn.dataset.deleteImage), 1);
+          renderEditor();
+        };
+      });
+
+      const dropzone = document.getElementById('galleryDropzone');
+      const input = document.getElementById('galleryInput');
+      ['dragenter', 'dragover'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      }));
+      ['dragleave', 'drop'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      }));
+      dropzone.addEventListener('drop', e => {
+        const files = Array.from(e.dataTransfer.files || []);
+        handleGalleryUpload(files);
+      });
+      input.addEventListener('change', e => handleGalleryUpload(Array.from(e.target.files || [])));
+    }
+
+    async function handleGalleryUpload(files) {
+      if (!files.length) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      if (!token) return setStatus('برجاء توصيل GitHub token أولًا.', 'error');
+      setStatus('جاري رفع الصور...', 'loading');
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        const safeName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9_.-]/g, '_')}`;
+        const targetPath = `src/assets/images/${safeName}`;
+        try {
+          const base64 = await fileToBase64(file);
+          const uploadRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${targetPath}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `admin: upload ${safeName}`,
+              content: base64,
+            }),
+          });
+          if (!uploadRes.ok) {
+            const err = await uploadRes.json().catch(() => ({}));
+            throw new Error(err.message || `HTTP ${uploadRes.status}`);
+          }
+          currentData.images.push({
+            src: `/assets/images/${safeName}`,
+            alt_en: 'New image',
+            alt_ar: 'صورة جديدة',
+          });
+        } catch (e) {
+          setStatus(`فشل رفع ${file.name}: ${e.message}`, 'error');
+        }
+      }
+      renderEditor();
+      setStatus('تم رفع الصور. اضغط حفظ ونشر لتحديث gallery.json', 'success');
+    }
+
+    function planCardHTML({ key, title, plan, mode, controls = '' }) {
+      const prefix = mode === 'plans' ? `${key}` : `items.${key}`;
+      const cardTitle = title || key;
+      return `
+        <div class="plan-card">
+          <div class="plan-header">
+            <strong>${escapeHtml(cardTitle)}</strong>
+            <div style="display:flex;align-items:center;gap:.45rem">
+              <div class="switch-row">
+                <input type="checkbox" ${plan.visible !== false ? 'checked' : ''} data-path="${prefix}.visible" data-type="checkbox">
+                <span>ظاهر</span>
+              </div>
+              ${controls}
+            </div>
+          </div>
+          <div class="editor-grid">
+            ${fieldHTML('Slug', `${prefix}.slug`, plan.slug)}
+            ${fieldHTML('اسم الباقة (AR)', `${prefix}.ar.name`, plan.ar?.name)}
+            ${fieldHTML('Plan name (EN)', `${prefix}.en.name`, plan.en?.name)}
+            ${fieldHTML('Tagline AR', `${prefix}.ar.tagline`, plan.ar?.tagline)}
+            ${fieldHTML('Tagline EN', `${prefix}.en.tagline`, plan.en?.tagline)}
+          </div>
+          ${['egypt','gulf','international'].map(region => {
+            const icons = { egypt: '🇪🇬 مصر', gulf: '🇸🇦 الخليج', international: '🌍 دولي' };
+            const cur   = { egypt: 'EGP', gulf: 'SAR', international: 'USD' };
+            const pr = plan.pricing?.[region] || {};
+            return `
+              <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.75rem;margin-bottom:.5rem">
+                <div style="font-size:.7rem;color:var(--muted);font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em">${icons[region]}</div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600">📅 1 شهر</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر (${cur[region]})`, `${prefix}.pricing.${region}.m1.amount`, pr.m1?.amount ?? '')}
+                  ${fieldHTML('تسمية EN', `${prefix}.pricing.${region}.m1.label`, pr.m1?.label ?? 'per month')}
+                  ${fieldHTML('تسمية AR', `${prefix}.pricing.${region}.m1.label_ar`, pr.m1?.label_ar ?? 'شهريًا')}
+                </div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600;margin-top:.5rem">📅 3 شهور</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر/شهر (${cur[region]})`, `${prefix}.pricing.${region}.m3.amount`, pr.m3?.amount ?? '')}
+                  ${fieldHTML('إجمالي 3 شهور', `${prefix}.pricing.${region}.m3.total`, pr.m3?.total ?? '')}
+                  ${fieldHTML('نسبة التوفير', `${prefix}.pricing.${region}.m3.save`, pr.m3?.save ?? '')}
+                </div>
+                <div style="font-size:.65rem;color:var(--mint);margin-bottom:.3rem;font-weight:600;margin-top:.5rem">📅 6 شهور</div>
+                <div class="editor-grid">
+                  ${fieldHTML(`سعر/شهر (${cur[region]})`, `${prefix}.pricing.${region}.m6.amount`, pr.m6?.amount ?? '')}
+                  ${fieldHTML('إجمالي 6 شهور', `${prefix}.pricing.${region}.m6.total`, pr.m6?.total ?? '')}
+                  ${fieldHTML('نسبة التوفير', `${prefix}.pricing.${region}.m6.save`, pr.m6?.save ?? '')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+          <div class="editor-grid">
+            ${textAreaHTML('نبذة عربية', `${prefix}.ar.blurb`, plan.ar?.blurb)}
+            ${textAreaHTML('English blurb', `${prefix}.en.blurb`, plan.en?.blurb)}
+          </div>
+          <div class="editor-grid">
+            ${fieldHTML('CTA AR', `${prefix}.ar.cta`, plan.ar?.cta)}
+            ${fieldHTML('CTA EN', `${prefix}.en.cta`, plan.en?.cta)}
+          </div>
+          ${featureListHTML('مميزات عربية', `${prefix}.ar.features`, plan.ar?.features || [])}
+          ${featureListHTML('English features', `${prefix}.en.features`, plan.en?.features || [])}
+        </div>
+      `;
+    }
+
+    function customPlanCardHTML(plan, index) {
+      return planCardHTML({
+        key: index,
+        title: `custom #${index + 1}`,
+        plan,
+        mode: 'custom',
+        controls: `<button class="btn-mini btn-danger" data-delete-custom="${index}">حذف</button>`,
+      });
+    }
+
+    function featureListHTML(title, path, items) {
+      return `
+        <div class="field">
+          <label>${title}</label>
+          <div class="item-list" data-list-path="${path}">
+            ${(items || []).map((item, idx) => `
+              <div class="list-item">
+                <input type="text" data-list-input="${path}" data-list-index="${idx}" value="${escapeHtml(item)}">
+                <button class="btn-mini btn-danger" data-list-remove="${path}" data-list-index="${idx}">حذف</button>
+              </div>
+            `).join('')}
+          </div>
+          <button class="btn-mini" data-list-add="${path}">+ إضافة ميزة</button>
+        </div>
+      `;
+    }
+
+    function bindSimpleFields(container) {
+      container.querySelectorAll('[data-path]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.path;
+          const isCheckbox = e.target.dataset.type === 'checkbox';
+          setByPath(currentData, path, isCheckbox ? e.target.checked : e.target.value);
+          updateRawEditor();
+        });
+      });
+    }
+
+    function bindPageFields(container) {
+      container.querySelectorAll('[data-path]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.path;
+          const isCheckbox = e.target.dataset.type === 'checkbox';
+          setByPath(currentPageData, path, isCheckbox ? e.target.checked : e.target.value);
+          updatePagesRaw();
+        });
+      });
+    }
+
+    function bindPageListEditors(container) {
+      container.querySelectorAll('[data-list-add]').forEach(btn => {
+        btn.onclick = () => {
+          const arr = getByPath(currentPageData, btn.dataset.listAdd) || [];
+          arr.push('');
+          setByPath(currentPageData, btn.dataset.listAdd, arr);
+          renderPageEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-remove]').forEach(btn => {
+        btn.onclick = () => {
+          const path = btn.dataset.listRemove;
+          const idx = Number(btn.dataset.listIndex);
+          const arr = getByPath(currentPageData, path) || [];
+          arr.splice(idx, 1);
+          setByPath(currentPageData, path, arr);
+          renderPageEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-input]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.listInput;
+          const idx = Number(e.target.dataset.listIndex);
+          const arr = getByPath(currentPageData, path) || [];
+          arr[idx] = e.target.value;
+          setByPath(currentPageData, path, arr);
+          updatePagesRaw();
+        });
+      });
+    }
+
+    function bindListEditors(container) {
+      container.querySelectorAll('[data-list-add]').forEach(btn => {
+        btn.onclick = () => {
+          const arr = getByPath(currentData, btn.dataset.listAdd) || [];
+          arr.push('');
+          setByPath(currentData, btn.dataset.listAdd, arr);
+          renderEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-remove]').forEach(btn => {
+        btn.onclick = () => {
+          const path = btn.dataset.listRemove;
+          const idx = Number(btn.dataset.listIndex);
+          const arr = getByPath(currentData, path) || [];
+          arr.splice(idx, 1);
+          setByPath(currentData, path, arr);
+          renderEditor();
+        };
+      });
+      container.querySelectorAll('[data-list-input]').forEach(input => {
+        input.addEventListener('input', e => {
+          const path = e.target.dataset.listInput;
+          const idx = Number(e.target.dataset.listIndex);
+          const arr = getByPath(currentData, path) || [];
+          arr[idx] = e.target.value;
+          setByPath(currentData, path, arr);
+          updateRawEditor();
+        });
+      });
+    }
+
+    function renderReferralEditor(container) {
+      if (!currentData) return;
+      const d = currentData;
+      container.innerHTML = `
+        <div class="editor-panel">
+          <h3>نظام جيب صديق 🎁</h3>
+
+          <div style="background:rgba(0,217,163,.06);border:1px solid rgba(0,217,163,.2);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div class="switch-row" style="margin-bottom:.25rem">
+              <input type="checkbox" ${d.enabled ? 'checked' : ''} data-path="enabled" data-type="checkbox">
+              <span style="font-weight:700">تفعيل نظام التوصية على صفحة الباقات</span>
+            </div>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.35rem">لما يكون مفعّل، بيظهر Toggle "جيب صديق" على صفحة الباقات</p>
+          </div>
+
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div style="font-size:.72rem;color:var(--mint);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">💰 قيمة الخصم لكل عميل</div>
+            <div class="editor-grid">
+              ${fieldHTML('خصم مصر (EGP)', 'discount.egypt.amount',         d.discount?.egypt?.amount         ?? '500')}
+              ${fieldHTML('خصم الخليج (SAR)', 'discount.gulf.amount',        d.discount?.gulf?.amount          ?? '38')}
+              ${fieldHTML('خصم دولي (USD)',   'discount.international.amount', d.discount?.international?.amount ?? '10')}
+            </div>
+          </div>
+
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇸🇦 النصوص العربية</div>
+            <div class="editor-grid">
+              ${fieldHTML('عنوان (AR)',        'ar.title',         d.ar?.title         ?? '')}
+              ${fieldHTML('بادج الكارت (AR)',  'ar.badge',         d.ar?.badge         ?? '')}
+              ${fieldHTML('نص الـ Toggle (AR)','ar.toggle_label',  d.ar?.toggle_label  ?? '')}
+              ${fieldHTML('العنوان الرئيسي',  'ar.promo_headline', d.ar?.promo_headline ?? '')}
+            </div>
+            ${textAreaHTML('النص التفصيلي (AR)', 'ar.promo_body', d.ar?.promo_body ?? '')}
+          </div>
+
+          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem">
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇬🇧 English Text</div>
+            <div class="editor-grid">
+              ${fieldHTML('Title (EN)',         'en.title',         d.en?.title         ?? '')}
+              ${fieldHTML('Card badge (EN)',    'en.badge',         d.en?.badge         ?? '')}
+              ${fieldHTML('Toggle label (EN)',  'en.toggle_label',  d.en?.toggle_label  ?? '')}
+              ${fieldHTML('Promo headline (EN)','en.promo_headline', d.en?.promo_headline ?? '')}
+            </div>
+            ${textAreaHTML('Promo body (EN)', 'en.promo_body', d.en?.promo_body ?? '')}
+          </div>
+        </div>
+      `;
+      bindSimpleFields(container);
+    }
+
+    function defaultPlan(slug) {
+      const tier = (dur, cur) => ({
+        m1: { amount: '', currency: cur, label: 'per month', label_ar: 'شهريًا' },
+        m3: { amount: '', currency: cur, label: '/mo · 3-month plan', label_ar: 'شهريًا · باقة 3 شهور', total: '', save: '' },
+        m6: { amount: '', currency: cur, label: '/mo · 6-month plan', label_ar: 'شهريًا · باقة 6 شهور', total: '', save: '' },
+      });
+      return {
+        slug,
+        visible: true,
+        pricing: {
+          egypt:         tier(null, 'EGP'),
+          gulf:          tier(null, 'SAR'),
+          international: tier(null, 'USD'),
+        },
+        en: { name: '', tagline: '', blurb: '', features: [], cta: 'Request this plan' },
+        ar: { name: '', tagline: '', blurb: '', features: [], cta: 'اطلب هذه الخطة' },
+      };
+    }
+
+    function getByPath(obj, path) {
+      return path.split('.').reduce((acc, key) => (acc ? acc[key] : undefined), obj);
+    }
+
+    function setByPath(obj, path, value) {
+      const keys = path.split('.');
+      let cur = obj;
+      keys.forEach((key, idx) => {
+        const isLast = idx === keys.length - 1;
+        if (isLast) {
+          cur[key] = value;
+          return;
+        }
+        if (cur[key] == null || typeof cur[key] !== 'object') {
+          const nextKey = keys[idx + 1];
+          cur[key] = /^\d+$/.test(nextKey) ? [] : {};
+        }
+        cur = cur[key];
+      });
+    }
+
+    async function uploadSiteImage(input, jsonField, fileName) {
+      const file = input.files[0];
+      if (!file) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      const ext   = file.name.split('.').pop().toLowerCase();
+      const path  = `src/assets/images/${fileName}.${ext}`;
+      setStatus('جاري رفع الصورة...', 'loading');
+      try {
+        const base64 = await fileToBase64(file);
+        // check if file already exists (need its SHA to overwrite)
+        let sha = '';
+        try {
+          const ex = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,
+            { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } });
+          if (ex.ok) sha = (await ex.json()).sha;
+        } catch(_) {}
+        const body = { message: `admin: upload ${fileName}.${ext}`, content: base64 };
+        if (sha) body.sha = sha;
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+          method: 'PUT',
+          headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `HTTP ${res.status}`); }
+        setByPath(currentData, jsonField, `/assets/images/${fileName}.${ext}`);
+        updateRawEditor();
+        renderEditor();
+        setStatus(`✓ تم رفع الصورة. اضغط "حفظ ونشر" لتطبيق التغيير على الموقع.`, 'success');
+      } catch(e) {
+        setStatus('فشل رفع الصورة: ' + e.message, 'error');
+      }
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result || '';
+          resolve(String(result).split(',')[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function setStatus(msg, type) {
+      const el = document.getElementById('editor-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'editor-status' + (type ? ' ' + type : '');
+    }
+
+    /* ══════════════════════════════════════════════
+       PAGES EDITOR
+       Edits src/_data/pages/*.json via GitHub API,
+       sharing the same sessionStorage token.
+    ══════════════════════════════════════════════ */
+    const PAGE_FILES = {
+      home:          'src/_data/pages/home.json',
+      about:         'src/_data/pages/about.json',
+      services:      'src/_data/pages/services.json',
+      contact:       'src/_data/pages/contact.json',
+      antiaging:     'src/_data/pages/antiaging.json',
+      methyleneblue: 'src/_data/pages/methyleneblue.json',
+    };
+
+    let currentPageFile = 'home';
+    let currentPageSha  = '';
+    let currentPageData = null;
+    let currentPageLang = 'ar';
+    let pagesRawDirty   = false;
+
+    function initPagesEditor() {
+      setupPagesRawTracking();
+      switchPageFile('home');
+    }
+
+    function setupPagesRawTracking() {
+      const rawEl = document.getElementById('pages-json-textarea');
+      if (!rawEl || rawEl.dataset.bound === '1') return;
+      rawEl.dataset.bound = '1';
+      rawEl.addEventListener('input', () => { pagesRawDirty = true; });
+    }
+
+    async function switchPageFile(key) {
+      currentPageFile = key;
+      document.querySelectorAll('[id^="ptab-"]').forEach(t => t.classList.remove('active'));
+      const tab = document.getElementById('ptab-' + key);
+      if (tab) tab.classList.add('active');
+
+      // Reset lang to AR on page switch
+      currentPageLang = 'ar';
+      document.querySelectorAll('[id^="ltab-"]').forEach(t => t.classList.remove('active'));
+      const ltabAr = document.getElementById('ltab-ar');
+      if (ltabAr) ltabAr.classList.add('active');
+
+      const token = localStorage.getItem('o2f-gh-token');
+      setPagesStatus('جاري التحميل...', 'loading');
+      document.getElementById('pagesSaveBtn').disabled = true;
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${PAGE_FILES[key]}`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
+        const data = await res.json();
+        currentPageSha  = data.sha;
+        const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        currentPageData = JSON.parse(raw);
+        renderPageEditor();
+        setPagesStatus('تم التحميل ✓', 'success');
+        document.getElementById('pagesSaveBtn').disabled = false;
+      } catch(e) {
+        setPagesStatus('خطأ في التحميل: ' + e.message, 'error');
+      }
+    }
+
+    function switchPageLang(lang) {
+      currentPageLang = lang;
+      document.querySelectorAll('[id^="ltab-"]').forEach(t => t.classList.remove('active'));
+      const ltab = document.getElementById('ltab-' + lang);
+      if (ltab) ltab.classList.add('active');
+      if (currentPageData) renderPageEditor();
+    }
+
+    async function savePageFile() {
+      const token = localStorage.getItem('o2f-gh-token');
+      try {
+        maybeSyncFromPagesRaw();
+      } catch(e) {
+        setPagesStatus('JSON غير صالح — ' + e.message, 'error');
+        return;
+      }
+
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(currentPageData, null, 2) + '\n')));
+      const saveBtn = document.getElementById('pagesSaveBtn');
+      saveBtn.disabled = true;
+      setPagesStatus('جاري الحفظ والنشر...', 'loading');
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/${PAGE_FILES[currentPageFile]}`,
+          {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `admin: update pages/${currentPageFile}.json`,
+              content: encoded,
+              sha: currentPageSha,
+            }),
+          }
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
+        currentPageSha = data.content.sha;
+        setPagesStatus('✓ تم الحفظ! التغيير هيظهر خلال 1-2 دقيقة — لو مش ظاهر اضغط Ctrl+Shift+R على صفحة الموقع', 'success');
+      } catch(e) {
+        setPagesStatus('فشل الحفظ: ' + e.message, 'error');
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    function maybeSyncFromPagesRaw() {
+      if (!pagesRawDirty) return;
+      const val = document.getElementById('pages-json-textarea').value;
+      currentPageData = JSON.parse(val);
+      pagesRawDirty = false;
+    }
+
+    function updatePagesRaw() {
+      const el = document.getElementById('pages-json-textarea');
+      if (el) el.value = JSON.stringify(currentPageData, null, 2);
+      pagesRawDirty = false;
+    }
+
+    function renderPageEditor() {
+      updatePagesRaw();
+      const container = document.getElementById('pages-visual-editor');
+      if (!container || !currentPageData) return;
+
+      const langData = currentPageData[currentPageLang];
+      if (!langData) {
+        container.innerHTML = '<p style="color:var(--muted);padding:.5rem">لا توجد بيانات لهذه اللغة.</p>';
+        return;
+      }
+
+      container.innerHTML = Object.entries(langData).map(([sectionKey, sectionVal]) => {
+        const prefix = `${currentPageLang}.${sectionKey}`;
+        const label  = sectionKey.replace(/_/g, ' ');
+        let inner = '';
+
+        if (typeof sectionVal === 'string') {
+          inner = sectionVal.length > 80
+            ? textAreaHTML(label, prefix, sectionVal)
+            : fieldHTML(label, prefix, sectionVal);
+        } else if (Array.isArray(sectionVal)) {
+          inner = renderGenericArray(prefix, sectionVal, label);
+        } else if (sectionVal !== null && typeof sectionVal === 'object') {
+          inner = Object.entries(sectionVal)
+            .map(([k, v]) => renderGenericField(`${prefix}.${k}`, k, v))
+            .join('');
+        }
+
+        return `
+          <div class="editor-panel">
+            <h3>${label}</h3>
+            <div class="editor-grid">${inner}</div>
+          </div>`;
+      }).join('');
+
+      bindPageFields(container);
+      bindPageListEditors(container);
+    }
+
+    function renderGenericField(path, key, value) {
+      const label = key.replace(/_/g, ' ');
+      if (value === null || value === undefined) return '';
+      if (typeof value === 'boolean') return '';
+      if (typeof value === 'number')  return fieldHTML(label, path, String(value), 'number');
+      if (typeof value === 'string') {
+        return value.length > 80
+          ? textAreaHTML(label, path, value)
+          : fieldHTML(label, path, value);
+      }
+      if (Array.isArray(value)) return renderGenericArray(path, value, label);
+      if (typeof value === 'object') {
+        return `
+          <div class="field" style="grid-column:1/-1">
+            <label style="font-weight:600;color:var(--mint)">${label}</label>
+            <div class="editor-grid" style="margin-top:.5rem;padding:.65rem;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid var(--line)">
+              ${Object.entries(value).map(([k, v]) => renderGenericField(`${path}.${k}`, k, v)).join('')}
+            </div>
+          </div>`;
+      }
+      return '';
+    }
+
+    function renderGenericArray(path, arr, label) {
+      const displayLabel = label || path.split('.').pop().replace(/_/g, ' ');
+      if (!arr.length) return `<div class="field"><label>${displayLabel}</label><em style="font-size:.75rem;color:var(--muted)">فارغ</em></div>`;
+
+      // Simple string/number array → feature-list widget
+      if (typeof arr[0] !== 'object') {
+        return featureListHTML(displayLabel, path, arr.map(String));
+      }
+
+      // Array of objects → plan-cards
+      return `
+        <div class="field" style="grid-column:1/-1">
+          <label style="font-weight:600;color:var(--mint)">${displayLabel}</label>
+          <div style="display:grid;gap:.6rem;margin-top:.5rem">
+            ${arr.map((item, i) => `
+              <div class="plan-card">
+                <div class="editor-grid">
+                  ${Object.entries(item).map(([k, v]) => renderGenericField(`${path}.${i}.${k}`, k, v)).join('')}
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>`;
+    }
+
+    function setPagesStatus(msg, type) {
+      const el = document.getElementById('pages-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'editor-status' + (type ? ' ' + type : '');
+    }
+
+    /* ══════════════════════════════════════════════
+       DEDICATED GALLERY SECTION
+       Two sub-sections: hero cards + gallery images
+    ══════════════════════════════════════════════ */
+    let gallerySecData = null;
+    let gallerySecSha  = '';
+
+    function initGallerySection() {
+      if (gallerySecData) {
+        renderGallerySection();
+        return;
+      }
+      loadGallerySection();
+    }
+
+    async function loadGallerySection() {
+      const token = localStorage.getItem('o2f-gh-token');
+      setGalleryStatus('جاري التحميل...', 'loading');
+      const saveBtn = document.getElementById('gallerySaveBtn');
+      if (saveBtn) saveBtn.disabled = true;
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/src/_data/gallery.json`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        gallerySecSha = data.sha;
+        const raw = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        gallerySecData = JSON.parse(raw);
+
+        // Ensure hero_cards array has exactly 3 items
+        if (!Array.isArray(gallerySecData.hero_cards)) gallerySecData.hero_cards = [];
+        while (gallerySecData.hero_cards.length < 3) {
+          gallerySecData.hero_cards.push({ image: '', title_ar: '', title_en: '', desc_ar: '', desc_en: '' });
+        }
+        if (!Array.isArray(gallerySecData.images)) gallerySecData.images = [];
+
+        renderGallerySection();
+        setGalleryStatus('تم التحميل ✓', 'success');
+        if (saveBtn) saveBtn.disabled = false;
+      } catch(e) {
+        setGalleryStatus('خطأ في التحميل: ' + e.message, 'error');
+      }
+    }
+
+    function renderGallerySection() {
+      renderHeroCardsEditor();
+      renderGalleryImagesEditor();
+      setupGalleryDropzone2();
+    }
+
+    function renderHeroCardsEditor() {
+      const container = document.getElementById('hero-cards-editor');
+      if (!container || !gallerySecData) return;
+      const cards = gallerySecData.hero_cards || [];
+      container.innerHTML = cards.slice(0, 3).map((card, i) => `
+        <div class="gallery-card" style="padding-bottom:.75rem">
+          <div style="position:relative;width:100%;height:220px;overflow:hidden;border-radius:12px 12px 0 0;background:#0d1724">
+            ${card.image
+              ? `<img src="..${escapeHtml(card.image)}" alt="" style="width:100%;height:100%;object-fit:cover">`
+              : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem">لا توجد صورة — ارفع صورة للكارت</div>`
+            }
+            <label style="position:absolute;bottom:.5rem;right:.5rem;cursor:pointer" class="btn-mini">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              رفع صورة
+              <input type="file" accept="image/*" style="display:none" onchange="uploadHeroCardImage(this,${i})">
+            </label>
+          </div>
+          <div class="gallery-fields">
+            <div class="field">
+              <label>العنوان بالعربي</label>
+              <input type="text" data-gpath="hero_cards.${i}.title_ar" value="${escapeHtml(card.title_ar || '')}">
+            </div>
+            <div class="field">
+              <label>Title (English)</label>
+              <input type="text" data-gpath="hero_cards.${i}.title_en" value="${escapeHtml(card.title_en || '')}">
+            </div>
+            <div class="field">
+              <label>الوصف بالعربي</label>
+              <textarea data-gpath="hero_cards.${i}.desc_ar" style="min-height:60px">${escapeHtml(card.desc_ar || '')}</textarea>
+            </div>
+            <div class="field">
+              <label>Description (English)</label>
+              <textarea data-gpath="hero_cards.${i}.desc_en" style="min-height:60px">${escapeHtml(card.desc_en || '')}</textarea>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      bindGalleryFields(container);
+    }
+
+    function renderGalleryImagesEditor() {
+      const container = document.getElementById('gallery-images-editor');
+      if (!container || !gallerySecData) return;
+      const images = gallerySecData.images || [];
+
+      container.innerHTML = images.map((img, i) => `
+        <div class="gallery-card">
+          <img src="..${escapeHtml(img.src || '')}" alt=""
+               style="width:100%;height:120px;object-fit:cover;background:rgba(0,0,0,.25)">
+          <div class="gallery-fields">
+            <div class="field">
+              <label>مسار الصورة</label>
+              <input type="text" data-gpath="images.${i}.src" value="${escapeHtml(img.src || '')}">
+            </div>
+            <div class="field">
+              <label>Alt EN</label>
+              <input type="text" data-gpath="images.${i}.alt_en" value="${escapeHtml(img.alt_en || '')}">
+            </div>
+            <div class="field">
+              <label>Alt AR</label>
+              <input type="text" data-gpath="images.${i}.alt_ar" value="${escapeHtml(img.alt_ar || '')}">
+            </div>
+            <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.2rem">
+              ${i > 0 ? `<button class="btn-mini" data-gallery-up="${i}" title="لأعلى">↑ لأعلى</button>` : ''}
+              ${i < images.length - 1 ? `<button class="btn-mini" data-gallery-dn="${i}" title="لأسفل">↓ لأسفل</button>` : ''}
+              <button class="btn-mini btn-danger" data-gallery-del="${i}">حذف</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      bindGalleryFields(container);
+
+      container.querySelectorAll('[data-gallery-del]').forEach(btn => {
+        btn.onclick = () => {
+          gallerySecData.images.splice(Number(btn.dataset.galleryDel), 1);
+          renderGalleryImagesEditor();
+        };
+      });
+      container.querySelectorAll('[data-gallery-up]').forEach(btn => {
+        btn.onclick = () => {
+          const idx = Number(btn.dataset.galleryUp);
+          const arr = gallerySecData.images;
+          [arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]];
+          renderGalleryImagesEditor();
+        };
+      });
+      container.querySelectorAll('[data-gallery-dn]').forEach(btn => {
+        btn.onclick = () => {
+          const idx = Number(btn.dataset.galleryDn);
+          const arr = gallerySecData.images;
+          [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]];
+          renderGalleryImagesEditor();
+        };
+      });
+    }
+
+    function bindGalleryFields(container) {
+      container.querySelectorAll('[data-gpath]').forEach(el => {
+        el.addEventListener('input', e => {
+          setByPath(gallerySecData, e.target.dataset.gpath, e.target.value);
+        });
+      });
+    }
+
+    function setupGalleryDropzone2() {
+      const dropzone = document.getElementById('galleryDropzone2');
+      const input    = document.getElementById('galleryInput2');
+      if (!dropzone || dropzone.dataset.bound === '1') return;
+      dropzone.dataset.bound = '1';
+      ['dragenter','dragover'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault(); dropzone.classList.add('dragover');
+      }));
+      ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => {
+        e.preventDefault(); dropzone.classList.remove('dragover');
+      }));
+      dropzone.addEventListener('drop', e => handleGallerySecUpload(Array.from(e.dataTransfer.files || [])));
+      input.addEventListener('change', e => handleGallerySecUpload(Array.from(e.target.files || [])));
+    }
+
+    async function handleGallerySecUpload(files) {
+      if (!files.length) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      if (!token) return setGalleryStatus('برجاء تسجيل الدخول أولًا.', 'error');
+      setGalleryStatus('جاري رفع الصور...', 'loading');
+
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        const safeName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9_.-]/g, '_')}`;
+        const targetPath = `src/assets/images/${safeName}`;
+        try {
+          const base64 = await fileToBase64(file);
+          const uploadRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${targetPath}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: `admin: upload ${safeName}`, content: base64 }),
+          });
+          if (!uploadRes.ok) {
+            const err = await uploadRes.json().catch(() => ({}));
+            throw new Error(err.message || `HTTP ${uploadRes.status}`);
+          }
+          gallerySecData.images.push({ src: `/assets/images/${safeName}`, alt_en: 'New image', alt_ar: 'صورة جديدة' });
+        } catch(e) {
+          setGalleryStatus(`فشل رفع ${file.name}: ${e.message}`, 'error');
+        }
+      }
+      renderGalleryImagesEditor();
+      setGalleryStatus('تم رفع الصور. اضغط "حفظ ونشر" لتحديث المعرض على الموقع', 'success');
+    }
+
+    async function uploadHeroCardImage(input, index) {
+      const file = input.files[0];
+      if (!file) return;
+      const token = localStorage.getItem('o2f-gh-token');
+      const ext  = file.name.split('.').pop().toLowerCase();
+      const safeName = `hero_card_${index + 1}_${Date.now()}.${ext}`;
+      const targetPath = `src/assets/images/${safeName}`;
+      setGalleryStatus('جاري رفع الصورة...', 'loading');
+      try {
+        const base64 = await fileToBase64(file);
+        const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${targetPath}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github+json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: `admin: upload hero card ${index + 1} image`, content: base64 }),
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        gallerySecData.hero_cards[index].image = `/assets/images/${safeName}`;
+        renderHeroCardsEditor();
+        setGalleryStatus('✓ تم رفع الصورة. اضغط "حفظ ونشر" لتطبيق التغيير على الموقع.', 'success');
+      } catch(e) {
+        setGalleryStatus('فشل رفع الصورة: ' + e.message, 'error');
+      }
+    }
+
+    async function saveGallerySection() {
+      const token = localStorage.getItem('o2f-gh-token');
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(gallerySecData, null, 2) + '\n')));
+      const saveBtn = document.getElementById('gallerySaveBtn');
+      if (saveBtn) saveBtn.disabled = true;
+      setGalleryStatus('جاري الحفظ والنشر...', 'loading');
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${REPO}/contents/src/_data/gallery.json`,
+          {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/vnd.github+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: 'admin: update gallery.json',
+              content: encoded,
+              sha: gallerySecSha,
+            }),
+          }
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `HTTP ${res.status}`);
+        }
+        const data = await res.json();
+        gallerySecSha = data.content.sha;
+        setGalleryStatus('✓ تم الحفظ! التغيير هيظهر خلال 1-2 دقيقة — لو مش ظاهر اضغط Ctrl+Shift+R على صفحة الموقع', 'success');
+      } catch(e) {
+        setGalleryStatus('فشل الحفظ: ' + e.message, 'error');
+      } finally {
+        if (saveBtn) saveBtn.disabled = false;
+      }
+    }
+
+    function setGalleryStatus(msg, type) {
+      const el = document.getElementById('gallery-section-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'editor-status' + (type ? ' ' + type : '');
+    }
+  </script>
 </body>
-</html>
+            </html>
