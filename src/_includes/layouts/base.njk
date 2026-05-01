@@ -75,6 +75,9 @@
 
   <main class="flex-1">
     {{ content | safe }}
+    {% if page.url == '/en/plans/' or page.url == '/ar/plans/' %}
+      {% include "partials/plans-offer-section.njk" %}
+    {% endif %}
     {% if page.url == '/en/' or page.url == '/ar/' %}
       {% include "partials/comments-section.njk" %}
     {% endif %}
