@@ -1,6 +1,6 @@
 ---
 title: "Plans"
-description: "Choose the right coaching plan — Full Transformation or Therapeutic Nutrition — with flexible 1, 3, or 6-month pricing for Egypt, Gulf and international clients."
+description: "Choose the right coaching plan with automatic pricing based on the visitor location."
 ---
 
 <section class="grid-bg relative overflow-hidden">
@@ -14,23 +14,9 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   </div>
 </section>
 
-{# REGION SWITCHER #}
-<section class="pt-4 pb-2">
-  <div class="container-x">
-    <div class="flex flex-wrap items-center justify-center gap-2" data-aos="fade-up">
-      <span class="text-brand-off/60 text-sm">Pricing for:</span>
-      <div id="region-switcher" class="inline-flex rounded-xl border border-brand-line bg-white/5 p-1 gap-1" role="tablist">
-        <button type="button" data-region="egypt"         class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇪🇬 Egypt</button>
-        <button type="button" data-region="gulf"          class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🇸🇦 Gulf</button>
-        <button type="button" data-region="international" class="region-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all">🌍 International</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 {# REFERRAL TOGGLE #}
 {% if referral.enabled %}
-<section class="pb-4">
+<section class="pt-4 pb-4">
   <div class="container-x">
     <div class="flex flex-col items-center gap-2" data-aos="fade-up">
       <label class="flex items-center gap-3 cursor-pointer select-none group">
@@ -93,7 +79,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
           <h2 class="text-2xl font-bold mb-1">{{ p.en.name }}</h2>
           <p class="text-brand-mint text-sm mb-4">{{ p.en.tagline }}</p>
 
-          {# Duration tabs #}
           <div class="dur-tabs inline-flex rounded-lg border border-brand-line bg-white/3 p-0.5 gap-0.5 mb-4 self-start" role="tablist">
             <button type="button" class="dur-btn active px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">1 Month</button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
@@ -106,10 +91,10 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
 
           <div class="mb-1">
             <div class="flex items-baseline gap-2 flex-wrap">
-              <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.egypt.m1.amount }}</span>
-              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.egypt.m1.currency }}</span>
+              <span class="text-4xl font-bold text-brand-mint price-amount">{{ p.pricing.international.m1.amount }}</span>
+              <span class="text-brand-off/70 text-sm price-currency">{{ p.pricing.international.m1.currency }}</span>
             </div>
-            <div class="text-brand-off/50 text-xs price-label mt-0.5">{{ p.pricing.egypt.m1.label }}</div>
+            <div class="text-brand-off/50 text-xs price-label mt-0.5">{{ p.pricing.international.m1.label }}</div>
             <div class="price-total text-brand-off/40 text-xs mt-0.5 hidden"></div>
           </div>
 
@@ -155,7 +140,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   </div>
 </section>
 
-{# ANTI-AGING #}
 <section class="section pt-4">
   <div class="container-x">
     <div class="card card-hover text-center" data-aos="fade-up">
@@ -166,40 +150,53 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   </div>
 </section>
 
-
 <style>
-  .region-btn { color: rgba(247,248,250,0.6); }
-  .region-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
-  .region-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,.05); }
-
   .dur-btn { color: rgba(247,248,250,0.5); }
   .dur-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
   .dur-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,.06); }
-
   .plan-card { transition: transform .25s ease, box-shadow .25s ease; }
   .plan-card:hover { transform: translateY(-5px); }
   @media (max-width: 639px) { .plan-card { width: 100%; } }
-
 </style>
 
 <script>
 (function () {
-  const REGION_KEY = 'o2f_region';
-  const DEFAULT_REGION = 'egypt';
+  const REGION_KEY = 'o2f_region_auto';
+  const DEFAULT_REGION = 'international';
   const regionPrefix = { egypt: 'egypt', gulf: 'gulf', international: 'intl' };
+  const gulfCountries = ['SA', 'AE', 'KW', 'QA', 'BH', 'OM'];
   const REFERRAL_DISC = {
     egypt:         { amount: '{{ referral.discount.egypt.amount if referral else "500" }}',  currency: '{{ referral.discount.egypt.currency if referral else "EGP" }}' },
     gulf:          { amount: '{{ referral.discount.gulf.amount if referral else "38" }}',   currency: '{{ referral.discount.gulf.currency if referral else "SAR" }}' },
     international: { amount: '{{ referral.discount.international.amount if referral else "10" }}', currency: '{{ referral.discount.international.currency if referral else "USD" }}' }
   };
-
   let currentRegion = DEFAULT_REGION;
 
-  function cam(s) { return s.replace(/-([a-z])/g, (_, c) => c.toUpperCase()); }
+  function cam(s) { return s.replace(/-([a-z])/g, function (_, c) { return c.toUpperCase(); }); }
 
-  /* ── Price refresh ── */
+  function regionFromCountry(countryCode) {
+    if (countryCode === 'EG') return 'egypt';
+    if (gulfCountries.indexOf(countryCode) !== -1) return 'gulf';
+    return 'international';
+  }
+
+  async function detectRegionByIp() {
+    try {
+      const cached = localStorage.getItem(REGION_KEY);
+      if (cached && regionPrefix[cached]) return cached;
+      const response = await fetch('https://ipapi.co/json/');
+      if (!response.ok) return DEFAULT_REGION;
+      const data = await response.json();
+      const detected = regionFromCountry(data && data.country_code ? data.country_code : '');
+      localStorage.setItem(REGION_KEY, detected);
+      return detected;
+    } catch (e) {
+      return DEFAULT_REGION;
+    }
+  }
+
   function refreshCard(card, region, dur) {
-    var pref = regionPrefix[region] || 'egypt';
+    var pref = regionPrefix[region] || 'intl';
     var ds = card.dataset;
     var amount   = ds[cam(pref + '-' + dur + '-amount')]   || '';
     var currency = ds[cam(pref + '-' + dur + '-currency')] || '';
@@ -228,13 +225,11 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
   function setRegion(region) {
     if (!regionPrefix[region]) region = DEFAULT_REGION;
     currentRegion = region;
-    try { localStorage.setItem(REGION_KEY, region); } catch (e) {}
-    document.querySelectorAll('.region-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.region === region); });
     document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
       var activeDurBtn = card.querySelector('.dur-btn.active');
       refreshCard(card, region, activeDurBtn ? activeDurBtn.dataset.dur : 'm1');
     });
-    var r = REFERRAL_DISC[region] || REFERRAL_DISC.egypt;
+    var r = REFERRAL_DISC[region] || REFERRAL_DISC.international;
     document.querySelectorAll('.referral-discount-line').forEach(function (el) {
       el.textContent = 'Each of you saves ' + r.amount + ' ' + r.currency + ' off the plan!';
     });
@@ -248,7 +243,6 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
     document.querySelectorAll('.referral-plan-badge').forEach(function (el) { el.classList.toggle('hidden', !active); });
   }
 
-  /* Duration tabs per card */
   document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
     card.querySelectorAll('.dur-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -259,11 +253,8 @@ description: "Choose the right coaching plan — Full Transformation or Therapeu
     });
   });
 
-  /* Init */
-  var saved = DEFAULT_REGION;
-  try { saved = localStorage.getItem(REGION_KEY) || DEFAULT_REGION; } catch (e) {}
-  setRegion(saved);
-  document.querySelectorAll('.region-btn').forEach(function (b) { b.addEventListener('click', function () { setRegion(b.dataset.region); }); });
+  setRegion(DEFAULT_REGION);
+  detectRegionByIp().then(setRegion);
   var refCheck = document.getElementById('referral-check');
   if (refCheck) refCheck.addEventListener('change', function () { setReferral(refCheck.checked); });
 })();
