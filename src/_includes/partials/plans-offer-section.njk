@@ -1,0 +1,51 @@
+{% if offers.enabled %}
+<section id="o2f-plans-offer" class="o2f-plans-offer section py-6">
+  <div class="container-x">
+    <div class="o2f-offer-card" data-aos="fade-up">
+      <div class="o2f-offer-icon">🎁</div>
+      <div class="o2f-offer-copy">
+        <span class="o2f-offer-badge">{{ offers.badge[lang] }}</span>
+        <h2>{{ offers.headline[lang] }}</h2>
+        <p>{{ offers.description[lang] }}</p>
+      </div>
+      <a href="{{ ('/ar/contact/' if lang == 'ar' else '/en/contact/') | url }}" class="btn-primary o2f-offer-cta">{{ offers.cta[lang] }}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .o2f-plans-offer { padding-top: 1.2rem; padding-bottom: 1.2rem; }
+  .o2f-offer-card { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; border: 1px solid rgba(201,168,74,.32); background: radial-gradient(circle at top right, rgba(201,168,74,.18), transparent 40%), rgba(201,168,74,.065); border-radius: 1.35rem; padding: 1.1rem 1.25rem; box-shadow: 0 20px 55px rgba(0,0,0,.22); }
+  .o2f-offer-card:before { content: ''; position: absolute; inset: -40%; background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.08) 48%, transparent 62%); animation: o2fOfferShine 5s linear infinite; pointer-events: none; }
+  .o2f-offer-icon { position: relative; width: 3.1rem; height: 3.1rem; border-radius: 1rem; display: grid; place-items: center; font-size: 1.6rem; background: rgba(201,168,74,.16); border: 1px solid rgba(201,168,74,.28); }
+  .o2f-offer-copy { position: relative; }
+  .o2f-offer-badge { display: inline-flex; color: #C9A84A; font-weight: 800; font-size: .72rem; border: 1px solid rgba(201,168,74,.32); background: rgba(201,168,74,.1); border-radius: 999px; padding: .25rem .6rem; margin-bottom: .35rem; }
+  .o2f-offer-copy h2 { font-size: clamp(1.15rem, 2vw, 1.55rem); margin: 0 0 .25rem; color: #F7F8FA; }
+  .o2f-offer-copy p { margin: 0; color: rgba(247,248,250,.68); font-size: .92rem; line-height: 1.65; }
+  .o2f-offer-cta { position: relative; white-space: nowrap; }
+  .offer-plan-badge { display: none; }
+  .plan-card.offer-active .offer-plan-badge { display: inline-flex; }
+  @keyframes o2fOfferShine { from { transform: translateX(-30%); } to { transform: translateX(30%); } }
+  @media (max-width: 760px) { .o2f-offer-card { grid-template-columns: 1fr; text-align: center; justify-items: center; } .o2f-offer-copy p { font-size: .86rem; } }
+</style>
+<script>
+(function () {
+  var offer = document.getElementById('o2f-plans-offer');
+  if (!offer) return;
+  var firstPlanSection = document.querySelector('.plan-card') && document.querySelector('.plan-card').closest('section');
+  if (firstPlanSection && firstPlanSection.parentNode) firstPlanSection.parentNode.insertBefore(offer, firstPlanSection);
+
+  document.querySelectorAll('.plan-card[data-egypt-m1-amount]').forEach(function (card) {
+    var badges = card.querySelector('.flex.flex-wrap.gap-2.mb-3');
+    if (badges && !badges.querySelector('.offer-plan-badge')) {
+      var span = document.createElement('span');
+      span.className = 'offer-plan-badge chip bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold';
+      span.textContent = '{{ offers.badge[lang] }}';
+      badges.appendChild(span);
+    }
+    card.querySelectorAll('.dur-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { card.classList.toggle('offer-active', btn.dataset.dur === '{{ offers.appliesTo }}'); });
+    });
+  });
+})();
+</script>
+{% endif %}
