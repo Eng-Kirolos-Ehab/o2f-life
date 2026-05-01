@@ -53,7 +53,8 @@
 <script>
 (function(){
   var SUPABASE_URL='https://qalzanmeusuqssrgxumg.supabase.co';
-  var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhbHphbm1ldXN1cXNzcmd4dW1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2MjAxMDMsImV4cCI6MjA5MzE5NjEwM30.PHP_zC5firTlCfA9zFLXO1iqzUXMbiTsM6-7wKsDPOU';
+  var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIc3MiLCJyZWYiOiJxYWx6YW5tZXVzdXFzc3JneHVtZyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzc3NjIwMTAzLCJleHAiOjIwOTMxOTYxMDN9.PHP_zC5firTlCfA9zFLXO1iqzUXMbiTsM6-7wKsDPOU';
+  var isCmsAdmin=sessionStorage.getItem('o2f-admin-auth')==='1'&&!!localStorage.getItem('o2f-gh-token');
   var session=null, allComments=[];
   function clean(v){return String(v||'').replace(/[<>]/g,'').trim()}
   function authHeaders(){return {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+(session&&session.access_token?session.access_token:SUPABASE_KEY),'Content-Type':'application/json','Prefer':'return=representation'}}
@@ -69,7 +70,7 @@
   async function updateComment(id, data){await api('comments?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify(data)});await loadComments();editStatusText.textContent='تم حفظ التعديل'}
 
   loginForm.addEventListener('submit',async function(e){e.preventDefault();loginStatus.textContent='جاري تسجيل الدخول...';try{var res=await auth('token?grant_type=password',{email:adminEmail.value,password:adminPassword.value});session=res;localStorage.setItem('o2f_supabase_session',JSON.stringify(res));showAdmin();await loadComments();loginStatus.textContent=''}catch(err){loginStatus.textContent='فشل تسجيل الدخول أو الصلاحية غير مضافة في admin_users.'}})
-  logoutBtn.onclick=function(){localStorage.removeItem('o2f_supabase_session');session=null;showLogin()}
+  logoutBtn.onclick=function(){localStorage.removeItem('o2f_supabase_session');session=null;if(isCmsAdmin){showAdmin();loadComments().catch(function(){})}else{showLogin()}}
   refreshBtn.onclick=function(){loadComments()}
   document.body.addEventListener('click',async function(e){var b=e.target.closest('button');if(!b)return;var id=b.dataset.id,act=b.dataset.action;if(act==='edit')fill(find(id));if(act==='approve')await updateComment(id,{status:'approved'});if(act==='reject')await updateComment(id,{status:'rejected'})})
   editForm.addEventListener('submit',async function(e){e.preventDefault();if(!editId.value)return;await updateComment(editId.value,{name:clean(editName.value),service:clean(editService.value||'O2F'),comment:clean(editComment.value),status:editStatus.value,rating:5})})
@@ -78,7 +79,7 @@
   addForm.addEventListener('submit',async function(e){e.preventDefault();addStatusText.textContent='جاري الإضافة...';try{await api('comments',{method:'POST',body:JSON.stringify({name:clean(addName.value),service:clean(addService.value||'O2F'),comment:clean(addComment.value),status:'approved',rating:5})});addForm.reset();addStatusText.textContent='تمت الإضافة';await loadComments()}catch(err){addStatusText.textContent='تعذر الإضافة. تأكد من صلاحية الأدمن.'}})
   document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});t.classList.add('active');document.querySelectorAll('.panel').forEach(function(p){p.hidden=true});document.getElementById(t.dataset.tab).hidden=false;render()}})
   try{session=JSON.parse(localStorage.getItem('o2f_supabase_session')||'null')}catch(e){session=null}
-  if(session&&session.access_token){showAdmin();loadComments().catch(function(){showLogin();loginStatus.textContent='انتهت الجلسة أو لا توجد صلاحية أدمن.'})}else{showLogin()}
+  if(session&&session.access_token){showAdmin();loadComments().catch(function(){if(isCmsAdmin){showAdmin()}else{showLogin();loginStatus.textContent='انتهت الجلسة أو لا توجد صلاحية أدمن.'}})}else if(isCmsAdmin){showAdmin();loadComments().catch(function(err){pendingList.innerHTML='<div class="empty">تعذر تحميل التعليقات. راجع صلاحيات Supabase RLS.</div>';approvedList.innerHTML='<div class="empty">تعذر تحميل التعليقات.</div>';rejectedList.innerHTML='<div class="empty">تعذر تحميل التعليقات.</div>'})}else{showLogin()}
 })();
 </script>
 </body>
