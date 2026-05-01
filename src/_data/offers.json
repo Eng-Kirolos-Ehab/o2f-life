@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "appliesTo": "m3",
+  "freeMonths": 1,
+  "badge": {
+    "ar": "عرض محدود",
+    "en": "Limited offer"
+  },
+  "headline": {
+    "ar": "اشترك 3 شهور وخد شهر مجانًا",
+    "en": "Subscribe for 3 months and get 1 month free"
+  },
+  "description": {
+    "ar": "فعّل باقة 3 شهور واحصل على شهر إضافي مجاني للمتابعة والاستمرارية. العرض يظهر على الباقات عند اختيار مدة 3 شهور.",
+    "en": "Choose the 3-month plan and get one extra month free for better consistency and follow-up. The offer appears when the 3-month duration is selected."
+  },
+  "cta": {
+    "ar": "اطلب العرض الآن",
+    "en": "Claim this offer"
+  }
+}
