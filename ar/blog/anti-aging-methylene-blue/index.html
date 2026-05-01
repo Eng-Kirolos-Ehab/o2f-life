@@ -71,17 +71,46 @@
   
 </head>
 <body class="min-h-screen flex flex-col">
-  <header data-site-header
-        class="floating-glass-header fixed top-3 left-0 right-0 z-50 transition-all duration-300">
-  <div class="container-x">
-    <div class="floating-glass-nav flex h-16 items-center justify-between">
-      <a href="/ar/" class="flex items-center gap-2 font-display text-lg font-bold">
+  <header data-site-header class="premium-site-header fixed top-0 left-0 right-0 z-50">
+  <div class="container-x pt-3">
+    <div class="premium-nav-wrap">
+      <a href="/ar/" class="premium-brand" aria-label="O2F home">
         
-          <img src="/assets/images/logo.webp" alt="O2F life" class="h-9 w-auto object-contain">
+          <img src="/assets/images/logo.webp" alt="O2F life" class="h-10 w-auto object-contain">
         
       </a>
 
-      <nav class="hidden md:flex items-center gap-1 text-sm floating-nav-links">
+      <nav class="premium-main-nav hidden lg:flex" aria-label="Main navigation">
+        <a href="/ar/">الرئيسية</a>
+        <a href="/ar/services/">الخدمات</a>
+        <a href="/ar/plans/">الباقات</a>
+        <a href="/ar/gallery/">المعرض</a>
+        <a href="/ar/contact/">تواصل</a>
+      </nav>
+
+      <div class="premium-nav-actions">
+        <button type="button" data-theme-toggle class="premium-icon-btn" aria-label="Toggle theme">
+          <span class="theme-icon-sun">☀</span><span class="theme-icon-moon">☾</span>
+        </button>
+
+        
+          <a href="/en/" data-lang-switch="en" class="premium-lang">EN</a>
+        
+
+        <a href="/ar/plans/" class="btn-primary hidden sm:inline-flex">
+          ابدأ التحول
+        </a>
+
+        <button data-menu-btn aria-expanded="false" class="premium-menu-btn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div data-menu-panel class="premium-mobile-drawer hidden">
+    <div class="container-x">
+      <nav class="premium-drawer-card" aria-label="Mobile navigation">
         <a href="/ar/">الرئيسية</a>
         <a href="/ar/about/">عن الكابتن</a>
         <a href="/ar/services/">الخدمات</a>
@@ -90,45 +119,9 @@
         <a href="/ar/blog/">المقالات</a>
         <a href="/ar/methylene-blue/">ميثيلين بلو</a>
         <a href="/ar/anti-aging/">مكافحة الشيخوخة</a>
-        <a href="/ar/contact/">تواصل</a>
+        <a href="/ar/contact/" class="drawer-cta">احجز استشارة</a>
       </nav>
-
-      <div class="flex items-center gap-2 sm:gap-3">
-        <button type="button" data-theme-toggle class="glass-control" aria-label="Toggle dark and light theme">
-          <span class="theme-icon-sun">☀</span>
-          <span class="theme-icon-moon">☾</span>
-        </button>
-
-        
-          <a href="/en/" data-lang-switch="en" class="chip hover:border-brand-mint hover:text-brand-mint">EN</a>
-        
-
-        <a href="/ar/plans/" class="btn-primary hidden sm:inline-flex">
-          اشترك الآن
-        </a>
-
-        <button data-menu-btn aria-expanded="false"
-                class="md:hidden glass-control" aria-label="Open menu">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 6h18M3 12h18M3 18h18"/>
-          </svg>
-        </button>
-      </div>
     </div>
-  </div>
-
-  <div data-menu-panel class="hidden md:hidden container-x mt-2">
-    <nav class="mobile-glass-panel grid gap-2 text-sm">
-      <a href="/ar/">الرئيسية</a>
-      <a href="/ar/about/">عن الكابتن</a>
-      <a href="/ar/services/">الخدمات</a>
-      <a href="/ar/plans/">الباقات</a>
-      <a href="/ar/gallery/">المعرض</a>
-      <a href="/ar/blog/">المقالات</a>
-      <a href="/ar/methylene-blue/">ميثيلين بلو</a>
-      <a href="/ar/anti-aging/">مكافحة الشيخوخة</a>
-      <a href="/ar/contact/">تواصل</a>
-    </nav>
   </div>
 </header>
 
