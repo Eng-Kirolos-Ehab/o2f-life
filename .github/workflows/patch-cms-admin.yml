@@ -23,10 +23,8 @@ jobs:
           original = s
 
           # 1) Update visible admin version only.
-          s = s.replace('v1.0.1', 'v1.3.2')
-          s = s.replace('v1.2.0', 'v1.3.2')
-          s = s.replace('v1.3.0', 'v1.3.2')
-          s = s.replace('v1.3.1', 'v1.3.2')
+          for old in ['v1.0.1','v1.2.0','v1.3.0','v1.3.1','v1.3.2']:
+              s = s.replace(old, 'v1.3.3')
 
           # 2) Add sidebar links without touching old section logic.
           if 'إدارة عروض الباقات' not in s:
