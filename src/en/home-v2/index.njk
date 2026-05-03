@@ -1,19 +1,1135 @@
 ---
 title: "O2F Home V2"
-description: "Final cinematic home v2."
+description: "Cinematic home v2 rebuild."
 permalink: /en/home-v2/index.html
 ---
 <style>
-.homev2{--lime:#a8ff78;--mint:#00d9a3;--ink:#06110d;color:#fff;background:#06110d;font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden}.homev2 *{box-sizing:border-box}.hv-bg{position:fixed;inset:-10%;z-index:0;background:var(--scene,url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2200&q=85')) center/cover;transform:translate3d(var(--x,0),var(--y,0),0) scale(1.08);transition:background .55s ease}.homev2:before{content:"";position:fixed;inset:0;z-index:1;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.16),transparent 24%),linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.2) 50%,rgba(0,0,0,.66)),linear-gradient(180deg,rgba(0,0,0,.05),rgba(6,17,13,.72));pointer-events:none}.homev2:after{content:"";position:fixed;inset:0;z-index:2;background:linear-gradient(115deg,transparent 0 18%,rgba(255,255,255,.12) 23%,transparent 32% 70%,rgba(168,255,120,.1) 77%,transparent 86%);mix-blend-mode:screen;pointer-events:none}.hv-nav{position:fixed;z-index:30;left:clamp(18px,4vw,70px);right:clamp(18px,4vw,70px);top:28px;display:flex;align-items:center;justify-content:space-between}.hv-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:950}.hv-brand img{width:42px;height:42px;border-radius:50%;object-fit:cover}.hv-links{display:flex;gap:18px;align-items:center}.hv-links a{color:rgba(255,255,255,.86);text-decoration:none;font-size:13px;font-weight:850}.hv-links a:last-child,.btn{border:1px solid rgba(255,255,255,.68);border-radius:999px;padding:12px 18px;background:rgba(255,255,255,.1);backdrop-filter:blur(14px);color:#fff;text-decoration:none;font-weight:900;display:inline-flex}.hv-decor,.hv-obj{position:fixed;inset:0;pointer-events:none}.hv-decor{z-index:3}.hv-obj{z-index:5;display:grid;place-items:center}.orb,.ring,.leaf,.line{position:absolute;opacity:.75;will-change:transform}.orb{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#fff,rgba(168,255,120,.28) 35%,transparent 72%);left:8vw;top:24vh}.ring{width:180px;height:180px;border:2px solid rgba(255,255,255,.24);border-radius:50%;right:8vw;top:17vh}.leaf{width:78px;height:34px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,#fff,rgba(168,255,120,.45));left:18vw;bottom:18vh}.line{width:260px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);right:18vw;bottom:25vh}.gym{position:relative;opacity:0;transform:translate3d(var(--ox,0),var(--oy,0),0) rotate(var(--r,-8deg)) scale(var(--s,.75));filter:drop-shadow(0 35px 35px rgba(0,0,0,.38));transition:.45s ease}.gym.show{opacity:.98;--s:1}.gym.none{display:none}.bottle{width:110px;height:315px;border-radius:50px 50px 58px 58px;background:linear-gradient(90deg,#276d33,#75d35e 37%,#d9ffd0 50%,#5bbb4c 58%,#1d6a34)}.bottle:before{content:"";position:absolute;left:30px;right:30px;top:-40px;height:46px;border-radius:16px;background:#151b17}.bottle:after{content:"";position:absolute;left:28px;right:28px;top:-60px;height:60px;border:12px solid #111816;border-bottom:0;border-radius:40px 40px 0 0}.dumbbell{width:350px;height:115px;display:flex;align-items:center;justify-content:space-between;--r:12deg}.dumbbell span{width:88px;height:155px;border-radius:27px;background:linear-gradient(#f2fff0,#74d46b,#1d6d34)}.dumbbell i{position:absolute;left:80px;right:80px;top:43px;height:26px;border-radius:999px;background:linear-gradient(90deg,#14221a,#eaffdf,#15351e)}.kettle{width:220px;height:220px;border-radius:50% 50% 44% 44%;background:linear-gradient(135deg,#eaffdf,#78d86c 42%,#1b7337);--r:-10deg}.kettle:before{content:"";position:absolute;left:52px;right:52px;top:-54px;height:88px;border:24px solid #1b211d;border-bottom:0;border-radius:60px 60px 0 0}.rope{width:300px;height:300px;border:15px solid #78d86c;border-radius:50%;--r:20deg}.rope:before,.rope:after{content:"";position:absolute;width:26px;height:100px;border-radius:999px;background:#161d19;bottom:-48px}.rope:before{left:48px;transform:rotate(20deg)}.rope:after{right:48px;transform:rotate(-20deg)}.hv-main{position:relative;z-index:10}.scene{min-height:100vh;padding:13vh clamp(18px,5vw,76px);display:grid;align-items:center;position:relative}.scene:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,17,13,.04),rgba(6,17,13,.2))}.hero{text-align:center}.kicker{color:var(--lime);font-size:12px;font-weight:950;letter-spacing:.18em;text-transform:uppercase}h1{font-size:clamp(54px,9vw,140px);line-height:.82;letter-spacing:-.09em;max-width:1200px;margin:16px auto;text-shadow:0 22px 70px rgba(0,0,0,.42)}h2{font-size:clamp(34px,5vw,78px);line-height:.9;letter-spacing:-.07em;margin:12px 0 16px}h3{font-size:22px;margin:8px 0}p,li{color:rgba(247,255,247,.8);line-height:1.72}.hero p{max-width:760px;margin:0 auto 24px}.glass{border:1px solid rgba(255,255,255,.24);background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.07));backdrop-filter:blur(24px);box-shadow:0 30px 90px rgba(0,0,0,.24);border-radius:34px}.panel,.card,.plan,.bubble{padding:24px}.split,.services,.diagnostic,.plans,.contact{display:grid;grid-template-columns:minmax(310px,440px) 1fr;gap:clamp(18px,5vw,70px);align-items:center}.photo{position:relative;min-height:620px;overflow:hidden}.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.58))}.stats{position:absolute;z-index:2;left:18px;right:18px;bottom:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stats span{background:rgba(255,255,255,.14);border-radius:18px;padding:12px;text-align:center;backdrop-filter:blur(12px);font-weight:950}.orbit{position:relative;min-height:670px}.orbit:before,.orbit:after{content:"";position:absolute;inset:7%;border:1px solid rgba(255,255,255,.22);border-radius:50%;animation:spin 32s linear infinite}.orbit:after{inset:20%;animation-direction:reverse;animation-duration:20s}.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:210px;height:210px;border-radius:50%;display:grid;place-items:center;text-align:center;background:rgba(168,255,120,.18)}.node{position:absolute;width:270px}.node:nth-child(2){left:0;top:5%}.node:nth-child(3){right:0;top:14%}.node:nth-child(4){left:8%;bottom:8%}.node:nth-child(5){right:5%;bottom:4%}.radar{min-height:420px;background:radial-gradient(circle at 50% 50%,rgba(168,255,120,.28),transparent 14%),repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.18) 0 1px,transparent 1px 44px);position:relative;overflow:hidden}.radar:after{content:"";position:absolute;left:50%;top:50%;width:2px;height:46%;background:linear-gradient(var(--lime),transparent);transform-origin:bottom;animation:sweep 5s linear infinite}.readouts{display:grid;gap:10px}.readout{padding:14px;border-radius:18px;background:rgba(255,255,255,.12)}.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step span{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(168,255,120,.22);font-weight:950}.gallery{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:14px}.gallery .card:first-child{grid-row:span 2}.gallery .card:nth-child(4){grid-column:span 2}.terrain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.plan{color:#fff;text-decoration:none}.plan:nth-child(2){background:rgba(168,255,120,.18)}.price div{display:flex;justify-content:space-between;border-radius:14px;background:rgba(255,255,255,.12);padding:10px;margin:8px 0}.features{padding:0;list-style:none}.features li{padding-left:14px;position:relative}.features li:before{content:"";position:absolute;left:0;top:.7em;width:5px;height:5px;border-radius:50%;background:var(--lime)}.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.signal{border-radius:50%;aspect-ratio:1;display:grid;place-items:center;text-align:center}.signal strong{display:block;font-size:clamp(42px,6vw,78px);color:var(--lime);line-height:.85}.faq{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:1050px){.split,.services,.diagnostic,.plans,.contact,.journey,.terrain,.proof,.faq,.gallery{grid-template-columns:1fr}.orbit{min-height:auto;display:grid;gap:14px}.orbit:before,.orbit:after{display:none}.core,.node{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;width:auto}.stats{grid-template-columns:1fr 1fr}.gym.show{--s:.62}}@media(max-width:720px){.hv-links a:not(:last-child){display:none}h1{font-size:clamp(48px,16vw,82px)}.photo{min-height:460px}.gym.show{--s:.45;opacity:.45}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes sweep{to{transform:rotate(360deg)}}
+/* =============================================
+   HOME V2 — CINEMATIC REBUILD
+   Each section owns its background + object.
+   Objects are large, staged, and animated.
+   Cards are clear and readable.
+============================================= */
+
+.hv2 {
+  --lime: #a8ff78;
+  --mint: #00d9a3;
+  --muted: rgba(240, 255, 240, 0.74);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #050e08;
+  color: #fff;
+  overflow-x: hidden;
+  position: relative;
+}
+.hv2 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* =============================================
+   NAVIGATION
+============================================= */
+.hv2-nav {
+  position: fixed;
+  z-index: 200;
+  left: clamp(16px, 5vw, 72px);
+  right: clamp(16px, 5vw, 72px);
+  top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hv2-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+
+.hv2-brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 18px rgba(168, 255, 120, 0.35);
+}
+
+.hv2-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.hv2-nav-links a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+.hv2-nav-links a:hover { color: var(--lime); }
+
+.hv2-btn {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(16px);
+  transition: background 0.25s, border-color 0.25s;
+}
+.hv2-btn:hover {
+  background: rgba(168, 255, 120, 0.15);
+  border-color: var(--lime);
+}
+.hv2-btn.lg {
+  font-size: 16px;
+  font-weight: 900;
+  padding: 16px 36px;
+  margin-top: 28px;
+}
+
+/* =============================================
+   SECTIONS — THEMED BACKGROUNDS
+============================================= */
+.hv2-sec {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(100px, 13vh, 150px) clamp(20px, 6vw, 80px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Deep layer: base gradient */
+.hv2-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 80% 60% at var(--gb-x, 18%) var(--gb-y, 22%), var(--gb-col, rgba(30,90,50,0.55)), transparent 55%),
+    radial-gradient(ellipse 60% 50% at var(--gc-x, 80%) var(--gc-y, 74%), var(--gc-col, rgba(12,50,28,0.45)), transparent 50%),
+    linear-gradient(160deg, var(--g1, #040e07), var(--g2, #081a0e) 50%, var(--g3, #050c08));
+}
+
+/* Top layer: vignette + gloss */
+.hv2-sec::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 50%, rgba(0,0,0,0.58) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.22) 100%),
+    radial-gradient(circle at 54% 38%, rgba(255,255,255,0.10), transparent 28%);
+}
+
+/* Forest / hero — lush green */
+.hv2-s-forest {
+  --g1: #040e07; --g2: #082014; --g3: #050c08;
+  --gb-col: rgba(40, 110, 60, 0.60); --gb-x: 15%; --gb-y: 22%;
+  --gc-col: rgba(12, 60, 30, 0.45); --gc-x: 82%; --gc-y: 70%;
+}
+
+/* Nature — waterfall / flowing green */
+.hv2-s-nature {
+  --g1: #050f08; --g2: #0a2414; --g3: #060e09;
+  --gb-col: rgba(20, 120, 70, 0.55); --gb-x: 72%; --gb-y: 30%;
+  --gc-col: rgba(10, 48, 24, 0.50); --gc-x: 20%; --gc-y: 68%;
+}
+
+/* Gym — dark steel, industrial */
+.hv2-s-gym {
+  --g1: #07080a; --g2: #0d1510; --g3: #080a08;
+  --gb-col: rgba(60, 80, 70, 0.42); --gb-x: 78%; --gb-y: 28%;
+  --gc-col: rgba(20, 50, 30, 0.35); --gc-x: 18%; --gc-y: 74%;
+}
+
+/* Active — deep ocean blue, energy */
+.hv2-s-active {
+  --g1: #040818; --g2: #081628; --g3: #060c1a;
+  --gb-col: rgba(0, 100, 180, 0.45); --gb-x: 76%; --gb-y: 24%;
+  --gc-col: rgba(0, 60, 110, 0.38); --gc-x: 22%; --gc-y: 72%;
+}
+
+/* Anti-age — warm amber earth + green */
+.hv2-s-antiage {
+  --g1: #0d0a05; --g2: #1c1208; --g3: #0b0e07;
+  --gb-col: rgba(180, 110, 30, 0.38); --gb-x: 22%; --gb-y: 60%;
+  --gc-col: rgba(28, 80, 40, 0.42); --gc-x: 80%; --gc-y: 20%;
+}
+
+/* =============================================
+   INNER LAYOUT
+============================================= */
+.hv2-inner {
+  width: min(1220px, 100%);
+  margin: 0 auto;
+}
+
+.hv2-split {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+  gap: clamp(28px, 5vw, 76px);
+  align-items: center;
+}
+.hv2-split.rev .hv2-copy { order: 2; }
+.hv2-split.rev .hv2-stage-col { order: 1; }
+
+/* =============================================
+   TYPOGRAPHY
+============================================= */
+.hv2-kicker {
+  display: inline-block;
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.hv2 h1 {
+  font-size: clamp(56px, 9.5vw, 140px);
+  line-height: 0.82;
+  letter-spacing: -0.085em;
+  font-weight: 900;
+  margin: 14px 0 22px;
+}
+
+.hv2 h2 {
+  font-size: clamp(34px, 5.2vw, 76px);
+  line-height: 0.90;
+  letter-spacing: -0.065em;
+  font-weight: 900;
+  margin: 0 0 18px;
+}
+
+.hv2 h3 {
+  font-size: clamp(16px, 1.4vw, 20px);
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.hv2 p, .hv2 li {
+  color: var(--muted);
+  line-height: 1.72;
+  font-size: clamp(14px, 1.1vw, 15px);
+}
+
+.hv2 li { padding-left: 16px; position: relative; margin: 6px 0; }
+.hv2 li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.72em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.hv2 ul { list-style: none; margin-top: 10px; }
+
+/* =============================================
+   GLASS CARD
+============================================= */
+.hv2-glass {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(148deg, rgba(255,255,255,0.17), rgba(255,255,255,0.06));
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    0 22px 72px rgba(0,0,0,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.16);
+  border-radius: 26px;
+  padding: 28px 30px;
+  transition: transform 0.30s ease, box-shadow 0.30s ease, border-color 0.30s ease;
+}
+.hv2-glass:hover {
+  transform: translateY(-7px);
+  border-color: rgba(255,255,255,0.32);
+  box-shadow:
+    0 36px 100px rgba(0,0,0,0.36),
+    inset 0 1px 0 rgba(255,255,255,0.22);
+}
+
+/* =============================================
+   VISUAL STAGE
+   Glass frame that holds animated gym objects
+============================================= */
+.hv2-stage-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hv2-stage {
+  position: relative;
+  width: min(490px, 100%);
+  height: 500px;
+  border-radius: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(148deg, rgba(255,255,255,0.11), rgba(255,255,255,0.04));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 28px 88px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  overflow: visible;
+}
+
+/* Decorative spinning rings inside stage */
+.hv2-stage-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.13);
+  pointer-events: none;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.hv2-stage-ring:nth-child(1) {
+  width: 76%; height: 76%;
+  animation: hv2spin 32s linear infinite;
+  border-color: rgba(255,255,255,0.13);
+}
+.hv2-stage-ring:nth-child(2) {
+  width: 54%; height: 54%;
+  animation: hv2spin 20s linear infinite reverse;
+  border-color: rgba(168,255,120,0.22);
+}
+.hv2-stage-ring:nth-child(3) {
+  width: 34%; height: 34%;
+  animation: hv2spin 14s linear infinite;
+  border-color: rgba(255,255,255,0.10);
+}
+
+@keyframes hv2spin {
+  to { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+/* Object container — centered in stage */
+.hv2-obj-slot {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glow halo behind object */
+.hv2-glow {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(168,255,120,0.32) 0%,
+    rgba(168,255,120,0.10) 40%,
+    transparent 70%);
+  filter: blur(8px);
+  z-index: -1;
+  animation: hv2pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes hv2pulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1);   opacity: 0.72; }
+  50%      { transform: translate(-50%,-50%) scale(1.22); opacity: 1; }
+}
+
+/* =============================================
+   GYM OBJECTS
+============================================= */
+.hv2-obj {
+  filter: drop-shadow(0 34px 28px rgba(0,0,0,0.46));
+  animation: hv2float var(--dur, 6s) ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes hv2float {
+  0%,100% {
+    transform: translateY(0) rotate(var(--r, 0deg)) scale(1);
+  }
+  30% {
+    transform: translateY(-26px) rotate(calc(var(--r, 0deg) + 4deg)) scale(1.03);
+  }
+  70% {
+    transform: translateY(-10px) rotate(calc(var(--r, 0deg) - 3deg)) scale(1.01);
+  }
+}
+
+/* — BOTTLE — */
+.hv2-bottle {
+  width: 108px;
+  height: 296px;
+  border-radius: 46px 46px 54px 54px;
+  background: linear-gradient(90deg,
+    #215c2a 0%, #64c156 36%, #cdffc2 50%, #50b043 62%, #1b5e2e 100%);
+  box-shadow:
+    inset 15px 0 28px rgba(255,255,255,0.24),
+    inset -14px 0 28px rgba(0,0,0,0.28);
+  position: relative;
+  --r: -8deg;
+  --dur: 6.4s;
+}
+.hv2-bottle::before {
+  content: "";
+  position: absolute;
+  left: 26px; right: 26px; top: -36px;
+  height: 42px;
+  border-radius: 13px;
+  background: linear-gradient(90deg, #111a15, #2b3228, #111);
+}
+.hv2-bottle::after {
+  content: "";
+  position: absolute;
+  left: 24px; right: 24px; top: -56px;
+  height: 52px;
+  border: 11px solid #111816;
+  border-bottom: 0;
+  border-radius: 36px 36px 0 0;
+}
+
+/* — DUMBBELL — */
+.hv2-dumbbell {
+  width: 348px;
+  height: 106px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  --r: 14deg;
+  --dur: 5.8s;
+}
+.hv2-db-plate {
+  width: 86px;
+  height: 148px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #eefee6 0%, #6acb62 55%, #1b6932 100%);
+  box-shadow:
+    inset 0 0 16px rgba(255,255,255,0.32),
+    inset 0 -8px 20px rgba(0,0,0,0.24);
+  flex-shrink: 0;
+}
+.hv2-db-bar {
+  position: absolute;
+  left: 78px; right: 78px; top: 40px;
+  height: 26px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #14201a, #e4ffd4 46%, #14321e);
+}
+
+/* — KETTLEBELL — */
+.hv2-kettle {
+  width: 216px;
+  height: 216px;
+  border-radius: 50% 50% 43% 43%;
+  background: linear-gradient(135deg, #e6ffd4 0%, #72d261 44%, #1b7134 100%);
+  box-shadow:
+    inset -10px -10px 28px rgba(0,0,0,0.30),
+    inset 10px 10px 18px rgba(255,255,255,0.22);
+  position: relative;
+  --r: -10deg;
+  --dur: 7.1s;
+}
+.hv2-kettle::before {
+  content: "";
+  position: absolute;
+  left: 48px; right: 48px; top: -50px;
+  height: 84px;
+  border: 23px solid #192018;
+  border-bottom: 0;
+  border-radius: 56px 56px 0 0;
+}
+
+/* — ROPE — */
+.hv2-rope {
+  width: 274px;
+  height: 274px;
+  border: 14px solid #72d261;
+  border-radius: 50%;
+  position: relative;
+  --r: 18deg;
+  --dur: 6.3s;
+  box-shadow:
+    0 0 34px rgba(168,255,120,0.36),
+    inset 0 0 20px rgba(0,0,0,0.42);
+}
+.hv2-rope::before, .hv2-rope::after {
+  content: "";
+  position: absolute;
+  width: 22px; height: 86px;
+  border-radius: 999px;
+  background: #161c18;
+  bottom: -42px;
+}
+.hv2-rope::before { left: 42px;  transform: rotate(20deg); }
+.hv2-rope::after  { right: 42px; transform: rotate(-20deg); }
+
+/* =============================================
+   HERO SECTION
+============================================= */
+.hv2-hero {
+  text-align: center;
+  justify-content: center;
+}
+.hv2-hero .hv2-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hv2-hero h1 { max-width: 1100px; }
+.hv2-hero p {
+  max-width: 700px;
+  font-size: clamp(16px, 1.4vw, 19px);
+  color: var(--muted);
+  margin-top: 18px;
+}
+
+/* =============================================
+   PHOTO BLOCK
+============================================= */
+.hv2-photo {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 500px;
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.32);
+}
+.hv2-photo img {
+  position: absolute;
+  inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hv2-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.66));
+}
+
+.hv2-stats {
+  position: absolute;
+  z-index: 2;
+  left: 14px; right: 14px; bottom: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.hv2-stats span {
+  background: rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 14px;
+  padding: 10px 6px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 1.3;
+}
+.hv2-stats small {
+  display: block;
+  font-weight: 500;
+  font-size: 10px;
+  opacity: 0.70;
+  margin-top: 2px;
+}
+
+/* =============================================
+   SERVICE GRID
+============================================= */
+.hv2-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 30px;
+}
+
+/* =============================================
+   READOUTS (pillars list)
+============================================= */
+.hv2-readouts { display: grid; gap: 10px; margin-top: 18px; }
+
+.hv2-readout {
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  transition: background 0.22s, border-color 0.22s;
+}
+.hv2-readout:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.24);
+}
+.hv2-readout b {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+/* =============================================
+   JOURNEY STEPS
+   Decorative rope floats at top-right
+============================================= */
+.hv2-journey-hd {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.hv2-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+/* Floating object in journey section */
+.hv2-bg-obj {
+  position: absolute;
+  right: -60px;
+  top: -160px;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+  animation: hv2float 6.3s ease-in-out infinite;
+  --r: 18deg;
+  --dur: 6.3s;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+}
+.hv2-journey-grid > * { position: relative; z-index: 1; }
+
+.hv2-step-num {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(168,255,120,0.20);
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--lime);
+  margin-bottom: 12px;
+  border: 1px solid rgba(168,255,120,0.28);
+}
+
+/* =============================================
+   GALLERY (what you get)
+============================================= */
+.hv2-gallery {
+  display: grid;
+  grid-template-columns: 1.25fr 0.88fr 0.88fr;
+  gap: 14px;
+}
+.hv2-gallery .hv2-glass:first-child  { grid-row: span 2; }
+.hv2-gallery .hv2-glass:nth-child(4) { grid-column: span 2; }
+
+.hv2-out-num {
+  display: inline-block;
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* =============================================
+   PLANS
+============================================= */
+.hv2-plans-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.hv2-plan {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.hv2-plan.featured {
+  background: linear-gradient(148deg, rgba(168,255,120,0.22), rgba(255,255,255,0.08));
+  border-color: rgba(168,255,120,0.30);
+}
+.hv2-plan.featured:hover {
+  border-color: rgba(168,255,120,0.55);
+  background: linear-gradient(148deg, rgba(168,255,120,0.28), rgba(255,255,255,0.12));
+}
+
+.hv2-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.09);
+  margin: 7px 0;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.hv2-price-row b { color: var(--lime); font-size: 14px; font-weight: 800; }
+.hv2-price-row span { font-size: 12px; color: var(--muted); }
+
+.hv2-feat-list {
+  list-style: none;
+  margin-top: 12px;
+}
+.hv2-feat-list li { padding-left: 15px; margin: 6px 0; color: var(--muted); font-size: 13px; }
+.hv2-feat-list li::before {
+  content: "";
+  position: absolute; left: 0; top: 0.72em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+/* =============================================
+   PROOF / RESULTS SIGNALS
+============================================= */
+.hv2-proof {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.hv2-signal {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 22px;
+}
+.hv2-signal strong {
+  display: block;
+  font-size: clamp(40px, 5.5vw, 76px);
+  color: var(--lime);
+  line-height: 0.84;
+  letter-spacing: -0.06em;
+  font-weight: 900;
+}
+
+/* =============================================
+   FAQ BUBBLES (contact section)
+============================================= */
+.hv2-faq { display: grid; gap: 12px; }
+.hv2-faq b { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 800; color: #fff; }
+
+/* =============================================
+   SCROLL FADE-IN
+============================================= */
+.hv2-fi {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.72s ease, transform 0.72s ease;
+}
+.hv2-fi.vis {
+  opacity: 1;
+  transform: none;
+}
+.hv2-fi[data-d="1"] { transition-delay: 0.10s; }
+.hv2-fi[data-d="2"] { transition-delay: 0.20s; }
+.hv2-fi[data-d="3"] { transition-delay: 0.30s; }
+.hv2-fi[data-d="4"] { transition-delay: 0.40s; }
+
+/* Stage entrance — scale from slightly small */
+.hv2-stage-col.hv2-fi {
+  transform: translateY(20px) scale(0.92);
+}
+.hv2-stage-col.hv2-fi.vis {
+  transform: none;
+}
+
+/* =============================================
+   SECTION DIVIDER (subtle gradient between sections)
+============================================= */
+.hv2-sec + .hv2-sec::before {
+  /* Blend top edge with previous section */
+  background:
+    radial-gradient(ellipse 80% 60% at var(--gb-x, 18%) var(--gb-y, 22%), var(--gb-col, rgba(30,90,50,0.55)), transparent 55%),
+    radial-gradient(ellipse 60% 50% at var(--gc-x, 80%) var(--gc-y, 74%), var(--gc-col, rgba(12,50,28,0.45)), transparent 50%),
+    linear-gradient(160deg, var(--g1, #040e07), var(--g2, #081a0e) 50%, var(--g3, #050c08));
+}
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 1050px) {
+  .hv2-split,
+  .hv2-split.rev { grid-template-columns: 1fr; }
+  .hv2-split.rev .hv2-copy,
+  .hv2-split.rev .hv2-stage-col { order: initial; }
+
+  .hv2-stage { height: 420px; }
+  .hv2-service-grid { grid-template-columns: 1fr; }
+  .hv2-journey-grid { grid-template-columns: 1fr 1fr; }
+  .hv2-gallery { grid-template-columns: 1fr; }
+  .hv2-gallery .hv2-glass:first-child  { grid-row: auto; }
+  .hv2-gallery .hv2-glass:nth-child(4) { grid-column: auto; }
+  .hv2-plans-row { grid-template-columns: 1fr; }
+  .hv2-proof { grid-template-columns: 1fr 1fr; }
+  .hv2-stats { grid-template-columns: 1fr 1fr; }
+  .hv2-bg-obj { display: none; }
+}
+
+@media (max-width: 720px) {
+  .hv2-nav-links a:not(:last-child) { display: none; }
+  .hv2 h1 { font-size: clamp(46px, 15vw, 80px); }
+  .hv2-journey-grid { grid-template-columns: 1fr; }
+  .hv2-proof { grid-template-columns: 1fr; }
+  .hv2-stage { height: 360px; }
+  .hv2-obj { transform: scale(0.75); }
+  .hv2-bottle { transform: scale(0.78); }
+  .hv2-dumbbell { transform: scale(0.68); }
+  .hv2-kettle { transform: scale(0.76); }
+  .hv2-rope { transform: scale(0.76); }
+}
 </style>
-<div class="homev2" id="homev2"><div class="hv-bg" id="hvbg"></div><div class="hv-decor"><span class="orb"></span><span class="ring"></span><span class="leaf"></span><span class="line"></span></div><div class="hv-obj"><div id="gym" class="gym none"></div></div><header class="hv-nav"><a href="{{ '/en/' | url }}" class="hv-brand"><img src="{{ site.logoUrl | url }}" alt="{{ site.name }}"><span>{{ site.name }}</span></a><nav class="hv-links"><a href="#services">Services</a><a href="#plans">Plans</a><a href="#contact">Contact</a><a href="{{ site.googleForm }}">Start Now</a></nav></header><main class="hv-main">
-<section class="scene hero" data-bg="forest" data-obj="none"><div><span class="kicker">{{ pages.home.en.hero.badge }}</span><h1>{{ pages.home.en.hero.title_line1 }} {{ pages.home.en.hero.title_line2_gradient }}</h1><p>{{ pages.home.en.hero.description }}</p><a class="btn" href="{{ site.googleForm }}">{{ pages.home.en.hero.cta_primary }}</a></div></section>
-<section class="scene" data-bg="waterfall" data-obj="bottle"><div class="split"><article class="panel glass"><span class="kicker">The full system</span><h2>{{ pages.home.en.pillars.title }}</h2><p>{{ pages.home.en.seo.description }}</p><p>All real O2F services, plans, results and contact routes are rebuilt here as one cinematic visual journey.</p></article><div class="photo glass"><img src="{{ site.heroImage | url }}" alt="{{ site.owner }}"><div class="stats"><span>{{ site.stats.years }}<br><small>Experience</small></span><span>{{ site.stats.clients }}<br><small>Clients</small></span><span>{{ site.stats.custom }}<br><small>Plans</small></span><span>{{ site.stats.support }}<br><small>Support</small></span></div></div></div></section>
-<section class="scene" id="services" data-bg="forest" data-obj="dumbbell"><div class="services"><div><span class="kicker">{{ pages.services.en.hero.kicker }}</span><h2>{{ pages.services.en.hero.description }}</h2><p>{{ pages.services.en.seo.description }}</p></div><div class="orbit"><div class="core glass"><b>{{ site.owner }}</b></div>{% for service in pages.services.en.services %}<article class="node card glass"><span class="kicker">{{ service.id }}</span><h3>{{ service.title }}</h3><p>{{ service.description }}</p></article>{% endfor %}</div></div></section>
-<section class="scene" data-bg="valley" data-obj="kettle"><div class="diagnostic"><div class="radar glass"></div><div><span class="kicker">{{ pages.home.en.pillars.kicker }}</span><h2>{{ pages.home.en.pillars.title }}</h2><div class="readouts">{% for item in pages.home.en.pillars.items %}<div class="readout glass"><b>{{ item.title }}</b><p>{{ item.text }}</p></div>{% endfor %}</div></div></div></section>
-<section class="scene" data-bg="mist" data-obj="rope"><div class="journey"><article class="step glass panel"><span>01</span><h3>Assess</h3><p>Current level, case, food preferences and lifestyle load.</p></article><article class="step glass panel"><span>02</span><h3>Build</h3><p>Training, nutrition and guidance are combined.</p></article><article class="step glass panel"><span>03</span><h3>Follow</h3><p>Weekly check-ins keep the plan adjustable.</p></article><article class="step glass panel"><span>04</span><h3>Upgrade</h3><p>The system evolves as the body responds.</p></article></div></section>
-<section class="scene" data-bg="waterfall" data-obj="bottle"><div class="gallery">{% for item in pages.home.en.what_you_get.items %}<article class="card glass"><span class="kicker">Output 0{{ loop.index }}</span><h3>{{ item.title }}</h3><p>{{ item.text }}</p></article>{% endfor %}</div></section>
-<section class="scene" id="plans" data-bg="forest" data-obj="dumbbell"><div class="plans"><div><span class="kicker">{{ pages.home.en.plans_section.kicker }}</span><h2>{{ pages.home.en.plans_section.title }}</h2><p>Plans are displayed as clear cinematic levels using the real pricing and features.</p></div><div class="terrain">{% for key in ["basic","standard","advanced"] %}{% set p=plans[key] %}<a class="plan glass" href="{{ ('/en/plans/' + p.slug + '/') | url }}"><span class="kicker">{{ "Most popular" if p.highlight else "Access level" }}</span><h3>{{ p.en.name }}</h3><p>{{ p.en.blurb }}</p><div class="price"><div><span>1 month</span><b>{{ p.pricing.egypt.m1.amount }} {{ p.pricing.egypt.m1.currency }}</b></div><div><span>3 months</span><b>{{ p.pricing.egypt.m3.amount }} {{ p.pricing.egypt.m3.currency }}/mo</b></div><div><span>6 months</span><b>{{ p.pricing.egypt.m6.amount }} {{ p.pricing.egypt.m6.currency }}/mo</b></div></div><ul class="features">{% for feature in p.en.features %}{% if loop.index <= 5 %}<li>{{ feature }}</li>{% endif %}{% endfor %}</ul></a>{% endfor %}</div></div></section>
-<section class="scene" data-bg="valley" data-obj="kettle"><div class="proof">{% for item in pages.home.en.results.items %}<div class="signal glass"><div><span class="kicker">Signal</span><strong>{{ item.value }}{{ item.unit }}</strong><p>{{ item.text }}</p></div></div>{% endfor %}</div></section>
-<section class="scene" id="contact" data-bg="waterfall" data-obj="bottle"><div class="contact"><article class="panel glass"><span class="kicker">{{ pages.home.en.cta.badge }}</span><h2>{{ pages.home.en.cta.title }}</h2><p>{{ pages.home.en.cta.description }}</p><a class="btn" href="{{ site.googleForm }}">{{ pages.home.en.cta.button }}</a></article><div class="faq"><article class="bubble glass"><b>Is this only training?</b><p>No. It combines training, nutrition and ongoing follow-up.</p></article><article class="bubble glass"><b>Not sure where to start?</b><p>{{ pages.services.en.cta.description }}</p></article><article class="bubble glass"><b>What makes it different?</b><p>It is built around your goals, schedule, lifestyle and health status.</p></article></div></div></section>
-</main></div><script>(function(){const root=document.getElementById('homev2'),bg=document.getElementById('hvbg'),gym=document.getElementById('gym'),sc=[...document.querySelectorAll('.scene')],imgs={forest:"url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2200&q=85')",waterfall:"url('https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=2200&q=85')",valley:"url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=85')",mist:"url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=2200&q=85')"};function active(){let a=sc[0];sc.forEach(s=>{const r=s.getBoundingClientRect();if(r.top<innerHeight*.56&&r.bottom>innerHeight*.2)a=s});return a}function update(){const p=Math.max(0,Math.min(1,-root.getBoundingClientRect().top/(root.offsetHeight-innerHeight||1))),s=active(),o=s.dataset.obj||'none';bg.style.setProperty('--scene',imgs[s.dataset.bg]||imgs.forest);bg.style.setProperty('--x',(Math.sin(p*5)*24)+'px');bg.style.setProperty('--y',(-p*130)+'px');gym.className='gym '+o+' show';gym.innerHTML=o==='dumbbell'?'<span></span><i></i><span></span>':'';gym.style.setProperty('--ox',(Math.sin(p*8)*32)+'px');gym.style.setProperty('--oy',(Math.cos(p*5)*-16)+'px')}addEventListener('scroll',update,{passive:true});addEventListener('resize',update);update()})();</script>
+
+<div class="hv2" id="hv2">
+
+  <!-- ── NAVIGATION ──────────────────────────── -->
+  <header class="hv2-nav">
+    <a href="{{ '/en/' | url }}" class="hv2-brand">
+      <img src="{{ site.logoUrl | url }}" alt="{{ site.name }}">
+      <span>{{ site.name }}</span>
+    </a>
+    <nav class="hv2-nav-links">
+      <a href="#services">Services</a>
+      <a href="#plans">Plans</a>
+      <a href="#contact">Contact</a>
+      <a href="{{ site.googleForm }}" class="hv2-btn">Start Now</a>
+    </nav>
+  </header>
+
+  <!-- ── HERO ────────────────────────────────── -->
+  <section class="hv2-sec hv2-s-forest hv2-hero">
+    <div class="hv2-inner">
+      <span class="hv2-kicker hv2-fi">{{ pages.home.en.hero.badge }}</span>
+      <h1 class="hv2-fi" data-d="1">{{ pages.home.en.hero.title_line1 }}<br>{{ pages.home.en.hero.title_line2_gradient }}</h1>
+      <p class="hv2-fi" data-d="2">{{ pages.home.en.hero.description }}</p>
+      <a class="hv2-btn lg hv2-fi" data-d="3" href="{{ site.googleForm }}">{{ pages.home.en.hero.cta_primary }}</a>
+    </div>
+  </section>
+
+  <!-- ── ABOUT / INTRO ───────────────────────── -->
+  <section class="hv2-sec hv2-s-nature">
+    <div class="hv2-inner">
+      <div class="hv2-split">
+
+        <div class="hv2-copy">
+          <article class="hv2-glass hv2-fi">
+            <span class="hv2-kicker">The full system</span>
+            <h2>{{ pages.home.en.pillars.title }}</h2>
+            <p>{{ pages.home.en.seo.description }}</p>
+            <p style="margin-top:12px; color:var(--muted);">
+              Training, nutrition, follow-up — all in one cinematic journey built around you.
+            </p>
+          </article>
+        </div>
+
+        <div class="hv2-stage-col hv2-fi" data-d="1">
+          <div class="hv2-photo">
+            <img src="{{ site.heroImage | url }}" alt="{{ site.owner }}">
+            <div class="hv2-stats">
+              <span>{{ site.stats.years }}<br><small>Yrs exp</small></span>
+              <span>{{ site.stats.clients }}<br><small>Clients</small></span>
+              <span>{{ site.stats.custom }}<br><small>Custom</small></span>
+              <span>{{ site.stats.support }}<br><small>Support</small></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES / GYM ─────────────────────── -->
+  <section class="hv2-sec hv2-s-gym" id="services">
+    <div class="hv2-inner">
+      <div class="hv2-split rev">
+
+        <div class="hv2-copy">
+          <span class="hv2-kicker hv2-fi">{{ pages.services.en.hero.kicker }}</span>
+          <h2 class="hv2-fi" data-d="1">{{ pages.services.en.hero.description }}</h2>
+          <p class="hv2-fi" data-d="2">{{ pages.services.en.seo.description }}</p>
+        </div>
+
+        <div class="hv2-stage-col hv2-fi" data-d="1">
+          <div class="hv2-stage">
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-obj-slot">
+              <div class="hv2-glow"></div>
+              <div class="hv2-obj hv2-dumbbell">
+                <div class="hv2-db-plate"></div>
+                <div class="hv2-db-bar"></div>
+                <div class="hv2-db-plate"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hv2-service-grid" style="margin-top:32px;">
+        {% for service in pages.services.en.services %}
+        <article class="hv2-glass hv2-fi" data-d="{{ loop.index }}">
+          <span class="hv2-kicker">{{ service.id }}</span>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+          {% if service.items %}
+          <ul>
+            {% for item in service.items %}{% if loop.index <= 3 %}
+            <li>{{ item }}</li>
+            {% endif %}{% endfor %}
+          </ul>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PILLARS / ACTIVE ────────────────────── -->
+  <section class="hv2-sec hv2-s-active">
+    <div class="hv2-inner">
+      <div class="hv2-split">
+
+        <div class="hv2-copy">
+          <span class="hv2-kicker hv2-fi">{{ pages.home.en.pillars.kicker }}</span>
+          <h2 class="hv2-fi" data-d="1">{{ pages.home.en.pillars.title }}</h2>
+          <div class="hv2-readouts">
+            {% for item in pages.home.en.pillars.items %}
+            <div class="hv2-readout hv2-fi" data-d="{{ loop.index }}">
+              <b>{{ item.title }}</b>
+              <p>{{ item.text }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="hv2-stage-col hv2-fi" data-d="1">
+          <div class="hv2-stage">
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-obj-slot">
+              <div class="hv2-glow" style="background:radial-gradient(circle, rgba(0,180,230,0.30) 0%, rgba(0,120,200,0.12) 40%, transparent 70%);"></div>
+              <div class="hv2-obj hv2-kettle"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JOURNEY STEPS / ANTI-AGE ───────────── -->
+  <section class="hv2-sec hv2-s-antiage">
+    <div class="hv2-inner">
+
+      <div class="hv2-journey-hd">
+        <span class="hv2-kicker hv2-fi">Your journey</span>
+        <h2 class="hv2-fi" data-d="1">How it works</h2>
+      </div>
+
+      <div class="hv2-journey-grid">
+        <!-- Decorative rope floating in background -->
+        <div class="hv2-bg-obj" aria-hidden="true">
+          <div class="hv2-rope"></div>
+        </div>
+
+        <article class="hv2-glass hv2-fi" data-d="1">
+          <div class="hv2-step-num">01</div>
+          <h3>Assess</h3>
+          <p>Current level, case, food preferences and lifestyle load are mapped.</p>
+        </article>
+        <article class="hv2-glass hv2-fi" data-d="2">
+          <div class="hv2-step-num">02</div>
+          <h3>Build</h3>
+          <p>Training, nutrition and guidance combined into one coherent plan.</p>
+        </article>
+        <article class="hv2-glass hv2-fi" data-d="3">
+          <div class="hv2-step-num">03</div>
+          <h3>Follow</h3>
+          <p>Weekly check-ins keep the plan adjustable and alive as you progress.</p>
+        </article>
+        <article class="hv2-glass hv2-fi" data-d="4">
+          <div class="hv2-step-num">04</div>
+          <h3>Upgrade</h3>
+          <p>The whole system evolves as your body responds and improves.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT YOU GET (gallery) ─────────────── -->
+  <section class="hv2-sec hv2-s-antiage" style="padding-top:60px; min-height:auto;">
+    <div class="hv2-inner">
+      <div style="text-align:center; margin-bottom:32px;">
+        <span class="hv2-kicker hv2-fi">What you receive</span>
+        <h2 class="hv2-fi" data-d="1">{{ pages.home.en.what_you_get.title if pages.home.en.what_you_get.title else "Every output, delivered" }}</h2>
+      </div>
+      <div class="hv2-gallery">
+        {% for item in pages.home.en.what_you_get.items %}
+        <article class="hv2-glass hv2-fi" data-d="{{ loop.index }}">
+          <span class="hv2-out-num">Output 0{{ loop.index }}</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PLANS / PRICING ─────────────────────── -->
+  <section class="hv2-sec hv2-s-gym" id="plans">
+    <div class="hv2-inner">
+      <div class="hv2-split">
+
+        <div class="hv2-copy">
+          <span class="hv2-kicker hv2-fi">{{ pages.home.en.plans_section.kicker }}</span>
+          <h2 class="hv2-fi" data-d="1">{{ pages.home.en.plans_section.title }}</h2>
+          <p class="hv2-fi" data-d="2">
+            Clear access levels with real pricing — pick what fits your goal and pace.
+          </p>
+        </div>
+
+        <div class="hv2-stage-col hv2-fi" data-d="1">
+          <div class="hv2-stage">
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-stage-ring"></div>
+            <div class="hv2-obj-slot">
+              <div class="hv2-glow" style="background:radial-gradient(circle, rgba(168,255,120,0.28) 0%, rgba(100,200,80,0.10) 40%, transparent 70%);"></div>
+              <div class="hv2-obj hv2-bottle"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hv2-plans-row">
+        {% for key in ["basic","standard","advanced"] %}
+        {% set p = plans[key] %}
+        <a class="hv2-plan hv2-glass hv2-fi{% if p.highlight %} featured{% endif %}" data-d="{{ loop.index }}"
+           href="{{ ('/en/plans/' + p.slug + '/') | url }}">
+          <span class="hv2-kicker">{{ "Most popular" if p.highlight else "Access level" }}</span>
+          <h3>{{ p.en.name }}</h3>
+          <p style="margin-bottom:12px;">{{ p.en.blurb }}</p>
+          <div class="hv2-price-row"><span>1 month</span><b>{{ p.pricing.egypt.m1.amount }} {{ p.pricing.egypt.m1.currency }}</b></div>
+          <div class="hv2-price-row"><span>3 months</span><b>{{ p.pricing.egypt.m3.amount }} {{ p.pricing.egypt.m3.currency }}/mo</b></div>
+          <div class="hv2-price-row"><span>6 months</span><b>{{ p.pricing.egypt.m6.amount }} {{ p.pricing.egypt.m6.currency }}/mo</b></div>
+          <ul class="hv2-feat-list">
+            {% for feature in p.en.features %}{% if loop.index <= 5 %}
+            <li>{{ feature }}</li>
+            {% endif %}{% endfor %}
+          </ul>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESULTS / PROOF ─────────────────────── -->
+  <section class="hv2-sec hv2-s-nature" style="min-height:auto; padding-top:80px; padding-bottom:80px;">
+    <div class="hv2-inner">
+      <div style="text-align:center; margin-bottom:36px;">
+        <span class="hv2-kicker hv2-fi">Real results</span>
+        <h2 class="hv2-fi" data-d="1">Numbers that speak</h2>
+      </div>
+      <div class="hv2-proof">
+        {% for item in pages.home.en.results.items %}
+        <div class="hv2-signal hv2-glass hv2-fi" data-d="{{ loop.index }}">
+          <div>
+            <span class="hv2-kicker">Signal</span>
+            <strong>{{ item.value }}{{ item.unit }}</strong>
+            <p>{{ item.text }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT / CTA ───────────────────────── -->
+  <section class="hv2-sec hv2-s-forest" id="contact">
+    <div class="hv2-inner">
+      <div class="hv2-split">
+
+        <article class="hv2-glass hv2-fi">
+          <span class="hv2-kicker">{{ pages.home.en.cta.badge }}</span>
+          <h2>{{ pages.home.en.cta.title }}</h2>
+          <p>{{ pages.home.en.cta.description }}</p>
+          <a class="hv2-btn lg" href="{{ site.googleForm }}">{{ pages.home.en.cta.button }}</a>
+        </article>
+
+        <div class="hv2-faq hv2-fi" data-d="1">
+          <article class="hv2-glass">
+            <b>Is this only training?</b>
+            <p>No — it combines training, nutrition and ongoing follow-up in one system.</p>
+          </article>
+          <article class="hv2-glass">
+            <b>Not sure where to start?</b>
+            <p>{{ pages.services.en.cta.description }}</p>
+          </article>
+          <article class="hv2-glass">
+            <b>What makes it different?</b>
+            <p>It is built entirely around your goals, schedule, lifestyle and health status.</p>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  /* Fade-in on scroll */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.hv2-fi').forEach(function (el) {
+    io.observe(el);
+  });
+
+  /* Subtle parallax on stages */
+  var stages = document.querySelectorAll('.hv2-stage');
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    window.addEventListener('scroll', function () {
+      var sy = window.scrollY;
+      stages.forEach(function (s) {
+        var rect = s.getBoundingClientRect();
+        var center = rect.top + rect.height / 2 - window.innerHeight / 2;
+        var shift = center * 0.04;
+        s.style.transform = 'translateY(' + shift + 'px)';
+      });
+    }, { passive: true });
+  }
+})();
+</script>
