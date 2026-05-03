@@ -1,81 +1,57 @@
 ---
 title: "O2F Home V2"
-description: "Refined cinematic home v2."
+description: "Clean cinematic home v2 rebuild."
 permalink: /en/home-v2/index.html
 ---
 
 <style>
-.homev2 {
+/*
+  HOME V2 CLEAN REBUILD
+  Main idea:
+  - No confusing global background switching.
+  - Each section has its own cinematic background layer.
+  - Each section has a clear content side + visual stage side.
+  - Gym objects are visible, sized properly, and animated inside their own stage.
+  - Cards are readable and organized.
+*/
+
+.home-v2-clean {
   --lime: #a8ff78;
   --mint: #00d9a3;
-  --ink: #06110d;
+  --dark: #06110d;
   --text: #f7fff7;
-  --muted: rgba(247, 255, 247, 0.82);
+  --muted: rgba(247, 255, 247, 0.78);
+  --glass: rgba(255, 255, 255, 0.14);
+  --stroke: rgba(255, 255, 255, 0.22);
 
-  --bg-a: #07180f;
-  --bg-b: #1e5f34;
-  --bg-c: #0d2f1d;
-
+  background: var(--dark);
   color: var(--text);
-  background: #06110d;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  position: relative;
   overflow: hidden;
-  isolation: isolate;
+  position: relative;
 }
 
-.homev2 * {
+.home-v2-clean * {
   box-sizing: border-box;
 }
 
-.homev2-bg {
+/* =========================
+   Global Navigation
+========================= */
+
+.hv2-nav {
   position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.homev2-bg::before {
-  content: "";
-  position: absolute;
-  inset: -10%;
-  background:
-    radial-gradient(circle at 18% 16%, var(--bg-b), transparent 30%),
-    radial-gradient(circle at 82% 72%, var(--bg-c), transparent 38%),
-    radial-gradient(circle at 52% 40%, rgba(255,255,255,.12), transparent 24%),
-    linear-gradient(135deg, var(--bg-a), #03100a 75%);
-  transform: translate3d(var(--bg-x, 0), var(--bg-y, 0), 0) scale(1.08);
-  transition:
-    background 900ms ease,
-    transform 900ms ease;
-  filter: saturate(1.08) contrast(1.04);
-}
-
-.homev2-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(0,0,0,.76), rgba(0,0,0,.22) 48%, rgba(0,0,0,.66)),
-    linear-gradient(180deg, rgba(0,0,0,.06), rgba(6,17,13,.76)),
-    linear-gradient(115deg, transparent 0 18%, rgba(255,255,255,.12) 23%, transparent 33% 70%, rgba(168,255,120,.1) 78%, transparent 88%);
-  mix-blend-mode: normal;
-}
-
-.homev2-nav {
-  position: fixed;
-  z-index: 60;
+  z-index: 100;
   left: clamp(18px, 4vw, 72px);
   right: clamp(18px, 4vw, 72px);
-  top: 26px;
+  top: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
 }
 
-.homev2-brand {
+.hv2-brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -85,29 +61,29 @@ permalink: /en/home-v2/index.html
   letter-spacing: -0.02em;
 }
 
-.homev2-brand img {
+.hv2-brand img {
   width: 42px;
   height: 42px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 28px rgba(0, 217, 163, 0.28);
+  box-shadow: 0 0 26px rgba(0, 217, 163, 0.28);
 }
 
-.homev2-links {
+.hv2-links {
   display: flex;
   align-items: center;
   gap: 18px;
 }
 
-.homev2-links a {
-  color: rgba(255,255,255,.88);
+.hv2-links a {
+  color: rgba(255, 255, 255, 0.86);
   text-decoration: none;
   font-size: 13px;
   font-weight: 850;
 }
 
-.homev2-links a:last-child,
-.homev2-btn {
+.hv2-links a:last-child,
+.hv2-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,123 +93,299 @@ permalink: /en/home-v2/index.html
   font-size: 14px;
   padding: 12px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.7);
-  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(14px);
-  box-shadow: 0 12px 34px rgba(0,0,0,.18);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.2);
 }
 
-.homev2-decor {
-  position: fixed;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
+/* =========================
+   Section Base
+========================= */
+
+.hv2-section {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: clamp(100px, 13vh, 150px) clamp(18px, 5vw, 78px);
+  isolation: isolate;
   overflow: hidden;
 }
 
-.homev2-decor span {
+.hv2-section::before {
+  content: "";
   position: absolute;
-  opacity: .76;
-  will-change: transform;
-}
-
-.homev2-decor .orb {
-  width: 130px;
-  height: 130px;
-  left: 8vw;
-  top: 22vh;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 28%, #fff, rgba(168,255,120,.28) 36%, transparent 72%);
-}
-
-.homev2-decor .ring {
-  width: 190px;
-  height: 190px;
-  right: 8vw;
-  top: 16vh;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.24);
-  box-shadow: 0 0 44px rgba(168,255,120,.13);
-}
-
-.homev2-decor .leaf {
-  width: 84px;
-  height: 35px;
-  left: 18vw;
-  bottom: 17vh;
-  border-radius: 80% 0 80% 0;
-  background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(168,255,120,.46));
-}
-
-.homev2-decor .line {
-  width: 270px;
-  height: 1px;
-  right: 17vw;
-  bottom: 25vh;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.62), transparent);
-}
-
-.homev2-object-stage {
-  position: fixed;
   inset: 0;
-  z-index: 28;
+  z-index: -3;
+  background:
+    radial-gradient(circle at 20% 18%, var(--bg-b, #245d35), transparent 30%),
+    radial-gradient(circle at 82% 74%, var(--bg-c, #0f3420), transparent 38%),
+    linear-gradient(135deg, var(--bg-a, #06160d), #03100a 75%);
+}
+
+.hv2-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.28) 48%, rgba(0, 0, 0, 0.64)),
+    radial-gradient(circle at 55% 38%, rgba(255, 255, 255, 0.14), transparent 26%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(6, 17, 13, 0.54));
+}
+
+.hv2-bg-hero {
+  --bg-a: #06180f;
+  --bg-b: #277747;
+  --bg-c: #0f3a24;
+}
+
+.hv2-bg-nature {
+  --bg-a: #07160d;
+  --bg-b: #2a6f41;
+  --bg-c: #103923;
+}
+
+.hv2-bg-gym {
+  --bg-a: #07090b;
+  --bg-b: #464b50;
+  --bg-c: #162118;
+}
+
+.hv2-bg-active {
+  --bg-a: #061625;
+  --bg-b: #1f607c;
+  --bg-c: #0b3328;
+}
+
+.hv2-bg-antiage {
+  --bg-a: #10160f;
+  --bg-b: #6b4728;
+  --bg-c: #285c37;
+}
+
+.hv2-bg-methylene {
+  --bg-a: #061527;
+  --bg-b: #005f8f;
+  --bg-c: #003f64;
+}
+
+.hv2-layout {
+  width: min(1220px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(310px, 0.92fr) minmax(360px, 1.08fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 74px);
+}
+
+.hv2-layout.reverse {
+  grid-template-columns: minmax(360px, 1.08fr) minmax(310px, 0.92fr);
+}
+
+.hv2-layout.reverse .hv2-copy {
+  order: 2;
+}
+
+.hv2-layout.reverse .hv2-stage {
+  order: 1;
+}
+
+/* =========================
+   Typography
+========================= */
+
+.hv2-kicker {
+  display: inline-block;
+  color: var(--lime);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.home-v2-clean h1 {
+  font-size: clamp(56px, 9vw, 138px);
+  line-height: 0.82;
+  letter-spacing: -0.09em;
+  max-width: 1180px;
+  margin: 16px auto;
+  text-shadow: 0 24px 76px rgba(0, 0, 0, 0.42);
+}
+
+.home-v2-clean h2 {
+  font-size: clamp(34px, 5vw, 76px);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  margin: 0 0 18px;
+}
+
+.home-v2-clean h3 {
+  font-size: 22px;
+  margin: 8px 0 8px;
+}
+
+.home-v2-clean p,
+.home-v2-clean li {
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.hv2-hero {
+  text-align: center;
+}
+
+.hv2-hero p {
+  max-width: 780px;
+  margin: 0 auto 26px;
+  font-size: clamp(16px, 1.3vw, 19px);
+}
+
+/* =========================
+   Glass Elements
+========================= */
+
+.hv2-glass {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08));
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.27),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+  border-radius: 34px;
+  overflow: hidden;
+}
+
+.hv2-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 32%, transparent 72%, rgba(255, 255, 255, 0.04));
+}
+
+.hv2-card,
+.hv2-panel,
+.hv2-plan,
+.hv2-bubble,
+.hv2-step,
+.hv2-readout {
+  padding: 24px;
+}
+
+.hv2-card,
+.hv2-plan,
+.hv2-bubble,
+.hv2-step,
+.hv2-readout {
+  transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+}
+
+.hv2-card:hover,
+.hv2-plan:hover,
+.hv2-bubble:hover,
+.hv2-step:hover,
+.hv2-readout:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.48);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.12));
+  box-shadow:
+    0 38px 100px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+/* =========================
+   Visual Stage
+========================= */
+
+.hv2-stage {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+}
+
+.hv2-stage-frame {
+  position: relative;
+  width: min(520px, 100%);
+  min-height: 520px;
+  border-radius: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(168, 255, 120, 0.18), transparent 28%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.hv2-stage-frame::before,
+.hv2-stage-frame::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
   pointer-events: none;
 }
 
-.homev2-object-wrap {
-  position: absolute;
-  left: var(--object-x, 80%);
-  top: var(--object-y, 60%);
-  transform: translate(-50%, -50%);
-  transition:
-    left 850ms cubic-bezier(.2,.85,.2,1),
-    top 850ms cubic-bezier(.2,.85,.2,1);
+.hv2-stage-frame::before {
+  width: 78%;
+  height: 78%;
+  left: 11%;
+  top: 11%;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  animation: hv2Spin 28s linear infinite;
 }
 
-.homev2-object-wrap::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 260px;
-  height: 260px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.25), rgba(168,255,120,.14) 38%, transparent 70%);
-  filter: blur(8px);
-  opacity: .78;
+.hv2-stage-frame::after {
+  width: 52%;
+  height: 52%;
+  left: 24%;
+  top: 24%;
+  border: 1px solid rgba(168, 255, 120, 0.25);
+  animation: hv2Spin 18s linear infinite reverse;
 }
 
-.homev2-gym {
-  position: relative;
-  opacity: 0;
-  transform: translate3d(var(--gym-x, 0), var(--gym-y, 0), 0) rotate(var(--gym-r, -8deg)) scale(var(--gym-s, 1));
+@keyframes hv2Spin {
+  to { transform: rotate(360deg); }
+}
+
+.hv2-object {
+  position: absolute;
+  left: var(--object-left, 50%);
+  top: var(--object-top, 50%);
+  transform: translate(-50%, -50%) rotate(var(--object-rotate, -8deg)) scale(var(--object-scale, 1));
   filter: drop-shadow(0 36px 36px rgba(0,0,0,.38));
-  transition:
-    opacity 360ms ease,
-    transform 800ms cubic-bezier(.2,.85,.2,1);
-  animation: homev2Float 5.8s ease-in-out infinite;
+  animation: hv2Float 5.8s ease-in-out infinite;
+  z-index: 4;
 }
 
-.homev2-gym.show {
-  opacity: .98;
-}
-
-.homev2-gym.none {
-  display: none;
-}
-
-@keyframes homev2Float {
+@keyframes hv2Float {
   0%, 100% {
-    transform: translate3d(var(--gym-x, 0), var(--gym-y, 0), 0) rotate(var(--gym-r, -8deg)) scale(var(--gym-s, 1));
+    transform: translate(-50%, -50%) rotate(var(--object-rotate, -8deg)) scale(var(--object-scale, 1));
   }
   50% {
-    transform: translate3d(calc(var(--gym-x, 0) + 12px), calc(var(--gym-y, 0) - 24px), 0) rotate(calc(var(--gym-r, -8deg) + 4deg)) scale(calc(var(--gym-s, 1) * 1.03));
+    transform: translate(calc(-50% + 12px), calc(-50% - 24px)) rotate(calc(var(--object-rotate, -8deg) + 4deg)) scale(calc(var(--object-scale, 1) * 1.03));
   }
 }
 
-/* Floating gym objects */
-.obj-bottle {
+.hv2-object-glow {
+  position: absolute;
+  left: var(--object-left, 50%);
+  top: var(--object-top, 50%);
+  width: 270px;
+  height: 270px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.24), rgba(168, 255, 120, 0.14) 38%, transparent 70%);
+  filter: blur(8px);
+  z-index: 2;
+}
+
+/* Object drawings */
+.hv2-bottle {
   width: 120px;
   height: 330px;
   border-radius: 56px 56px 62px 62px;
@@ -243,7 +395,7 @@ permalink: /en/home-v2/index.html
     inset -20px 0 34px rgba(0,0,0,.24);
 }
 
-.obj-bottle::before {
+.hv2-bottle::before {
   content: "";
   position: absolute;
   left: 31px;
@@ -254,7 +406,7 @@ permalink: /en/home-v2/index.html
   background: linear-gradient(90deg, #101816, #2f3530, #111);
 }
 
-.obj-bottle::after {
+.hv2-bottle::after {
   content: "";
   position: absolute;
   left: 28px;
@@ -266,16 +418,16 @@ permalink: /en/home-v2/index.html
   border-radius: 40px 40px 0 0;
 }
 
-.obj-dumbbell {
+.hv2-dumbbell {
   width: 380px;
   height: 120px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  --gym-r: 12deg;
+  --object-rotate: 12deg;
 }
 
-.obj-dumbbell span {
+.hv2-dumbbell span {
   width: 94px;
   height: 162px;
   border-radius: 28px;
@@ -283,7 +435,7 @@ permalink: /en/home-v2/index.html
   box-shadow: inset 0 0 18px rgba(255,255,255,.34);
 }
 
-.obj-dumbbell i {
+.hv2-dumbbell i {
   position: absolute;
   left: 86px;
   right: 86px;
@@ -293,15 +445,15 @@ permalink: /en/home-v2/index.html
   background: linear-gradient(90deg, #14221a, #eaffdf 46%, #15351e);
 }
 
-.obj-kettle {
+.hv2-kettle {
   width: 230px;
   height: 230px;
   border-radius: 50% 50% 44% 44%;
   background: linear-gradient(135deg, #eaffdf, #78d86c 42%, #1b7337);
-  --gym-r: -10deg;
+  --object-rotate: -10deg;
 }
 
-.obj-kettle::before {
+.hv2-kettle::before {
   content: "";
   position: absolute;
   left: 54px;
@@ -313,17 +465,17 @@ permalink: /en/home-v2/index.html
   border-radius: 62px 62px 0 0;
 }
 
-.obj-rope {
+.hv2-rope {
   width: 315px;
   height: 315px;
   border: 16px solid #78d86c;
   border-radius: 50%;
-  --gym-r: 18deg;
+  --object-rotate: 18deg;
   background: radial-gradient(circle, transparent 55%, rgba(255,255,255,.14) 57%, transparent 63%);
 }
 
-.obj-rope::before,
-.obj-rope::after {
+.hv2-rope::before,
+.hv2-rope::after {
   content: "";
   position: absolute;
   width: 28px;
@@ -333,140 +485,19 @@ permalink: /en/home-v2/index.html
   bottom: -52px;
 }
 
-.obj-rope::before {
+.hv2-rope::before {
   left: 52px;
   transform: rotate(20deg);
 }
 
-.obj-rope::after {
+.hv2-rope::after {
   right: 52px;
   transform: rotate(-20deg);
 }
 
-.homev2-main {
-  position: relative;
-  z-index: 10;
-}
-
-.homev2-scene {
-  min-height: 100vh;
-  padding: 13vh clamp(18px, 5vw, 78px);
-  display: grid;
-  align-items: center;
-  position: relative;
-}
-
-.homev2-scene::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(6,17,13,.03), rgba(6,17,13,.18));
-}
-
-.homev2-hero {
-  text-align: center;
-}
-
-.kicker {
-  display: inline-block;
-  color: var(--lime);
-  font-size: 12px;
-  font-weight: 950;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-}
-
-.homev2 h1 {
-  font-size: clamp(54px, 9vw, 140px);
-  line-height: .82;
-  letter-spacing: -.09em;
-  max-width: 1200px;
-  margin: 16px auto;
-  text-shadow: 0 22px 70px rgba(0,0,0,.42);
-}
-
-.homev2 h2 {
-  font-size: clamp(34px, 5vw, 78px);
-  line-height: .9;
-  letter-spacing: -.07em;
-  margin: 12px 0 16px;
-}
-
-.homev2 h3 {
-  font-size: 22px;
-  margin: 8px 0;
-}
-
-.homev2 p,
-.homev2 li {
-  color: var(--muted);
-  line-height: 1.72;
-}
-
-.homev2-hero p {
-  max-width: 760px;
-  margin: 0 auto 24px;
-}
-
-.glass {
-  position: relative;
-  border: 1px solid rgba(255,255,255,.28);
-  background: linear-gradient(145deg, rgba(255,255,255,.25), rgba(255,255,255,.08));
-  backdrop-filter: blur(25px);
-  box-shadow:
-    0 30px 90px rgba(0,0,0,.27),
-    inset 0 1px 0 rgba(255,255,255,.2);
-  border-radius: 34px;
-  overflow: hidden;
-}
-
-.glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,.14), transparent 32%, transparent 72%, rgba(255,255,255,.04));
-  pointer-events: none;
-}
-
-.panel,
-.card,
-.plan,
-.bubble,
-.readout,
-.step {
-  padding: 24px;
-}
-
-.card,
-.plan,
-.bubble,
-.readout,
-.step {
-  transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease;
-}
-
-.card:hover,
-.plan:hover,
-.bubble:hover,
-.readout:hover,
-.step:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255,255,255,.48);
-  background: linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.12));
-  box-shadow: 0 38px 100px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.24);
-}
-
-.split,
-.services,
-.diagnostic,
-.plans-layout,
-.contact-layout {
-  display: grid;
-  grid-template-columns: minmax(310px, 450px) 1fr;
-  gap: clamp(18px, 5vw, 74px);
-  align-items: center;
-}
+/* =========================
+   Section-specific layouts
+========================= */
 
 .photo {
   position: relative;
@@ -509,125 +540,15 @@ permalink: /en/home-v2/index.html
   border: 1px solid rgba(255,255,255,.18);
 }
 
-.orbit {
-  position: relative;
-  min-height: 700px;
-}
-
-.orbit::before,
-.orbit::after {
-  content: "";
-  position: absolute;
-  inset: 7%;
-  border: 1px solid rgba(255,255,255,.22);
-  border-radius: 50%;
-  animation: orbitSpin 33s linear infinite;
-}
-
-.orbit::after {
-  inset: 20%;
-  animation-direction: reverse;
-  animation-duration: 21s;
-}
-
-@keyframes orbitSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.core {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
+.service-list {
   display: grid;
-  place-items: center;
-  text-align: center;
-  background: radial-gradient(circle, rgba(168,255,120,.25), rgba(255,255,255,.1));
-  border: 1px solid rgba(255,255,255,.24);
-  backdrop-filter: blur(18px);
-}
-
-.node {
-  position: absolute;
-  width: 285px;
-}
-
-.node:nth-child(2) {
-  left: 0;
-  top: 4%;
-}
-
-.node:nth-child(3) {
-  right: 0;
-  top: 14%;
-}
-
-.node:nth-child(4) {
-  left: 8%;
-  bottom: 10%;
-}
-
-.node:nth-child(5) {
-  right: 4%;
-  bottom: 4%;
-}
-
-.node ul {
-  padding-left: 18px;
-  margin: 10px 0 0;
-}
-
-.radar {
-  min-height: 430px;
-  position: relative;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(168,255,120,.28), transparent 14%),
-    repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.18) 0 1px, transparent 1px 44px);
-}
-
-.radar::before {
-  content: "BODY MAP";
-  position: absolute;
-  left: 18px;
-  top: 16px;
-  color: rgba(255,255,255,.58);
-  font-size: 11px;
-  font-weight: 950;
-  letter-spacing: .18em;
-}
-
-.radar::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2px;
-  height: 46%;
-  background: linear-gradient(var(--lime), transparent);
-  transform-origin: bottom;
-  animation: radarSweep 5.4s linear infinite;
-}
-
-@keyframes radarSweep {
-  to {
-    transform: rotate(360deg);
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .readouts {
   display: grid;
   gap: 12px;
-}
-
-.readout b {
-  display: block;
-  margin-bottom: 6px;
-  color: #fff;
 }
 
 .journey {
@@ -653,11 +574,11 @@ permalink: /en/home-v2/index.html
   gap: 14px;
 }
 
-.gallery .card:first-child {
+.gallery .hv2-card:first-child {
   grid-row: span 2;
 }
 
-.gallery .card:nth-child(4) {
+.gallery .hv2-card:nth-child(4) {
   grid-column: span 2;
 }
 
@@ -667,12 +588,12 @@ permalink: /en/home-v2/index.html
   gap: 14px;
 }
 
-.plan {
+.hv2-plan {
   color: #fff;
   text-decoration: none;
 }
 
-.plan:nth-child(2) {
+.hv2-plan:nth-child(2) {
   background: linear-gradient(145deg, rgba(168,255,120,.25), rgba(255,255,255,.11));
 }
 
@@ -739,61 +660,45 @@ permalink: /en/home-v2/index.html
 }
 
 @media (max-width: 1100px) {
-  .split,
-  .services,
-  .diagnostic,
-  .plans-layout,
-  .contact-layout,
+  .hv2-layout,
+  .hv2-layout.reverse,
   .journey,
   .terrain,
   .proof,
   .faq,
-  .gallery {
+  .gallery,
+  .service-list {
     grid-template-columns: 1fr;
   }
 
-  .orbit {
-    min-height: auto;
-    display: grid;
-    gap: 14px;
+  .hv2-layout.reverse .hv2-copy,
+  .hv2-layout.reverse .hv2-stage {
+    order: initial;
   }
 
-  .orbit::before,
-  .orbit::after {
-    display: none;
+  .hv2-stage {
+    min-height: 460px;
   }
 
-  .core,
-  .node {
-    position: relative;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    width: auto;
+  .hv2-stage-frame {
+    min-height: 440px;
   }
 
   .stats {
     grid-template-columns: 1fr 1fr;
   }
 
-  .homev2-object-wrap {
-    left: 82% !important;
-    top: 78% !important;
-  }
-
-  .homev2-gym.show {
-    --gym-s: .62;
+  .hv2-object {
+    --object-scale: .72;
   }
 }
 
 @media (max-width: 720px) {
-  .homev2-links a:not(:last-child) {
+  .hv2-links a:not(:last-child) {
     display: none;
   }
 
-  .homev2 h1 {
+  .home-v2-clean h1 {
     font-size: clamp(48px, 16vw, 84px);
   }
 
@@ -810,41 +715,21 @@ permalink: /en/home-v2/index.html
     grid-template-columns: 1fr;
   }
 
-  .homev2-object-wrap {
-    left: 82% !important;
-    top: 82% !important;
-  }
-
-  .homev2-gym.show {
-    --gym-s: .46;
-    opacity: .55;
+  .hv2-object {
+    --object-scale: .5;
+    opacity: .58;
   }
 }
 </style>
 
-<div class="homev2" id="homev2">
-  <div class="homev2-bg" id="homev2Bg"></div>
-
-  <div class="homev2-decor" aria-hidden="true">
-    <span class="orb"></span>
-    <span class="ring"></span>
-    <span class="leaf"></span>
-    <span class="line"></span>
-  </div>
-
-  <div class="homev2-object-stage" aria-hidden="true">
-    <div class="homev2-object-wrap" id="homev2ObjectWrap">
-      <div id="homev2Gym" class="homev2-gym none"></div>
-    </div>
-  </div>
-
-  <header class="homev2-nav">
-    <a href="{{ '/en/' | url }}" class="homev2-brand">
+<div class="home-v2-clean">
+  <header class="hv2-nav">
+    <a href="{{ '/en/' | url }}" class="hv2-brand">
       <img src="{{ site.logoUrl | url }}" alt="{{ site.name }}">
       <span>{{ site.name }}</span>
     </a>
 
-    <nav class="homev2-links">
+    <nav class="hv2-links">
       <a href="#services">Services</a>
       <a href="#plans">Plans</a>
       <a href="#contact">Contact</a>
@@ -852,108 +737,121 @@ permalink: /en/home-v2/index.html
     </nav>
   </header>
 
-  <main class="homev2-main">
-    <section class="homev2-scene homev2-hero" data-theme="hero" data-object="none" data-x="78" data-y="60">
+  <main>
+    <section class="hv2-section hv2-bg-hero hv2-hero">
       <div>
-        <span class="kicker">{{ pages.home.en.hero.badge }}</span>
+        <span class="hv2-kicker">{{ pages.home.en.hero.badge }}</span>
         <h1>{{ pages.home.en.hero.title_line1 }} {{ pages.home.en.hero.title_line2_gradient }}</h1>
         <p>{{ pages.home.en.hero.description }}</p>
-        <a class="homev2-btn" href="{{ site.googleForm }}">{{ pages.home.en.hero.cta_primary }}</a>
+        <a class="hv2-btn" href="{{ site.googleForm }}">{{ pages.home.en.hero.cta_primary }}</a>
       </div>
     </section>
 
-    <section class="homev2-scene" data-theme="nature" data-object="bottle" data-x="80" data-y="72">
-      <div class="split">
-        <article class="panel glass">
-          <span class="kicker">The full system</span>
-          <h2>{{ pages.home.en.pillars.title }}</h2>
-          <p>{{ pages.home.en.seo.description }}</p>
-          <p>All real O2F services, plans, results and contact routes are rebuilt here as one cinematic visual journey.</p>
-        </article>
+    <section class="hv2-section hv2-bg-nature">
+      <div class="hv2-layout">
+        <div class="hv2-copy">
+          <article class="hv2-panel hv2-glass">
+            <span class="hv2-kicker">The full system</span>
+            <h2>{{ pages.home.en.pillars.title }}</h2>
+            <p>{{ pages.home.en.seo.description }}</p>
+            <p>All real O2F services, plans, results and contact routes are rebuilt here as one clear cinematic journey.</p>
+          </article>
+        </div>
 
-        <div class="photo glass">
-          <img src="{{ site.heroImage | url }}" alt="{{ site.owner }}">
-          <div class="stats">
-            <span>{{ site.stats.years }}<br><small>Experience</small></span>
-            <span>{{ site.stats.clients }}<br><small>Clients</small></span>
-            <span>{{ site.stats.custom }}<br><small>Plans</small></span>
-            <span>{{ site.stats.support }}<br><small>Support</small></span>
+        <div class="hv2-stage">
+          <div class="hv2-stage-frame photo">
+            <img src="{{ site.heroImage | url }}" alt="{{ site.owner }}">
+            <div class="stats">
+              <span>{{ site.stats.years }}<br><small>Experience</small></span>
+              <span>{{ site.stats.clients }}<br><small>Clients</small></span>
+              <span>{{ site.stats.custom }}<br><small>Plans</small></span>
+              <span>{{ site.stats.support }}<br><small>Support</small></span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="homev2-scene" id="services" data-theme="gym" data-object="dumbbell" data-x="78" data-y="48">
-      <div class="services">
-        <div>
-          <span class="kicker">{{ pages.services.en.hero.kicker }}</span>
+    <section class="hv2-section hv2-bg-gym" id="services">
+      <div class="hv2-layout reverse">
+        <div class="hv2-copy">
+          <span class="hv2-kicker">{{ pages.services.en.hero.kicker }}</span>
           <h2>{{ pages.services.en.hero.description }}</h2>
           <p>{{ pages.services.en.seo.description }}</p>
         </div>
 
-        <div class="orbit">
-          <div class="core">
-            <b>{{ site.owner }}</b>
+        <div class="hv2-stage">
+          <div class="hv2-stage-frame">
+            <div class="hv2-object-glow" style="--object-left:52%;--object-top:47%;"></div>
+            <div class="hv2-object hv2-dumbbell" style="--object-left:52%;--object-top:47%;--object-scale:.9;">
+              <span></span><i></i><span></span>
+            </div>
           </div>
-
-          {% for service in pages.services.en.services %}
-          <article class="node card glass">
-            <span class="kicker">{{ service.id }}</span>
-            <h3>{{ service.title }}</h3>
-            <p>{{ service.description }}</p>
-            {% if service.items %}
-            <ul>
-              {% for item in service.items %}
-              {% if loop.index <= 3 %}
-              <li>{{ item }}</li>
-              {% endif %}
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </article>
-          {% endfor %}
         </div>
+      </div>
+
+      <div class="service-list" style="width:min(1220px,100%);margin:28px auto 0;">
+        {% for service in pages.services.en.services %}
+        <article class="hv2-card hv2-glass">
+          <span class="hv2-kicker">{{ service.id }}</span>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+          {% if service.items %}
+          <ul>
+            {% for item in service.items %}
+            {% if loop.index <= 3 %}
+            <li>{{ item }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </article>
+        {% endfor %}
       </div>
     </section>
 
-    <section class="homev2-scene" data-theme="active" data-object="kettle" data-x="18" data-y="74">
-      <div class="diagnostic">
-        <div class="radar glass"></div>
-
-        <div>
-          <span class="kicker">{{ pages.home.en.pillars.kicker }}</span>
+    <section class="hv2-section hv2-bg-active">
+      <div class="hv2-layout">
+        <div class="hv2-copy">
+          <span class="hv2-kicker">{{ pages.home.en.pillars.kicker }}</span>
           <h2>{{ pages.home.en.pillars.title }}</h2>
-
           <div class="readouts">
             {% for item in pages.home.en.pillars.items %}
-            <div class="readout glass">
+            <div class="hv2-readout hv2-glass">
               <b>{{ item.title }}</b>
               <p>{{ item.text }}</p>
             </div>
             {% endfor %}
           </div>
         </div>
+
+        <div class="hv2-stage">
+          <div class="hv2-stage-frame">
+            <div class="hv2-object-glow" style="--object-left:48%;--object-top:52%;"></div>
+            <div class="hv2-object hv2-kettle" style="--object-left:48%;--object-top:52%;--object-scale:.92;"></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="homev2-scene" data-theme="antiage" data-object="rope" data-x="78" data-y="26">
-      <div class="journey">
-        <article class="step glass">
+    <section class="hv2-section hv2-bg-antiage">
+      <div class="journey" style="width:min(1220px,100%);margin:0 auto;">
+        <article class="hv2-step hv2-glass">
           <span>01</span>
           <h3>Assess</h3>
           <p>Current level, case, food preferences and lifestyle load.</p>
         </article>
-        <article class="step glass">
+        <article class="hv2-step hv2-glass">
           <span>02</span>
           <h3>Build</h3>
           <p>Training, nutrition and guidance are combined into one plan.</p>
         </article>
-        <article class="step glass">
+        <article class="hv2-step hv2-glass">
           <span>03</span>
           <h3>Follow</h3>
           <p>Weekly check-ins keep the plan adjustable and alive.</p>
         </article>
-        <article class="step glass">
+        <article class="hv2-step hv2-glass">
           <span>04</span>
           <h3>Upgrade</h3>
           <p>The system evolves as the body responds and improves.</p>
@@ -961,11 +859,11 @@ permalink: /en/home-v2/index.html
       </div>
     </section>
 
-    <section class="homev2-scene" data-theme="antiage" data-object="bottle" data-x="20" data-y="52">
-      <div class="gallery">
+    <section class="hv2-section hv2-bg-antiage">
+      <div class="gallery" style="width:min(1220px,100%);margin:0 auto;">
         {% for item in pages.home.en.what_you_get.items %}
-        <article class="card glass">
-          <span class="kicker">Output 0{{ loop.index }}</span>
+        <article class="hv2-card hv2-glass">
+          <span class="hv2-kicker">Output 0{{ loop.index }}</span>
           <h3>{{ item.title }}</h3>
           <p>{{ item.text }}</p>
         </article>
@@ -973,56 +871,54 @@ permalink: /en/home-v2/index.html
       </div>
     </section>
 
-    <section class="homev2-scene" id="plans" data-theme="gym" data-object="dumbbell" data-x="80" data-y="74">
-      <div class="plans-layout">
-        <div>
-          <span class="kicker">{{ pages.home.en.plans_section.kicker }}</span>
+    <section class="hv2-section hv2-bg-gym" id="plans">
+      <div class="hv2-layout">
+        <div class="hv2-copy">
+          <span class="hv2-kicker">{{ pages.home.en.plans_section.kicker }}</span>
           <h2>{{ pages.home.en.plans_section.title }}</h2>
-          <p>Plans are displayed as clear cinematic levels using the real pricing and features from the site data.</p>
+          <p>Plans are displayed as clear levels using the real pricing and features from the site data.</p>
         </div>
 
-        <div class="terrain">
-          {% for key in ["basic","standard","advanced"] %}
-          {% set p = plans[key] %}
-          <a class="plan glass" href="{{ ('/en/plans/' + p.slug + '/') | url }}">
-            <span class="kicker">{{ "Most popular" if p.highlight else "Access level" }}</span>
-            <h3>{{ p.en.name }}</h3>
-            <p>{{ p.en.blurb }}</p>
-
-            <div class="price">
-              <div>
-                <span>1 month</span>
-                <b>{{ p.pricing.egypt.m1.amount }} {{ p.pricing.egypt.m1.currency }}</b>
-              </div>
-              <div>
-                <span>3 months</span>
-                <b>{{ p.pricing.egypt.m3.amount }} {{ p.pricing.egypt.m3.currency }}/mo</b>
-              </div>
-              <div>
-                <span>6 months</span>
-                <b>{{ p.pricing.egypt.m6.amount }} {{ p.pricing.egypt.m6.currency }}/mo</b>
-              </div>
-            </div>
-
-            <ul class="features">
-              {% for feature in p.en.features %}
-              {% if loop.index <= 5 %}
-              <li>{{ feature }}</li>
-              {% endif %}
-              {% endfor %}
-            </ul>
-          </a>
-          {% endfor %}
+        <div class="hv2-stage">
+          <div class="hv2-stage-frame">
+            <div class="hv2-object-glow" style="--object-left:52%;--object-top:55%;"></div>
+            <div class="hv2-object hv2-rope" style="--object-left:52%;--object-top:55%;--object-scale:.78;"></div>
+          </div>
         </div>
+      </div>
+
+      <div class="terrain" style="width:min(1220px,100%);margin:28px auto 0;">
+        {% for key in ["basic","standard","advanced"] %}
+        {% set p = plans[key] %}
+        <a class="hv2-plan hv2-glass" href="{{ ('/en/plans/' + p.slug + '/') | url }}">
+          <span class="hv2-kicker">{{ "Most popular" if p.highlight else "Access level" }}</span>
+          <h3>{{ p.en.name }}</h3>
+          <p>{{ p.en.blurb }}</p>
+
+          <div class="price">
+            <div><span>1 month</span><b>{{ p.pricing.egypt.m1.amount }} {{ p.pricing.egypt.m1.currency }}</b></div>
+            <div><span>3 months</span><b>{{ p.pricing.egypt.m3.amount }} {{ p.pricing.egypt.m3.currency }}/mo</b></div>
+            <div><span>6 months</span><b>{{ p.pricing.egypt.m6.amount }} {{ p.pricing.egypt.m6.currency }}/mo</b></div>
+          </div>
+
+          <ul class="features">
+            {% for feature in p.en.features %}
+            {% if loop.index <= 5 %}
+            <li>{{ feature }}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </a>
+        {% endfor %}
       </div>
     </section>
 
-    <section class="homev2-scene" data-theme="nature" data-object="kettle" data-x="18" data-y="28">
-      <div class="proof">
+    <section class="hv2-section hv2-bg-nature">
+      <div class="proof" style="width:min(1220px,100%);margin:0 auto;">
         {% for item in pages.home.en.results.items %}
-        <div class="signal glass">
+        <div class="signal hv2-glass">
           <div>
-            <span class="kicker">Signal</span>
+            <span class="hv2-kicker">Signal</span>
             <strong>{{ item.value }}{{ item.unit }}</strong>
             <p>{{ item.text }}</p>
           </div>
@@ -1031,25 +927,25 @@ permalink: /en/home-v2/index.html
       </div>
     </section>
 
-    <section class="homev2-scene" id="contact" data-theme="hero" data-object="bottle" data-x="82" data-y="78">
-      <div class="contact-layout">
-        <article class="panel glass">
-          <span class="kicker">{{ pages.home.en.cta.badge }}</span>
+    <section class="hv2-section hv2-bg-hero" id="contact">
+      <div class="hv2-layout">
+        <article class="hv2-panel hv2-glass">
+          <span class="hv2-kicker">{{ pages.home.en.cta.badge }}</span>
           <h2>{{ pages.home.en.cta.title }}</h2>
           <p>{{ pages.home.en.cta.description }}</p>
-          <a class="homev2-btn" href="{{ site.googleForm }}">{{ pages.home.en.cta.button }}</a>
+          <a class="hv2-btn" href="{{ site.googleForm }}">{{ pages.home.en.cta.button }}</a>
         </article>
 
         <div class="faq">
-          <article class="bubble glass">
+          <article class="hv2-bubble hv2-glass">
             <b>Is this only training?</b>
             <p>No. It combines training, nutrition and ongoing follow-up.</p>
           </article>
-          <article class="bubble glass">
+          <article class="hv2-bubble hv2-glass">
             <b>Not sure where to start?</b>
             <p>{{ pages.services.en.cta.description }}</p>
           </article>
-          <article class="bubble glass">
+          <article class="hv2-bubble hv2-glass">
             <b>What makes it different?</b>
             <p>It is built around your goals, schedule, lifestyle and health status.</p>
           </article>
@@ -1058,111 +954,3 @@ permalink: /en/home-v2/index.html
     </section>
   </main>
 </div>
-
-<script>
-(function () {
-  const root = document.getElementById("homev2");
-  const objectWrap = document.getElementById("homev2ObjectWrap");
-  const gym = document.getElementById("homev2Gym");
-  const decor = Array.from(document.querySelectorAll(".homev2-decor span"));
-  const scenes = Array.from(document.querySelectorAll(".homev2-scene"));
-
-  const themes = {
-    hero: ["#07180f", "#1e5f34", "#0b2d1a"],
-    nature: ["#06160d", "#2b7041", "#0f3a23"],
-    gym: ["#07090b", "#484b50", "#142118"],
-    active: ["#071729", "#1f5f7a", "#0b3325"],
-    antiage: ["#10160f", "#684628", "#244d2f"]
-  };
-
-  const objectClasses = {
-    none: "none",
-    bottle: "obj-bottle",
-    dumbbell: "obj-dumbbell",
-    kettle: "obj-kettle",
-    rope: "obj-rope"
-  };
-
-  const objectHtml = {
-    none: "",
-    bottle: "",
-    dumbbell: "<span></span><i></i><span></span>",
-    kettle: "",
-    rope: ""
-  };
-
-  let currentObject = "";
-
-  function activeScene() {
-    let active = scenes[0];
-
-    scenes.forEach((scene) => {
-      const rect = scene.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.56 && rect.bottom > window.innerHeight * 0.24) {
-        active = scene;
-      }
-    });
-
-    return active;
-  }
-
-  function applyTheme(themeName) {
-    const theme = themes[themeName] || themes.hero;
-    root.style.setProperty("--bg-a", theme[0]);
-    root.style.setProperty("--bg-b", theme[1]);
-    root.style.setProperty("--bg-c", theme[2]);
-  }
-
-  function setObject(name) {
-    if (name === currentObject) return;
-
-    currentObject = name;
-    gym.className = "homev2-gym " + (objectClasses[name] || "none");
-    gym.innerHTML = objectHtml[name] || "";
-
-    if (name === "none") {
-      gym.classList.remove("show");
-      return;
-    }
-
-    requestAnimationFrame(() => {
-      gym.classList.add("show");
-    });
-  }
-
-  function update() {
-    const scene = activeScene();
-    const rootRect = root.getBoundingClientRect();
-    const progress = Math.max(0, Math.min(1, -rootRect.top / (root.offsetHeight - window.innerHeight || 1)));
-
-    applyTheme(scene.dataset.theme || "hero");
-
-    objectWrap.style.setProperty("--object-x", (scene.dataset.x || 78) + "%");
-    objectWrap.style.setProperty("--object-y", (scene.dataset.y || 60) + "%");
-
-    setObject(scene.dataset.object || "none");
-
-    gym.style.setProperty("--gym-x", (Math.sin(progress * 7.5) * 18) + "px");
-    gym.style.setProperty("--gym-y", (Math.cos(progress * 5.5) * -10) + "px");
-
-    root.style.setProperty("--bg-x", (Math.sin(progress * 5.2) * 24) + "px");
-    root.style.setProperty("--bg-y", (-progress * 120) + "px");
-
-    decor.forEach((item, index) => {
-      item.style.transform =
-        "translate3d(" +
-        (Math.sin(progress * 5 + index) * 36) +
-        "px," +
-        (Math.cos(progress * 4 + index) * 26) +
-        "px,0) rotate(" +
-        (progress * 160 + index * 18) +
-        "deg)";
-    });
-  }
-
-  update();
-
-  window.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
-  window.addEventListener("resize", update);
-})();
-</script>
