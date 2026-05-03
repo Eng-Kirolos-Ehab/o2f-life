@@ -5,6 +5,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
   eleventyConfig.addPassthroughCopy("CNAME");
 
+  // Prevent duplicate output conflict: Home V2 is owned only by src/en/home-v2/index.njk
+  eleventyConfig.ignores.add("src/en/index.njk");
+
   // Watch Tailwind + JS
   eleventyConfig.addWatchTarget("./src/assets/css/");
   eleventyConfig.addWatchTarget("./src/assets/js/");
