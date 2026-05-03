@@ -1,216 +1,1168 @@
 ---
-title: "Home"
-description: "Online fitness, nutrition and naturopathic coaching with Coach Osama Omran. Transform your body from the inside out."
+title: "O2F Home V2"
+description: "Refined cinematic home v2."
+permalink: /en/home-v2/index.html
 ---
 
-{# ==================== HERO ==================== #}
-<section class="grid-bg relative overflow-hidden" style="min-height:90vh;display:flex;align-items:center;">
-  {# Animated orbs #}
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-orb hero-orb-3"></div>
+<style>
+.homev2 {
+  --lime: #a8ff78;
+  --mint: #00d9a3;
+  --ink: #06110d;
+  --text: #f7fff7;
+  --muted: rgba(247, 255, 247, 0.82);
 
-  {# Floating particles #}
-  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-    <span class="particle" style="top:12%;left:8%"></span>
-    <span class="particle" style="top:28%;right:12%"></span>
-    <span class="particle" style="bottom:22%;left:22%"></span>
-    <span class="particle" style="bottom:38%;right:8%"></span>
-    <span class="particle" style="top:55%;left:58%"></span>
-    <span class="particle" style="top:70%;right:30%"></span>
+  --bg-a: #07180f;
+  --bg-b: #1e5f34;
+  --bg-c: #0d2f1d;
+
+  color: var(--text);
+  background: #06110d;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.homev2 * {
+  box-sizing: border-box;
+}
+
+.homev2-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.homev2-bg::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background:
+    radial-gradient(circle at 18% 16%, var(--bg-b), transparent 30%),
+    radial-gradient(circle at 82% 72%, var(--bg-c), transparent 38%),
+    radial-gradient(circle at 52% 40%, rgba(255,255,255,.12), transparent 24%),
+    linear-gradient(135deg, var(--bg-a), #03100a 75%);
+  transform: translate3d(var(--bg-x, 0), var(--bg-y, 0), 0) scale(1.08);
+  transition:
+    background 900ms ease,
+    transform 900ms ease;
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.homev2-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.76), rgba(0,0,0,.22) 48%, rgba(0,0,0,.66)),
+    linear-gradient(180deg, rgba(0,0,0,.06), rgba(6,17,13,.76)),
+    linear-gradient(115deg, transparent 0 18%, rgba(255,255,255,.12) 23%, transparent 33% 70%, rgba(168,255,120,.1) 78%, transparent 88%);
+  mix-blend-mode: normal;
+}
+
+.homev2-nav {
+  position: fixed;
+  z-index: 60;
+  left: clamp(18px, 4vw, 72px);
+  right: clamp(18px, 4vw, 72px);
+  top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.homev2-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+}
+
+.homev2-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 28px rgba(0, 217, 163, 0.28);
+}
+
+.homev2-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.homev2-links a {
+  color: rgba(255,255,255,.88);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.homev2-links a:last-child,
+.homev2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 950;
+  font-size: 14px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.7);
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 34px rgba(0,0,0,.18);
+}
+
+.homev2-decor {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.homev2-decor span {
+  position: absolute;
+  opacity: .76;
+  will-change: transform;
+}
+
+.homev2-decor .orb {
+  width: 130px;
+  height: 130px;
+  left: 8vw;
+  top: 22vh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #fff, rgba(168,255,120,.28) 36%, transparent 72%);
+}
+
+.homev2-decor .ring {
+  width: 190px;
+  height: 190px;
+  right: 8vw;
+  top: 16vh;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.24);
+  box-shadow: 0 0 44px rgba(168,255,120,.13);
+}
+
+.homev2-decor .leaf {
+  width: 84px;
+  height: 35px;
+  left: 18vw;
+  bottom: 17vh;
+  border-radius: 80% 0 80% 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(168,255,120,.46));
+}
+
+.homev2-decor .line {
+  width: 270px;
+  height: 1px;
+  right: 17vw;
+  bottom: 25vh;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.62), transparent);
+}
+
+.homev2-object-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  pointer-events: none;
+}
+
+.homev2-object-wrap {
+  position: absolute;
+  left: var(--object-x, 80%);
+  top: var(--object-y, 60%);
+  transform: translate(-50%, -50%);
+  transition:
+    left 850ms cubic-bezier(.2,.85,.2,1),
+    top 850ms cubic-bezier(.2,.85,.2,1);
+}
+
+.homev2-object-wrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.25), rgba(168,255,120,.14) 38%, transparent 70%);
+  filter: blur(8px);
+  opacity: .78;
+}
+
+.homev2-gym {
+  position: relative;
+  opacity: 0;
+  transform: translate3d(var(--gym-x, 0), var(--gym-y, 0), 0) rotate(var(--gym-r, -8deg)) scale(var(--gym-s, 1));
+  filter: drop-shadow(0 36px 36px rgba(0,0,0,.38));
+  transition:
+    opacity 360ms ease,
+    transform 800ms cubic-bezier(.2,.85,.2,1);
+  animation: homev2Float 5.8s ease-in-out infinite;
+}
+
+.homev2-gym.show {
+  opacity: .98;
+}
+
+.homev2-gym.none {
+  display: none;
+}
+
+@keyframes homev2Float {
+  0%, 100% {
+    transform: translate3d(var(--gym-x, 0), var(--gym-y, 0), 0) rotate(var(--gym-r, -8deg)) scale(var(--gym-s, 1));
+  }
+  50% {
+    transform: translate3d(calc(var(--gym-x, 0) + 12px), calc(var(--gym-y, 0) - 24px), 0) rotate(calc(var(--gym-r, -8deg) + 4deg)) scale(calc(var(--gym-s, 1) * 1.03));
+  }
+}
+
+/* Floating gym objects */
+.obj-bottle {
+  width: 120px;
+  height: 330px;
+  border-radius: 56px 56px 62px 62px;
+  background: linear-gradient(90deg, #276d33, #75d35e 38%, #d9ffd0 50%, #58bd4e 60%, #1d6a34);
+  box-shadow:
+    inset 18px 0 34px rgba(255,255,255,.2),
+    inset -20px 0 34px rgba(0,0,0,.24);
+}
+
+.obj-bottle::before {
+  content: "";
+  position: absolute;
+  left: 31px;
+  right: 31px;
+  top: -42px;
+  height: 48px;
+  border-radius: 16px 16px 10px 10px;
+  background: linear-gradient(90deg, #101816, #2f3530, #111);
+}
+
+.obj-bottle::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: -62px;
+  height: 60px;
+  border: 12px solid #111816;
+  border-bottom: 0;
+  border-radius: 40px 40px 0 0;
+}
+
+.obj-dumbbell {
+  width: 380px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  --gym-r: 12deg;
+}
+
+.obj-dumbbell span {
+  width: 94px;
+  height: 162px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #f2fff0, #74d46b 55%, #1d6d34);
+  box-shadow: inset 0 0 18px rgba(255,255,255,.34);
+}
+
+.obj-dumbbell i {
+  position: absolute;
+  left: 86px;
+  right: 86px;
+  top: 46px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #14221a, #eaffdf 46%, #15351e);
+}
+
+.obj-kettle {
+  width: 230px;
+  height: 230px;
+  border-radius: 50% 50% 44% 44%;
+  background: linear-gradient(135deg, #eaffdf, #78d86c 42%, #1b7337);
+  --gym-r: -10deg;
+}
+
+.obj-kettle::before {
+  content: "";
+  position: absolute;
+  left: 54px;
+  right: 54px;
+  top: -56px;
+  height: 90px;
+  border: 25px solid #1b211d;
+  border-bottom: 0;
+  border-radius: 62px 62px 0 0;
+}
+
+.obj-rope {
+  width: 315px;
+  height: 315px;
+  border: 16px solid #78d86c;
+  border-radius: 50%;
+  --gym-r: 18deg;
+  background: radial-gradient(circle, transparent 55%, rgba(255,255,255,.14) 57%, transparent 63%);
+}
+
+.obj-rope::before,
+.obj-rope::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 106px;
+  border-radius: 999px;
+  background: #161d19;
+  bottom: -52px;
+}
+
+.obj-rope::before {
+  left: 52px;
+  transform: rotate(20deg);
+}
+
+.obj-rope::after {
+  right: 52px;
+  transform: rotate(-20deg);
+}
+
+.homev2-main {
+  position: relative;
+  z-index: 10;
+}
+
+.homev2-scene {
+  min-height: 100vh;
+  padding: 13vh clamp(18px, 5vw, 78px);
+  display: grid;
+  align-items: center;
+  position: relative;
+}
+
+.homev2-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(6,17,13,.03), rgba(6,17,13,.18));
+}
+
+.homev2-hero {
+  text-align: center;
+}
+
+.kicker {
+  display: inline-block;
+  color: var(--lime);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.homev2 h1 {
+  font-size: clamp(54px, 9vw, 140px);
+  line-height: .82;
+  letter-spacing: -.09em;
+  max-width: 1200px;
+  margin: 16px auto;
+  text-shadow: 0 22px 70px rgba(0,0,0,.42);
+}
+
+.homev2 h2 {
+  font-size: clamp(34px, 5vw, 78px);
+  line-height: .9;
+  letter-spacing: -.07em;
+  margin: 12px 0 16px;
+}
+
+.homev2 h3 {
+  font-size: 22px;
+  margin: 8px 0;
+}
+
+.homev2 p,
+.homev2 li {
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.homev2-hero p {
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+.glass {
+  position: relative;
+  border: 1px solid rgba(255,255,255,.28);
+  background: linear-gradient(145deg, rgba(255,255,255,.25), rgba(255,255,255,.08));
+  backdrop-filter: blur(25px);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.27),
+    inset 0 1px 0 rgba(255,255,255,.2);
+  border-radius: 34px;
+  overflow: hidden;
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.14), transparent 32%, transparent 72%, rgba(255,255,255,.04));
+  pointer-events: none;
+}
+
+.panel,
+.card,
+.plan,
+.bubble,
+.readout,
+.step {
+  padding: 24px;
+}
+
+.card,
+.plan,
+.bubble,
+.readout,
+.step {
+  transition: transform .28s ease, border-color .28s ease, background .28s ease, box-shadow .28s ease;
+}
+
+.card:hover,
+.plan:hover,
+.bubble:hover,
+.readout:hover,
+.step:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255,255,255,.48);
+  background: linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.12));
+  box-shadow: 0 38px 100px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.24);
+}
+
+.split,
+.services,
+.diagnostic,
+.plans-layout,
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(310px, 450px) 1fr;
+  gap: clamp(18px, 5vw, 74px);
+  align-items: center;
+}
+
+.photo {
+  position: relative;
+  min-height: 620px;
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.58));
+}
+
+.stats {
+  position: absolute;
+  z-index: 2;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.stats span {
+  background: rgba(255,255,255,.16);
+  border-radius: 18px;
+  padding: 12px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  font-weight: 950;
+  border: 1px solid rgba(255,255,255,.18);
+}
+
+.orbit {
+  position: relative;
+  min-height: 700px;
+}
+
+.orbit::before,
+.orbit::after {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 50%;
+  animation: orbitSpin 33s linear infinite;
+}
+
+.orbit::after {
+  inset: 20%;
+  animation-direction: reverse;
+  animation-duration: 21s;
+}
+
+@keyframes orbitSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: radial-gradient(circle, rgba(168,255,120,.25), rgba(255,255,255,.1));
+  border: 1px solid rgba(255,255,255,.24);
+  backdrop-filter: blur(18px);
+}
+
+.node {
+  position: absolute;
+  width: 285px;
+}
+
+.node:nth-child(2) {
+  left: 0;
+  top: 4%;
+}
+
+.node:nth-child(3) {
+  right: 0;
+  top: 14%;
+}
+
+.node:nth-child(4) {
+  left: 8%;
+  bottom: 10%;
+}
+
+.node:nth-child(5) {
+  right: 4%;
+  bottom: 4%;
+}
+
+.node ul {
+  padding-left: 18px;
+  margin: 10px 0 0;
+}
+
+.radar {
+  min-height: 430px;
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(168,255,120,.28), transparent 14%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.18) 0 1px, transparent 1px 44px);
+}
+
+.radar::before {
+  content: "BODY MAP";
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  color: rgba(255,255,255,.58);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .18em;
+}
+
+.radar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 46%;
+  background: linear-gradient(var(--lime), transparent);
+  transform-origin: bottom;
+  animation: radarSweep 5.4s linear infinite;
+}
+
+@keyframes radarSweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.readouts {
+  display: grid;
+  gap: 12px;
+}
+
+.readout b {
+  display: block;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.journey {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.step span {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(168,255,120,.24);
+  font-weight: 950;
+  margin-bottom: 10px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr .85fr;
+  gap: 14px;
+}
+
+.gallery .card:first-child {
+  grid-row: span 2;
+}
+
+.gallery .card:nth-child(4) {
+  grid-column: span 2;
+}
+
+.terrain {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.plan {
+  color: #fff;
+  text-decoration: none;
+}
+
+.plan:nth-child(2) {
+  background: linear-gradient(145deg, rgba(168,255,120,.25), rgba(255,255,255,.11));
+}
+
+.price div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.12);
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.features {
+  padding: 0;
+  list-style: none;
+  margin: 12px 0 0;
+}
+
+.features li {
+  padding-left: 14px;
+  position: relative;
+  margin: 8px 0;
+}
+
+.features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.proof {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.signal {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 22px;
+}
+
+.signal strong {
+  display: block;
+  font-size: clamp(42px, 6vw, 78px);
+  color: var(--lime);
+  line-height: .85;
+}
+
+.faq {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 1100px) {
+  .split,
+  .services,
+  .diagnostic,
+  .plans-layout,
+  .contact-layout,
+  .journey,
+  .terrain,
+  .proof,
+  .faq,
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .orbit {
+    min-height: auto;
+    display: grid;
+    gap: 14px;
+  }
+
+  .orbit::before,
+  .orbit::after {
+    display: none;
+  }
+
+  .core,
+  .node {
+    position: relative;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: auto;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .homev2-object-wrap {
+    left: 82% !important;
+    top: 78% !important;
+  }
+
+  .homev2-gym.show {
+    --gym-s: .62;
+  }
+}
+
+@media (max-width: 720px) {
+  .homev2-links a:not(:last-child) {
+    display: none;
+  }
+
+  .homev2 h1 {
+    font-size: clamp(48px, 16vw, 84px);
+  }
+
+  .photo {
+    min-height: 470px;
+  }
+
+  .stats,
+  .proof,
+  .faq,
+  .terrain,
+  .journey,
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .homev2-object-wrap {
+    left: 82% !important;
+    top: 82% !important;
+  }
+
+  .homev2-gym.show {
+    --gym-s: .46;
+    opacity: .55;
+  }
+}
+</style>
+
+<div class="homev2" id="homev2">
+  <div class="homev2-bg" id="homev2Bg"></div>
+
+  <div class="homev2-decor" aria-hidden="true">
+    <span class="orb"></span>
+    <span class="ring"></span>
+    <span class="leaf"></span>
+    <span class="line"></span>
   </div>
 
-  <div class="container-x py-20 sm:py-28 lg:py-32 relative w-full">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+  <div class="homev2-object-stage" aria-hidden="true">
+    <div class="homev2-object-wrap" id="homev2ObjectWrap">
+      <div id="homev2Gym" class="homev2-gym none"></div>
+    </div>
+  </div>
 
-      {# --- Left column --- #}
+  <header class="homev2-nav">
+    <a href="{{ '/en/' | url }}" class="homev2-brand">
+      <img src="{{ site.logoUrl | url }}" alt="{{ site.name }}">
+      <span>{{ site.name }}</span>
+    </a>
+
+    <nav class="homev2-links">
+      <a href="#services">Services</a>
+      <a href="#plans">Plans</a>
+      <a href="#contact">Contact</a>
+      <a href="{{ site.googleForm }}">Start Now</a>
+    </nav>
+  </header>
+
+  <main class="homev2-main">
+    <section class="homev2-scene homev2-hero" data-theme="hero" data-object="none" data-x="78" data-y="60">
       <div>
-        <div class="hero-badge" data-aos="fade-down" data-aos-duration="600">
-          <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">{{ pages.home.en.hero.badge }}</span>
+        <span class="kicker">{{ pages.home.en.hero.badge }}</span>
+        <h1>{{ pages.home.en.hero.title_line1 }} {{ pages.home.en.hero.title_line2_gradient }}</h1>
+        <p>{{ pages.home.en.hero.description }}</p>
+        <a class="homev2-btn" href="{{ site.googleForm }}">{{ pages.home.en.hero.cta_primary }}</a>
+      </div>
+    </section>
+
+    <section class="homev2-scene" data-theme="nature" data-object="bottle" data-x="80" data-y="72">
+      <div class="split">
+        <article class="panel glass">
+          <span class="kicker">The full system</span>
+          <h2>{{ pages.home.en.pillars.title }}</h2>
+          <p>{{ pages.home.en.seo.description }}</p>
+          <p>All real O2F services, plans, results and contact routes are rebuilt here as one cinematic visual journey.</p>
+        </article>
+
+        <div class="photo glass">
+          <img src="{{ site.heroImage | url }}" alt="{{ site.owner }}">
+          <div class="stats">
+            <span>{{ site.stats.years }}<br><small>Experience</small></span>
+            <span>{{ site.stats.clients }}<br><small>Clients</small></span>
+            <span>{{ site.stats.custom }}<br><small>Plans</small></span>
+            <span>{{ site.stats.support }}<br><small>Support</small></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="homev2-scene" id="services" data-theme="gym" data-object="dumbbell" data-x="78" data-y="48">
+      <div class="services">
+        <div>
+          <span class="kicker">{{ pages.services.en.hero.kicker }}</span>
+          <h2>{{ pages.services.en.hero.description }}</h2>
+          <p>{{ pages.services.en.seo.description }}</p>
         </div>
 
-        <h1 class="section-title text-balance leading-tight" data-aos="fade-up" data-aos-delay="80">
-          {{ pages.home.en.hero.title_line1 }}<br>
-          <span class="gradient-mint-text">{{ pages.home.en.hero.title_line2_gradient }}</span>
-        </h1>
+        <div class="orbit">
+          <div class="core">
+            <b>{{ site.owner }}</b>
+          </div>
 
-        <p class="mt-5 max-w-xl text-lg text-brand-off/70 leading-relaxed"
-           data-aos="fade-up" data-aos-delay="160">
-          {{ pages.home.en.hero.description }}
-        </p>
+          {% for service in pages.services.en.services %}
+          <article class="node card glass">
+            <span class="kicker">{{ service.id }}</span>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+            {% if service.items %}
+            <ul>
+              {% for item in service.items %}
+              {% if loop.index <= 3 %}
+              <li>{{ item }}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
 
-        <div class="mt-8 flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="240">
-          <a href="{{ '/en/plans/' | url }}" class="btn-primary group">
-            {{ pages.home.en.hero.cta_primary }}
-            <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+    <section class="homev2-scene" data-theme="active" data-object="kettle" data-x="18" data-y="74">
+      <div class="diagnostic">
+        <div class="radar glass"></div>
+
+        <div>
+          <span class="kicker">{{ pages.home.en.pillars.kicker }}</span>
+          <h2>{{ pages.home.en.pillars.title }}</h2>
+
+          <div class="readouts">
+            {% for item in pages.home.en.pillars.items %}
+            <div class="readout glass">
+              <b>{{ item.title }}</b>
+              <p>{{ item.text }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="homev2-scene" data-theme="antiage" data-object="rope" data-x="78" data-y="26">
+      <div class="journey">
+        <article class="step glass">
+          <span>01</span>
+          <h3>Assess</h3>
+          <p>Current level, case, food preferences and lifestyle load.</p>
+        </article>
+        <article class="step glass">
+          <span>02</span>
+          <h3>Build</h3>
+          <p>Training, nutrition and guidance are combined into one plan.</p>
+        </article>
+        <article class="step glass">
+          <span>03</span>
+          <h3>Follow</h3>
+          <p>Weekly check-ins keep the plan adjustable and alive.</p>
+        </article>
+        <article class="step glass">
+          <span>04</span>
+          <h3>Upgrade</h3>
+          <p>The system evolves as the body responds and improves.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="homev2-scene" data-theme="antiage" data-object="bottle" data-x="20" data-y="52">
+      <div class="gallery">
+        {% for item in pages.home.en.what_you_get.items %}
+        <article class="card glass">
+          <span class="kicker">Output 0{{ loop.index }}</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="homev2-scene" id="plans" data-theme="gym" data-object="dumbbell" data-x="80" data-y="74">
+      <div class="plans-layout">
+        <div>
+          <span class="kicker">{{ pages.home.en.plans_section.kicker }}</span>
+          <h2>{{ pages.home.en.plans_section.title }}</h2>
+          <p>Plans are displayed as clear cinematic levels using the real pricing and features from the site data.</p>
+        </div>
+
+        <div class="terrain">
+          {% for key in ["basic","standard","advanced"] %}
+          {% set p = plans[key] %}
+          <a class="plan glass" href="{{ ('/en/plans/' + p.slug + '/') | url }}">
+            <span class="kicker">{{ "Most popular" if p.highlight else "Access level" }}</span>
+            <h3>{{ p.en.name }}</h3>
+            <p>{{ p.en.blurb }}</p>
+
+            <div class="price">
+              <div>
+                <span>1 month</span>
+                <b>{{ p.pricing.egypt.m1.amount }} {{ p.pricing.egypt.m1.currency }}</b>
+              </div>
+              <div>
+                <span>3 months</span>
+                <b>{{ p.pricing.egypt.m3.amount }} {{ p.pricing.egypt.m3.currency }}/mo</b>
+              </div>
+              <div>
+                <span>6 months</span>
+                <b>{{ p.pricing.egypt.m6.amount }} {{ p.pricing.egypt.m6.currency }}/mo</b>
+              </div>
+            </div>
+
+            <ul class="features">
+              {% for feature in p.en.features %}
+              {% if loop.index <= 5 %}
+              <li>{{ feature }}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
           </a>
-          <a href="{{ '/en/services/' | url }}" class="btn-ghost">{{ pages.home.en.hero.cta_secondary }}</a>
+          {% endfor %}
         </div>
+      </div>
+    </section>
 
-        {# Stats #}
-        <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl"
-             data-aos="fade-up" data-aos-delay="320">
-          <div class="card card-hover text-center">
-            <div class="text-2xl font-bold text-brand-mint glow-text-mint">{{ site.stats.years }}</div>
-            <div class="text-xs text-brand-off/55 mt-1">{{ pages.home.en.hero.stats_years_label }}</div>
-          </div>
-          <div class="card card-hover text-center">
-            <div class="text-2xl font-bold text-brand-mint glow-text-mint">{{ site.stats.clients }}</div>
-            <div class="text-xs text-brand-off/55 mt-1">{{ pages.home.en.hero.stats_clients_label }}</div>
-          </div>
-          <div class="card card-hover text-center">
-            <div class="text-2xl font-bold text-brand-mint glow-text-mint">{{ site.stats.custom }}</div>
-            <div class="text-xs text-brand-off/55 mt-1">{{ pages.home.en.hero.stats_custom_label }}</div>
-          </div>
-          <div class="card card-hover text-center">
-            <div class="text-2xl font-bold text-brand-mint glow-text-mint">{{ site.stats.support }}</div>
-            <div class="text-xs text-brand-off/55 mt-1">{{ pages.home.en.hero.stats_support_label }}</div>
+    <section class="homev2-scene" data-theme="nature" data-object="kettle" data-x="18" data-y="28">
+      <div class="proof">
+        {% for item in pages.home.en.results.items %}
+        <div class="signal glass">
+          <div>
+            <span class="kicker">Signal</span>
+            <strong>{{ item.value }}{{ item.unit }}</strong>
+            <p>{{ item.text }}</p>
           </div>
         </div>
+        {% endfor %}
       </div>
+    </section>
 
-      {# --- Right column: image --- #}
-      <div class="relative" data-aos="fade-left" data-aos-delay="200" data-aos-duration="800">
-        <div class="absolute -inset-10 rounded-full border border-brand-mint/8 animate-spin-slow pointer-events-none"></div>
-        <div class="absolute -inset-6 rounded-full border border-brand-gold/6 animate-spin-reverse pointer-events-none"></div>
-        <div class="absolute -inset-4 rounded-xl2 bg-gradient-to-br from-brand-mint/25 to-brand-gold/15 blur-2xl"></div>
-        <img src="{{ (site.heroImage or '/assets/images/817_WhatsApp_Image_2024-07-09_at_21.45.27_02e636a3.webp') | url }}"
-             alt="Coach Osama Omran" loading="eager"
-             class="relative rounded-xl2 w-full object-cover shadow-card animate-float-img">
-        <div class="absolute -bottom-5 -left-5 card py-2.5 px-4 text-sm animate-float pointer-events-none" style="animation-delay:1s;z-index:10">
-          <span class="font-bold text-brand-mint">{{ pages.home.en.hero.chip_years_value }}</span>
-          <span class="text-brand-off/65 ms-1">{{ pages.home.en.hero.chip_years_label }}</span>
-        </div>
-        <div class="absolute -top-5 -right-5 card py-2.5 px-4 text-sm animate-float pointer-events-none" style="animation-delay:2.5s;z-index:10">
-          <span class="font-bold text-brand-mint">{{ pages.home.en.hero.chip_clients_value }}</span>
-          <span class="text-brand-off/65 ms-1">{{ pages.home.en.hero.chip_clients_label }}</span>
+    <section class="homev2-scene" id="contact" data-theme="hero" data-object="bottle" data-x="82" data-y="78">
+      <div class="contact-layout">
+        <article class="panel glass">
+          <span class="kicker">{{ pages.home.en.cta.badge }}</span>
+          <h2>{{ pages.home.en.cta.title }}</h2>
+          <p>{{ pages.home.en.cta.description }}</p>
+          <a class="homev2-btn" href="{{ site.googleForm }}">{{ pages.home.en.cta.button }}</a>
+        </article>
+
+        <div class="faq">
+          <article class="bubble glass">
+            <b>Is this only training?</b>
+            <p>No. It combines training, nutrition and ongoing follow-up.</p>
+          </article>
+          <article class="bubble glass">
+            <b>Not sure where to start?</b>
+            <p>{{ pages.services.en.cta.description }}</p>
+          </article>
+          <article class="bubble glass">
+            <b>What makes it different?</b>
+            <p>It is built around your goals, schedule, lifestyle and health status.</p>
+          </article>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
+</div>
 
-{# ==================== PILLARS ==================== #}
-<section class="section">
-  <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">{{ pages.home.en.pillars.kicker }}</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ pages.home.en.pillars.title }}</h2>
-    <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
+<script>
+(function () {
+  const root = document.getElementById("homev2");
+  const objectWrap = document.getElementById("homev2ObjectWrap");
+  const gym = document.getElementById("homev2Gym");
+  const decor = Array.from(document.querySelectorAll(".homev2-decor span"));
+  const scenes = Array.from(document.querySelectorAll(".homev2-scene"));
 
-    <div class="grid md:grid-cols-3 gap-5">
-      {% for item in pages.home.en.pillars.items %}
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
-        <div class="h-12 w-12 rounded-xl bg-brand-mint/12 text-brand-mint flex items-center justify-center mb-4 animate-pulse-glow" style="animation-delay:{{ (loop.index - 1) * 0.6 }}s">
-          {% if loop.index == 1 %}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>{% endif %}
-          {% if loop.index == 2 %}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3l3-8 4 16 3-8h5"/></svg>{% endif %}
-          {% if loop.index == 3 %}<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4l8 4-8 4-8-4 8-4zm0 8l8 4-8 4-8-4"/></svg>{% endif %}
-        </div>
-        <h3 class="text-xl mb-2">{{ item.title }}</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">{{ item.text }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+  const themes = {
+    hero: ["#07180f", "#1e5f34", "#0b2d1a"],
+    nature: ["#06160d", "#2b7041", "#0f3a23"],
+    gym: ["#07090b", "#484b50", "#142118"],
+    active: ["#071729", "#1f5f7a", "#0b3325"],
+    antiage: ["#10160f", "#684628", "#244d2f"]
+  };
 
-{# ==================== RESULTS ==================== #}
-<section class="section bg-white/[0.02]">
-  <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">{{ pages.home.en.results.kicker }}</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ pages.home.en.results.title }}</h2>
-    <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
+  const objectClasses = {
+    none: "none",
+    bottle: "obj-bottle",
+    dumbbell: "obj-dumbbell",
+    kettle: "obj-kettle",
+    rope: "obj-rope"
+  };
 
-    <div class="grid md:grid-cols-3 gap-5">
-      {% for item in pages.home.en.results.items %}
-      <div class="card card-hover card-glow text-center" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
-        <div class="text-5xl sm:text-6xl font-display text-brand-mint mb-3 glow-text-mint">
-          {{ item.value }}<span class="text-2xl">{{ item.unit }}</span>
-        </div>
-        <div class="divider-mint"></div>
-        <p class="text-brand-off/65 text-sm leading-relaxed mt-4">{{ item.text }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+  const objectHtml = {
+    none: "",
+    bottle: "",
+    dumbbell: "<span></span><i></i><span></span>",
+    kettle: "",
+    rope: ""
+  };
 
-{# ==================== WHAT YOU GET ==================== #}
-<section class="section">
-  <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">{{ pages.home.en.what_you_get.kicker }}</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ pages.home.en.what_you_get.title }}</h2>
-    <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
+  let currentObject = "";
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-      {% set wyg_icons = [
-        '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
-        '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>',
-        '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>',
-        '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>'
-      ] %}
-      {% for item in pages.home.en.what_you_get.items %}
-      <div class="card card-hover card-glow" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
-        <div class="h-11 w-11 rounded-xl bg-brand-mint/10 text-brand-mint flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{{ wyg_icons[loop.index0] | safe }}</svg>
-        </div>
-        <h3 class="text-lg mb-2">{{ item.title }}</h3>
-        <p class="text-brand-off/65 text-sm leading-relaxed">{{ item.text }}</p>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+  function activeScene() {
+    let active = scenes[0];
 
-{# ==================== PLANS PREVIEW ==================== #}
-<section class="section bg-white/[0.015]">
-  <div class="container-x">
-    <p class="section-kicker" data-aos="fade-up">{{ pages.home.en.plans_section.kicker }}</p>
-    <h2 class="section-title mb-2" data-aos="fade-up" data-aos-delay="80">{{ pages.home.en.plans_section.title }}</h2>
-    <div class="line-accent w-16 mb-10" data-aos="fade-up" data-aos-delay="120"></div>
+    scenes.forEach((scene) => {
+      const rect = scene.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.56 && rect.bottom > window.innerHeight * 0.24) {
+        active = scene;
+      }
+    });
 
-    <div class="grid md:grid-cols-3 gap-5">
-      {% for key in ["basic","standard","advanced"] %}
-        {% set p = plans[key] %}
-        <a href="{{ ('/en/plans/' + p.slug + '/') | url }}"
-           class="card card-hover card-glow hover:border-brand-mint/60 {% if p.highlight %}ring-1 ring-brand-mint/35{% endif %}"
-           data-aos="fade-up" data-aos-delay="{{ loop.index * 120 }}">
-          {% if p.highlight %}
-            <span class="chip text-brand-mint mb-3 block w-fit animate-pulse-soft">{{ pages.home.en.plans_section.most_popular }}</span>
-          {% endif %}
-          <h3 class="text-xl mb-1">{{ p.en.name }}</h3>
-          <p class="text-brand-mint text-sm mb-3">{{ p.en.tagline }}</p>
-          <p class="text-brand-off/65 text-sm leading-relaxed">{{ p.en.blurb }}</p>
-          <span class="inline-flex items-center gap-1.5 text-brand-mint text-sm mt-5 group">
-            {{ pages.home.en.plans_section.learn_more }}
-            <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-          </span>
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+    return active;
+  }
 
-{# ==================== CTA ==================== #}
-<section class="section">
-  <div class="container-x">
-    <div class="relative card text-center overflow-hidden animate-border-glow" data-aos="fade-up">
-      <div class="absolute inset-0 animate-gradient pointer-events-none"
-           style="background:linear-gradient(135deg,rgba(0,217,163,.06),transparent,rgba(201,168,74,.06),transparent);background-size:300% 300%"></div>
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px"
-           style="background:linear-gradient(90deg,transparent,rgba(0,217,163,.7),transparent)"></div>
-      <div class="relative py-4">
-        <div class="hero-badge mx-auto mb-4" style="animation-delay:.5s">
-          <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">{{ pages.home.en.cta.badge }}</span>
-        </div>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl mb-3 font-bold">{{ pages.home.en.cta.title }}</h2>
-        <p class="text-brand-off/65 max-w-xl mx-auto leading-relaxed">{{ pages.home.en.cta.description }}</p>
-        <a href="{{ '/en/contact/' | url }}" class="btn-primary mt-7 inline-flex group">
-          {{ pages.home.en.cta.button }}
-          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+  function applyTheme(themeName) {
+    const theme = themes[themeName] || themes.hero;
+    root.style.setProperty("--bg-a", theme[0]);
+    root.style.setProperty("--bg-b", theme[1]);
+    root.style.setProperty("--bg-c", theme[2]);
+  }
+
+  function setObject(name) {
+    if (name === currentObject) return;
+
+    currentObject = name;
+    gym.className = "homev2-gym " + (objectClasses[name] || "none");
+    gym.innerHTML = objectHtml[name] || "";
+
+    if (name === "none") {
+      gym.classList.remove("show");
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      gym.classList.add("show");
+    });
+  }
+
+  function update() {
+    const scene = activeScene();
+    const rootRect = root.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, -rootRect.top / (root.offsetHeight - window.innerHeight || 1)));
+
+    applyTheme(scene.dataset.theme || "hero");
+
+    objectWrap.style.setProperty("--object-x", (scene.dataset.x || 78) + "%");
+    objectWrap.style.setProperty("--object-y", (scene.dataset.y || 60) + "%");
+
+    setObject(scene.dataset.object || "none");
+
+    gym.style.setProperty("--gym-x", (Math.sin(progress * 7.5) * 18) + "px");
+    gym.style.setProperty("--gym-y", (Math.cos(progress * 5.5) * -10) + "px");
+
+    root.style.setProperty("--bg-x", (Math.sin(progress * 5.2) * 24) + "px");
+    root.style.setProperty("--bg-y", (-progress * 120) + "px");
+
+    decor.forEach((item, index) => {
+      item.style.transform =
+        "translate3d(" +
+        (Math.sin(progress * 5 + index) * 36) +
+        "px," +
+        (Math.cos(progress * 4 + index) * 26) +
+        "px,0) rotate(" +
+        (progress * 160 + index * 18) +
+        "deg)";
+    });
+  }
+
+  update();
+
+  window.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+  window.addEventListener("resize", update);
+})();
+</script>
