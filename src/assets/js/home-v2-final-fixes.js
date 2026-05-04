@@ -16,10 +16,7 @@
     document.querySelectorAll('.comment-card[dir="rtl"] .comment-person').forEach(function(el){el.style.flexDirection='row';el.style.direction='rtl';el.style.textAlign='right'});
     document.querySelectorAll('.comment-card:not([dir="rtl"]) .comment-person').forEach(function(el){el.style.flexDirection='row';el.style.direction='ltr';el.style.textAlign='left'});
 
-    var plans=document.querySelector('#plans .plans');
-    if(plans&&!document.querySelector('.pricing-region')){
-      plans.insertAdjacentHTML('beforebegin','<div class="pricing-region" data-auto-region="detecting"><button type="button" data-region="eg">Egypt / EGP</button><button type="button" data-region="gulf">Gulf / SAR</button><button type="button" data-region="int">International / USD</button></div>');
-    }
+    document.querySelectorAll('.pricing-region').forEach(function(el){el.remove()});
 
     var cards=[].slice.call(document.querySelectorAll('#plans .plan'));
     var currency='USD',region='int';
@@ -30,15 +27,9 @@
       if(['SA','AE','KW','QA','BH','OM'].indexOf(c)!==-1)return 'gulf';
       return 'int';
     }
-    function setButtons(){
-      var box=document.querySelector('.pricing-region');
-      if(box)box.setAttribute('data-auto-region',region);
-      document.querySelectorAll('.pricing-region button').forEach(function(b){b.classList.toggle('active',b.dataset.region===region)});
-    }
     function setRegion(r){
       region=r||'int';
       currency=region==='eg'?'EGP':region==='gulf'?'SAR':'USD';
-      setButtons();
       cards.forEach(function(plan){updatePlan(plan,plan.querySelector('.month-picker button.active')||plan.querySelector('.month-picker button'))});
     }
     function updatePlan(plan,btn){
@@ -56,8 +47,6 @@
       if(saving)saving.textContent='Total: '+raw.toLocaleString('en-US')+' '+currency+(btn.dataset.save?' - save '+btn.dataset.save:'');
     }
 
-    // Manual buttons remain only as an immediate fallback for the visitor, but auto IP detection is never skipped.
-    document.querySelectorAll('.pricing-region button').forEach(function(btn){btn.onclick=function(){setRegion(btn.dataset.region)}});
     document.querySelectorAll('#plans .month-picker button').forEach(function(btn){btn.onclick=function(){updatePlan(btn.closest('.plan'),btn)}});
 
     try{localStorage.removeItem('o2f_region_manual');localStorage.removeItem('o2f_region_auto')}catch(e){}
