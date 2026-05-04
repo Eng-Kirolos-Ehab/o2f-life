@@ -1,18 +1,42 @@
 (function(){
   function ready(fn){document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn):fn()}
   ready(function(){
+    function prepareMobileNav(){
+      var dock=document.querySelector('.dock');
+      var menu=document.getElementById('socialMenu');
+      var panel=menu&&menu.querySelector('.social-panel');
+      var toggle=document.getElementById('socialToggle');
+      if(!dock||!menu||!panel||!toggle)return;
+      toggle.type='button';
+      toggle.setAttribute('aria-label','Open menu');
+      toggle.textContent='Menu';
+      dock.querySelectorAll('a').forEach(function(a){
+        var href=a.getAttribute('href')||'';
+        var keep=['#hero','#programs','#plans'].indexOf(href)!==-1;
+        a.classList.toggle('mobile-primary',keep);
+        a.classList.toggle('mobile-secondary',!keep);
+      });
+      if(!panel.querySelector('.mobile-menu-links')){
+        var links=document.createElement('div');
+        links.className='mobile-menu-links';
+        var items=[['Coach','#coach'],['Experience','#osama-experience'],['Gallery','#gallery'],['Stories','#stories'],['Contact','#contact']];
+        items.forEach(function(item){var a=document.createElement('a');a.href=item[1];a.textContent=item[0];links.appendChild(a)});
+        panel.insertBefore(links,panel.firstChild);
+      }
+      panel.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open')})});
+    }
     function bindSocialMenu(){
+      prepareMobileNav();
       var toggle=document.getElementById('socialToggle');
       var menu=document.getElementById('socialMenu');
       if(!toggle||!menu)return;
-      toggle.type='button';
       toggle.onclick=function(e){e.preventDefault();e.stopPropagation();menu.classList.toggle('open');};
       var panel=menu.querySelector('.social-panel');
       if(panel){panel.onclick=function(e){e.stopPropagation();};}
       document.addEventListener('click',function(e){if(!e.target.closest('#socialMenu'))menu.classList.remove('open')});
       document.addEventListener('touchstart',function(e){if(!e.target.closest('#socialMenu'))menu.classList.remove('open')},{passive:true});
     }
-    bindSocialMenu();setTimeout(bindSocialMenu,600);
+    bindSocialMenu();setTimeout(bindSocialMenu,600);setTimeout(prepareMobileNav,1200);
     document.querySelectorAll('.comment-card[dir="rtl"] .comment-person').forEach(function(el){el.style.flexDirection='row';el.style.direction='rtl';el.style.textAlign='right'});
     document.querySelectorAll('.comment-card:not([dir="rtl"]) .comment-person').forEach(function(el){el.style.flexDirection='row';el.style.direction='ltr';el.style.textAlign='left'});
 
