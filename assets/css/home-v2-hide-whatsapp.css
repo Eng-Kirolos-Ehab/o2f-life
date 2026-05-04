@@ -1,0 +1,10 @@
+body:has(.o2f-v2) a[aria-label="WhatsApp"].fixed,
+body:has(.o2f-v2) a[href*="wa.me"].fixed,
+body:has(.o2f-v2) a[href*="whatsapp"].fixed,
+body:has(.o2f-v2) .fixed[href*="wa.me"],
+body:has(.o2f-v2) .fixed[aria-label="WhatsApp"]{
+  display:none!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
