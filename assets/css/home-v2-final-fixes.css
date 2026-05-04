@@ -1,0 +1,40 @@
+/* Final Home V2 fixes */
+body:has(.o2f-v2){background:#06110d!important;overflow-x:hidden!important}
+.o2f-v2,.o2f-main{background-color:#06110d!important}
+.o2f-v2 .o2f-bg{transform:translate3d(0,var(--bg-y,0),0) scale(1.14)!important;transition:transform .28s cubic-bezier(.22,.61,.36,1)!important;will-change:transform!important;backface-visibility:hidden!important}
+.o2f-v2 .dock{background:rgba(6,17,13,.72)!important;isolation:isolate!important}
+.o2f-v2 .chips{margin-bottom:24px!important}
+.o2f-v2 .chips + .btn,.o2f-v2 .panel .chips ~ .btn{margin-top:8px!important}
+.o2f-v2 .coach-photo{min-height:700px!important}
+.o2f-v2 .gallery-grid{align-items:stretch!important}
+.o2f-v2 .gallery-item{min-height:220px!important}
+.o2f-v2 .gallery-item.big{min-height:420px!important}
+.o2f-v2 .comment-person{display:flex!important;align-items:center!important;gap:12px!important;margin-top:18px!important;direction:ltr!important;flex-direction:row!important;text-align:left!important}
+.o2f-v2 .comment-card[dir="rtl"] .comment-person{direction:rtl!important;flex-direction:row!important;text-align:right!important}
+.o2f-v2 .comment-person>div{min-width:0!important}
+.o2f-v2 .comment-photo{flex:0 0 48px!important}
+.o2f-v2 .pricing-region{display:flex!important;gap:8px!important;justify-content:center!important;flex-wrap:wrap!important;margin:18px auto 28px!important;padding:8px!important;border-radius:999px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.14)!important;width:max-content!important;max-width:100%!important}
+.o2f-v2 .pricing-region button{border:1px solid rgba(255,255,255,.14)!important;background:rgba(255,255,255,.08)!important;color:#fff!important;border-radius:999px!important;padding:10px 14px!important;font-weight:950!important;cursor:pointer!important}
+.o2f-v2 .pricing-region button.active{background:rgba(168,255,120,.24)!important;border-color:rgba(168,255,120,.55)!important}
+.o2f-v2 .timeline-list{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important}
+.o2f-v2 .timeline-item:nth-child(7){grid-column:1 / -1!important}
+.o2f-v2 .timeline-card{min-height:150px!important}
+@media(max-width:1050px){
+  .o2f-v2 .timeline-list{grid-template-columns:1fr!important}
+  .o2f-v2 .timeline-item,.o2f-v2 .timeline-item:nth-child(7){grid-column:auto!important;display:grid!important;grid-template-columns:70px 1fr!important;gap:14px!important;align-items:start!important}
+  .o2f-v2 .timeline-year{grid-column:1!important;grid-row:1!important;position:relative!important;top:auto!important;margin:0!important;align-self:start!important}
+  .o2f-v2 .timeline-card{grid-column:2!important;grid-row:1!important;min-height:0!important}
+}
+@media(max-width:720px){
+  .o2f-v2 .coach-photo{min-height:500px!important}
+  .o2f-v2 .gallery-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;grid-auto-rows:170px!important}
+  .o2f-v2 .gallery-item,.o2f-v2 .gallery-item.big{height:auto!important;min-height:0!important;grid-row:auto!important}
+  .o2f-v2 .gallery-item.big:first-child{grid-column:1 / -1!important;grid-row:span 2!important}
+  .o2f-v2 .gallery-item.big:last-child{grid-column:1 / -1!important;grid-row:span 2!important}
+  .o2f-v2 .gallery-item span{font-size:11px!important;padding:7px 10px!important}
+  .o2f-v2 .timeline-item,.o2f-v2 .timeline-item:nth-child(7){grid-template-columns:58px 1fr!important;gap:12px!important;padding:14px!important}
+  .o2f-v2 .timeline-year{min-width:50px!important;width:50px!important;height:46px!important;font-size:11px!important;position:relative!important;left:auto!important;top:auto!important}
+  .o2f-v2 .timeline-card b{font-size:18px!important}
+  .o2f-v2 .pricing-region{width:100%!important;border-radius:22px!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important}
+  .o2f-v2 .pricing-region button{padding:11px 8px!important}
+}
