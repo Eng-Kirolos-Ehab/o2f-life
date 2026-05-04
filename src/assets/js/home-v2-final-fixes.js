@@ -45,6 +45,16 @@
       document.addEventListener('touchstart',function(e){if(!e.target.closest('#socialMenu'))menu.classList.remove('open')},{passive:true});
     }
     bindSocialMenu();setTimeout(bindSocialMenu,600);setTimeout(prepareMobileNav,1200);
+
+    var contact=document.getElementById('contact');
+    if(contact&&!document.getElementById('home-v2-contact-details')){
+      var box=document.createElement('div');
+      box.className='container glass contact-details-card';
+      box.id='home-v2-contact-details';
+      box.innerHTML='<span class="kicker">Contact details</span><h3>Connect with O2F Life</h3><div class="contact-details-grid"><a href="https://wa.me/201000000000"><b>WhatsApp</b><span>Direct coaching inquiries</span></a><a href="https://www.instagram.com/"><b>Instagram</b><span>Follow updates and stories</span></a><a href="https://www.facebook.com/"><b>Facebook</b><span>Community and announcements</span></a><a href="mailto:info@o2f.life"><b>Email</b><span>info@o2f.life</span></a></div>';
+      contact.appendChild(box);
+    }
+
     document.querySelectorAll('.comment-card[dir="rtl"] .comment-person').forEach(function(el){el.style.flexDirection='row';el.style.direction='rtl';el.style.textAlign='right'});
     document.querySelectorAll('.comment-card:not([dir="rtl"]) .comment-person').forEach(function(el){el.style.flexDirection='row';el.style.direction='ltr';el.style.textAlign='left'});
 
