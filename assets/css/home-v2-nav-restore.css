@@ -1,0 +1,128 @@
+/* Restore old Home V2 mobile nav with working 3-lines menu */
+@media(max-width:720px){
+  .o2f-v2 .dock{
+    position:fixed!important;
+    left:50%!important;
+    right:auto!important;
+    bottom:14px!important;
+    top:auto!important;
+    transform:translateX(-50%)!important;
+    z-index:9998!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:8px!important;
+    width:calc(100vw - 18px)!important;
+    max-width:calc(100vw - 18px)!important;
+    padding:8px!important;
+    border-radius:999px!important;
+    overflow-x:auto!important;
+    overflow-y:visible!important;
+    background:rgba(255,255,255,.14)!important;
+    border:1px solid rgba(255,255,255,.28)!important;
+    box-shadow:0 22px 70px rgba(0,0,0,.32)!important;
+    backdrop-filter:blur(22px)!important;
+    -webkit-backdrop-filter:blur(22px)!important;
+    scrollbar-width:none!important;
+  }
+  .o2f-v2 .dock::-webkit-scrollbar{display:none!important}
+  .o2f-v2 .dock:before{display:none!important;content:none!important}
+  .o2f-v2 .dock a,
+  .o2f-v2 .dock button{
+    display:flex!important;
+    flex:0 0 auto!important;
+    width:auto!important;
+    min-width:auto!important;
+    height:auto!important;
+    min-height:40px!important;
+    padding:10px 13px!important;
+    border-radius:999px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    white-space:nowrap!important;
+    font-size:11px!important;
+    line-height:1!important;
+    font-weight:900!important;
+    color:#fff!important;
+    text-decoration:none!important;
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+    cursor:pointer!important;
+  }
+  .o2f-v2 .dock a.active,
+  .o2f-v2 .dock a:hover,
+  .o2f-v2 .dock button:hover{
+    background:rgba(255,255,255,.22)!important;
+    border:0!important;
+  }
+  .o2f-v2 .dock #socialToggle{
+    font-size:0!important;
+    width:auto!important;
+    min-width:46px!important;
+    background:rgba(255,255,255,.12)!important;
+  }
+  .o2f-v2 .dock #socialToggle:before{display:none!important;content:none!important}
+  .o2f-v2 .dock #socialToggle:after{
+    content:'☰'!important;
+    font-size:20px!important;
+    line-height:1!important;
+    color:#fff!important;
+  }
+  .o2f-v2 .social-menu{
+    display:block!important;
+    position:relative!important;
+    flex:0 0 auto!important;
+    min-width:auto!important;
+  }
+  .o2f-v2 .social-panel{
+    position:fixed!important;
+    left:12px!important;
+    right:12px!important;
+    bottom:74px!important;
+    top:auto!important;
+    width:auto!important;
+    min-width:0!important;
+    display:none!important;
+    grid-template-columns:repeat(2,1fr)!important;
+    gap:10px!important;
+    padding:12px!important;
+    border-radius:24px!important;
+    background:rgba(6,17,13,.94)!important;
+    border:1px solid rgba(255,255,255,.26)!important;
+    box-shadow:0 22px 70px rgba(0,0,0,.45)!important;
+    backdrop-filter:blur(22px)!important;
+    -webkit-backdrop-filter:blur(22px)!important;
+    z-index:9999!important;
+  }
+  .o2f-v2 .social-menu.open .social-panel{display:grid!important}
+  .o2f-v2 .social-panel:before{display:none!important;content:none!important}
+  .o2f-v2 .social-panel .mobile-menu-links{
+    display:grid!important;
+    grid-template-columns:repeat(2,1fr)!important;
+    gap:10px!important;
+    grid-column:1 / -1!important;
+  }
+  .o2f-v2 .social-panel a{
+    display:flex!important;
+    min-height:48px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    border-radius:16px!important;
+    padding:10px!important;
+    background:rgba(255,255,255,.1)!important;
+    border:1px solid rgba(255,255,255,.12)!important;
+    color:#fff!important;
+    text-decoration:none!important;
+    font-size:12px!important;
+    font-weight:900!important;
+  }
+  .o2f-v2 .social-panel a.social-icon{font-size:0!important;min-height:58px!important;flex-direction:column!important;gap:4px!important}
+  .o2f-v2 .social-panel a.social-icon:before{font-size:22px!important;line-height:1!important;color:#fff!important}
+  .o2f-v2 .social-panel a.social-icon span{font-size:10px!important;color:rgba(255,255,255,.84)!important;font-weight:900!important;line-height:1!important}
+  .o2f-v2 .social-panel a.whatsapp-icon:before{content:'☎'!important}
+  .o2f-v2 .social-panel a.instagram-icon:before{content:'◎'!important}
+  .o2f-v2 .social-panel a.facebook-icon:before{content:'f'!important;font-family:Arial,sans-serif!important;font-weight:1000!important}
+  .o2f-v2 .social-panel a.chatbot-icon:before{content:'✦'!important}
+}
