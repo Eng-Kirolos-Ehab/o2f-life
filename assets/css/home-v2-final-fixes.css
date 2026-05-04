@@ -1,7 +1,5 @@
 /* Final Home V2 fixes */
-body:has(.o2f-v2){background:#06110d!important;overflow-x:hidden!important}
-.o2f-v2,.o2f-main{background-color:#06110d!important}
-.o2f-v2 .o2f-bg{transform:translate3d(0,var(--bg-y,0),0) scale(1.14)!important;transition:transform .28s cubic-bezier(.22,.61,.36,1)!important;will-change:transform!important;backface-visibility:hidden!important}
+body:has(.o2f-v2){overflow-x:hidden!important}
 .o2f-v2 .dock{background:rgba(6,17,13,.72)!important;isolation:isolate!important}
 .o2f-v2 .chips{margin-bottom:24px!important}
 .o2f-v2 .chips + .btn,.o2f-v2 .panel .chips ~ .btn{margin-top:8px!important}
