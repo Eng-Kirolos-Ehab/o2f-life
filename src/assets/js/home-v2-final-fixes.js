@@ -12,18 +12,26 @@
       toggle.textContent='Menu';
       dock.querySelectorAll('a').forEach(function(a){
         var href=a.getAttribute('href')||'';
-        var keep=['#hero','#programs','#plans'].indexOf(href)!==-1;
+        var keep=['#hero','#coach','#programs','#plans','#stories'].indexOf(href)!==-1;
         a.classList.toggle('mobile-primary',keep);
         a.classList.toggle('mobile-secondary',!keep);
       });
-      if(!panel.querySelector('.mobile-menu-links')){
-        var links=document.createElement('div');
-        links.className='mobile-menu-links';
-        var items=[['Coach','#coach'],['Experience','#osama-experience'],['Gallery','#gallery'],['Stories','#stories'],['Contact','#contact']];
-        items.forEach(function(item){var a=document.createElement('a');a.href=item[1];a.textContent=item[0];links.appendChild(a)});
-        panel.insertBefore(links,panel.firstChild);
-      }
-      panel.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open')})});
+      var oldLinks=panel.querySelector('.mobile-menu-links');
+      if(oldLinks) oldLinks.remove();
+      var links=document.createElement('div');
+      links.className='mobile-menu-links';
+      var items=[['Experience','#osama-experience'],['Gallery','#gallery'],['Contact','#contact']];
+      items.forEach(function(item){var a=document.createElement('a');a.href=item[1];a.textContent=item[0];links.appendChild(a)});
+      panel.insertBefore(links,panel.firstChild);
+      panel.querySelectorAll('a').forEach(function(a){
+        var txt=(a.textContent||'').toLowerCase();
+        var href=(a.getAttribute('href')||'').toLowerCase();
+        if(href.indexOf('wa.me')>-1||href.indexOf('whatsapp')>-1||txt.indexOf('whatsapp')>-1){a.classList.add('social-icon','whatsapp-icon');a.innerHTML='<span>WhatsApp</span>'}
+        if(txt.indexOf('instagram')>-1||href.indexOf('instagram')>-1){a.classList.add('social-icon','instagram-icon');a.innerHTML='<span>Instagram</span>'}
+        if(txt.indexOf('facebook')>-1||href.indexOf('facebook')>-1){a.classList.add('social-icon','facebook-icon');a.innerHTML='<span>Facebook</span>'}
+        if(txt.indexOf('chatbot')>-1||txt.indexOf('chat')>-1||href.indexOf('chat')>-1){a.classList.add('social-icon','chatbot-icon');a.innerHTML='<span>Chatbot</span>'}
+        a.addEventListener('click',function(){menu.classList.remove('open')});
+      });
     }
     function bindSocialMenu(){
       prepareMobileNav();
