@@ -34,96 +34,97 @@ body:has(.o2f-v2){overflow-x:hidden!important}
   .o2f-v2 .timeline-year{min-width:50px!important;width:50px!important;height:46px!important;font-size:11px!important;position:relative!important;left:auto!important;top:auto!important}
   .o2f-v2 .timeline-card b{font-size:18px!important}
 
-  /* Simple clean mobile navigation */
+  /* Premium clean pill mobile navigation */
   .o2f-v2 .dock{
     display:flex!important;
     align-items:center!important;
-    justify-content:space-between!important;
     gap:6px!important;
-    width:calc(100vw - 24px)!important;
-    max-width:430px!important;
+    width:auto!important;
+    max-width:calc(100vw - 28px)!important;
     left:50%!important;
     right:auto!important;
-    bottom:12px!important;
+    bottom:14px!important;
     top:auto!important;
     transform:translateX(-50%)!important;
-    padding:8px!important;
-    border-radius:22px!important;
+    padding:7px!important;
+    border-radius:999px!important;
     overflow:visible!important;
-    background:rgba(8,20,16,.90)!important;
+    background:rgba(9,22,18,.82)!important;
     border:1px solid rgba(255,255,255,.18)!important;
     box-shadow:0 18px 55px rgba(0,0,0,.42)!important;
-    backdrop-filter:blur(20px)!important;
-    -webkit-backdrop-filter:blur(20px)!important;
+    backdrop-filter:blur(22px) saturate(145%)!important;
+    -webkit-backdrop-filter:blur(22px) saturate(145%)!important;
   }
   .o2f-v2 .dock:before{display:none!important;content:none!important}
   .o2f-v2 .dock a,.o2f-v2 .dock button{
     display:none!important;
-    flex:1 1 0!important;
-    min-width:0!important;
-    min-height:43px!important;
-    padding:9px 7px!important;
-    border-radius:15px!important;
+    height:42px!important;
+    min-height:42px!important;
+    min-width:auto!important;
+    width:auto!important;
+    padding:0 13px!important;
+    border-radius:999px!important;
     align-items:center!important;
     justify-content:center!important;
     text-align:center!important;
     white-space:nowrap!important;
-    font-size:11px!important;
+    font-size:12px!important;
     line-height:1!important;
     font-weight:900!important;
-    color:rgba(255,255,255,.80)!important;
+    color:rgba(255,255,255,.76)!important;
     background:transparent!important;
-    border:0!important;
+    border:1px solid transparent!important;
     box-shadow:none!important;
+    flex:0 0 auto!important;
     flex-direction:row!important;
     gap:0!important;
     letter-spacing:0!important;
-    transition:background .18s ease,color .18s ease!important;
+    transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease!important;
   }
   .o2f-v2 .dock a.mobile-primary,.o2f-v2 .dock #socialToggle{display:flex!important}
-  .o2f-v2 .dock #socialToggle{font-size:0!important}
-  .o2f-v2 .dock #socialToggle:after{content:'Menu';font-size:11px!important;line-height:1!important}
-  .o2f-v2 .dock a.active,
-  .o2f-v2 .dock #socialToggle:hover{
-    background:rgba(168,255,120,.16)!important;
+  .o2f-v2 .dock #socialToggle{font-size:0!important;min-width:54px!important;background:rgba(255,255,255,.09)!important}
+  .o2f-v2 .dock #socialToggle:after{content:'More';font-size:12px!important;line-height:1!important}
+  .o2f-v2 .dock a.active{
+    background:linear-gradient(135deg,rgba(168,255,120,.24),rgba(84,200,255,.12))!important;
     color:#fff!important;
-    border:1px solid rgba(168,255,120,.22)!important;
+    border-color:rgba(168,255,120,.32)!important;
+    transform:translateY(-1px)!important;
   }
   .o2f-v2 .dock a:before,.o2f-v2 .dock button:before{display:none!important;content:none!important}
-  .o2f-v2 .dock a:active,.o2f-v2 .dock button:active{transform:scale(.98)!important}
+  .o2f-v2 .dock a:active,.o2f-v2 .dock button:active{transform:scale(.97)!important}
 
-  /* Clean menu sheet */
-  .o2f-v2 .social-menu{display:block!important;position:static!important;flex:1 1 0!important;min-width:0!important}
+  /* Compact premium menu */
+  .o2f-v2 .social-menu{display:block!important;position:static!important;flex:0 0 auto!important;min-width:auto!important}
   .o2f-v2 .social-panel{
     position:fixed!important;
-    left:12px!important;
-    right:12px!important;
+    left:16px!important;
+    right:16px!important;
     bottom:76px!important;
     top:auto!important;
     width:auto!important;
     min-width:0!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:10px!important;
+    grid-template-columns:repeat(2,1fr)!important;
+    gap:9px!important;
     padding:12px!important;
-    border-radius:22px!important;
-    background:rgba(8,20,16,.94)!important;
+    border-radius:24px!important;
+    background:rgba(9,22,18,.94)!important;
     border:1px solid rgba(255,255,255,.18)!important;
     box-shadow:0 22px 70px rgba(0,0,0,.48)!important;
-    backdrop-filter:blur(22px)!important;
-    -webkit-backdrop-filter:blur(22px)!important;
-    animation:o2fSimpleMenu .18s ease both!important;
+    backdrop-filter:blur(24px) saturate(150%)!important;
+    -webkit-backdrop-filter:blur(24px) saturate(150%)!important;
+    animation:o2fCleanMenu .18s ease both!important;
   }
   .o2f-v2 .social-panel:before{display:none!important;content:none!important}
-  .o2f-v2 .social-panel .mobile-menu-links{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;grid-column:1 / -1!important}
+  .o2f-v2 .social-panel .mobile-menu-links{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:9px!important;grid-column:1 / -1!important}
   .o2f-v2 .social-panel a{
     display:flex!important;
-    min-height:46px!important;
+    min-height:44px!important;
     align-items:center!important;
     justify-content:center!important;
     text-align:center!important;
-    background:rgba(255,255,255,.09)!important;
+    background:rgba(255,255,255,.08)!important;
     border:1px solid rgba(255,255,255,.10)!important;
-    border-radius:15px!important;
+    border-radius:16px!important;
     color:#fff!important;
     text-decoration:none!important;
     font-weight:900!important;
@@ -132,4 +133,4 @@ body:has(.o2f-v2){overflow-x:hidden!important}
   }
   .o2f-v2 .social-panel a[href*="wa.me"],.o2f-v2 .social-panel a[href*="whatsapp"]{display:flex!important;background:rgba(168,255,120,.14)!important;border-color:rgba(168,255,120,.20)!important}
 }
-@keyframes o2fSimpleMenu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes o2fCleanMenu{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
