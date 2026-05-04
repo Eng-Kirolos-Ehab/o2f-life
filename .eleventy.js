@@ -11,7 +11,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addTransform("home-v2-assets", function(content, outputPath) {
     if (!outputPath || !outputPath.replace(/\\/g, "/").endsWith("/en/home-v2/index.html")) return content;
-    return content + '\n<link rel="stylesheet" href="/assets/css/home-v2-hotfix.css">\n<link rel="stylesheet" href="/assets/css/home-v2-hide-whatsapp.css">\n<script src="/assets/js/home-v2-hotfix.js" defer></script>\n';
+    return content + '\n<link rel="stylesheet" href="/assets/css/home-v2-hotfix.css">\n<link rel="stylesheet" href="/assets/css/home-v2-hide-whatsapp.css">\n<link rel="stylesheet" href="/assets/css/home-v2-polish.css">\n<script src="/assets/js/home-v2-hotfix.js" defer></script>\n';
   });
 
   // Watch Tailwind + JS
