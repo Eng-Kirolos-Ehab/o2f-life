@@ -1,4 +1,4 @@
-/* Restore old Home V2 mobile nav with working 3-lines menu */
+/* Restore old Home V2 mobile nav with polished phone layout and working 3-lines menu */
 @media(max-width:720px){
   .o2f-v2 .dock{
     position:fixed!important;
@@ -11,19 +11,20 @@
     display:flex!important;
     align-items:center!important;
     justify-content:flex-start!important;
-    gap:8px!important;
-    width:calc(100vw - 18px)!important;
-    max-width:calc(100vw - 18px)!important;
-    padding:8px!important;
+    gap:7px!important;
+    width:calc(100vw - 16px)!important;
+    max-width:calc(100vw - 16px)!important;
+    padding:7px 8px!important;
     border-radius:999px!important;
     overflow-x:auto!important;
     overflow-y:visible!important;
-    background:rgba(255,255,255,.14)!important;
-    border:1px solid rgba(255,255,255,.28)!important;
-    box-shadow:0 22px 70px rgba(0,0,0,.32)!important;
-    backdrop-filter:blur(22px)!important;
-    -webkit-backdrop-filter:blur(22px)!important;
+    background:rgba(6,17,13,.76)!important;
+    border:1px solid rgba(255,255,255,.24)!important;
+    box-shadow:0 22px 70px rgba(0,0,0,.38)!important;
+    backdrop-filter:blur(24px) saturate(150%)!important;
+    -webkit-backdrop-filter:blur(24px) saturate(150%)!important;
     scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
   }
   .o2f-v2 .dock::-webkit-scrollbar{display:none!important}
   .o2f-v2 .dock:before{display:none!important;content:none!important}
@@ -34,8 +35,8 @@
     width:auto!important;
     min-width:auto!important;
     height:auto!important;
-    min-height:40px!important;
-    padding:10px 13px!important;
+    min-height:38px!important;
+    padding:9px 12px!important;
     border-radius:999px!important;
     align-items:center!important;
     justify-content:center!important;
@@ -43,24 +44,29 @@
     font-size:11px!important;
     line-height:1!important;
     font-weight:900!important;
-    color:#fff!important;
+    color:rgba(255,255,255,.86)!important;
     text-decoration:none!important;
-    background:transparent!important;
-    border:0!important;
+    background:rgba(255,255,255,.04)!important;
+    border:1px solid rgba(255,255,255,.06)!important;
     box-shadow:none!important;
     cursor:pointer!important;
   }
-  .o2f-v2 .dock a.active,
+  .o2f-v2 .dock a.active{
+    background:linear-gradient(135deg,rgba(168,255,120,.26),rgba(84,200,255,.12))!important;
+    border-color:rgba(168,255,120,.28)!important;
+    color:#fff!important;
+  }
   .o2f-v2 .dock a:hover,
   .o2f-v2 .dock button:hover{
-    background:rgba(255,255,255,.22)!important;
-    border:0!important;
+    background:rgba(255,255,255,.14)!important;
   }
   .o2f-v2 .dock #socialToggle{
     font-size:0!important;
     width:auto!important;
-    min-width:46px!important;
-    background:rgba(255,255,255,.12)!important;
+    min-width:48px!important;
+    padding-inline:13px!important;
+    background:rgba(255,255,255,.13)!important;
+    border-color:rgba(255,255,255,.12)!important;
   }
   .o2f-v2 .dock #socialToggle:before{display:none!important;content:none!important}
   .o2f-v2 .dock #socialToggle:after{
@@ -79,7 +85,7 @@
     position:fixed!important;
     left:12px!important;
     right:12px!important;
-    bottom:74px!important;
+    bottom:72px!important;
     top:auto!important;
     width:auto!important;
     min-width:0!important;
@@ -88,12 +94,13 @@
     gap:10px!important;
     padding:12px!important;
     border-radius:24px!important;
-    background:rgba(6,17,13,.94)!important;
-    border:1px solid rgba(255,255,255,.26)!important;
-    box-shadow:0 22px 70px rgba(0,0,0,.45)!important;
-    backdrop-filter:blur(22px)!important;
-    -webkit-backdrop-filter:blur(22px)!important;
+    background:rgba(6,17,13,.95)!important;
+    border:1px solid rgba(255,255,255,.24)!important;
+    box-shadow:0 22px 70px rgba(0,0,0,.48)!important;
+    backdrop-filter:blur(24px) saturate(160%)!important;
+    -webkit-backdrop-filter:blur(24px) saturate(160%)!important;
     z-index:9999!important;
+    animation:o2fOldNavMenu .18s ease both!important;
   }
   .o2f-v2 .social-menu.open .social-panel{display:grid!important}
   .o2f-v2 .social-panel:before{display:none!important;content:none!important}
@@ -111,18 +118,23 @@
     text-align:center!important;
     border-radius:16px!important;
     padding:10px!important;
-    background:rgba(255,255,255,.1)!important;
-    border:1px solid rgba(255,255,255,.12)!important;
+    background:rgba(255,255,255,.09)!important;
+    border:1px solid rgba(255,255,255,.11)!important;
     color:#fff!important;
     text-decoration:none!important;
     font-size:12px!important;
     font-weight:900!important;
   }
-  .o2f-v2 .social-panel a.social-icon{font-size:0!important;min-height:58px!important;flex-direction:column!important;gap:4px!important}
+  .o2f-v2 .social-panel a.social-icon{font-size:0!important;min-height:58px!important;flex-direction:column!important;gap:5px!important}
   .o2f-v2 .social-panel a.social-icon:before{font-size:22px!important;line-height:1!important;color:#fff!important}
   .o2f-v2 .social-panel a.social-icon span{font-size:10px!important;color:rgba(255,255,255,.84)!important;font-weight:900!important;line-height:1!important}
+  .o2f-v2 .social-panel a.whatsapp-icon{background:rgba(37,211,102,.14)!important;border-color:rgba(37,211,102,.22)!important}
+  .o2f-v2 .social-panel a.instagram-icon{background:rgba(225,48,108,.14)!important;border-color:rgba(225,48,108,.22)!important}
+  .o2f-v2 .social-panel a.facebook-icon{background:rgba(24,119,242,.14)!important;border-color:rgba(24,119,242,.22)!important}
+  .o2f-v2 .social-panel a.chatbot-icon{background:rgba(84,200,255,.14)!important;border-color:rgba(84,200,255,.22)!important}
   .o2f-v2 .social-panel a.whatsapp-icon:before{content:'☎'!important}
   .o2f-v2 .social-panel a.instagram-icon:before{content:'◎'!important}
   .o2f-v2 .social-panel a.facebook-icon:before{content:'f'!important;font-family:Arial,sans-serif!important;font-weight:1000!important}
   .o2f-v2 .social-panel a.chatbot-icon:before{content:'✦'!important}
 }
+@keyframes o2fOldNavMenu{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
