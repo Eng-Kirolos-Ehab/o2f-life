@@ -1,12 +1,6 @@
 (function(){
   function ready(fn){document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn):fn()}
   ready(function(){
-    var bg=document.getElementById('o2fBg');
-    if(bg){
-      var ticking=false,lastY=0;
-      function apply(){ticking=false;var y=Math.max(-180,Math.min(0,-window.scrollY*0.08));if(Math.abs(y-lastY)>0.5){lastY=y;bg.style.setProperty('--bg-y',y+'px');}bg.style.setProperty('--bg-s','1.14')}
-      window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(apply)}},{passive:true});apply();
-    }
     function bindSocialMenu(){
       var toggle=document.getElementById('socialToggle');
       var menu=document.getElementById('socialMenu');
