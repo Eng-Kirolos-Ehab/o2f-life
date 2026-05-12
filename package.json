@@ -9,7 +9,8 @@
     "css:watch": "tailwindcss -i ./src/assets/css/main.css -o ./_site/assets/css/main.css --watch",
     "eleventy:build": "eleventy",
     "eleventy:watch": "eleventy --serve --quiet",
-    "build": "npm run clean && npm run eleventy:build && npm run css:build",
+    "promote:home": "node scripts/promote-home-v2.js",
+    "build": "npm run clean && npm run eleventy:build && npm run css:build && npm run promote:home",
     "dev": "npm-run-all --parallel eleventy:watch css:watch",
     "start": "npm run dev"
   },
