@@ -8,10 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <script>
-    if (sessionStorage.getItem('o2f-admin-auth') !== '1' ||
-        !localStorage.getItem('o2f-gh-token')) {
-      // Missing auth or missing token — re-login to restore both
-      sessionStorage.removeItem('o2f-admin-auth');
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
       window.location.replace('./login.html');
     }
   </script>
@@ -436,6 +433,35 @@ main.main {
     </nav>
 
     <div class="sidebar-footer">
+
+      <!-- GitHub Token Section -->
+      <div id="token-section" style="margin-bottom:10px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03)">
+        <!-- Connected state -->
+        <div id="token-connected" style="display:none">
+          <div style="display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--mint);margin-bottom:5px;font-weight:700">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            GitHub متصل
+          </div>
+          <button onclick="disconnectToken()" style="font-size:.72rem;color:var(--muted);background:none;border:none;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline">تغيير الـ Token</button>
+        </div>
+        <!-- Token input form -->
+        <div id="token-form">
+          <div style="font-size:.75rem;color:#fca5a5;margin-bottom:7px;display:flex;align-items:center;gap:5px;font-weight:700">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            GitHub Token مطلوب
+          </div>
+          <div style="display:flex;gap:5px">
+            <input type="password" id="tokenInput" class="token-input" placeholder="ghp_..." autocomplete="off">
+            <button onclick="saveToken()" class="btn-connect" style="font-family:inherit">ربط</button>
+          </div>
+          <div id="token-error" style="font-size:.7rem;color:#fca5a5;margin-top:4px;display:none"></div>
+          <div style="font-size:.68rem;color:var(--muted);margin-top:6px;line-height:1.5">
+            <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--mint)">GitHub → Settings → Tokens</a><br>
+            صلاحية: <code style="color:var(--off)">repo</code>
+          </div>
+        </div>
+      </div>
+
       <button class="logout-btn" onclick="logout()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         تسجيل الخروج
@@ -741,17 +767,15 @@ main.main {
       if (name === 'json')    initJsonEditor();
       if (name === 'pages')   initPagesEditor();
       if (name === 'gallery') initGallerySection();
-    }function openCommentsInsideCMS() {
-  sessionStorage.setItem('o2f-admin-auth', '1');
+    }
 
-  const ghToken = localStorage.getItem('o2f-gh-token');
-  if (!ghToken) {
-    alert('GitHub token missing. Please login again.');
-    window.location.replace('./login.html');
-    return;
-  }
-
-  showSection('content');
+    function openCommentsInsideCMS() {
+      const ghToken = localStorage.getItem('o2f-gh-token');
+      if (!ghToken) {
+        alert('ادخل GitHub Token الأول من خلال حقل الربط في أسفل يسار الشاشة.');
+        return;
+      }
+      showSection('content');
 
   const contentSection = document.getElementById('section-content');
   const pageTitle = document.getElementById('pageTitle');
@@ -796,6 +820,44 @@ main.main {
       sessionStorage.removeItem('o2f-admin-auth');
       window.location.replace('./login.html');
     }
+
+    /* ── GitHub Token Management ── */
+    function initTokenUI() {
+      const token = localStorage.getItem('o2f-gh-token');
+      const connected = document.getElementById('token-connected');
+      const form = document.getElementById('token-form');
+      if (!connected || !form) return;
+      if (token) {
+        connected.style.display = '';
+        form.style.display = 'none';
+      } else {
+        connected.style.display = 'none';
+        form.style.display = '';
+      }
+    }
+
+    function saveToken() {
+      const input = document.getElementById('tokenInput');
+      const errEl = document.getElementById('token-error');
+      const val = (input.value || '').trim();
+      if (!val) {
+        errEl.textContent = 'ادخل الـ token أولاً';
+        errEl.style.display = '';
+        return;
+      }
+      localStorage.setItem('o2f-gh-token', val);
+      input.value = '';
+      errEl.style.display = 'none';
+      initTokenUI();
+    }
+
+    function disconnectToken() {
+      if (!confirm('هتمسح الـ GitHub token من الجهاز؟')) return;
+      localStorage.removeItem('o2f-gh-token');
+      initTokenUI();
+    }
+
+    document.addEventListener('DOMContentLoaded', initTokenUI);
 
     /* ── JSON Editor ── */
     const REPO  = 'Eng-Kirolos-Ehab/o2f-life';
