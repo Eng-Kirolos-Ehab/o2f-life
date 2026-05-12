@@ -55,6 +55,8 @@ Non-developers can edit pages, posts and site settings at **https://o2f.life/adm
 Pushes to `main` trigger the GitHub Actions workflow in `.github/workflows/deploy.yml`,
 which builds the site and deploys to GitHub Pages.
 
+Last deployment trigger: 2026-05-12 Home V2 stability update.
+
 ## Languages
 
 - `ar/` → Arabic, RTL, Tajawal font
