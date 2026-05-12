@@ -7,17 +7,39 @@ body:has(.o2f-v2),body:has(.o2f-v2-ar){
   scroll-behavior:smooth!important;
 }
 
-/* ── Background parallax element — sibling of .o2f-v2 for correct backdrop-filter ── */
-/* .o2f-bg is placed BEFORE .o2f-v2 in HTML so overflow:hidden on container doesn't clip it */
+/* Keep the Home V2 wrappers from creating a containing block that breaks fixed elements */
+.o2f-v2,.o2f-v2-ar{
+  overflow:visible!important;
+  contain:none!important;
+  transform:none!important;
+  filter:none!important;
+  perspective:none!important;
+}
+
+/* ── Background parallax element — sibling of .o2f-v2 for correct fixed positioning ── */
+/* .o2f-bg is placed BEFORE .o2f-v2 in HTML so it stays fixed to the viewport, not clipped by page content */
 .o2f-bg,#o2fBg{
   position:fixed!important;
+  inset:-14%!important;
+  z-index:0!important;
   display:block!important;
   opacity:1!important;
   visibility:visible!important;
+  background-position:center top!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
   filter:saturate(1.08) contrast(1.05)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
   will-change:transform!important;
-  transform:translateY(var(--bg-y,0)) scale(var(--bg-s,1.14))!important;
+  transform:translate3d(0,var(--bg-y,0),0) scale(var(--bg-s,1.14))!important;
   backface-visibility:hidden!important;
+  pointer-events:none!important;
+}
+
+/* Fixed overlays must not create accidental scroll/paint containers */
+.o2f-v2:before,.o2f-v2-ar:before{
+  position:fixed!important;
   pointer-events:none!important;
 }
 
@@ -25,14 +47,16 @@ body:has(.o2f-v2),body:has(.o2f-v2-ar){
 .o2f-v2 .glass,.o2f-v2-ar .glass{transform:translateZ(0);backface-visibility:hidden}
 .o2f-v2 .marquee-row,.o2f-v2-ar .marquee-row{will-change:transform}
 
-/* ── Dock: always at bottom on all screen sizes ── */
+/* ── Dock: always at the bottom of the viewport, never at the bottom of the page ── */
 .o2f-v2 .dock,.o2f-v2-ar .dock{
+  position:fixed!important;
   top:auto!important;
   bottom:18px!important;
   left:50%!important;
   right:auto!important;
-  transform:translateX(-50%) translateZ(0)!important;
+  transform:translateX(-50%)!important;
   z-index:9999!important;
+  contain:none!important;
 }
 
 /* ── Hide site header/footer/chatbot/whatsapp on v2 pages ── */
@@ -60,6 +84,9 @@ body:has(.o2f-v2-ar) [class*="chatbot"]{
   .o2f-v2 .dock,.o2f-v2-ar .dock{
     top:auto!important;
     bottom:calc(18px + env(safe-area-inset-bottom))!important;
+    left:50%!important;
+    right:auto!important;
+    transform:translateX(-50%)!important;
     width:calc(100vw - 18px)!important;
     max-width:470px!important;
     overflow:visible!important;
@@ -70,6 +97,12 @@ body:has(.o2f-v2-ar) [class*="chatbot"]{
     top:auto!important;
     bottom:calc(88px + env(safe-area-inset-bottom))!important;
   }
+}
+
+/* ── Footer safety ── */
+.o2f-v2 .v2-footer,.o2f-v2-ar .v2-footer{
+  position:relative!important;
+  z-index:3!important;
 }
 
 /* ── Reduced motion ── */
