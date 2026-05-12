@@ -82,8 +82,13 @@ p,li,span{color:var(--muted);line-height:1.8}
 .features li{margin:9px 0;padding-right:14px;position:relative}
 .features li:before{content:"";position:absolute;right:0;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--lime)}
 .plan .btn{margin-top:auto}
+.month-picker{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px;border-radius:18px;background:rgba(255,255,255,.1)}
+.month-picker button{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:9px 6px;font-weight:950;cursor:pointer}
+.month-picker button.active{background:rgba(168,255,120,.24);border-color:rgba(168,255,120,.55)}
+.saving{font-size:12px;color:var(--lime)!important;font-weight:900;min-height:18px}
 .marquee{display:grid;gap:14px;overflow:hidden}
-.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 34s linear infinite;will-change:transform}
+.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 32s linear infinite;will-change:transform}
+.marquee-row:nth-child(2){animation:moveRight 38s linear infinite;transform:translateX(-50%)}
 .comment-card{width:360px;padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22)}
 .quote{font-size:34px;color:var(--lime);line-height:1}
 .avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(168,255,120,.18);color:#fff!important;font-weight:950;margin-top:14px}
@@ -94,9 +99,10 @@ p,li,span{color:var(--muted);line-height:1.8}
 .v2-footer a{color:rgba(247,255,247,.45);text-decoration:none;transition:color .18s}
 .v2-footer a:hover{color:var(--lime)}
 .v2-footer-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-@keyframes moveLeft{from{transform:translateX(0)}to{transform:translateX(50%)}}
-@media(max-width:1050px){.grid2,.tab-panel,.before-wrap{grid-template-columns:1fr}.plans,.steps,.cards3{grid-template-columns:1fr 1fr}.coach-photo{min-height:520px}.gallery-grid{grid-template-columns:1fr 1fr}.dock{bottom:18px!important;top:auto!important}}
-@media(max-width:720px){.section{padding:68px 16px}.hero{min-height:auto;padding-top:92px;padding-bottom:110px}.journey,.plans,.steps,.cards3,.ba,.gallery-grid{grid-template-columns:1fr}.dock{bottom:14px!important;top:auto!important;max-width:calc(100vw - 18px);overflow:auto;justify-content:flex-start}.dock a,.dock button{font-size:11px;padding:9px 10px}.lead{text-align:center}.btns{flex-direction:column}.btn{width:100%}.coach-photo{order:-1;min-height:430px}.stats{grid-template-columns:1fr 1fr}.tabs-nav{grid-template-columns:1fr;border-radius:26px}.visual{min-height:320px;order:-1}.tab-panel.active{display:flex;flex-direction:column}.ba{min-height:auto}.ba-card{min-height:330px}.plans .highlight{order:-1}.result-card{grid-template-columns:1fr}.comment-card{width:300px}.gallery-item,.gallery-item.big{grid-row:auto;height:260px}h1{font-size:clamp(42px,13vw,66px)}.v2-footer{flex-direction:column;text-align:center;gap:10px}}
+@keyframes moveLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes moveRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@media(max-width:1050px){.grid2,.tab-panel,.before-wrap{grid-template-columns:1fr}.plans,.steps,.cards3,.detail-grid{grid-template-columns:1fr 1fr}.coach-photo{min-height:520px}.gallery-grid{grid-template-columns:1fr 1fr}.dock{bottom:18px!important;top:auto!important}}
+@media(max-width:720px){.section{padding:68px 16px}.hero{min-height:auto;padding-top:92px;padding-bottom:110px}.journey,.plans,.steps,.cards3,.ba,.gallery-grid{grid-template-columns:1fr}.dock{bottom:14px!important;top:auto!important;max-width:calc(100vw - 18px);overflow:auto;justify-content:flex-start}.dock a,.dock button{font-size:11px;padding:9px 10px}.lead{text-align:center}.btns{flex-direction:column}.btn{width:100%}.coach-photo{order:-1;min-height:430px}.stats{grid-template-columns:1fr 1fr}.tabs-nav{grid-template-columns:1fr;border-radius:26px}.visual{min-height:320px;order:-1}.tab-panel.active{display:flex;flex-direction:column}.ba{min-height:auto}.ba-card{min-height:330px}.plans .highlight{order:-1}.result-card{grid-template-columns:1fr}.month-picker{grid-template-columns:1fr 1fr}.comment-card{width:300px}.gallery-item,.gallery-item.big{grid-row:auto;height:260px}h1{font-size:clamp(42px,13vw,66px)}.v2-footer{flex-direction:column;text-align:center;gap:10px}}
 </style>
 
 <div class="o2f-bg" id="o2fBg"></div>
@@ -303,7 +309,14 @@ p,li,span{color:var(--muted);line-height:1.8}
           <article class="glass plan{% if plan.highlight %} highlight{% endif %}" data-plan="{{ plan.key }}" data-price="{{ plan.price }}">
             <span class="kicker">{{ plan.kicker }}</span>
             <h3>{{ plan.name }}</h3>
-            <div class="price">${{ plan.price }} <small>/ شهر</small></div>
+            <div class="price"><span class="plan-price">${{ plan.price }}</span> <small>/ شهر</small></div>
+            <div class="month-picker">
+              <button type="button" class="active" data-months="1" data-discount="0">١ شهر</button>
+              <button type="button" data-months="3" data-discount="10">٣ أشهر</button>
+              <button type="button" data-months="6" data-discount="15">٦ أشهر</button>
+              <button type="button" data-months="12" data-discount="20">١٢ شهر</button>
+            </div>
+            <span class="saving">الإجمالي: ${{ plan.price }}</span>
             <p>{{ plan.blurb }}</p>
             <ul class="features">
               {% for feat in plan.features %}
@@ -325,7 +338,7 @@ p,li,span{color:var(--muted);line-height:1.8}
           <h2>{{ hv2.stories.title }}</h2>
         </div>
         <div class="marquee">
-          <div class="marquee-row">
+          <div class="marquee-row row-a">
             {% set approved = [] %}
             {% for c in comments.items %}
               {% if c.status == "approved" %}
@@ -338,8 +351,8 @@ p,li,span{color:var(--muted);line-height:1.8}
               <div class="quote">"</div>
               <p>{{ c.comment }}</p>
               <span class="avatar">{{ c.name[0] }}</span>
-              <span style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
-              <span style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
             </article>
             {% endfor %}
             {% for c in allCmts %}
@@ -347,8 +360,28 @@ p,li,span{color:var(--muted);line-height:1.8}
               <div class="quote">"</div>
               <p>{{ c.comment }}</p>
               <span class="avatar">{{ c.name[0] }}</span>
-              <span style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
-              <span style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+            </article>
+            {% endfor %}
+          </div>
+          <div class="marquee-row row-b" style="transform:translateX(-50%)">
+            {% for c in allCmts reversed %}
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>{{ c.comment }}</p>
+              <span class="avatar">{{ c.name[0] }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+            </article>
+            {% endfor %}
+            {% for c in allCmts reversed %}
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>{{ c.comment }}</p>
+              <span class="avatar">{{ c.name[0] }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
             </article>
             {% endfor %}
           </div>
@@ -413,8 +446,9 @@ p,li,span{color:var(--muted);line-height:1.8}
     rafPending = false;
     if (!bg) return;
     var y = window.scrollY || 0;
-    bg.style.setProperty('--bg-y', (y * -0.06) + 'px');
-    bg.style.setProperty('--bg-s', 1.14 + Math.min(y / 9000, 0.08));
+    var p = Math.max(0, Math.min(1, window.scrollY / cachedPageH));
+    bg.style.setProperty('--bg-y', (-p * 240) + 'px');
+    bg.style.setProperty('--bg-s', (1.14 + p * 0.06).toFixed(3));
     var cur = sections[0];
     for (var i = 0; i < sections.length; i++) {
       var r = sections[i].getBoundingClientRect();
@@ -454,6 +488,22 @@ p,li,span{color:var(--muted);line-height:1.8}
     socialToggle.onclick = function(e) { e.stopPropagation(); social.classList.toggle('open'); };
   }
   document.addEventListener('click', function() { if (social) social.classList.remove('open'); });
+
+  document.querySelectorAll('.plan').forEach(function(plan) {
+    var base = Number(plan.dataset.price || 0);
+    var priceEl = plan.querySelector('.plan-price');
+    var savingEl = plan.querySelector('.saving');
+    plan.querySelectorAll('.month-picker button').forEach(function(btn) {
+      btn.onclick = function() {
+        var months = Number(btn.dataset.months || 1);
+        var discount = Number(btn.dataset.discount || 0);
+        plan.querySelectorAll('.month-picker button').forEach(function(x) { x.classList.toggle('active', x === btn); });
+        var total = Math.round(base * months * (1 - discount / 100));
+        priceEl.textContent = '$' + base;
+        savingEl.textContent = 'الإجمالي: $' + total + (discount ? ' — وفّر ' + discount + '%' : '');
+      };
+    });
+  });
 
   updateParallax();
 })();
