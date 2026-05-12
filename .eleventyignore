@@ -2,3 +2,6 @@
 src/en/index.njk
 src/en/home-old/index.njk
 src/ar/index.njk
+src/en/home-current.njk
+src/ar/home-current.njk
+src/en/index-v2.njk
