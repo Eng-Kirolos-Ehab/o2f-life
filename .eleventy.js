@@ -11,8 +11,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("src/en/index.njk");
 
   eleventyConfig.addTransform("home-v2-assets", function(content, outputPath) {
-    if (!outputPath || !outputPath.replace(/\\/g, "/").endsWith("/en/home-v2/index.html")) return content;
-    return content + '\n<link rel="stylesheet" href="/assets/css/home-v2-hotfix.css">\n<link rel="stylesheet" href="/assets/css/home-v2-hide-whatsapp.css">\n<link rel="stylesheet" href="/assets/css/home-v2-polish.css">\n<link rel="stylesheet" href="/assets/css/home-v2-final-fixes.css">\n<link rel="stylesheet" href="/assets/css/home-v2-nav-restore.css">\n<script src="/assets/js/home-v2-hotfix.js" defer></script>\n<script src="/assets/js/home-v2-final-fixes.js" defer></script>\n';
+    const normalizedOutputPath = outputPath && outputPath.replace(/\\/g, "/");
+    if (!normalizedOutputPath || !/\/(en|ar)\/home-v2\/index\.html$/.test(normalizedOutputPath)) return content;
+    return content + '\n<link rel="stylesheet" href="/assets/css/home-v2-hotfix.css">\n<link rel="stylesheet" href="/assets/css/home-v2-hide-whatsapp.css">\n<link rel="stylesheet" href="/assets/css/home-v2-polish.css">\n<link rel="stylesheet" href="/assets/css/home-v2-final-fixes.css">\n<link rel="stylesheet" href="/assets/css/home-v2-nav-restore.css">\n<link rel="stylesheet" href="/assets/css/home-v2-stability.css">\n<script src="/assets/js/home-v2-hotfix.js" defer></script>\n<script src="/assets/js/home-v2-final-fixes.js" defer></script>\n';
   });
 
   // Watch Tailwind + JS
