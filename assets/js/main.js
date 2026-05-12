@@ -6,34 +6,9 @@
 (function () {
   "use strict";
 
-  function normalizeHomeV2Dock() {
-    const root = document.querySelector('.o2f-v2, .o2f-v2-ar');
-    if (!root || root.dataset.dockNormalized === '1') return;
-    const isAr = root.classList.contains('o2f-v2-ar');
-    const dock = root.querySelector('.dock');
-    if (!dock) return;
-
-    dock.innerHTML = isAr
-      ? `<a href="#hero" class="active">الرئيسية</a><a href="#coach">المدرب</a><a href="#programs">البرامج</a><a href="#gallery">المعرض</a><a href="#plans">الباقات</a><a href="/en/">EN</a><div class="social-menu" id="socialMenu"><button type="button" id="socialToggle">☰</button><div class="social-panel"><a href="https://wa.me/201000000000">واتساب <span>↗</span></a><a href="#contact">الشات <span>→</span></a><a href="https://www.facebook.com/">فيسبوك <span>↗</span></a><a href="https://www.instagram.com/">إنستجرام <span>↗</span></a></div></div>`
-      : `<a href="#hero" class="active">Home</a><a href="#coach">Coach</a><a href="#programs">Programs</a><a href="#gallery">Gallery</a><a href="#plans">Plans</a><a href="/ar/">AR</a><div class="social-menu" id="socialMenu"><button type="button" id="socialToggle">☰</button><div class="social-panel"><a href="https://wa.me/201000000000">WhatsApp <span>↗</span></a><a href="#contact">Chatbot <span>→</span></a><a href="https://www.facebook.com/">Facebook <span>↗</span></a><a href="https://www.instagram.com/">Instagram <span>↗</span></a></div></div>`;
-
-    const toggle = dock.querySelector('#socialToggle');
-    const menu = dock.querySelector('#socialMenu');
-    if (toggle && menu) {
-      toggle.addEventListener('click', function (event) {
-        event.stopPropagation();
-        menu.classList.toggle('open');
-      });
-      document.addEventListener('click', function (event) {
-        if (!menu.contains(event.target)) menu.classList.remove('open');
-      });
-    }
-    root.dataset.dockNormalized = '1';
-  }
-
   // ---------- Home V2 published-page stability hotfix ----------
-  // gh-pages currently contains older inline Home V2 CSS. Inject this after load
-  // so it wins over the inline rules without replacing the built HTML file.
+  // Important: do NOT rewrite the dock HTML here. The Arabic dock is the reference,
+  // and the EN/AR templates should keep the language switch inside the social menu.
   function injectHomeV2StabilityPatch() {
     if (!document.querySelector('.o2f-v2, .o2f-v2-ar')) return;
     if (document.getElementById('o2f-v2-runtime-stability-patch')) return;
@@ -42,17 +17,15 @@
     style.id = 'o2f-v2-runtime-stability-patch';
     style.textContent = `
       body:has(.o2f-v2),body:has(.o2f-v2-ar){overflow-x:hidden!important;background:#06110d!important;scroll-behavior:smooth!important;}
-      .o2f-v2,.o2f-v2-ar{overflow:visible!important;contain:none!important;transform:none!important;filter:none!important;perspective:none!important;}
+      .o2f-v2,.o2f-v2-ar{overflow:visible!important;contain:none!important;filter:none!important;perspective:none!important;}
       .o2f-bg,#o2fBg{position:fixed!important;inset:-14%!important;z-index:0!important;display:block!important;opacity:1!important;visibility:visible!important;background-position:center top!important;background-size:cover!important;background-repeat:no-repeat!important;filter:saturate(1.08) contrast(1.05)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;will-change:transform!important;transform:translate3d(0,var(--bg-y,0),0) scale(var(--bg-s,1.14))!important;backface-visibility:hidden!important;pointer-events:none!important;}
       .o2f-v2:before,.o2f-v2-ar:before{position:fixed!important;pointer-events:none!important;}
       .o2f-v2 .dock,.o2f-v2-ar .dock,.dock{position:fixed!important;top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;z-index:9999!important;contain:none!important;}
       .o2f-v2 .v2-footer,.o2f-v2-ar .v2-footer{position:relative!important;z-index:3!important;}
       .o2f-v2 .social-menu,.o2f-v2-ar .social-menu{position:relative!important;}
-      .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{position:absolute!important;right:0!important;bottom:48px!important;display:none!important;min-width:190px!important;padding:10px!important;border-radius:22px!important;background:rgba(6,17,13,.86)!important;border:1px solid rgba(255,255,255,.26)!important;backdrop-filter:blur(20px)!important;box-shadow:0 20px 60px rgba(0,0,0,.35)!important;}
-      .o2f-v2 .social-menu.open .social-panel,.o2f-v2-ar .social-menu.open .social-panel{display:grid!important;gap:7px!important;}
+      .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{position:absolute!important;right:0!important;bottom:48px!important;min-width:190px!important;padding:10px!important;border-radius:22px!important;background:rgba(6,17,13,.86)!important;border:1px solid rgba(255,255,255,.26)!important;backdrop-filter:blur(20px)!important;box-shadow:0 20px 60px rgba(0,0,0,.35)!important;}
       .o2f-v2 .social-panel a,.o2f-v2-ar .social-panel a{display:flex!important;width:100%!important;justify-content:space-between!important;background:rgba(255,255,255,.1)!important;}
 
-      /* Arabic Home V2 visual alignment: match the polished EN layout but keep RTL text */
       .o2f-v2-ar{direction:rtl!important;text-align:right!important;}
       .o2f-v2-ar .container{width:min(1220px,100%)!important;margin-inline:auto!important;}
       .o2f-v2-ar .grid2{display:grid!important;grid-template-columns:minmax(320px,.9fr) minmax(520px,1.1fr)!important;gap:clamp(22px,5vw,68px)!important;align-items:center!important;}
@@ -104,12 +77,8 @@
   }
 
   injectHomeV2StabilityPatch();
-  normalizeHomeV2Dock();
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      injectHomeV2StabilityPatch();
-      normalizeHomeV2Dock();
-    }, { once: true });
+    document.addEventListener('DOMContentLoaded', injectHomeV2StabilityPatch, { once: true });
   }
 
   // ---------- Mobile menu toggle ----------
