@@ -16,123 +16,141 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Restore stable cms.html then patch safely
+
+      - name: Patch admin auth, CMS controls, footer, and Home V2 stability
         run: |
           set -e
-          git show bb4b8f2b7cd02fff4d9caa525fb9c2b5bc442662:admin/cms.html > admin/cms.html
           python3 <<'PY'
           from pathlib import Path
-          p = Path('admin/cms.html')
-          s = p.read_text(encoding='utf-8')
+          import re
 
-          for old in ['v1.0.1','v1.2.0','v1.3.0','v1.3.1','v1.3.2','v1.3.3']:
-              s = s.replace(old, 'v1.3.4')
+          def read(p):
+              return Path(p).read_text(encoding='utf-8')
 
-          if 'إضافات الإدارة' not in s:
-              marker = '''      <div class="nav-section" style="margin-top:.75rem">الموقع</div>'''
-              insert = '''      <div class="nav-section" style="margin-top:.75rem">إضافات الإدارة</div>
-      <a class="nav-item" href="./offers.html">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z"/></svg>
-        إدارة عروض الباقات
-      </a>
-      <a class="nav-item" href="./comments.html">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8M8 14h5"/></svg>
-        إدارة التعليقات
-      </a>
+          def write(p, s):
+              Path(p).write_text(s, encoding='utf-8')
 
+          AUTH_SCRIPT = '''<script>
+    (function () {
+      var authed = localStorage.getItem('o2f-admin-auth') === '1' || sessionStorage.getItem('o2f-admin-auth') === '1';
+      if (!authed) {
+        window.location.replace('./login.html');
+        return;
+      }
+      localStorage.setItem('o2f-admin-auth', '1');
+      sessionStorage.setItem('o2f-admin-auth', '1');
+    })();
+  </script>'''
+
+          for p in Path('admin').glob('*.html'):
+              s = read(p)
+              if p.name == 'login.html':
+                  s = s.replace("if (sessionStorage.getItem('o2f-admin-auth') === '1') window.location.replace('./');", "if (localStorage.getItem('o2f-admin-auth') === '1' || sessionStorage.getItem('o2f-admin-auth') === '1') { localStorage.setItem('o2f-admin-auth', '1'); sessionStorage.setItem('o2f-admin-auth', '1'); window.location.replace('./'); }")
+                  s = s.replace("sessionStorage.setItem('o2f-admin-auth', '1');\n        window.location.replace('./');", "localStorage.setItem('o2f-admin-auth', '1');\n        sessionStorage.setItem('o2f-admin-auth', '1');\n        window.location.replace('./');")
+              else:
+                  s = re.sub(r"<script>\s*if \(sessionStorage\.getItem\('o2f-admin-auth'\)[\s\S]*?window\.location\.replace\('\./login\.html'\);\s*}\s*</script>", AUTH_SCRIPT, s, count=1)
+                  s = s.replace("sessionStorage.removeItem('o2f-admin-auth');", "localStorage.removeItem('o2f-admin-auth');sessionStorage.removeItem('o2f-admin-auth');")
+                  s = s.replace("localStorage.removeItem('o2f-admin-auth');localStorage.removeItem('o2f-admin-auth');", "localStorage.removeItem('o2f-admin-auth');")
+              write(p, s)
+
+          cms = Path('admin/cms.html')
+          if cms.exists():
+              s = read(cms)
+              for old in ['v1.0.1','v1.2.0','v1.3.0','v1.3.1','v1.3.2','v1.3.3','v1.3.4','v1.3.5']:
+                  s = s.replace(old, 'v1.3.6')
+
+              if "offers:  'src/_data/offers.json'" not in s and "referral: 'src/_data/referral.json'" in s:
+                  s = s.replace("      referral: 'src/_data/referral.json',\n", "      referral: 'src/_data/referral.json',\n      offers:  'src/_data/offers.json',\n", 1)
+
+              if 'id="tab-offers"' not in s:
+                  s = s.replace("<button class=\"file-tab\" id=\"tab-referral\" onclick=\"switchFile('referral')\">referral.json</button>", "<button class=\"file-tab\" id=\"tab-referral\" onclick=\"switchFile('referral')\">referral.json</button>\n            <button class=\"file-tab\" id=\"tab-offers\" onclick=\"switchFile('offers')\">offers.json</button>", 1)
+
+              if "currentFile === 'offers'" not in s:
+                  s = s.replace("if (currentFile === 'referral') renderReferralEditor(container);", "if (currentFile === 'referral') renderReferralEditor(container);\n      if (currentFile === 'offers')   renderOffersEditor(container);", 1)
+
+              if 'openCommentsInsideCMS' not in s:
+                  s += """
+<script>
+function openCommentsInsideCMS(){ window.location.href = './comments.html'; }
+</script>
+"""
+              write(cms, s)
+
+          stability_css = r'''/* O2F Home V2 stability patch: bottom nav + smooth scroll + footer safety */
+body:has(.o2f-v2),body:has(.o2f-v2-ar){overflow-x:hidden!important;background:#06110d!important;scroll-behavior:smooth!important}
+.o2f-v2,.o2f-v2-ar{overflow:hidden!important;contain:paint!important}
+.o2f-v2 .o2f-bg,.o2f-v2-ar .o2f-bg,#o2fBg{will-change:transform!important;transform:translate3d(0,var(--bg-y,0),0) scale(var(--bg-s,1.14))!important;backface-visibility:hidden!important;pointer-events:none!important}
+.o2f-v2 .glass,.o2f-v2-ar .glass{transform:translateZ(0);backface-visibility:hidden}
+.o2f-v2 .marquee-row,.o2f-v2-ar .marquee-row{will-change:transform}
+.o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%) translateZ(0)!important;z-index:9999!important}
+body:has(.o2f-v2) .o2f-site-footer,body:has(.o2f-v2-ar) .o2f-site-footer{position:relative!important;z-index:5!important;background:rgba(6,17,13,.94)!important;backdrop-filter:blur(18px);margin-top:0!important;padding-bottom:96px!important}
+@media(max-width:1050px){.o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:18px!important}.o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:70px!important;padding-bottom:105px!important}}
+@media(max-width:720px){.o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;width:calc(100vw - 18px)!important;max-width:470px!important;overflow:visible!important}.o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important}.o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important}.o2f-v2 .social-panel,.o2f-v2-ar .social-panel{top:auto!important;bottom:calc(88px + env(safe-area-inset-bottom))!important}}
+@media(prefers-reduced-motion:reduce){.o2f-v2 *,.o2f-v2-ar *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.o2f-v2 .marquee-row,.o2f-v2-ar .marquee-row{animation:none!important}}
 '''
-              s = s.replace(marker, insert + marker, 1)
+          Path('src/assets/css/home-v2-stability.css').write_text(stability_css, encoding='utf-8')
 
-          if 'فتح العروض ←' not in s:
-              marker = '''          <div class="card" onclick="openEditor('json','referral')" style="cursor:pointer">
-            <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
-            <div class="card-title">نظام جيب صديق</div>
-            <div class="card-desc">تفعيل التوصية، قيمة الخصم بالعملات الثلاثة، النصوص</div>
-            <div class="card-arrow">فتح المحرر ←</div>
-          </div>
-'''
-              insert = marker + '''
-          <a class="card" href="./offers.html" style="cursor:pointer">
-            <div class="card-icon" style="font-size:1.25rem;line-height:1">🎁</div>
-            <div class="card-title">إدارة عروض الباقات</div>
-            <div class="card-desc">تفعيل أو إيقاف العرض، وتعديل وصف عرض 3 شهور + شهر مجاني</div>
-            <div class="card-arrow">فتح العروض ←</div>
-          </a>
-
-          <a class="card" href="./comments.html" style="cursor:pointer">
-            <div class="card-icon" style="font-size:1.25rem;line-height:1">💬</div>
-            <div class="card-title">إدارة التعليقات</div>
-            <div class="card-desc">مراجعة تعليقات العملاء، قبول، رفض، وتعديل التعليقات</div>
-            <div class="card-arrow">فتح التعليقات ←</div>
-          </a>
-'''
-              s = s.replace(marker, insert, 1)
-
-          if "offers:  'src/_data/offers.json'" not in s:
-              s = s.replace("      referral: 'src/_data/referral.json',\n", "      referral: 'src/_data/referral.json',\n      offers:  'src/_data/offers.json',\n", 1)
-
-          if 'id="tab-offers"' not in s:
-              s = s.replace("            <button class=\"file-tab\" id=\"tab-referral\" onclick=\"switchFile('referral')\">referral.json</button>\n", "            <button class=\"file-tab\" id=\"tab-referral\" onclick=\"switchFile('referral')\">referral.json</button>\n            <button class=\"file-tab\" id=\"tab-offers\" onclick=\"switchFile('offers')\">offers.json</button>\n", 1)
-
-          if "currentFile === 'offers'" not in s:
-              s = s.replace("      if (currentFile === 'referral') renderReferralEditor(container);\n", "      if (currentFile === 'referral') renderReferralEditor(container);\n      if (currentFile === 'offers')   renderOffersEditor(container);\n", 1)
-
-          if 'function renderOffersEditor' not in s:
-              marker = '''    function defaultPlan(slug) {
-'''
-              fn = r'''    function renderOffersEditor(container) {
-      if (!currentData) return;
-      const d = currentData;
-      container.innerHTML = `
-        <div class="editor-panel">
-          <h3>إدارة عروض الباقات 🎁</h3>
-          <div style="background:rgba(201,168,74,.08);border:1px solid rgba(201,168,74,.25);border-radius:12px;padding:1rem;margin-bottom:1rem">
-            <div class="switch-row" style="margin-bottom:.25rem">
-              <input type="checkbox" ${d.enabled ? 'checked' : ''} data-path="enabled" data-type="checkbox">
-              <span style="font-weight:700">تفعيل العرض على صفحة الباقات</span>
-            </div>
-            <p style="font-size:.75rem;color:var(--muted);margin-top:.35rem">عند التفعيل يظهر بانر العرض في صفحة الباقات، ويظهر Badge عند اختيار مدة العرض.</p>
-          </div>
-          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
-            <div style="font-size:.72rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">⚙️ إعدادات العرض</div>
-            <div class="editor-grid">
-              ${fieldHTML('مدة العرض m1 / m3 / m6', 'appliesTo', d.appliesTo ?? 'm3')}
-              ${fieldHTML('عدد الشهور المجانية', 'freeMonths', d.freeMonths ?? '1', 'number')}
-            </div>
-          </div>
-          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem">
-            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇸🇦 النصوص العربية</div>
-            <div class="editor-grid">
-              ${fieldHTML('Badge عربي', 'badge.ar', d.badge?.ar ?? '')}
-              ${fieldHTML('العنوان عربي', 'headline.ar', d.headline?.ar ?? '')}
-              ${fieldHTML('زر CTA عربي', 'cta.ar', d.cta?.ar ?? '')}
-            </div>
-            ${textAreaHTML('وصف العرض عربي', 'description.ar', d.description?.ar ?? '')}
-          </div>
-          <div style="background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:1rem">
-            <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem">🇬🇧 English Text</div>
-            <div class="editor-grid">
-              ${fieldHTML('Badge English', 'badge.en', d.badge?.en ?? '')}
-              ${fieldHTML('Headline English', 'headline.en', d.headline?.en ?? '')}
-              ${fieldHTML('CTA English', 'cta.en', d.cta?.en ?? '')}
-            </div>
-            ${textAreaHTML('Offer description English', 'description.en', d.description?.en ?? '')}
-          </div>
-        </div>
-      `;
-      bindSimpleFields(container);
+          stability_js = r'''(function(){
+  function ready(fn){document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn):fn()}
+  ready(function(){
+    var root=document.querySelector('.o2f-v2,.o2f-v2-ar');
+    var bg=document.getElementById('o2fBg') || (root && root.querySelector('.o2f-bg'));
+    if(!root||!bg)return;
+    var ticking=false;
+    function update(){
+      var y=window.scrollY||window.pageYOffset||0;
+      var move=Math.max(-90,Math.min(0,-y*.035));
+      var scale=1.14+Math.min(.055,y/20000);
+      bg.style.setProperty('--bg-y',move.toFixed(1)+'px');
+      bg.style.setProperty('--bg-s',scale.toFixed(3));
+      ticking=false;
     }
-
+    window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
+    update();
+    document.querySelectorAll('.dock a[href^="#"]').forEach(function(a){
+      a.addEventListener('click',function(e){
+        var target=document.querySelector(a.getAttribute('href'));
+        if(!target)return;
+        e.preventDefault();
+        target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+      });
+    });
+  });
+})();
 '''
-              s = s.replace(marker, fn + marker, 1)
+          Path('src/assets/js/home-v2-stability.js').write_text(stability_js, encoding='utf-8')
 
-          required = ['v1.3.4','إضافات الإدارة','إدارة عروض الباقات','إدارة التعليقات','فتح العروض','فتح التعليقات','offers.json','src/_data/offers.json','renderOffersEditor']
-          missing = [x for x in required if x not in s]
-          if missing:
-              raise SystemExit('Missing required CMS markers: ' + ', '.join(missing))
-          p.write_text(s, encoding='utf-8')
+          eleventy = Path('.eleventy.js')
+          if eleventy.exists():
+              s = read(eleventy)
+              s = re.sub(r"if \(!outputPath \|\| !outputPath\.replace\(/\\\\/g, \"/\"\)\.endsWith\(\"/en/home-v2/index\.html\"\)\) return content;", "const normalizedOutputPath = outputPath && outputPath.replace(/\\\\/g, '/');\n    if (!normalizedOutputPath || !/\\/(en|ar)\\/home-v2\\/index\\.html$/.test(normalizedOutputPath)) return content;", s, count=1)
+              if 'home-v2-stability.css' not in s:
+                  s = s.replace("<link rel=\"stylesheet\" href=\"/assets/css/home-v2-nav-restore.css\">", "<link rel=\"stylesheet\" href=\"/assets/css/home-v2-nav-restore.css\">\\n<link rel=\"stylesheet\" href=\"/assets/css/home-v2-stability.css\">")
+              if 'home-v2-stability.js' not in s:
+                  s = s.replace("<script src=\"/assets/js/home-v2-final-fixes.js\" defer></script>", "<script src=\"/assets/js/home-v2-final-fixes.js\" defer></script>\\n<script src=\"/assets/js/home-v2-stability.js\" defer></script>")
+              write(eleventy, s)
+
+          footer = Path('src/_includes/partials/footer.njk')
+          if footer.exists():
+              s = read(footer)
+              s = s.replace('<footer class="border-t border-brand-line mt-20">', '<footer class="o2f-site-footer border-t border-brand-line mt-20">')
+              write(footer, s)
+
+          checks = {
+              'admin/index.html': ['localStorage.getItem', 'sessionStorage.getItem'],
+              'admin/cms.html': ['o2f-admin-auth', 'v1.3.6'],
+              '.eleventy.js': ['home-v2-stability.css', 'home-v2-stability.js', '(en|ar)'],
+              'src/assets/css/home-v2-stability.css': ['bottom:', '.o2f-v2-ar', 'prefers-reduced-motion'],
+              'src/_includes/partials/footer.njk': ['o2f-site-footer'],
+          }
+          for file, needles in checks.items():
+              text = read(file)
+              miss = [n for n in needles if n not in text]
+              if miss:
+                  raise SystemExit(f'{file} missing markers: {miss}')
           PY
-      - name: Commit restored CMS patch
+
+      - name: Commit patch
         run: |
           if git diff --quiet; then
             echo "No changes to commit"
@@ -140,7 +158,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add admin/cms.html
-          git commit -m "feat: restore CMS and add offers comments controls"
+          git add admin/*.html src/assets/css/home-v2-stability.css src/assets/js/home-v2-stability.js .eleventy.js src/_includes/partials/footer.njk
+          git commit -m "fix: stabilize admin and home v2 navigation"
           git push
-# trigger: cms-admin-patch-v1.3.4
+# trigger: admin-home-v2-stability-v1.3.6
