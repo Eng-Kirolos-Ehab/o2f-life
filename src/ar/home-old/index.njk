@@ -1,8 +1,17 @@
 ---
 title: "الرئيسية القديمة"
-description: "نسخة الصفحة الرئيسية العربية السابقة محفوظة كرابط مخفي قبل نقل Home V2 للواجهة الأساسية."
+description: "رابط محفوظ للنسخة العربية القديمة."
 permalink: /ar/home-old/index.html
 ---
 
-{# Old Arabic homepage archive: same previous Arabic homepage content, kept hidden from navigation. #}
-{% include "../../ar/index.njk" %}
+<section class="section">
+  <div class="container-x">
+    <p class="section-kicker">النسخة القديمة</p>
+    <h1 class="section-title">{{ pages.home.ar.hero.title_line1 }}</h1>
+    <p class="text-brand-off/70 leading-relaxed">{{ pages.home.ar.hero.description }}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="{{ '/ar/services/' | url }}" class="btn-primary">{{ pages.home.ar.hero.cta_secondary }}</a>
+      <a href="{{ '/ar/plans/' | url }}" class="btn-ghost">{{ pages.home.ar.hero.cta_primary }}</a>
+    </div>
+  </div>
+</section>
