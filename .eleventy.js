@@ -12,7 +12,16 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addTransform("home-v2-assets", function(content, outputPath) {
     if (!outputPath || !outputPath.replace(/\\/g, "/").endsWith("/en/home-v2/index.html")) return content;
-    return content + '\n<link rel="stylesheet" href="/assets/css/home-v2-hotfix.css">\n<link rel="stylesheet" href="/assets/css/home-v2-hide-whatsapp.css">\n<link rel="stylesheet" href="/assets/css/home-v2-polish.css">\n<link rel="stylesheet" href="/assets/css/home-v2-final-fixes.css">\n<link rel="stylesheet" href="/assets/css/home-v2-nav-restore.css">\n<script src="/assets/js/home-v2-hotfix.js" defer></script>\n<script src="/assets/js/home-v2-final-fixes.js" defer></script>\n';
+    const css = [
+      'home-v2-hotfix','home-v2-hide-whatsapp','home-v2-polish',
+      'home-v2-final-fixes','home-v2-nav-restore'
+    ].map(f => `<link rel="stylesheet" href="/assets/css/${f}.css">`).join('\n');
+    const js = [
+      'home-v2-hotfix','home-v2-final-fixes'
+    ].map(f => `<script src="/assets/js/${f}.js" defer></script>`).join('\n');
+    return content
+      .replace('</head>', css + '\n</head>')
+      .replace('</body>', js + '\n</body>');
   });
 
   // Watch Tailwind + JS
