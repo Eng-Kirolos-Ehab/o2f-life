@@ -1,0 +1,122 @@
+name: Clean Final O2F Fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-o2f-clean.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply clean final fixes
+        run: |
+          set -e
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          def read(p): return Path(p).read_text(encoding='utf-8')
+          def write(p,s): Path(p).write_text(s, encoding='utf-8')
+
+          # 1. Eleventy: keep official routes /en/ and /ar/. Admin is copied to /admin/.
+          e = Path('.eleventy.js')
+          s = read(e)
+          s = re.sub(r"eleventyConfig\.addTransform\(\"home-v2-assets\", function\(content, outputPath\) \{[\s\S]*?\n  \}\);", '''eleventyConfig.addTransform("home-v2-assets", function(content, outputPath) {
+    const normalizedOutputPath = outputPath && outputPath.replace(/\\\\/g, "/");
+    if (!normalizedOutputPath || !/\/(en|ar)\/home-v2\/index\.html$/.test(normalizedOutputPath)) return content;
+    const css = (href) => '\\n<link rel="stylesheet" href="' + href + '">';
+    const js = (src) => '\\n<' + 'script src="' + src + '" defer></' + 'script>';
+    if (normalizedOutputPath.endsWith('/en/home-v2/index.html')) {
+      return content
+        + css('/assets/css/home-v2-hotfix.css')
+        + css('/assets/css/home-v2-hide-whatsapp.css')
+        + css('/assets/css/home-v2-polish.css')
+        + css('/assets/css/home-v2-final-fixes.css')
+        + css('/assets/css/home-v2-nav-restore.css')
+        + css('/assets/css/home-v2-clean-reset.css')
+        + js('/assets/js/home-v2-hotfix.js')
+        + js('/assets/js/home-v2-final-fixes.js')
+        + '\\n';
+    }
+    return content + css('/assets/css/home-v2-ar-clean.css') + '\\n';
+  });''', s)
+          write(e, s)
+
+          # 2. Clean EN reset: remove accidental blur/background distortion, keep bottom dock.
+          Path('src/assets/css/home-v2-clean-reset.css').write_text('''body:has(.o2f-v2){overflow-x:hidden!important;background:#06110d!important}.o2f-v2 .o2f-bg,#o2fBg{display:block!important;opacity:1!important;visibility:visible!important;filter:saturate(1.08) contrast(1.05)!important;transform:translateY(var(--bg-y,0)) scale(var(--bg-s,1.14))!important;pointer-events:none!important}.o2f-v2 .dock{top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;z-index:9999!important}@media(max-width:720px){.o2f-v2 .dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important}.o2f-v2 .hero{padding-bottom:120px!important}}''', encoding='utf-8')
+
+          # 3. Clean AR: same visual system, RTL only, no blur, bottom dock.
+          Path('src/assets/css/home-v2-ar-clean.css').write_text('''.o2f-v2-ar{direction:rtl!important;overflow:hidden!important;background:#06110d!important}.o2f-v2-ar .o2f-bg,#o2fBg{display:block!important;opacity:1!important;visibility:visible!important;filter:saturate(1.08) contrast(1.05)!important;transform:translateY(var(--bg-y,0)) scale(var(--bg-s,1.14))!important;pointer-events:none!important}.o2f-v2-ar .dock{direction:rtl!important;top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;z-index:9999!important}.o2f-v2-ar .grid2{grid-template-columns:minmax(320px,.9fr) minmax(520px,1.1fr)!important}.o2f-v2-ar #coach .coach-photo{order:0!important}.o2f-v2-ar #coach .panel{order:1!important}.o2f-v2-ar .tab-panel{grid-template-columns:1.05fr .95fr!important}.o2f-v2-ar .before-wrap{grid-template-columns:1.15fr .85fr!important}.o2f-v2-ar .gallery-grid{grid-template-columns:1.2fr .8fr 1fr!important}.o2f-v2-ar .tab-copy,.o2f-v2-ar .journey-card,.o2f-v2-ar .visual-caption{text-align:right!important}.o2f-v2-ar .features li{padding-left:0!important;padding-right:14px!important}.o2f-v2-ar .features li:before{left:auto!important;right:0!important}.o2f-v2-ar .label,.o2f-v2-ar .gallery-item span{left:auto!important;right:14px!important}@media(max-width:1050px){.o2f-v2-ar .grid2,.o2f-v2-ar .tab-panel,.o2f-v2-ar .before-wrap{grid-template-columns:1fr!important}.o2f-v2-ar #coach .coach-photo{order:-1!important}.o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3{grid-template-columns:1fr 1fr!important}.o2f-v2-ar .gallery-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:720px){.o2f-v2-ar .dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;max-width:calc(100vw - 18px)!important}.o2f-v2-ar .hero{padding-bottom:120px!important}.o2f-v2-ar .journey,.o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3,.o2f-v2-ar .ba,.o2f-v2-ar .gallery-grid{grid-template-columns:1fr!important}.o2f-v2-ar .tab-panel.active{display:flex!important;flex-direction:column!important}.o2f-v2-ar .visual{order:-1!important}.o2f-v2-ar .plans .highlight{order:-1!important}}''', encoding='utf-8')
+
+          # 4. Admin index auth loop fix.
+          idx = Path('admin/index.html')
+          x = read(idx)
+          x = re.sub(r"<script>\s*if \(sessionStorage\.getItem\('o2f-admin-auth'\) !== '1'\) \{\s*window\.location\.replace\('\./login\.html'\);\s*}\s*</script>", """<script>
+    (function(){
+      var ok = localStorage.getItem('o2f-admin-auth') === '1' || sessionStorage.getItem('o2f-admin-auth') === '1';
+      if (!ok) { window.location.replace('./login.html'); return; }
+      localStorage.setItem('o2f-admin-auth','1');
+      sessionStorage.setItem('o2f-admin-auth','1');
+    })();
+  </script>""", x, count=1)
+          x = x.replace('Admin v1.2.0', 'Admin v1.3.6')
+          x = x.replace("function logout(){sessionStorage.removeItem('o2f-admin-auth');localStorage.removeItem('o2f-gh-token');", "function logout(){localStorage.removeItem('o2f-admin-auth');sessionStorage.removeItem('o2f-admin-auth');localStorage.removeItem('o2f-gh-token');")
+          write(idx, x)
+
+          # 5. Admin CMS auth loop fix: do not require GitHub token before page opens.
+          cms = Path('admin/cms.html')
+          if cms.exists():
+              c = read(cms)
+              c = re.sub(r"<script>\s*if \(sessionStorage\.getItem\('o2f-admin-auth'\) !== '1' \|\|[\s\S]*?window\.location\.replace\('\./login\.html'\);\s*}\s*</script>", """<script>
+    (function(){
+      var ok = localStorage.getItem('o2f-admin-auth') === '1' || sessionStorage.getItem('o2f-admin-auth') === '1';
+      if (!ok) { window.location.replace('./login.html'); return; }
+      localStorage.setItem('o2f-admin-auth','1');
+      sessionStorage.setItem('o2f-admin-auth','1');
+    })();
+  </script>""", c, count=1)
+              c = re.sub(r'v1\.3\.[0-9]+|v1\.2\.0', 'v1.3.6', c)
+              c = c.replace("sessionStorage.removeItem('o2f-admin-auth');", "localStorage.removeItem('o2f-admin-auth');sessionStorage.removeItem('o2f-admin-auth');")
+              write(cms, c)
+
+          # 6. Login should persist auth across admin pages.
+          login = Path('admin/login.html')
+          l = read(login)
+          l = l.replace("if (sessionStorage.getItem('o2f-admin-auth') === '1') window.location.replace('./');", "if (localStorage.getItem('o2f-admin-auth') === '1' || sessionStorage.getItem('o2f-admin-auth') === '1') { localStorage.setItem('o2f-admin-auth','1'); sessionStorage.setItem('o2f-admin-auth','1'); window.location.replace('./'); }")
+          l = l.replace("sessionStorage.setItem('o2f-admin-auth', '1');\n        window.location.replace('./');", "localStorage.setItem('o2f-admin-auth', '1');\n        sessionStorage.setItem('o2f-admin-auth', '1');\n        window.location.replace('./');")
+          write(login, l)
+
+          # 7. Validation markers.
+          checks = {
+              '.eleventy.js':['home-v2-clean-reset.css','home-v2-ar-clean.css'],
+              'admin/index.html':['localStorage.getItem','Admin v1.3.6'],
+              'admin/cms.html':['localStorage.getItem','v1.3.6'],
+              'admin/login.html':['localStorage.setItem'],
+              'src/assets/css/home-v2-clean-reset.css':['filter:saturate','bottom:18px'],
+              'src/assets/css/home-v2-ar-clean.css':['.o2f-v2-ar','direction:rtl','bottom:18px']
+          }
+          for file, markers in checks.items():
+              text = read(file)
+              missing = [m for m in markers if m not in text]
+              if missing:
+                  raise SystemExit(f'{file} missing {missing}')
+          PY
+      - name: Commit clean fixes
+        run: |
+          if git diff --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .eleventy.js admin/*.html src/assets/css/home-v2-clean-reset.css src/assets/css/home-v2-ar-clean.css
+          git commit -m "fix: clean admin auth and home v2 routes"
+          git push
