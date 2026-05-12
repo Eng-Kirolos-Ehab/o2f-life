@@ -22,7 +22,54 @@
       .o2f-v2:before,.o2f-v2-ar:before{position:fixed!important;pointer-events:none!important;}
       .o2f-v2 .dock,.o2f-v2-ar .dock,.dock{position:fixed!important;top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;z-index:9999!important;contain:none!important;}
       .o2f-v2 .v2-footer,.o2f-v2-ar .v2-footer{position:relative!important;z-index:3!important;}
-      @media(max-width:720px){.o2f-v2 .dock,.o2f-v2-ar .dock,.dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:calc(100vw - 18px)!important;max-width:470px!important;overflow:visible!important;}.o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important;}.o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important;}.o2f-v2 .social-panel,.o2f-v2-ar .social-panel{top:auto!important;bottom:calc(88px + env(safe-area-inset-bottom))!important;}}
+
+      /* Arabic Home V2 visual alignment: match the polished EN layout but keep RTL text */
+      .o2f-v2-ar{direction:rtl!important;text-align:right!important;}
+      .o2f-v2-ar .container{width:min(1220px,100%)!important;margin-inline:auto!important;}
+      .o2f-v2-ar .grid2{display:grid!important;grid-template-columns:minmax(320px,.9fr) minmax(520px,1.1fr)!important;gap:clamp(22px,5vw,68px)!important;align-items:center!important;}
+      .o2f-v2-ar #coach .coach-photo{order:1!important;min-height:660px!important;}
+      .o2f-v2-ar #coach .panel{order:2!important;}
+      .o2f-v2-ar .journey,.o2f-v2-ar .cards3,.o2f-v2-ar .steps,.o2f-v2-ar .plans{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;align-items:stretch!important;}
+      .o2f-v2-ar .journey-card,.o2f-v2-ar .steps .glass,.o2f-v2-ar .plan,.o2f-v2-ar .mini{height:100%!important;min-height:unset!important;}
+      .o2f-v2-ar .tab-panel{grid-template-columns:1.05fr .95fr!important;gap:18px!important;align-items:stretch!important;}
+      .o2f-v2-ar .tab-panel.active{display:grid!important;}
+      .o2f-v2-ar .tab-copy{order:1!important;}
+      .o2f-v2-ar .visual{order:2!important;min-height:500px!important;}
+      .o2f-v2-ar .before-wrap{display:grid!important;grid-template-columns:1.15fr .85fr!important;gap:22px!important;align-items:center!important;}
+      .o2f-v2-ar .ba{min-height:540px!important;grid-template-columns:1fr 1fr!important;}
+      .o2f-v2-ar .gallery-grid{display:grid!important;grid-template-columns:1.2fr .8fr 1fr!important;grid-auto-rows:190px!important;gap:14px!important;}
+      .o2f-v2-ar .gallery-item.big{grid-row:span 2!important;}
+      .o2f-v2-ar .result-card{grid-template-columns:auto 1fr!important;}
+      .o2f-v2-ar .features li{padding-right:14px!important;padding-left:0!important;}
+      .o2f-v2-ar .features li:before{right:0!important;left:auto!important;}
+      .o2f-v2-ar .label{right:16px!important;left:auto!important;}
+      .o2f-v2-ar .gallery-item span{right:14px!important;left:auto!important;}
+      .o2f-v2-ar .kicker{letter-spacing:.05em!important;}
+      .o2f-v2-ar h1,.o2f-v2-ar h2,.o2f-v2-ar h3{font-family:Tajawal,Inter,system-ui,sans-serif!important;}
+      .o2f-v2-ar .comment-card{direction:rtl!important;text-align:right!important;}
+
+      @media(max-width:1050px){
+        .o2f-v2-ar .grid2,.o2f-v2-ar .tab-panel,.o2f-v2-ar .before-wrap{grid-template-columns:1fr!important;}
+        .o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3{grid-template-columns:1fr 1fr!important;}
+        .o2f-v2-ar .gallery-grid{grid-template-columns:1fr 1fr!important;}
+        .o2f-v2-ar #coach .coach-photo{order:-1!important;min-height:520px!important;}
+      }
+      @media(max-width:720px){
+        .o2f-v2 .dock,.o2f-v2-ar .dock,.dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:calc(100vw - 18px)!important;max-width:470px!important;overflow:visible!important;}
+        .o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important;}
+        .o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important;}
+        .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{top:auto!important;bottom:calc(88px + env(safe-area-inset-bottom))!important;}
+        .o2f-v2-ar .journey,.o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3,.o2f-v2-ar .ba,.o2f-v2-ar .gallery-grid{grid-template-columns:1fr!important;}
+        .o2f-v2-ar .tab-panel.active{display:flex!important;flex-direction:column!important;}
+        .o2f-v2-ar .visual{order:-1!important;min-height:320px!important;}
+        .o2f-v2-ar .coach-photo{min-height:430px!important;}
+        .o2f-v2-ar .stats{grid-template-columns:1fr 1fr!important;}
+        .o2f-v2-ar .result-card{grid-template-columns:1fr!important;}
+        .o2f-v2-ar .gallery-item,.o2f-v2-ar .gallery-item.big{grid-row:auto!important;height:260px!important;}
+        .o2f-v2-ar .btns{flex-direction:column!important;}
+        .o2f-v2-ar .btn{width:100%!important;}
+        .o2f-v2-ar h1{font-size:clamp(42px,13vw,66px)!important;}
+      }
     `;
     document.head.appendChild(style);
   }
