@@ -1,0 +1,4 @@
+# Prevent duplicate hidden/legacy homepage templates from producing conflicting output
+src/en/index.njk
+src/en/home-old/index.njk
+src/ar/index.njk
