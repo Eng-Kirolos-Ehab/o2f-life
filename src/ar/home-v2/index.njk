@@ -87,12 +87,16 @@ p,li,span{color:var(--muted);line-height:1.8}
 .comment-card{width:360px;padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22)}
 .quote{font-size:34px;color:var(--lime);line-height:1}
 .avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(168,255,120,.18);color:#fff!important;font-weight:950;margin-top:14px}
-.final{padding-bottom:150px}
+.final{padding-bottom:160px}
 .faq{display:grid;gap:14px}
 .faq .glass{padding:24px}
+.v2-footer{padding:28px clamp(16px,5vw,76px) 100px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(247,255,247,.45);position:relative;z-index:3}
+.v2-footer a{color:rgba(247,255,247,.45);text-decoration:none;transition:color .18s}
+.v2-footer a:hover{color:var(--lime)}
+.v2-footer-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 @keyframes moveLeft{from{transform:translateX(0)}to{transform:translateX(50%)}}
 @media(max-width:1050px){.grid2,.tab-panel,.before-wrap{grid-template-columns:1fr}.plans,.steps,.cards3{grid-template-columns:1fr 1fr}.coach-photo{min-height:520px}.gallery-grid{grid-template-columns:1fr 1fr}.dock{bottom:18px!important;top:auto!important}}
-@media(max-width:720px){.section{padding:68px 16px}.hero{min-height:auto;padding-top:92px;padding-bottom:110px}.journey,.plans,.steps,.cards3,.ba,.gallery-grid{grid-template-columns:1fr}.dock{bottom:14px!important;top:auto!important;max-width:calc(100vw - 18px);overflow:auto;justify-content:flex-start}.dock a,.dock button{font-size:11px;padding:9px 10px}.lead{text-align:center}.btns{flex-direction:column}.btn{width:100%}.coach-photo{order:-1;min-height:430px}.stats{grid-template-columns:1fr 1fr}.tabs-nav{grid-template-columns:1fr;border-radius:26px}.visual{min-height:320px;order:-1}.tab-panel.active{display:flex;flex-direction:column}.ba{min-height:auto}.ba-card{min-height:330px}.plans .highlight{order:-1}.result-card{grid-template-columns:1fr}.comment-card{width:300px}.gallery-item,.gallery-item.big{grid-row:auto;height:260px}h1{font-size:clamp(42px,13vw,66px)}}
+@media(max-width:720px){.section{padding:68px 16px}.hero{min-height:auto;padding-top:92px;padding-bottom:110px}.journey,.plans,.steps,.cards3,.ba,.gallery-grid{grid-template-columns:1fr}.dock{bottom:14px!important;top:auto!important;max-width:calc(100vw - 18px);overflow:auto;justify-content:flex-start}.dock a,.dock button{font-size:11px;padding:9px 10px}.lead{text-align:center}.btns{flex-direction:column}.btn{width:100%}.coach-photo{order:-1;min-height:430px}.stats{grid-template-columns:1fr 1fr}.tabs-nav{grid-template-columns:1fr;border-radius:26px}.visual{min-height:320px;order:-1}.tab-panel.active{display:flex;flex-direction:column}.ba{min-height:auto}.ba-card{min-height:330px}.plans .highlight{order:-1}.result-card{grid-template-columns:1fr}.comment-card{width:300px}.gallery-item,.gallery-item.big{grid-row:auto;height:260px}h1{font-size:clamp(42px,13vw,66px)}.v2-footer{flex-direction:column;text-align:center;gap:10px}}
 </style>
 
 <div class="o2f-v2-ar" id="o2fV2Ar">
@@ -376,6 +380,18 @@ p,li,span{color:var(--muted);line-height:1.8}
     </section>
 
   </main>
+
+  <footer class="v2-footer">
+    <span>© {{ "" | year }} {{ site.name }}. جميع الحقوق محفوظة.</span>
+    <nav class="v2-footer-links">
+      <a href="{{ '/ar/privacy/' | url }}">الخصوصية</a>
+      <a href="{{ '/ar/terms/' | url }}">الشروط</a>
+      {% if site.social.instagram %}<a href="{{ site.social.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+      {% if site.social.facebook %}<a href="{{ site.social.facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+      <a href="/en/">English</a>
+    </nav>
+  </footer>
+
 </div>
 
 <script>

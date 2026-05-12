@@ -7,17 +7,16 @@ body:has(.o2f-v2),body:has(.o2f-v2-ar){
   scroll-behavior:smooth!important;
 }
 
-/* ── V2 container ── */
-.o2f-v2,.o2f-v2-ar{overflow:hidden!important;contain:paint!important}
-
-/* ── Background parallax element ── */
+/* ── Background parallax element — must stay position:fixed relative to viewport ── */
+/* NOTE: Do NOT add contain:paint or transform to .o2f-v2 — it would break fixed children */
 .o2f-v2 .o2f-bg,.o2f-v2-ar .o2f-bg,#o2fBg{
+  position:fixed!important;
   display:block!important;
   opacity:1!important;
   visibility:visible!important;
   filter:saturate(1.08) contrast(1.05)!important;
   will-change:transform!important;
-  transform:translate3d(0,var(--bg-y,0),0) scale(var(--bg-s,1.14))!important;
+  transform:translateY(var(--bg-y,0)) scale(var(--bg-s,1.14))!important;
   backface-visibility:hidden!important;
   pointer-events:none!important;
 }
