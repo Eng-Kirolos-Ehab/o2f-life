@@ -1,11 +1,84 @@
 /* O2F Home V2 stability patch: bottom nav + smooth scroll + footer safety */
-body:has(.o2f-v2),body:has(.o2f-v2-ar){overflow-x:hidden!important;background:#06110d!important;scroll-behavior:smooth!important}
-.o2f-v2,.o2f-v2-ar{overflow:hidden!important;contain:paint!important}
-.o2f-v2 .o2f-bg,.o2f-v2-ar .o2f-bg,#o2fBg{display:block!important;opacity:1!important;visibility:visible!important;filter:saturate(1.08) contrast(1.05)!important;will-change:transform!important;transform:translate3d(0,var(--bg-y,0),0) scale(var(--bg-s,1.14))!important;backface-visibility:hidden!important;pointer-events:none!important}
+
+/* ── Body / page ── */
+body:has(.o2f-v2),body:has(.o2f-v2-ar){
+  overflow-x:hidden!important;
+  background:#06110d!important;
+  scroll-behavior:smooth!important;
+}
+
+/* ── Background parallax element — sibling of .o2f-v2 for correct backdrop-filter ── */
+/* .o2f-bg is placed BEFORE .o2f-v2 in HTML so overflow:hidden on container doesn't clip it */
+.o2f-bg,#o2fBg{
+  position:fixed!important;
+  display:block!important;
+  opacity:1!important;
+  visibility:visible!important;
+  filter:saturate(1.08) contrast(1.05)!important;
+  will-change:transform!important;
+  transform:translateY(var(--bg-y,0)) scale(var(--bg-s,1.14))!important;
+  backface-visibility:hidden!important;
+  pointer-events:none!important;
+}
+
+/* ── GPU layer hints ── */
 .o2f-v2 .glass,.o2f-v2-ar .glass{transform:translateZ(0);backface-visibility:hidden}
 .o2f-v2 .marquee-row,.o2f-v2-ar .marquee-row{will-change:transform}
-.o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%) translateZ(0)!important;z-index:9999!important}
-body:has(.o2f-v2) .o2f-site-footer,body:has(.o2f-v2-ar) .o2f-site-footer{position:relative!important;z-index:5!important;background:rgba(6,17,13,.94)!important;margin-top:0!important;padding-bottom:96px!important}
-@media(max-width:1050px){.o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:18px!important}.o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:70px!important;padding-bottom:105px!important}}
-@media(max-width:720px){.o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;width:calc(100vw - 18px)!important;max-width:470px!important;overflow:visible!important}.o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important}.o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important}.o2f-v2 .social-panel,.o2f-v2-ar .social-panel{top:auto!important;bottom:calc(88px + env(safe-area-inset-bottom))!important}}
-@media(prefers-reduced-motion:reduce){.o2f-v2 *,.o2f-v2-ar *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.o2f-v2 .marquee-row,.o2f-v2-ar .marquee-row{animation:none!important}}
+
+/* ── Dock: always at bottom on all screen sizes ── */
+.o2f-v2 .dock,.o2f-v2-ar .dock{
+  top:auto!important;
+  bottom:18px!important;
+  left:50%!important;
+  right:auto!important;
+  transform:translateX(-50%) translateZ(0)!important;
+  z-index:9999!important;
+}
+
+/* ── Hide site header/footer/chatbot/whatsapp on v2 pages ── */
+body:has(.o2f-v2) header[data-site-header],
+body:has(.o2f-v2-ar) header[data-site-header],
+body:has(.o2f-v2) .o2f-site-footer,
+body:has(.o2f-v2-ar) .o2f-site-footer,
+body:has(.o2f-v2) #whatsapp-float,
+body:has(.o2f-v2-ar) #whatsapp-float,
+body:has(.o2f-v2) [class*="whatsapp-float"],
+body:has(.o2f-v2-ar) [class*="whatsapp-float"],
+body:has(.o2f-v2) [id*="chatbot"],
+body:has(.o2f-v2-ar) [id*="chatbot"],
+body:has(.o2f-v2) [class*="chatbot"],
+body:has(.o2f-v2-ar) [class*="chatbot"]{
+  display:none!important;
+}
+
+/* ── Responsive dock ── */
+@media(max-width:1050px){
+  .o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:18px!important}
+  .o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:70px!important;padding-bottom:105px!important}
+}
+@media(max-width:720px){
+  .o2f-v2 .dock,.o2f-v2-ar .dock{
+    top:auto!important;
+    bottom:calc(18px + env(safe-area-inset-bottom))!important;
+    width:calc(100vw - 18px)!important;
+    max-width:470px!important;
+    overflow:visible!important;
+  }
+  .o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important}
+  .o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important}
+  .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{
+    top:auto!important;
+    bottom:calc(88px + env(safe-area-inset-bottom))!important;
+  }
+}
+
+/* ── Reduced motion ── */
+@media(prefers-reduced-motion:reduce){
+  .o2f-v2 *,.o2f-v2-ar *{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
+  .o2f-v2 .marquee-row,.o2f-v2-ar .marquee-row{animation:none!important}
+}

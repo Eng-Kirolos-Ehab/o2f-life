@@ -8,10 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <script>
-    if (sessionStorage.getItem('o2f-admin-auth') !== '1' ||
-        !localStorage.getItem('o2f-gh-token')) {
-      // Missing auth or missing token — re-login to restore both
-      sessionStorage.removeItem('o2f-admin-auth');
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
       window.location.replace('./login.html');
     }
   </script>
@@ -343,6 +340,48 @@
     }
     .btn-disconnect:hover { background: rgba(239,68,68,.15); }
 
+    /* ── Token setup banner ── */
+    .token-banner {
+      display: none;
+      background: rgba(201,168,74,.08);
+      border: 1px solid rgba(201,168,74,.35);
+      border-radius: 14px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .token-banner.visible { display: block; }
+    .token-banner-title {
+      font-size: .95rem; font-weight: 700; color: var(--gold); margin-bottom: .4rem;
+    }
+    .token-banner-desc {
+      font-size: .82rem; color: rgba(247,248,250,.65); line-height: 1.6; margin-bottom: .75rem;
+    }
+    .token-banner-desc a { color: var(--mint); text-decoration: none; }
+    .token-banner-desc a:hover { text-decoration: underline; }
+    .token-banner-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .token-banner-input {
+      flex: 1; min-width: 200px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px; color: var(--off);
+      padding: .6rem 1rem; font-family: monospace; font-size: .875rem;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .token-banner-input:focus {
+      border-color: rgba(0,217,163,.5);
+      box-shadow: 0 0 0 3px rgba(0,217,163,.12);
+    }
+    .token-banner-save {
+      background: var(--gold); color: #0B1220;
+      border: none; border-radius: 10px;
+      padding: .6rem 1.25rem; font-size: .875rem; font-weight: 700;
+      cursor: pointer; font-family: 'Tajawal', sans-serif;
+      transition: filter .15s;
+    }
+    .token-banner-save:hover { filter: brightness(1.1); }
+    .token-banner-err {
+      font-size: .78rem; color: #fca5a5; margin-top: .4rem; display: none;
+    }
+
     @media (max-width: 768px) {
       .sidebar { width: 200px; }
       .main { margin-right: 200px; }
@@ -419,14 +458,22 @@ main.main {
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         محرر JSON
       </button>
+<div class="nav-section" style="margin-top:.75rem">الرئيسية الجديدة</div>
+
+<button class="nav-item" onclick="openEditor('json','homev2')">
+  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  محتوى Home V2
+</button>
+
+<button class="nav-item" onclick="openCommentsInsideCMS()">
+  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  إدارة التعليقات
+</button>
+
 <div class="nav-section" style="margin-top:.75rem">إضافات الإدارة</div>
 
 <button class="nav-item" onclick="openEditor('json','offers')">
   إدارة عروض الباقات
-</button>
-
-<button class="nav-item" onclick="openCommentsInsideCMS()">
-  إدارة التعليقات
 </button>
       <div class="nav-section" style="margin-top:.75rem">الموقع</div>
       <a class="nav-item" href="https://eng-kirolos-ehab.github.io/o2f-life/" target="_blank">
@@ -459,6 +506,23 @@ main.main {
     </div>
 
     <div class="content">
+
+      <!-- ══ GitHub Token Banner (shown when token is missing) ══ -->
+      <div id="tokenBanner" class="token-banner">
+        <div class="token-banner-title">⚠️ مطلوب: GitHub Token لتفعيل الحفظ</div>
+        <div class="token-banner-desc">
+          لحفظ أي تعديلات، يجب ربط حساب GitHub. اذهب إلى
+          <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">GitHub Settings → Tokens (classic)</a>
+          ← فعّل صلاحية <strong>repo</strong> ← انسخ الـ token والصقه هنا.
+        </div>
+        <div class="token-banner-row">
+          <input class="token-banner-input" id="bannerTokenInput"
+                 type="text" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                 autocomplete="off" spellcheck="false">
+          <button class="token-banner-save" onclick="saveBannerToken()">ربط وحفظ</button>
+        </div>
+        <div class="token-banner-err" id="bannerTokenErr">الـ token يجب أن يبدأ بـ ghp_ أو github_pat_</div>
+      </div>
 
       <!-- ══ CONTENT SECTION ══ -->
       <div id="section-content">
@@ -522,7 +586,35 @@ main.main {
 </div>
         </div>
 
-        <p class="section-title">محتوى الصفحات</p>
+        <p class="section-title">الصفحة الرئيسية الجديدة (Home V2)</p>
+        <div class="cards-grid">
+          <div class="card" onclick="openEditor('json','homev2')" style="cursor:pointer">
+            <div class="card-icon" style="font-size:1.25rem;line-height:1">🏠</div>
+            <div class="card-title">محتوى Home V2 — عربي وإنجليزي</div>
+            <div class="card-desc">الهيرو، المدرب، البرامج، الخطوات، النتائج، الباقات، الأسئلة، الـ CTA — كل النسختين</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+          <div class="card" onclick="openEditor('json','comments')" style="cursor:pointer">
+            <div class="card-icon" style="font-size:1.25rem;line-height:1">💬</div>
+            <div class="card-title">تعليقات العملاء (Marquee)</div>
+            <div class="card-desc">إضافة أو تعديل أو حذف تعليقات العملاء التي تظهر في الصفحة الرئيسية الجديدة</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+          <div class="card" onclick="openEditor('json','site')" style="cursor:pointer">
+            <div class="card-icon" style="font-size:1.25rem;line-height:1">⚙️</div>
+            <div class="card-title">إعدادات عامة (اللوجو، الإحصاءات، السوشيال)</div>
+            <div class="card-desc">تعديل الإحصاءات (20+ سنة، 1000+ عميل) والبريد والواتساب والروابط</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+          <div class="card" onclick="openEditor('json','plans')" style="cursor:pointer">
+            <div class="card-icon" style="font-size:1.25rem;line-height:1">💪</div>
+            <div class="card-title">الباقات الرئيسية (أسعار مفصلة)</div>
+            <div class="card-desc">الأسعار بالعملات الثلاثة — مصر، الخليج، الدولي — مع المميزات</div>
+            <div class="card-arrow">فتح المحرر ←</div>
+          </div>
+        </div>
+
+        <p class="section-title">محتوى الصفحات الداخلية</p>
         <div class="cards-grid">
           <div class="card" onclick="openEditor('pages','home')" style="cursor:pointer">
             <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
@@ -692,6 +784,8 @@ main.main {
             <button class="file-tab" id="tab-gallery"   onclick="switchFile('gallery')">gallery.json</button>
             <button class="file-tab" id="tab-referral" onclick="switchFile('referral')">referral.json</button>
 <button class="file-tab" id="tab-offers" onclick="switchFile('offers')">offers.json</button>
+            <button class="file-tab" id="tab-homev2" onclick="switchFile('homev2')">homeV2.json ★</button>
+            <button class="file-tab" id="tab-comments" onclick="switchFile('comments')">comments.json</button>
           </div>
 
           <div id="editor-status" class="editor-status">جاهز</div>
@@ -723,6 +817,33 @@ main.main {
   </main>
 
   <script>
+    /* ── Token banner ── */
+    function checkTokenBanner() {
+      const banner = document.getElementById('tokenBanner');
+      if (!localStorage.getItem('o2f-gh-token')) {
+        banner.classList.add('visible');
+      } else {
+        banner.classList.remove('visible');
+      }
+    }
+
+    function saveBannerToken() {
+      const input = document.getElementById('bannerTokenInput');
+      const err   = document.getElementById('bannerTokenErr');
+      const token = input.value.trim();
+      if (!token || (!token.startsWith('ghp_') && !token.startsWith('github_pat_'))) {
+        err.style.display = 'block';
+        return;
+      }
+      err.style.display = 'none';
+      localStorage.setItem('o2f-gh-token', token);
+      input.value = '';
+      document.getElementById('tokenBanner').classList.remove('visible');
+      setStatus && setStatus('✓ تم ربط GitHub بنجاح', 'success');
+    }
+
+    document.addEventListener('DOMContentLoaded', checkTokenBanner);
+
     function showSection(name, evt) {
       ['content','pages','media','json','gallery'].forEach(s => {
         document.getElementById('section-' + s).style.display = s === name ? '' : 'none';
@@ -745,8 +866,8 @@ main.main {
 
   const ghToken = localStorage.getItem('o2f-gh-token');
   if (!ghToken) {
-    alert('GitHub token missing. Please login again.');
-    window.location.replace('./login.html');
+    checkTokenBanner();
+    document.getElementById('tokenBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
@@ -786,7 +907,7 @@ main.main {
       });
       const titles = { content:'إدارة المحتوى', pages:'الصفحات', media:'الوسائط', json:'محرر JSON', gallery:'معرض الصور' };
       document.getElementById('pageTitle').textContent = titles[section] || section;
-      if (section === 'json')    { initJsonEditor();    if (file) switchFile(file); }
+      if (section === 'json')    { initJsonEditor(file); }
       if (section === 'pages')   { initPagesEditor();   if (file) switchPageFile(file); }
       if (section === 'gallery') { initGallerySection(); }
     }
@@ -804,7 +925,9 @@ main.main {
   custom: 'src/_data/customPlans.json',
   gallery: 'src/_data/gallery.json',
   referral: 'src/_data/referral.json',
-  offers: 'src/_data/offers.json'
+  offers: 'src/_data/offers.json',
+  homev2: 'src/_data/homeV2.json',
+  comments: 'src/_data/comments.json'
 };
     const FILES = DATA_FILES;
     let currentFile = 'site';
@@ -812,9 +935,9 @@ main.main {
     let currentData = null;
     let rawEditorDirty = false;
 
-    function initJsonEditor() {
+    function initJsonEditor(defaultFile) {
       setupRawEditorTracking();
-      switchFile('site');
+      switchFile(defaultFile || 'site');
     }
 
     function setupRawEditorTracking() {
@@ -832,6 +955,12 @@ main.main {
       document.getElementById('tab-' + key).classList.add('active');
 
       const token = localStorage.getItem('o2f-gh-token');
+      if (!token) {
+        checkTokenBanner();
+        document.getElementById('tokenBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setStatus('يجب ربط GitHub Token أولًا — راجع البانر أعلى الصفحة', 'error');
+        return;
+      }
       setStatus('جاري التحميل...', 'loading');
       document.getElementById('saveBtn').disabled = true;
 
@@ -865,6 +994,12 @@ main.main {
 
     async function saveFile() {
       const token = localStorage.getItem('o2f-gh-token');
+      if (!token) {
+        checkTokenBanner();
+        document.getElementById('tokenBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setStatus('يجب ربط GitHub Token أولًا — راجع البانر أعلى الصفحة', 'error');
+        return;
+      }
       try {
         maybeSyncFromRawEditor();
       } catch(e) {
@@ -1655,6 +1790,12 @@ main.main {
 
     async function savePageFile() {
       const token = localStorage.getItem('o2f-gh-token');
+      if (!token) {
+        checkTokenBanner();
+        document.getElementById('tokenBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setPagesStatus('يجب ربط GitHub Token أولًا — راجع البانر أعلى الصفحة', 'error');
+        return;
+      }
       try {
         maybeSyncFromPagesRaw();
       } catch(e) {
@@ -2044,6 +2185,12 @@ main.main {
 
     async function saveGallerySection() {
       const token = localStorage.getItem('o2f-gh-token');
+      if (!token) {
+        checkTokenBanner();
+        document.getElementById('tokenBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setGalleryStatus && setGalleryStatus('يجب ربط GitHub Token أولًا — راجع البانر أعلى الصفحة', 'error');
+        return;
+      }
       const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(gallerySecData, null, 2) + '\n')));
       const saveBtn = document.getElementById('gallerySaveBtn');
       if (saveBtn) saveBtn.disabled = true;
