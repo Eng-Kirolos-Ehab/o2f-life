@@ -1,7 +1,7 @@
 ---
 title: "O2F الرئيسية"
 description: "صفحة O2F العربية الرئيسية — الكابتن أسامة عمران، البرامج، النتائج، الباقات، وآراء العملاء."
-permalink: /ar/home-v2/index.html
+permalink: /ar/index.html
 ---
 {% set hv2 = homeV2.ar %}
 <style>
@@ -113,7 +113,7 @@ p,li,span{color:var(--muted);line-height:1.8}
       <button type="button" id="socialToggle">☰</button>
       <div class="social-panel" id="homeV2SocialPanel">
         {% if site.social.whatsapp %}<a href="https://wa.me/{{ site.social.whatsapp }}">واتساب <span>↗</span></a>{% else %}<a href="#contact">واتساب <span>↗</span></a>{% endif %}
-        <a href="/en/home-v2/">EN</a>
+        <a href="/en/">EN</a>
         {% if site.social.facebook %}<a href="{{ site.social.facebook }}" target="_blank" rel="noopener">Facebook <span>↗</span></a>{% endif %}
         {% if site.social.instagram %}<a href="{{ site.social.instagram }}" target="_blank" rel="noopener">Instagram <span>↗</span></a>{% endif %}
       </div>
@@ -342,7 +342,6 @@ p,li,span{color:var(--muted);line-height:1.8}
               <span style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
             </article>
             {% endfor %}
-            {# Duplicate for seamless loop #}
             {% for c in allCmts %}
             <article class="comment-card">
               <div class="quote">"</div>
@@ -406,7 +405,6 @@ p,li,span{color:var(--muted);line-height:1.8}
   var social = document.getElementById('socialMenu');
   var socialToggle = document.getElementById('socialToggle');
 
-  /* Parallax — throttled with rAF */
   var rafPending = false;
   var cachedPageH = (root ? root.offsetHeight : document.body.offsetHeight) - window.innerHeight || 1;
   var cachedWinH = window.innerHeight;
@@ -437,7 +435,6 @@ p,li,span{color:var(--muted);line-height:1.8}
     updateParallax();
   });
 
-  /* Tabs */
   tabs.forEach(function(b) {
     b.onclick = function() {
       var id = 'tab-' + b.dataset.tab;
@@ -446,7 +443,6 @@ p,li,span{color:var(--muted);line-height:1.8}
     };
   });
 
-  /* Dock smooth scroll */
   dockLinks.forEach(function(a) {
     a.onclick = function(e) {
       var el = document.querySelector(a.getAttribute('href'));
@@ -454,7 +450,6 @@ p,li,span{color:var(--muted);line-height:1.8}
     };
   });
 
-  /* Social menu */
   if (socialToggle) {
     socialToggle.onclick = function(e) { e.stopPropagation(); social.classList.toggle('open'); };
   }
