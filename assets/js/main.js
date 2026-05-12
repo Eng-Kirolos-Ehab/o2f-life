@@ -6,6 +6,31 @@
 (function () {
   "use strict";
 
+  function normalizeHomeV2Dock() {
+    const root = document.querySelector('.o2f-v2, .o2f-v2-ar');
+    if (!root || root.dataset.dockNormalized === '1') return;
+    const isAr = root.classList.contains('o2f-v2-ar');
+    const dock = root.querySelector('.dock');
+    if (!dock) return;
+
+    dock.innerHTML = isAr
+      ? `<a href="#hero" class="active">الرئيسية</a><a href="#coach">المدرب</a><a href="#programs">البرامج</a><a href="#gallery">المعرض</a><a href="#plans">الباقات</a><a href="/en/">EN</a><div class="social-menu" id="socialMenu"><button type="button" id="socialToggle">☰</button><div class="social-panel"><a href="https://wa.me/201000000000">واتساب <span>↗</span></a><a href="#contact">الشات <span>→</span></a><a href="https://www.facebook.com/">فيسبوك <span>↗</span></a><a href="https://www.instagram.com/">إنستجرام <span>↗</span></a></div></div>`
+      : `<a href="#hero" class="active">Home</a><a href="#coach">Coach</a><a href="#programs">Programs</a><a href="#gallery">Gallery</a><a href="#plans">Plans</a><a href="/ar/">AR</a><div class="social-menu" id="socialMenu"><button type="button" id="socialToggle">☰</button><div class="social-panel"><a href="https://wa.me/201000000000">WhatsApp <span>↗</span></a><a href="#contact">Chatbot <span>→</span></a><a href="https://www.facebook.com/">Facebook <span>↗</span></a><a href="https://www.instagram.com/">Instagram <span>↗</span></a></div></div>`;
+
+    const toggle = dock.querySelector('#socialToggle');
+    const menu = dock.querySelector('#socialMenu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function (event) {
+        event.stopPropagation();
+        menu.classList.toggle('open');
+      });
+      document.addEventListener('click', function (event) {
+        if (!menu.contains(event.target)) menu.classList.remove('open');
+      });
+    }
+    root.dataset.dockNormalized = '1';
+  }
+
   // ---------- Home V2 published-page stability hotfix ----------
   // gh-pages currently contains older inline Home V2 CSS. Inject this after load
   // so it wins over the inline rules without replacing the built HTML file.
@@ -22,6 +47,10 @@
       .o2f-v2:before,.o2f-v2-ar:before{position:fixed!important;pointer-events:none!important;}
       .o2f-v2 .dock,.o2f-v2-ar .dock,.dock{position:fixed!important;top:auto!important;bottom:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;z-index:9999!important;contain:none!important;}
       .o2f-v2 .v2-footer,.o2f-v2-ar .v2-footer{position:relative!important;z-index:3!important;}
+      .o2f-v2 .social-menu,.o2f-v2-ar .social-menu{position:relative!important;}
+      .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{position:absolute!important;right:0!important;bottom:48px!important;display:none!important;min-width:190px!important;padding:10px!important;border-radius:22px!important;background:rgba(6,17,13,.86)!important;border:1px solid rgba(255,255,255,.26)!important;backdrop-filter:blur(20px)!important;box-shadow:0 20px 60px rgba(0,0,0,.35)!important;}
+      .o2f-v2 .social-menu.open .social-panel,.o2f-v2-ar .social-menu.open .social-panel{display:grid!important;gap:7px!important;}
+      .o2f-v2 .social-panel a,.o2f-v2-ar .social-panel a{display:flex!important;width:100%!important;justify-content:space-between!important;background:rgba(255,255,255,.1)!important;}
 
       /* Arabic Home V2 visual alignment: match the polished EN layout but keep RTL text */
       .o2f-v2-ar{direction:rtl!important;text-align:right!important;}
@@ -55,10 +84,10 @@
         .o2f-v2-ar #coach .coach-photo{order:-1!important;min-height:520px!important;}
       }
       @media(max-width:720px){
-        .o2f-v2 .dock,.o2f-v2-ar .dock,.dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:calc(100vw - 18px)!important;max-width:470px!important;overflow:visible!important;}
+        .o2f-v2 .dock,.o2f-v2-ar .dock,.dock{top:auto!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:calc(100vw - 18px)!important;max-width:470px!important;overflow-x:auto!important;overflow-y:visible!important;justify-content:flex-start!important;}
         .o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important;}
         .o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important;}
-        .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{top:auto!important;bottom:calc(88px + env(safe-area-inset-bottom))!important;}
+        .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{top:auto!important;bottom:calc(52px + env(safe-area-inset-bottom))!important;right:0!important;}
         .o2f-v2-ar .journey,.o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3,.o2f-v2-ar .ba,.o2f-v2-ar .gallery-grid{grid-template-columns:1fr!important;}
         .o2f-v2-ar .tab-panel.active{display:flex!important;flex-direction:column!important;}
         .o2f-v2-ar .visual{order:-1!important;min-height:320px!important;}
@@ -75,8 +104,12 @@
   }
 
   injectHomeV2StabilityPatch();
+  normalizeHomeV2Dock();
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectHomeV2StabilityPatch, { once: true });
+    document.addEventListener('DOMContentLoaded', function () {
+      injectHomeV2StabilityPatch();
+      normalizeHomeV2Dock();
+    }, { once: true });
   }
 
   // ---------- Mobile menu toggle ----------
@@ -128,7 +161,6 @@
   });
 
   // ---------- Stat card entrance animation ----------
-  // Adds the animate-number-pop class when the stat cards scroll into view
   const statCards = document.querySelectorAll(".card-hover .glow-text-mint");
   if (statCards.length && "IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
