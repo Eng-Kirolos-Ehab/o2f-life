@@ -725,6 +725,8 @@ main.main {
             <button class="file-tab" id="tab-gallery"   onclick="switchFile('gallery')">gallery.json</button>
             <button class="file-tab" id="tab-referral" onclick="switchFile('referral')">referral.json</button>
 <button class="file-tab" id="tab-offers" onclick="switchFile('offers')">offers.json</button>
+            <button class="file-tab" id="tab-homev2" onclick="switchFile('homev2')">homeV2.json ★</button>
+            <button class="file-tab" id="tab-comments" onclick="switchFile('comments')">comments.json</button>
           </div>
 
           <div id="editor-status" class="editor-status">جاهز</div>
@@ -819,7 +821,7 @@ main.main {
       });
       const titles = { content:'إدارة المحتوى', pages:'الصفحات', media:'الوسائط', json:'محرر JSON', gallery:'معرض الصور' };
       document.getElementById('pageTitle').textContent = titles[section] || section;
-      if (section === 'json')    { initJsonEditor();    if (file) switchFile(file); }
+      if (section === 'json')    { initJsonEditor(file); }
       if (section === 'pages')   { initPagesEditor();   if (file) switchPageFile(file); }
       if (section === 'gallery') { initGallerySection(); }
     }
@@ -847,9 +849,9 @@ main.main {
     let currentData = null;
     let rawEditorDirty = false;
 
-    function initJsonEditor() {
+    function initJsonEditor(defaultFile) {
       setupRawEditorTracking();
-      switchFile('site');
+      switchFile(defaultFile || 'site');
     }
 
     function setupRawEditorTracking() {

@@ -7,9 +7,9 @@ body:has(.o2f-v2),body:has(.o2f-v2-ar){
   scroll-behavior:smooth!important;
 }
 
-/* ── Background parallax element — must stay position:fixed relative to viewport ── */
-/* NOTE: Do NOT add contain:paint or transform to .o2f-v2 — it would break fixed children */
-.o2f-v2 .o2f-bg,.o2f-v2-ar .o2f-bg,#o2fBg{
+/* ── Background parallax element — sibling of .o2f-v2 for correct backdrop-filter ── */
+/* .o2f-bg is placed BEFORE .o2f-v2 in HTML so overflow:hidden on container doesn't clip it */
+.o2f-bg,#o2fBg{
   position:fixed!important;
   display:block!important;
   opacity:1!important;

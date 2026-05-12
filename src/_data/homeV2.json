@@ -12,7 +12,13 @@
       "title": "The coach behind the O2F system.",
       "bio": "Osama Omran focuses on body transformation through a connected system that combines training, nutrition guidance, wellness direction, and practical follow-up. His approach is built around clarity, sustainability, and real progress — not random advice or short-term motivation.",
       "chips": ["Personalized plans", "Training + Nutrition", "Follow-up", "Sustainable habits"],
-      "cta": "See how it works"
+      "cta": "See how it works",
+      "stats": {
+        "years_label": "Years",
+        "clients_label": "Clients",
+        "custom_label": "Custom",
+        "support_label": "Support"
+      }
     },
     "journey": [
       {"title": "Choose your goal", "desc": "Training transformation, anti-aging guidance, or Methylene Blue education."},
@@ -148,7 +154,13 @@
       "title": "المدرب وراء نظام O2F.",
       "bio": "أسامة عمران يركز على التحول البدني من خلال نظام متصل يجمع التدريب، التغذية، التوجيه الصحي، والمتابعة العملية. الهدف هو الوضوح والاستمرارية والنتائج الواقعية.",
       "chips": ["خطط مخصصة", "تدريب + تغذية", "متابعة", "عادات مستدامة"],
-      "cta": "شوف النظام"
+      "cta": "شوف النظام",
+      "stats": {
+        "years_label": "سنة",
+        "clients_label": "عميل",
+        "custom_label": "مخصص",
+        "support_label": "دعم"
+      }
     },
     "journey": [
       {"title": "اختار هدفك", "desc": "تحول بدني، توجيه Anti-Aging، أو تثقيف عن Methylene Blue."},
