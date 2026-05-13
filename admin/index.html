@@ -14,9 +14,44 @@
   </script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--ink:#0B1220;--mint:#00D9A3;--gold:#C9A84A;--off:#F7F8FA;--muted:rgba(247,248,250,.6);--line:rgba(255,255,255,.1)}
-    body{min-height:100vh;background:radial-gradient(circle at 15% 10%,rgba(0,217,163,.14),transparent 28%),radial-gradient(circle at 85% 20%,rgba(201,168,74,.1),transparent 25%),var(--ink);color:var(--off);font-family:'Tajawal',system-ui,sans-serif}
-    .wrap{max-width:1120px;margin:auto;padding:36px 18px 70px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:34px}.brand{display:flex;align-items:center;gap:12px}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--mint),var(--gold));box-shadow:0 14px 35px rgba(0,217,163,.15)}h1{font-size:34px;margin-bottom:6px}.muted{color:var(--muted);line-height:1.7}.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,217,163,.22);background:rgba(0,217,163,.08);color:var(--mint);border-radius:999px;padding:8px 12px;font-size:13px}.version{display:inline-flex;margin-inline-start:8px;border:1px solid rgba(201,168,74,.28);background:rgba(201,168,74,.1);color:var(--gold);border-radius:999px;padding:5px 10px;font-size:12px;font-weight:800}.dot{width:8px;height:8px;border-radius:999px;background:var(--mint)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.card{position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:22px;padding:22px;min-height:210px;transition:.22s;box-shadow:0 20px 55px rgba(0,0,0,.22)}.card:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,217,163,.15),transparent 46%);opacity:0;transition:.25s}.card:hover{transform:translateY(-4px);border-color:rgba(0,217,163,.42)}.card:hover:before{opacity:1}.icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(0,217,163,.1);color:var(--mint);font-size:24px;margin-bottom:18px}.card h2{font-size:22px;margin-bottom:8px}.card p{font-size:14px;color:var(--muted);line-height:1.7;max-width:330px}.arrow{margin-top:18px;color:var(--mint);font-weight:700}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.07);color:var(--off);padding:10px 14px;text-decoration:none;cursor:pointer;font-family:inherit}.btn:hover{background:rgba(255,255,255,.12)}.btn.danger{color:#fca5a5;border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.08)}.info{margin-top:28px;border:1px solid rgba(201,168,74,.22);background:rgba(201,168,74,.07);border-radius:18px;padding:18px;color:rgba(247,248,250,.72);line-height:1.7}.highlight{color:var(--gold);font-weight:800}@media(max-width:640px){h1{font-size:28px}.wrap{padding-top:24px}.card{min-height:auto}}
+    :root{--ink:#0B1220;--mint:#00D9A3;--gold:#C9A84A;--off:#F7F8FA;--muted:rgba(247,248,250,.58);--line:rgba(255,255,255,.09)}
+    body{min-height:100vh;background:radial-gradient(circle at 15% 10%,rgba(0,217,163,.13),transparent 28%),radial-gradient(circle at 85% 20%,rgba(201,168,74,.09),transparent 25%),var(--ink);color:var(--off);font-family:'Tajawal',system-ui,sans-serif}
+    .wrap{max-width:1100px;margin:auto;padding:38px 18px 80px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:38px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .mark{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--mint),var(--gold));box-shadow:0 14px 35px rgba(0,217,163,.18)}
+    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,217,163,.22);background:rgba(0,217,163,.08);color:var(--mint);border-radius:999px;padding:8px 13px;font-size:13px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--mint)}
+    .version{margin-inline-start:8px;border:1px solid rgba(201,168,74,.28);background:rgba(201,168,74,.1);color:var(--gold);border-radius:999px;padding:5px 10px;font-size:12px;font-weight:800}
+    h1{font-size:32px;margin:6px 0 4px}
+    .muted{color:var(--muted);line-height:1.7;font-size:14px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.07);color:var(--off);padding:10px 15px;text-decoration:none;cursor:pointer;font-family:inherit;font-size:14px}
+    .btn:hover{background:rgba(255,255,255,.12)}
+    .btn.danger{color:#fca5a5;border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.07)}
+
+    .section-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;margin-top:36px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:22px;padding:24px;min-height:200px;transition:.2s;box-shadow:0 18px 50px rgba(0,0,0,.2)}
+    .card:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,217,163,.14),transparent 50%);opacity:0;transition:.25s}
+    .card:hover{transform:translateY(-3px);border-color:rgba(0,217,163,.4)}
+    .card:hover:before{opacity:1}
+    .card.gold-hover:hover{border-color:rgba(201,168,74,.4)}
+    .card.gold-hover:before{background:radial-gradient(circle at top right,rgba(201,168,74,.12),transparent 50%)}
+    .icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .icon.mint{background:rgba(0,217,163,.1)}
+    .icon.gold{background:rgba(201,168,74,.1)}
+    .icon.blue{background:rgba(84,200,255,.1)}
+    .card h2{font-size:20px;margin-bottom:8px}
+    .card p{font-size:13px;color:var(--muted);line-height:1.7}
+    .arrow{margin-top:16px;color:var(--mint);font-weight:700;font-size:14px}
+    .card.gold-hover .arrow{color:var(--gold)}
+
+    .info{margin-top:32px;border:1px solid rgba(0,217,163,.18);background:rgba(0,217,163,.06);border-radius:18px;padding:18px 20px;color:var(--muted);line-height:1.75;font-size:14px}
+    .info strong{color:var(--mint)}
+
+    @media(max-width:640px){h1{font-size:26px}.wrap{padding-top:24px}.card{min-height:auto}}
   </style>
 </head>
 <body>
@@ -25,48 +60,62 @@
       <div class="brand">
         <div class="mark"></div>
         <div>
-          <span class="badge"><span class="dot"></span>O2F Admin</span><span class="version">Admin v1.2.0</span>
-          <h1>لوحة الإدارة الرئيسية</h1>
-          <p class="muted">اختار القسم اللي عايز تتحكم فيه.</p>
+          <span class="badge"><span class="dot"></span>O2F Admin</span><span class="version">v2.0</span>
+          <h1>لوحة الإدارة</h1>
+          <p class="muted">إدارة محتوى الموقع الجديد — عربي وإنجليزي.</p>
         </div>
       </div>
       <div class="actions">
-        <a class="btn" href="../">زيارة الموقع</a>
+        <a class="btn" href="/ar/" target="_blank">الموقع العربي ↗</a>
+        <a class="btn" href="/en/" target="_blank">الموقع الإنجليزي ↗</a>
         <button class="btn danger" onclick="logout()">تسجيل الخروج</button>
       </div>
     </div>
 
+    <p class="section-label">تحكم في المحتوى</p>
     <section class="grid">
-      <a class="card" href="./cms.html">
-        <div class="icon">⚙️</div>
-        <h2>إدارة محتوى الموقع</h2>
-        <p>تعديل الباقات، الأسعار، الصفحات، الصور، إعدادات الموقع، ومعرض الصور.</p>
-        <div class="arrow">فتح لوحة المحتوى ←</div>
+
+      <a class="card" href="./content.html?lang=ar">
+        <div class="icon mint">🇸🇦</div>
+        <h2>الموقع العربي</h2>
+        <p>تعديل جميع نصوص وصور الصفحة الرئيسية العربية — البطل، المدرب، البرامج، الباقات، والمزيد.</p>
+        <div class="arrow">تعديل المحتوى العربي ←</div>
       </a>
-      <a class="card" href="./offers.html">
-        <div class="icon">🎁</div>
-        <h2>إدارة عروض الباقات</h2>
-        <p>تفعيل أو إيقاف العرض، تعديل وصف العرض، والتحكم في فكرة: اشترك 3 شهور وخد شهر مجانًا.</p>
-        <div class="arrow">فتح العروض ←</div>
+
+      <a class="card" href="./content.html?lang=en">
+        <div class="icon mint">🇬🇧</div>
+        <h2>English Site</h2>
+        <p>Edit all text and images on the English homepage — hero, coach, programs, plans, and more.</p>
+        <div class="arrow">Edit English content ←</div>
       </a>
-      <a class="card" href="./comments.html">
-        <div class="icon">💬</div>
-        <h2>إدارة التعليقات</h2>
-        <p>مراجعة تعليقات العملاء، قبول أو رفض التعليق، تعديل الاسم أو الخدمة أو النص، وإضافة تعليق يدوي.</p>
-        <div class="arrow">فتح التعليقات ←</div>
+
+      <a class="card" href="./content.html#images">
+        <div class="icon gold">🖼️</div>
+        <h2>صور الموقع</h2>
+        <p>رفع صورة المدرب الرئيسية وصور المعرض — سحب وإفلات أو اختيار من الجهاز.</p>
+        <div class="arrow gold-hover">إدارة الصور ←</div>
       </a>
-      <a class="card" href="./comments.html#pending">
-        <div class="icon">✅</div>
-        <h2>تعليقات قيد المراجعة</h2>
-        <p>اختصار سريع لمتابعة التعليقات الجديدة القادمة من فورم الصفحة الرئيسية.</p>
-        <div class="arrow">مراجعة الآن ←</div>
+
+      <a class="card gold-hover" href="./comments.html">
+        <div class="icon gold">💬</div>
+        <h2>التعليقات</h2>
+        <p>مراجعة وقبول ورفض تعليقات العملاء، وإضافة تعليق يدوي.</p>
+        <div class="arrow">إدارة التعليقات ←</div>
       </a>
+
     </section>
 
-    <div class="info"><span class="highlight">ملاحظة:</span> صفحة العروض تعدّل ملف <b>src/_data/offers.json</b> مباشرة باستخدام GitHub token، والعرض يظهر تلقائيًا في صفحة الباقات عند تفعيله.</div>
+    <div class="info">
+      <strong>ملاحظة:</strong> التعديلات تُحفظ مباشرة على GitHub وتظهر على الموقع بعد اكتمال البناء التلقائي (~1-2 دقيقة).
+    </div>
   </main>
+
   <script>
-    function logout(){sessionStorage.removeItem('o2f-admin-auth');localStorage.removeItem('o2f-gh-token');localStorage.removeItem('o2f_supabase_session');window.location.replace('./login.html')}
+    function logout() {
+      sessionStorage.removeItem('o2f-admin-auth');
+      localStorage.removeItem('o2f-gh-token');
+      window.location.replace('./login.html');
+    }
   </script>
 </body>
 </html>

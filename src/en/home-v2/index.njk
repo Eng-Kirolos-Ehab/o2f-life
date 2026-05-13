@@ -14,6 +14,7 @@ body:has(.o2f-v2)>header,body:has(.o2f-v2) .site-header,body:has(.o2f-v2) .main-
 .dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:30;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(22px);box-shadow:0 22px 70px rgba(0,0,0,.32)}
 .dock a,.dock button{color:#fff;text-decoration:none;font-size:12px;font-weight:900;padding:10px 13px;border-radius:999px;white-space:nowrap;border:0;background:transparent;cursor:pointer}
 .dock a.active,.dock a:hover,.dock button:hover{background:rgba(255,255,255,.22)}
+.dock-lang{border:1px solid rgba(255,255,255,.3)!important;border-radius:999px!important;font-size:11px!important;opacity:.85}
 .social-menu{position:relative}
 .social-panel{position:absolute;right:0;bottom:48px;display:none;min-width:190px;padding:10px;border-radius:22px;background:rgba(6,17,13,.86);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .social-menu.open .social-panel{display:grid;gap:7px}
@@ -115,11 +116,11 @@ p,li,span{color:var(--muted);line-height:1.72}
     <a href="#programs">Programs</a>
     <a href="#gallery">Gallery</a>
     <a href="#plans">Plans</a>
+    <a href="/ar/" class="dock-lang">AR / عربي</a>
     <div class="social-menu" id="socialMenu">
       <button type="button" id="socialToggle">☰</button>
       <div class="social-panel" id="homeV2SocialPanel">
         {% if site.social.whatsapp %}<a href="https://wa.me/{{ site.social.whatsapp }}">WhatsApp <span>↗</span></a>{% else %}<a href="#contact">WhatsApp <span>↗</span></a>{% endif %}
-        <a href="/ar/">عربي</a>
         {% if site.social.facebook %}<a href="{{ site.social.facebook }}" target="_blank" rel="noopener">Facebook <span>↗</span></a>{% endif %}
         {% if site.social.instagram %}<a href="{{ site.social.instagram }}" target="_blank" rel="noopener">Instagram <span>↗</span></a>{% endif %}
       </div>
@@ -190,11 +191,6 @@ p,li,span{color:var(--muted);line-height:1.72}
             <button class="tab-btn{% if loop.first %} active{% endif %}" data-tab="{{ tab.key }}" type="button">{{ tab.label }}</button>
             {% endfor %}
           </div>
-          {% set tabImages = {
-            "anti": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
-            "blue": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
-            "training": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85"
-          } %}
           {% for tab in hv2.programs.tabs %}
           <article class="tab-panel{% if loop.first %} active{% endif %}" id="tab-{{ tab.key }}">
             <div class="tab-copy glass">
@@ -208,8 +204,8 @@ p,li,span{color:var(--muted);line-height:1.72}
               </div>
             </div>
             <div class="visual glass">
-              <img class="tab-media" src="{{ tabImages[tab.key] }}" alt="{{ tab.title }}">
-              <div class="visual-caption"><b>{{ tab.caption_title }}</b><p>Replace with your own photo or video.</p></div>
+              <img class="tab-media" src="{{ tab.image }}" alt="{{ tab.title }}">
+              <div class="visual-caption"><b>{{ tab.caption_title }}</b></div>
             </div>
           </article>
           {% endfor %}

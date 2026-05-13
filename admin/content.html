@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>محرر المحتوى — O2F.life</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;700&display=swap">
+  <script>
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
+      window.location.replace('./login.html');
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0B1220; --ink2: #0f1929;
+      --mint: #00D9A3; --gold: #C9A84A;
+      --off: #F7F8FA; --muted: rgba(247,248,250,.55);
+      --line: rgba(255,255,255,.08); --line2: rgba(255,255,255,.12);
+      --radius: 16px;
+    }
+    body { background: var(--ink); color: var(--off); font-family: 'Tajawal', system-ui, sans-serif; min-height: 100vh; }
+
+    /* ── Header ── */
+    .header { position: sticky; top: 0; z-index: 40; background: rgba(11,18,32,.92); border-bottom: 1px solid var(--line); backdrop-filter: blur(18px); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; }
+    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; }
+    .mark { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, var(--mint), var(--gold)); }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line2); border-radius: 11px; background: rgba(255,255,255,.07); color: var(--off); padding: 8px 14px; text-decoration: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; transition: .18s; white-space: nowrap; }
+    .btn:hover { background: rgba(255,255,255,.13); }
+    .btn.primary { background: var(--mint); color: var(--ink); border-color: transparent; font-weight: 800; }
+    .btn.primary:hover { background: #00edb3; }
+    .btn.primary:disabled { opacity: .5; cursor: not-allowed; }
+    .btn.ghost { background: transparent; }
+
+    /* ── Lang tabs ── */
+    .lang-bar { display: flex; gap: 8px; padding: 16px 20px 0; }
+    .lang-tab { border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--muted); padding: 8px 18px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; transition: .18s; }
+    .lang-tab.active { background: rgba(0,217,163,.15); border-color: rgba(0,217,163,.45); color: var(--mint); }
+
+    /* ── Main layout ── */
+    .main { max-width: 920px; margin: 0 auto; padding: 20px 16px 80px; }
+
+    /* ── Section accordion ── */
+    .acc { margin-bottom: 12px; border: 1px solid var(--line2); border-radius: var(--radius); overflow: hidden; }
+    .acc-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; background: rgba(255,255,255,.04); user-select: none; }
+    .acc-head:hover { background: rgba(255,255,255,.07); }
+    .acc-title { font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .acc-icon { font-size: 18px; }
+    .acc-chevron { font-size: 12px; color: var(--muted); transition: transform .2s; }
+    .acc.open .acc-chevron { transform: rotate(180deg); }
+    .acc-body { display: none; padding: 20px; border-top: 1px solid var(--line); }
+    .acc.open .acc-body { display: block; }
+
+    /* ── Fields ── */
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: .04em; text-transform: uppercase; }
+    .field input, .field textarea, .field select {
+      width: 100%; border: 1px solid var(--line2); border-radius: 11px;
+      background: rgba(255,255,255,.05); color: var(--off);
+      padding: 11px 14px; font-family: inherit; font-size: 14px;
+      outline: none; transition: border-color .18s;
+    }
+    .field input:focus, .field textarea:focus { border-color: rgba(0,217,163,.5); background: rgba(0,217,163,.04); }
+    .field textarea { resize: vertical; min-height: 80px; }
+    .field.en input, .field.en textarea { font-family: 'Inter', system-ui, sans-serif; direction: ltr; text-align: left; }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media(max-width:600px) { .grid2 { grid-template-columns: 1fr; } }
+
+    /* ── List editor (journey / steps / points / faq / chips) ── */
+    .list-editor { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+    .list-item { position: relative; border: 1px solid var(--line2); border-radius: 12px; padding: 14px 14px 14px 48px; background: rgba(255,255,255,.03); }
+    .list-item[dir="ltr"] { padding: 14px 48px 14px 14px; }
+    .list-item .rm { position: absolute; top: 10px; left: 10px; border: none; background: rgba(239,68,68,.1); color: #fca5a5; border-radius: 8px; width: 28px; height: 28px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+    .list-item[dir="ltr"] .rm { left: auto; right: 10px; }
+    .add-btn { border: 1px dashed var(--line2); border-radius: 11px; background: transparent; color: var(--muted); padding: 9px; width: 100%; cursor: pointer; font-family: inherit; font-size: 13px; transition: .18s; }
+    .add-btn:hover { border-color: var(--mint); color: var(--mint); background: rgba(0,217,163,.05); }
+
+    /* ── Image drop zone ── */
+    .drop-zone { border: 2px dashed var(--line2); border-radius: var(--radius); padding: 32px; text-align: center; cursor: pointer; transition: .2s; position: relative; }
+    .drop-zone.dragover { border-color: var(--mint); background: rgba(0,217,163,.06); }
+    .drop-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .drop-zone p { color: var(--muted); font-size: 14px; pointer-events: none; }
+    .drop-zone .drop-icon { font-size: 32px; margin-bottom: 10px; pointer-events: none; }
+    .img-preview { margin-top: 14px; border-radius: 12px; overflow: hidden; max-height: 280px; position: relative; }
+    .img-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-preview .img-url { background: rgba(0,0,0,.55); color: #fff; font-size: 12px; padding: 6px 10px; word-break: break-all; text-align: left; }
+
+    /* ── Toast ── */
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink2); border: 1px solid var(--line2); border-radius: 999px; padding: 12px 22px; font-size: 14px; font-weight: 700; display: none; z-index: 999; box-shadow: 0 18px 50px rgba(0,0,0,.4); }
+    .toast.show { display: block; }
+    .toast.ok { border-color: rgba(0,217,163,.4); color: var(--mint); }
+    .toast.err { border-color: rgba(239,68,68,.4); color: #fca5a5; }
+
+    /* ── Save bar ── */
+    .save-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 14px 20px; background: rgba(11,18,32,.95); border-top: 1px solid var(--line2); backdrop-filter: blur(18px); display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 50; }
+    .save-status { font-size: 13px; color: var(--muted); }
+
+    /* ── Tab panels ── */
+    .lang-panel { display: none; }
+    .lang-panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">
+    <div class="mark"></div>
+    <span>محرر المحتوى</span>
+  </div>
+  <div class="header-actions">
+    <a class="btn ghost" href="./">← الرئيسية</a>
+    <button class="btn primary" id="saveBtn" onclick="saveAll()">حفظ التغييرات</button>
+  </div>
+</header>
+
+<div class="lang-bar">
+  <button class="lang-tab active" data-lang="ar" onclick="switchLang('ar')">🇸🇦 عربي</button>
+  <button class="lang-tab" data-lang="en" onclick="switchLang('en')">🇬🇧 English</button>
+  <button class="lang-tab" data-lang="images" onclick="switchLang('images')">🖼️ الصور</button>
+</div>
+
+<main class="main">
+
+  <!-- ═══ ARABIC PANEL ═══ -->
+  <div class="lang-panel active" id="panel-ar">
+
+    <!-- Hero -->
+    <div class="acc open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🦅</span> قسم البطل (Hero)</span>
+        <span class="acc-chevron">▲</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker (نص صغير أعلى)</label><input id="ar.hero.kicker" value=""></div>
+        <div class="field"><label>العنوان الرئيسي</label><input id="ar.hero.title" value=""></div>
+        <div class="field"><label>الوصف</label><textarea id="ar.hero.description"></textarea></div>
+        <div class="grid2">
+          <div class="field"><label>نص الزر الأول</label><input id="ar.hero.cta_primary" value=""></div>
+          <div class="field"><label>نص الزر الثاني</label><input id="ar.hero.cta_secondary" value=""></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Journey -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🗺️</span> خطوات الرحلة (3 خطوات)</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div id="ar.journey" class="list-editor"></div>
+        <button class="add-btn" onclick="addJourneyStep('ar')">+ إضافة خطوة</button>
+      </div>
+    </div>
+
+    <!-- Coach -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🧑‍💼</span> قسم المدرب</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.coach.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.coach.title" value=""></div>
+        <div class="field"><label>السيرة الذاتية</label><textarea id="ar.coach.bio"></textarea></div>
+        <div class="field"><label>نص زر CTA</label><input id="ar.coach.cta" value=""></div>
+        <div class="field"><label>Chips (تسميات مميزة — كل سطر chip)</label>
+          <textarea id="ar.coach.chips" style="min-height:90px"></textarea>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>تسمية السنوات</label><input id="ar.coach.stats.years_label" value=""></div>
+          <div class="field"><label>تسمية العملاء</label><input id="ar.coach.stats.clients_label" value=""></div>
+          <div class="field"><label>تسمية المخصص</label><input id="ar.coach.stats.custom_label" value=""></div>
+          <div class="field"><label>تسمية الدعم</label><input id="ar.coach.stats.support_label" value=""></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Programs -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">📋</span> قسم البرامج</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.programs.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.programs.title" value=""></div>
+        <div class="field"><label>الوصف</label><textarea id="ar.programs.desc"></textarea></div>
+        <div id="ar-program-tabs"></div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">⚙️</span> طريقة العمل</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.how_it_works.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.how_it_works.title" value=""></div>
+        <div id="ar.how_it_works.steps" class="list-editor"></div>
+        <button class="add-btn" onclick="addStep('ar')">+ إضافة خطوة</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🏆</span> قسم النتائج</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.results.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.results.title" value=""></div>
+        <div class="field"><label>الوصف</label><textarea id="ar.results.desc"></textarea></div>
+        <div class="field"><label>نقاط النتائج (كل سطر نقطة)</label>
+          <textarea id="ar.results.points" style="min-height:100px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stories -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">💬</span> قسم التجارب</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.stories.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.stories.title" value=""></div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">📞</span> قسم التواصل</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.contact.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.contact.title" value=""></div>
+        <div class="field"><label>الوصف</label><textarea id="ar.contact.desc"></textarea></div>
+        <div class="grid2">
+          <div class="field"><label>نص الزر الأول</label><input id="ar.contact.cta_primary" value=""></div>
+          <div class="field"><label>نص الزر الثاني</label><input id="ar.contact.cta_secondary" value=""></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">❓</span> الأسئلة الشائعة</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div id="ar.faq" class="list-editor"></div>
+        <button class="add-btn" onclick="addFaq('ar')">+ إضافة سؤال</button>
+      </div>
+    </div>
+
+    <!-- Plans -->
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">💰</span> قسم الباقات</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field"><label>Kicker</label><input id="ar.plans.kicker" value=""></div>
+        <div class="field"><label>العنوان</label><input id="ar.plans.title" value=""></div>
+        <div class="field"><label>الوصف</label><textarea id="ar.plans.desc"></textarea></div>
+      </div>
+    </div>
+
+  </div><!-- /panel-ar -->
+
+
+  <!-- ═══ ENGLISH PANEL ═══ -->
+  <div class="lang-panel" id="panel-en">
+
+    <div class="acc open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🦅</span> Hero Section</span>
+        <span class="acc-chevron">▲</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.hero.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Main Headline</label><input id="en.hero.title" value="" dir="ltr"></div>
+        <div class="field en"><label>Description</label><textarea id="en.hero.description" dir="ltr"></textarea></div>
+        <div class="grid2">
+          <div class="field en"><label>Primary CTA</label><input id="en.hero.cta_primary" value="" dir="ltr"></div>
+          <div class="field en"><label>Secondary CTA</label><input id="en.hero.cta_secondary" value="" dir="ltr"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🗺️</span> Journey Steps</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div id="en.journey" class="list-editor"></div>
+        <button class="add-btn" onclick="addJourneyStep('en')">+ Add Step</button>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🧑‍💼</span> Coach Section</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.coach.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.coach.title" value="" dir="ltr"></div>
+        <div class="field en"><label>Bio</label><textarea id="en.coach.bio" dir="ltr"></textarea></div>
+        <div class="field en"><label>CTA button</label><input id="en.coach.cta" value="" dir="ltr"></div>
+        <div class="field en"><label>Chips (one per line)</label>
+          <textarea id="en.coach.chips" dir="ltr" style="min-height:90px"></textarea>
+        </div>
+        <div class="grid2">
+          <div class="field en"><label>Years label</label><input id="en.coach.stats.years_label" value="" dir="ltr"></div>
+          <div class="field en"><label>Clients label</label><input id="en.coach.stats.clients_label" value="" dir="ltr"></div>
+          <div class="field en"><label>Custom label</label><input id="en.coach.stats.custom_label" value="" dir="ltr"></div>
+          <div class="field en"><label>Support label</label><input id="en.coach.stats.support_label" value="" dir="ltr"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">📋</span> Programs Section</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.programs.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.programs.title" value="" dir="ltr"></div>
+        <div class="field en"><label>Description</label><textarea id="en.programs.desc" dir="ltr"></textarea></div>
+        <div id="en-program-tabs"></div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">⚙️</span> How It Works</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.how_it_works.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.how_it_works.title" value="" dir="ltr"></div>
+        <div id="en.how_it_works.steps" class="list-editor"></div>
+        <button class="add-btn" onclick="addStep('en')">+ Add Step</button>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🏆</span> Results Section</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.results.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.results.title" value="" dir="ltr"></div>
+        <div class="field en"><label>Description</label><textarea id="en.results.desc" dir="ltr"></textarea></div>
+        <div class="field en"><label>Points (one per line)</label>
+          <textarea id="en.results.points" dir="ltr" style="min-height:100px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">💬</span> Stories Section</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.stories.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.stories.title" value="" dir="ltr"></div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">📞</span> Contact Section</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.contact.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.contact.title" value="" dir="ltr"></div>
+        <div class="field en"><label>Description</label><textarea id="en.contact.desc" dir="ltr"></textarea></div>
+        <div class="grid2">
+          <div class="field en"><label>Primary CTA</label><input id="en.contact.cta_primary" value="" dir="ltr"></div>
+          <div class="field en"><label>Secondary CTA</label><input id="en.contact.cta_secondary" value="" dir="ltr"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">❓</span> FAQ</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div id="en.faq" class="list-editor"></div>
+        <button class="add-btn" onclick="addFaq('en')">+ Add FAQ</button>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">💰</span> Plans Section</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <div class="field en"><label>Kicker</label><input id="en.plans.kicker" value="" dir="ltr"></div>
+        <div class="field en"><label>Title</label><input id="en.plans.title" value="" dir="ltr"></div>
+        <div class="field en"><label>Description</label><textarea id="en.plans.desc" dir="ltr"></textarea></div>
+      </div>
+    </div>
+
+  </div><!-- /panel-en -->
+
+
+  <!-- ═══ IMAGES PANEL ═══ -->
+  <div class="lang-panel" id="panel-images">
+
+    <div class="acc open">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🧑‍💼</span> صورة المدرب الرئيسية</span>
+        <span class="acc-chevron">▲</span>
+      </div>
+      <div class="acc-body">
+        <p style="color:var(--muted);font-size:13px;margin-bottom:14px">هذه الصورة تظهر في قسم المدرب في الموقعين العربي والإنجليزي.</p>
+        <div class="drop-zone" id="heroDropZone">
+          <div class="drop-icon">📸</div>
+          <p>اسحب وأفلت صورة هنا، أو انقر للاختيار</p>
+          <p style="font-size:12px;margin-top:6px">JPG، PNG، WEBP — أقصى حجم 5MB</p>
+          <input type="file" accept="image/*" onchange="handleImageFile(this.files[0], 'hero')">
+        </div>
+        <div class="img-preview" id="heroPreview" style="display:none">
+          <img id="heroPreviewImg" src="" alt="">
+          <div class="img-url" id="heroPreviewUrl"></div>
+        </div>
+        <div style="margin-top:12px">
+          <div class="field"><label>أو أدخل URL الصورة مباشرة</label>
+            <input id="heroImageUrl" value="" dir="ltr" placeholder="/assets/images/hero.jpeg" style="font-family:monospace">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title"><span class="acc-icon">🖼️</span> صور البرامج (Tabs)</span>
+        <span class="acc-chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <p style="color:var(--muted);font-size:13px;margin-bottom:16px">صور تظهر في قسم البرامج داخل كل تاب.</p>
+        <div id="tab-images-editor"></div>
+      </div>
+    </div>
+
+  </div><!-- /panel-images -->
+
+</main>
+
+<div class="save-bar">
+  <span class="save-status" id="saveStatus">تحميل البيانات...</span>
+  <button class="btn primary" id="saveBtnBar" onclick="saveAll()">💾 حفظ التغييرات</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const REPO = 'Eng-Kirolos-Ehab/o2f-life';
+const HV2_FILE  = 'src/_data/homeV2.json';
+const SITE_FILE = 'src/_data/site.json';
+
+const token = localStorage.getItem('o2f-gh-token');
+let hv2Data = null, siteData = null;
+let hv2Sha = '', siteSha = '';
+
+/* ─── GitHub API ─── */
+async function ghGet(path) {
+  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+  const j = await res.json();
+  return { sha: j.sha, content: JSON.parse(atob(j.content.replace(/\n/g, ''))) };
+}
+
+async function ghPut(path, sha, content, message) {
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2))));
+  const body = { message, content: encoded, sha };
+  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `token ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/vnd.github.v3+json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Save failed');
+  }
+  const j = await res.json();
+  return j.content.sha;
+}
+
+async function ghUploadImage(filename, base64Data) {
+  const path = `src/assets/images/uploads/${filename}`;
+  let sha;
+  try {
+    const existing = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+      headers: { Authorization: `token ${token}` }
+    });
+    if (existing.ok) { sha = (await existing.json()).sha; }
+  } catch {}
+  const body = { message: `Admin: upload image ${filename}`, content: base64Data };
+  if (sha) body.sha = sha;
+  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    method: 'PUT',
+    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error('Image upload failed');
+  return `/assets/images/uploads/${filename}`;
+}
+
+/* ─── Load data ─── */
+async function loadData() {
+  try {
+    if (!token) {
+      showToast('لم يتم العثور على GitHub token. سجّل دخولك مجدداً.', 'err');
+      setTimeout(() => location.replace('./login.html'), 2000);
+      return;
+    }
+    const [hv2Res, siteRes] = await Promise.all([ghGet(HV2_FILE), ghGet(SITE_FILE)]);
+    hv2Data = hv2Res.content; hv2Sha = hv2Res.sha;
+    siteData = siteRes.content; siteSha = siteRes.sha;
+    populateFields();
+    setStatus('جاهز للتعديل ✓');
+  } catch (e) {
+    showToast('خطأ في تحميل البيانات: ' + e.message, 'err');
+    setStatus('خطأ في التحميل');
+  }
+}
+
+/* ─── Populate ─── */
+function set(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.tagName === 'TEXTAREA') el.value = val || '';
+  else el.value = val || '';
+}
+
+function populateFields() {
+  const ar = hv2Data.ar, en = hv2Data.en;
+
+  /* AR hero */
+  set('ar.hero.kicker', ar.hero.kicker);
+  set('ar.hero.title', ar.hero.title);
+  set('ar.hero.description', ar.hero.description);
+  set('ar.hero.cta_primary', ar.hero.cta_primary);
+  set('ar.hero.cta_secondary', ar.hero.cta_secondary);
+
+  /* AR coach */
+  set('ar.coach.kicker', ar.coach.kicker);
+  set('ar.coach.title', ar.coach.title);
+  set('ar.coach.bio', ar.coach.bio);
+  set('ar.coach.cta', ar.coach.cta);
+  set('ar.coach.chips', (ar.coach.chips || []).join('\n'));
+  set('ar.coach.stats.years_label', ar.coach.stats.years_label);
+  set('ar.coach.stats.clients_label', ar.coach.stats.clients_label);
+  set('ar.coach.stats.custom_label', ar.coach.stats.custom_label);
+  set('ar.coach.stats.support_label', ar.coach.stats.support_label);
+
+  /* AR journey */
+  renderJourney('ar', ar.journey || []);
+
+  /* AR programs */
+  renderProgramTabs('ar', ar.programs.tabs || []);
+  set('ar.programs.kicker', ar.programs.kicker);
+  set('ar.programs.title', ar.programs.title);
+  set('ar.programs.desc', ar.programs.desc);
+
+  /* AR how_it_works */
+  set('ar.how_it_works.kicker', ar.how_it_works.kicker);
+  set('ar.how_it_works.title', ar.how_it_works.title);
+  renderSteps('ar', ar.how_it_works.steps || []);
+
+  /* AR results */
+  set('ar.results.kicker', ar.results.kicker);
+  set('ar.results.title', ar.results.title);
+  set('ar.results.desc', ar.results.desc);
+  set('ar.results.points', (ar.results.points || []).join('\n'));
+
+  /* AR stories */
+  set('ar.stories.kicker', ar.stories.kicker);
+  set('ar.stories.title', ar.stories.title);
+
+  /* AR contact */
+  set('ar.contact.kicker', ar.contact.kicker);
+  set('ar.contact.title', ar.contact.title);
+  set('ar.contact.desc', ar.contact.desc);
+  set('ar.contact.cta_primary', ar.contact.cta_primary);
+  set('ar.contact.cta_secondary', ar.contact.cta_secondary);
+
+  /* AR faq */
+  renderFaq('ar', ar.faq || []);
+
+  /* AR plans */
+  set('ar.plans.kicker', ar.plans.kicker);
+  set('ar.plans.title', ar.plans.title);
+  set('ar.plans.desc', ar.plans.desc);
+
+  /* EN hero */
+  set('en.hero.kicker', en.hero.kicker);
+  set('en.hero.title', en.hero.title);
+  set('en.hero.description', en.hero.description);
+  set('en.hero.cta_primary', en.hero.cta_primary);
+  set('en.hero.cta_secondary', en.hero.cta_secondary);
+
+  /* EN coach */
+  set('en.coach.kicker', en.coach.kicker);
+  set('en.coach.title', en.coach.title);
+  set('en.coach.bio', en.coach.bio);
+  set('en.coach.cta', en.coach.cta);
+  set('en.coach.chips', (en.coach.chips || []).join('\n'));
+  set('en.coach.stats.years_label', en.coach.stats.years_label);
+  set('en.coach.stats.clients_label', en.coach.stats.clients_label);
+  set('en.coach.stats.custom_label', en.coach.stats.custom_label);
+  set('en.coach.stats.support_label', en.coach.stats.support_label);
+
+  /* EN journey */
+  renderJourney('en', en.journey || []);
+
+  /* EN programs */
+  renderProgramTabs('en', en.programs.tabs || []);
+  set('en.programs.kicker', en.programs.kicker);
+  set('en.programs.title', en.programs.title);
+  set('en.programs.desc', en.programs.desc);
+
+  /* EN how_it_works */
+  set('en.how_it_works.kicker', en.how_it_works.kicker);
+  set('en.how_it_works.title', en.how_it_works.title);
+  renderSteps('en', en.how_it_works.steps || []);
+
+  /* EN results */
+  set('en.results.kicker', en.results.kicker);
+  set('en.results.title', en.results.title);
+  set('en.results.desc', en.results.desc);
+  set('en.results.points', (en.results.points || []).join('\n'));
+
+  /* EN stories */
+  set('en.stories.kicker', en.stories.kicker);
+  set('en.stories.title', en.stories.title);
+
+  /* EN contact */
+  set('en.contact.kicker', en.contact.kicker);
+  set('en.contact.title', en.contact.title);
+  set('en.contact.desc', en.contact.desc);
+  set('en.contact.cta_primary', en.contact.cta_primary);
+  set('en.contact.cta_secondary', en.contact.cta_secondary);
+
+  /* EN faq */
+  renderFaq('en', en.faq || []);
+
+  /* EN plans */
+  set('en.plans.kicker', en.plans.kicker);
+  set('en.plans.title', en.plans.title);
+  set('en.plans.desc', en.plans.desc);
+
+  /* Images */
+  populateImages();
+}
+
+function populateImages() {
+  const heroUrl = siteData.heroImage || '/assets/images/hero.jpeg';
+  set('heroImageUrl', heroUrl);
+  showImagePreview('hero', heroUrl);
+  renderTabImagesEditor();
+}
+
+/* ─── List renderers ─── */
+function renderJourney(lang, steps) {
+  const container = document.getElementById(lang + '.journey');
+  if (!container) return;
+  container.innerHTML = '';
+  const isAr = lang === 'ar';
+  steps.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    if (!isAr) div.dir = 'ltr';
+    div.innerHTML = `
+      <button class="rm" onclick="this.parentNode.remove()">×</button>
+      <div class="field"><label>${isAr ? 'عنوان الخطوة' : 'Step title'}</label>
+        <input data-key="title" value="${esc(s.title)}" ${!isAr ? 'dir="ltr"' : ''}>
+      </div>
+      <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
+        <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}>${esc(s.desc)}</textarea>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function addJourneyStep(lang) {
+  const isAr = lang === 'ar';
+  const container = document.getElementById(lang + '.journey');
+  const div = document.createElement('div');
+  div.className = 'list-item';
+  if (!isAr) div.dir = 'ltr';
+  div.innerHTML = `
+    <button class="rm" onclick="this.parentNode.remove()">×</button>
+    <div class="field"><label>${isAr ? 'عنوان الخطوة' : 'Step title'}</label>
+      <input data-key="title" value="" ${!isAr ? 'dir="ltr"' : ''}>
+    </div>
+    <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
+      <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}></textarea>
+    </div>`;
+  container.appendChild(div);
+}
+
+function renderSteps(lang, steps) {
+  const container = document.getElementById(lang + '.how_it_works.steps');
+  if (!container) return;
+  container.innerHTML = '';
+  const isAr = lang === 'ar';
+  steps.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    if (!isAr) div.dir = 'ltr';
+    div.innerHTML = `
+      <button class="rm" onclick="this.parentNode.remove()">×</button>
+      <div class="field"><label>${isAr ? 'العنوان' : 'Title'}</label>
+        <input data-key="title" value="${esc(s.title)}" ${!isAr ? 'dir="ltr"' : ''}>
+      </div>
+      <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
+        <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}>${esc(s.desc)}</textarea>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function addStep(lang) {
+  const isAr = lang === 'ar';
+  const container = document.getElementById(lang + '.how_it_works.steps');
+  const div = document.createElement('div');
+  div.className = 'list-item';
+  if (!isAr) div.dir = 'ltr';
+  div.innerHTML = `
+    <button class="rm" onclick="this.parentNode.remove()">×</button>
+    <div class="field"><label>${isAr ? 'العنوان' : 'Title'}</label>
+      <input data-key="title" value="" ${!isAr ? 'dir="ltr"' : ''}>
+    </div>
+    <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
+      <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}></textarea>
+    </div>`;
+  container.appendChild(div);
+}
+
+function renderFaq(lang, items) {
+  const container = document.getElementById(lang + '.faq');
+  if (!container) return;
+  container.innerHTML = '';
+  const isAr = lang === 'ar';
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    if (!isAr) div.dir = 'ltr';
+    div.innerHTML = `
+      <button class="rm" onclick="this.parentNode.remove()">×</button>
+      <div class="field"><label>${isAr ? 'السؤال' : 'Question'}</label>
+        <input data-key="q" value="${esc(item.q)}" ${!isAr ? 'dir="ltr"' : ''}>
+      </div>
+      <div class="field"><label>${isAr ? 'الإجابة' : 'Answer'}</label>
+        <textarea data-key="a" ${!isAr ? 'dir="ltr"' : ''}>${esc(item.a)}</textarea>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function addFaq(lang) {
+  const isAr = lang === 'ar';
+  const container = document.getElementById(lang + '.faq');
+  const div = document.createElement('div');
+  div.className = 'list-item';
+  if (!isAr) div.dir = 'ltr';
+  div.innerHTML = `
+    <button class="rm" onclick="this.parentNode.remove()">×</button>
+    <div class="field"><label>${isAr ? 'السؤال' : 'Question'}</label>
+      <input data-key="q" value="" ${!isAr ? 'dir="ltr"' : ''}>
+    </div>
+    <div class="field"><label>${isAr ? 'الإجابة' : 'Answer'}</label>
+      <textarea data-key="a" ${!isAr ? 'dir="ltr"' : ''}></textarea>
+    </div>`;
+  container.appendChild(div);
+}
+
+function renderProgramTabs(lang, tabs) {
+  const container = document.getElementById(lang + '-program-tabs');
+  if (!container) return;
+  container.innerHTML = '';
+  const isAr = lang === 'ar';
+  tabs.forEach((tab, ti) => {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'border:1px solid var(--line2);border-radius:12px;padding:16px;margin-top:14px';
+    wrap.dataset.tabIndex = ti;
+    wrap.innerHTML = `
+      <p style="font-weight:800;margin-bottom:14px;color:var(--mint)">${isAr ? 'تاب' : 'Tab'} ${ti + 1}: <input data-field="label" value="${esc(tab.label)}" ${!isAr ? 'dir="ltr"' : ''} style="background:transparent;border:none;border-bottom:1px solid var(--line2);color:var(--off);font-weight:800;width:180px;padding:2px 4px;outline:none"></p>
+      <div class="grid2">
+        <div class="field ${isAr ? '' : 'en'}"><label>Kicker</label><input data-field="kicker" value="${esc(tab.kicker)}" ${!isAr ? 'dir="ltr"' : ''}></div>
+        <div class="field ${isAr ? '' : 'en'}"><label>${isAr ? 'عنوان Caption' : 'Caption Title'}</label><input data-field="caption_title" value="${esc(tab.caption_title)}" ${!isAr ? 'dir="ltr"' : ''}></div>
+      </div>
+      <div class="field ${isAr ? '' : 'en'}"><label>${isAr ? 'العنوان الكامل' : 'Full Title'}</label><input data-field="title" value="${esc(tab.title)}" ${!isAr ? 'dir="ltr"' : ''}></div>
+      <div class="field ${isAr ? '' : 'en'}"><label>${isAr ? 'الوصف' : 'Description'}</label><textarea data-field="desc" ${!isAr ? 'dir="ltr"' : ''}>${esc(tab.desc)}</textarea></div>
+      <div class="tab-cards" data-lang="${lang}" data-tab="${ti}">
+        ${(tab.cards || []).map((c, ci) => `
+          <div class="field ${isAr ? '' : 'en'}" style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px">
+            <label>${isAr ? 'كارت' : 'Card'} ${ci + 1}</label>
+            <input data-card="${ci}" data-cfield="label" value="${esc(c.label)}" placeholder="${isAr ? 'عنوان' : 'Label'}" style="margin-bottom:8px" ${!isAr ? 'dir="ltr"' : ''}>
+            <textarea data-card="${ci}" data-cfield="text" ${!isAr ? 'dir="ltr"' : ''}>${esc(c.text)}</textarea>
+          </div>`).join('')}
+      </div>`;
+    container.appendChild(wrap);
+  });
+}
+
+function renderTabImagesEditor() {
+  const container = document.getElementById('tab-images-editor');
+  if (!container) return;
+  const tabs = (hv2Data.en.programs.tabs || []);
+  container.innerHTML = '';
+  tabs.forEach((tab, i) => {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'margin-bottom:24px';
+    wrap.innerHTML = `
+      <p style="font-weight:800;margin-bottom:10px">${tab.label}</p>
+      <div class="drop-zone" id="tabDrop-${i}" style="padding:20px">
+        <div class="drop-icon" style="font-size:22px">🖼️</div>
+        <p style="font-size:13px">اسحب صورة هنا أو انقر</p>
+        <input type="file" accept="image/*" onchange="handleImageFile(this.files[0], 'tab-${i}')">
+      </div>
+      <div class="field" style="margin-top:10px">
+        <label>URL الصورة (unsplash أو مسار محلي)</label>
+        <input id="tabImg-${i}" value="${esc(tab.image || '')}" dir="ltr" style="font-family:monospace;font-size:12px">
+      </div>`;
+    container.appendChild(wrap);
+    setupDrop(`tabDrop-${i}`, `tab-${i}`);
+  });
+}
+
+/* ─── Read fields back ─── */
+function val(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+function readListItems(containerId, keys) {
+  const container = document.getElementById(containerId);
+  if (!container) return [];
+  return Array.from(container.querySelectorAll('.list-item')).map(item => {
+    const obj = {};
+    keys.forEach(k => {
+      const el = item.querySelector(`[data-key="${k}"]`);
+      obj[k] = el ? el.value.trim() : '';
+    });
+    return obj;
+  });
+}
+
+function readFaqItems(lang) {
+  return readListItems(lang + '.faq', ['q', 'a']);
+}
+
+function readStepItems(lang) {
+  return readListItems(lang + '.how_it_works.steps', ['title', 'desc']);
+}
+
+function readJourneyItems(lang) {
+  return readListItems(lang + '.journey', ['title', 'desc']);
+}
+
+function readProgramTabs(lang) {
+  const container = document.getElementById(lang + '-program-tabs');
+  if (!container) return hv2Data[lang].programs.tabs;
+  const origTabs = hv2Data[lang].programs.tabs || [];
+  return Array.from(container.children).map((wrap, ti) => {
+    const orig = origTabs[ti] || {};
+    const field = (f) => { const el = wrap.querySelector(`[data-field="${f}"]`); return el ? el.value.trim() : (orig[f] || ''); };
+    const cards = (orig.cards || []).map((c, ci) => {
+      const lbl = wrap.querySelector(`[data-card="${ci}"][data-cfield="label"]`);
+      const txt = wrap.querySelector(`[data-card="${ci}"][data-cfield="text"]`);
+      return { label: lbl ? lbl.value.trim() : c.label, text: txt ? txt.value.trim() : c.text };
+    });
+    /* Tab image URL comes from the Images panel (shared across languages) */
+    const imgInput = document.getElementById('tabImg-' + ti);
+    const image = imgInput ? imgInput.value.trim() : (orig.image || '');
+    return { key: orig.key, label: field('label'), kicker: field('kicker'), title: field('title'), desc: field('desc'), caption_title: field('caption_title'), image, cards };
+  });
+}
+
+/* ─── Build data objects ─── */
+function buildHv2() {
+  return {
+    en: {
+      hero: {
+        kicker: val('en.hero.kicker'), title: val('en.hero.title'),
+        description: val('en.hero.description'), cta_primary: val('en.hero.cta_primary'),
+        cta_secondary: val('en.hero.cta_secondary')
+      },
+      coach: {
+        kicker: val('en.coach.kicker'), title: val('en.coach.title'),
+        bio: val('en.coach.bio'), cta: val('en.coach.cta'),
+        chips: val('en.coach.chips').split('\n').map(s => s.trim()).filter(Boolean),
+        stats: {
+          years_label: val('en.coach.stats.years_label'),
+          clients_label: val('en.coach.stats.clients_label'),
+          custom_label: val('en.coach.stats.custom_label'),
+          support_label: val('en.coach.stats.support_label')
+        }
+      },
+      journey: readJourneyItems('en'),
+      programs: {
+        kicker: val('en.programs.kicker'), title: val('en.programs.title'),
+        desc: val('en.programs.desc'), tabs: readProgramTabs('en')
+      },
+      how_it_works: {
+        kicker: val('en.how_it_works.kicker'), title: val('en.how_it_works.title'),
+        steps: readStepItems('en')
+      },
+      results: {
+        kicker: val('en.results.kicker'), title: val('en.results.title'),
+        desc: val('en.results.desc'),
+        points: val('en.results.points').split('\n').map(s => s.trim()).filter(Boolean)
+      },
+      stories: { kicker: val('en.stories.kicker'), title: val('en.stories.title') },
+      contact: {
+        kicker: val('en.contact.kicker'), title: val('en.contact.title'),
+        desc: val('en.contact.desc'), cta_primary: val('en.contact.cta_primary'),
+        cta_secondary: val('en.contact.cta_secondary')
+      },
+      faq: readFaqItems('en'),
+      plans: {
+        kicker: val('en.plans.kicker'), title: val('en.plans.title'),
+        desc: val('en.plans.desc'), items: hv2Data.en.plans.items
+      }
+    },
+    ar: {
+      hero: {
+        kicker: val('ar.hero.kicker'), title: val('ar.hero.title'),
+        description: val('ar.hero.description'), cta_primary: val('ar.hero.cta_primary'),
+        cta_secondary: val('ar.hero.cta_secondary')
+      },
+      coach: {
+        kicker: val('ar.coach.kicker'), title: val('ar.coach.title'),
+        bio: val('ar.coach.bio'), cta: val('ar.coach.cta'),
+        chips: val('ar.coach.chips').split('\n').map(s => s.trim()).filter(Boolean),
+        stats: {
+          years_label: val('ar.coach.stats.years_label'),
+          clients_label: val('ar.coach.stats.clients_label'),
+          custom_label: val('ar.coach.stats.custom_label'),
+          support_label: val('ar.coach.stats.support_label')
+        }
+      },
+      journey: readJourneyItems('ar'),
+      programs: {
+        kicker: val('ar.programs.kicker'), title: val('ar.programs.title'),
+        desc: val('ar.programs.desc'), tabs: readProgramTabs('ar')
+      },
+      how_it_works: {
+        kicker: val('ar.how_it_works.kicker'), title: val('ar.how_it_works.title'),
+        steps: readStepItems('ar')
+      },
+      results: {
+        kicker: val('ar.results.kicker'), title: val('ar.results.title'),
+        desc: val('ar.results.desc'),
+        points: val('ar.results.points').split('\n').map(s => s.trim()).filter(Boolean)
+      },
+      stories: { kicker: val('ar.stories.kicker'), title: val('ar.stories.title') },
+      contact: {
+        kicker: val('ar.contact.kicker'), title: val('ar.contact.title'),
+        desc: val('ar.contact.desc'), cta_primary: val('ar.contact.cta_primary'),
+        cta_secondary: val('ar.contact.cta_secondary')
+      },
+      faq: readFaqItems('ar'),
+      plans: {
+        kicker: val('ar.plans.kicker'), title: val('ar.plans.title'),
+        desc: val('ar.plans.desc'), items: hv2Data.ar.plans.items
+      }
+    }
+  };
+}
+
+/* ─── Save ─── */
+async function saveAll() {
+  const btn = document.getElementById('saveBtnBar');
+  btn.disabled = true;
+  btn.textContent = '⏳ جاري الحفظ...';
+  setStatus('جاري الحفظ...');
+  try {
+    const newHv2 = buildHv2();
+    hv2Sha = await ghPut(HV2_FILE, hv2Sha, newHv2, 'Admin: update homepage content [en+ar]');
+    hv2Data = newHv2;
+
+    /* Save hero image URL if changed */
+    const heroUrl = val('heroImageUrl');
+    if (heroUrl && heroUrl !== siteData.heroImage) {
+      siteData.heroImage = heroUrl;
+      siteSha = await ghPut(SITE_FILE, siteSha, siteData, 'Admin: update hero image');
+    }
+
+    showToast('تم الحفظ بنجاح ✓ — سيظهر على الموقع خلال دقيقة', 'ok');
+    setStatus('تم الحفظ ✓');
+  } catch (e) {
+    showToast('خطأ في الحفظ: ' + e.message, 'err');
+    setStatus('خطأ في الحفظ');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 حفظ التغييرات';
+  }
+}
+
+/* ─── Image upload ─── */
+function handleImageFile(file, target) {
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('الصورة أكبر من 5MB', 'err'); return; }
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const dataUrl = e.target.result;
+    const base64 = dataUrl.split(',')[1];
+    showImagePreview(target, dataUrl);
+    try {
+      const ext = file.name.split('.').pop();
+      const filename = Date.now() + '-' + (target === 'hero' ? 'hero' : 'tab-' + target.split('-')[1]) + '.' + ext;
+      setStatus('جاري رفع الصورة...');
+      const url = await ghUploadImage(filename, base64);
+      if (target === 'hero') { set('heroImageUrl', url); showImagePreview('hero', url); }
+      else {
+        const idx = target.split('-')[1];
+        const tabInput = document.getElementById('tabImg-' + idx);
+        if (tabInput) tabInput.value = url;
+      }
+      showToast('تم رفع الصورة ✓', 'ok');
+      setStatus('جاهز ✓');
+    } catch (err) {
+      showToast('خطأ في رفع الصورة: ' + err.message, 'err');
+      setStatus('خطأ في رفع الصورة');
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function showImagePreview(target, src) {
+  if (target === 'hero') {
+    const preview = document.getElementById('heroPreview');
+    const img = document.getElementById('heroPreviewImg');
+    const urlEl = document.getElementById('heroPreviewUrl');
+    if (preview && img) { preview.style.display = 'block'; img.src = src; urlEl.textContent = src; }
+  }
+}
+
+function setupDrop(zoneId, target) {
+  const zone = document.getElementById(zoneId);
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) handleImageFile(file, target);
+  });
+}
+
+/* ─── Setup hero drop zone ─── */
+function setupHeroDrop() {
+  const zone = document.getElementById('heroDropZone');
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) handleImageFile(file, 'hero');
+  });
+}
+
+/* ─── UI helpers ─── */
+function toggleAcc(head) {
+  head.parentNode.classList.toggle('open');
+  head.querySelector('.acc-chevron').textContent = head.parentNode.classList.contains('open') ? '▲' : '▼';
+}
+
+function switchLang(lang) {
+  document.querySelectorAll('.lang-tab').forEach(t => t.classList.toggle('active', t.dataset.lang === lang));
+  document.querySelectorAll('.lang-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + lang));
+}
+
+function setStatus(msg) { const el = document.getElementById('saveStatus'); if (el) el.textContent = msg; }
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show ' + (type || '');
+  setTimeout(() => t.className = 'toast', 3800);
+}
+
+function esc(s) { return (s || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+/* ─── Init ─── */
+const params = new URLSearchParams(location.search);
+if (params.get('lang') === 'en') switchLang('en');
+if (params.get('lang') === 'images' || location.hash === '#images') switchLang('images');
+
+setupHeroDrop();
+loadData();
+</script>
+</body>
+</html>

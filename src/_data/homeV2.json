@@ -106,6 +106,7 @@
           "title": "Anti-Aging & Long-Term Vitality",
           "desc": "A guided route focused on recovery, vitality, sustainable habits, and better daily performance.",
           "caption_title": "Continuity and vitality",
+          "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
           "cards": [
             {"label": "For whom?", "text": "People who want more energy, better recovery, and a healthier routine."},
             {"label": "Includes", "text": "Lifestyle assessment, recovery direction, nutrition support, and follow-up."},
@@ -119,6 +120,7 @@
           "title": "Methylene Blue Education & Guidance",
           "desc": "A simple educational route that explains the idea clearly and guides the visitor toward the right next step.",
           "caption_title": "Scientific but simple",
+          "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
           "cards": [
             {"label": "For whom?", "text": "People interested in focus, energy, and cellular-performance concepts."},
             {"label": "Includes", "text": "Simple explanation, guided understanding, and consultation-first direction."},
@@ -132,6 +134,7 @@
           "title": "Training Transformation",
           "desc": "A structured route that combines training, nutrition, and follow-up to drive visible physical transformation.",
           "caption_title": "Movement and discipline",
+          "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
           "cards": [
             {"label": "For whom?", "text": "Beginners, returning trainees, and people who need clear structure."},
             {"label": "Includes", "text": "Training plan, nutrition direction, weekly tracking, and adjustments."},
@@ -248,6 +251,7 @@
           "title": "Anti-Aging & Long-Term Vitality",
           "desc": "مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.",
           "caption_title": "استمرارية وحيوية",
+          "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
           "cards": [
             {"label": "مناسب لمين؟", "text": "للي عايز طاقة أفضل وتعافي أحسن وروتين صحي."},
             {"label": "يشمل", "text": "تقييم نمط الحياة، توجيه التعافي، دعم التغذية، والمتابعة."},
@@ -261,6 +265,7 @@
           "title": "Methylene Blue Education & Guidance",
           "desc": "مسار توعوي يشرح الفكرة ببساطة ويوجه الزائر للخطوة المناسبة بأمان.",
           "caption_title": "علمي لكن بسيط",
+          "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
           "cards": [
             {"label": "مناسب لمين؟", "text": "للمهتمين بالطاقة، التركيز، ومفاهيم الأداء الخلوي."},
             {"label": "يشمل", "text": "شرح مبسط، فهم موجه، وخطوة استشارية قبل أي قرار."},
@@ -274,6 +279,7 @@
           "title": "Training Transformation",
           "desc": "مسار منظم يجمع التدريب والتغذية والمتابعة لتحقيق تحول بدني ملموس.",
           "caption_title": "حركة وانضباط",
+          "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
           "cards": [
             {"label": "مناسب لمين؟", "text": "للمبتدئين، العائدين للتمرين، أو اللي محتاج نظام واضح."},
             {"label": "يشمل", "text": "خطة تدريب، توجيه تغذية، متابعة أسبوعية، وتعديلات."},
