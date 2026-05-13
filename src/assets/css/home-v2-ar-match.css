@@ -21,31 +21,9 @@
 .o2f-v2-ar .comment-service{display:block!important;color:var(--lime)!important;font-size:12px!important;font-weight:700!important}
 @media(max-width:720px){.o2f-v2-ar .comment-card{flex-basis:300px!important;width:300px!important;min-height:210px!important;padding:18px!important}}
 
-/* ── Experience / timeline — AR version ── */
-.o2f-v2-ar .osama-timeline{padding-top:clamp(70px,10vh,120px)!important;overflow:hidden!important}
-.o2f-v2-ar .timeline-wrap{display:block!important}
-.o2f-v2-ar .timeline-intro{padding:30px!important;margin-bottom:30px!important;position:relative!important;top:auto!important}
-.o2f-v2-ar .timeline-intro h2{text-align:right!important}
-.o2f-v2-ar .timeline-intro p{text-align:right!important}
-.o2f-v2-ar .timeline-list{position:relative!important;display:grid!important;grid-template-columns:repeat(7,1fr)!important;gap:16px!important;overflow:visible!important;padding:24px 0!important}
-.o2f-v2-ar .timeline-list:before{content:""!important;position:absolute!important;left:4%!important;right:4%!important;top:50%!important;height:2px!important;background:linear-gradient(90deg,rgba(168,255,120,.1),rgba(168,255,120,.75),rgba(255,255,255,.14))!important;z-index:0!important}
-.o2f-v2-ar .timeline-item{display:grid!important;grid-template-rows:250px 70px 250px!important;align-items:center!important;justify-items:center!important;position:relative!important;min-height:570px!important;z-index:1!important}
-.o2f-v2-ar .timeline-year{grid-row:2!important;width:62px!important;height:52px!important;border-radius:18px!important;display:grid!important;place-items:center!important;background:linear-gradient(145deg,rgba(168,255,120,.32),rgba(255,255,255,.1))!important;border:1px solid rgba(168,255,120,.42)!important;color:#fff!important;font-weight:1000!important;font-size:12px!important;z-index:3!important;box-shadow:0 14px 40px rgba(0,0,0,.28)!important}
-.o2f-v2-ar .timeline-card{width:100%!important;min-height:215px!important;padding:18px!important;border-radius:24px!important;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.06))!important;border:1px solid rgba(255,255,255,.18)!important;z-index:2!important;text-align:right!important}
-.o2f-v2-ar .timeline-item:nth-child(odd) .timeline-card{grid-row:1!important;align-self:end!important}
-.o2f-v2-ar .timeline-item:nth-child(even) .timeline-card{grid-row:3!important;align-self:start!important}
-.o2f-v2-ar .timeline-card b{display:block!important;color:#fff!important;font-size:clamp(14px,1.1vw,18px)!important;line-height:1.25!important;margin-bottom:6px!important}
-.o2f-v2-ar .achievement-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:12px!important;margin-top:18px!important}
-.o2f-v2-ar .achievement-card{padding:16px!important;border-radius:20px!important;background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.14)!important;text-align:center!important}
-.o2f-v2-ar .achievement-card strong{display:block!important;color:var(--lime)!important;font-size:30px!important;line-height:1!important;margin-bottom:8px!important}
-@media(max-width:1050px){
-  .o2f-v2-ar .timeline-list{grid-template-columns:1fr!important;padding:20px 0!important;gap:14px!important}
-  .o2f-v2-ar .timeline-list:before{left:30px!important;right:auto!important;top:0!important;bottom:0!important;width:2px!important;height:auto!important;background:linear-gradient(180deg,rgba(168,255,120,.85),rgba(255,255,255,.12))!important}
-  .o2f-v2-ar .timeline-item{min-height:auto!important;display:grid!important;grid-template-columns:62px 1fr!important;grid-template-rows:auto!important;align-items:start!important;justify-items:stretch!important}
-  .o2f-v2-ar .timeline-year{grid-row:auto!important;grid-column:1!important}
-  .o2f-v2-ar .timeline-card,.o2f-v2-ar .timeline-item:nth-child(odd) .timeline-card,.o2f-v2-ar .timeline-item:nth-child(even) .timeline-card{grid-row:auto!important;grid-column:2!important;align-self:auto!important;min-height:0!important}
-  .o2f-v2-ar .achievement-grid{grid-template-columns:1fr 1fr!important}
-}
+/* ── Experience / timeline — AR: force LTR layout to match EN exactly ── */
+.o2f-v2-ar .osama-timeline{direction:ltr!important;padding-top:clamp(70px,10vh,120px)!important;overflow:hidden!important}
+.o2f-v2-ar .timeline-intro p,.o2f-v2-ar .timeline-intro h2,.o2f-v2-ar .timeline-card b,.o2f-v2-ar .timeline-card p,.o2f-v2-ar .achievement-card span{direction:rtl!important;text-align:right!important}
 
 
 .o2f-v2-ar{font-family:Tajawal,Inter,system-ui,sans-serif!important}
