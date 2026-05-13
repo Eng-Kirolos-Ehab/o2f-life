@@ -29,68 +29,69 @@
       var old=stories.querySelector('.container');if(old){old.classList.remove('container')}
       var m=stories.querySelector('.marquee');
       if(m){
-        var photos=[
-          'https://randomuser.me/api/portraits/women/44.jpg','https://randomuser.me/api/portraits/men/32.jpg',
-          'https://randomuser.me/api/portraits/women/65.jpg','https://randomuser.me/api/portraits/men/41.jpg',
-          'https://randomuser.me/api/portraits/men/52.jpg','https://randomuser.me/api/portraits/women/68.jpg',
-          'https://randomuser.me/api/portraits/men/76.jpg','https://randomuser.me/api/portraits/women/12.jpg',
-          'https://randomuser.me/api/portraits/women/22.jpg','https://randomuser.me/api/portraits/men/64.jpg',
-          'https://randomuser.me/api/portraits/men/11.jpg','https://randomuser.me/api/portraits/women/29.jpg',
-          'https://randomuser.me/api/portraits/women/18.jpg','https://randomuser.me/api/portraits/men/85.jpg',
-          'https://randomuser.me/api/portraits/women/37.jpg','https://randomuser.me/api/portraits/men/73.jpg',
-          'https://randomuser.me/api/portraits/women/71.jpg','https://randomuser.me/api/portraits/men/49.jpg',
-          'https://randomuser.me/api/portraits/women/50.jpg','https://randomuser.me/api/portraits/women/75.jpg',
-          'https://randomuser.me/api/portraits/men/23.jpg','https://randomuser.me/api/portraits/women/56.jpg',
-          'https://randomuser.me/api/portraits/men/67.jpg','https://randomuser.me/api/portraits/women/83.jpg',
-          'https://randomuser.me/api/portraits/men/90.jpg','https://randomuser.me/api/portraits/women/33.jpg',
-          'https://randomuser.me/api/portraits/men/54.jpg','https://randomuser.me/api/portraits/women/62.jpg',
-          'https://randomuser.me/api/portraits/men/78.jpg','https://randomuser.me/api/portraits/women/47.jpg'
-        ];
+        /* Avatar colors — deterministic by index */
+        var avatarColors=['rgba(168,255,120,.28)','rgba(84,200,255,.28)','rgba(255,190,80,.28)','rgba(200,100,255,.28)','rgba(0,217,163,.28)','rgba(255,120,120,.28)'];
+        function mkAvatar(name,idx){
+          var bg=avatarColors[idx%avatarColors.length];
+          var initial=(name||'?')[0].toUpperCase();
+          return '<div class=”comment-avatar” style=”background:'+bg+'”>'+initial+'</div>';
+        }
+        /* c = [name, service, text, dir, colorIdx] */
         var commentsA=[
           ['Mariam Adel','Full Transformation','The follow-up made the difference. The plan changed when my body changed.','ltr',0],
-          ['Omar Khaled','Training Plan','I stopped guessing and started following simple weekly steps.','ltr',1],
-          ['سارة محمود','برنامج التحول','أكتر حاجة فرقت معايا إن الخطة كانت بتتعدل حسب تقدمي مش كلام ثابت.','rtl',2],
-          ['Youssef Amin','Wellness','The lifestyle changes improved my day, not just my workouts.','ltr',3],
-          ['مينا سامي','متابعة تدريب','كنت عارف أعمل إيه كل أسبوع، وده خلاني ألتزم من غير توتر.','rtl',4],
-          ['Hana Mostafa','Nutrition','The nutrition direction was realistic and easy to apply with my routine.','ltr',5],
-          ['عبدالله ناصر','خطة تغذية','التمرين والأكل كانوا ماشيين مع بعض، فالتغيير كان مفهوم ومريح.','rtl',6],
-          ['Nour Ibrahim','Coaching','I felt guided, not left alone with a random plan.','ltr',7],
-          ['ريم خالد','تحسين نمط الحياة','المتابعة الأسبوعية خلتني أحس إن فيه حد فاهم هدفي وماشي معايا.','rtl',8],
-          ['Karim Samir','Body Recomp','My routine became cleaner and the progress was easy to track.','ltr',9],
-          ['Dina Youssef','Weight Loss','Clear weekly targets helped me stay on track without overthinking.','ltr',10],
-          ['فريدة سليم','Anti-Aging','شعرت بفرق حقيقي في طاقتي اليومية بعد ما بدأت الخطة.','rtl',11],
-          ['Maged Fathy','Strength Plan','The progress was measurable and the system made sense from day one.','ltr',12],
-          ['لمياء حسين','تحول كامل','المتابعة الأسبوعية غيرت طريقة تفكيري في الصحة والالتزام.','rtl',13],
-          ['Sherif Nour','Nutrition Plan','Having a structure that adapts to my schedule made it sustainable.','ltr',14]
+          ['سارة محمود','برنامج التحول','أكتر حاجة فرقت معايا إن الخطة كانت بتتعدل حسب تقدمي مش كلام ثابت.','rtl',1],
+          ['Omar Khaled','Training Plan','I stopped guessing and started following simple weekly steps.','ltr',2],
+          ['مينا سامي','متابعة تدريب','كنت عارف أعمل إيه كل أسبوع، وده خلاني ألتزم من غير توتر.','rtl',3],
+          ['Hana Mostafa','Nutrition','The nutrition direction was realistic and easy to apply with my routine.','ltr',4],
+          ['عبدالله ناصر','خطة تغذية','التمرين والأكل كانوا ماشيين مع بعض، فالتغيير كان مفهوم ومريح.','rtl',5],
+          ['Nour Ibrahim','Coaching','I felt guided, not left alone with a random plan.','ltr',0],
+          ['ريم خالد','تحسين نمط الحياة','المتابعة الأسبوعية خلتني أحس إن فيه حد فاهم هدفي وماشي معايا.','rtl',1],
+          ['Karim Samir','Body Recomp','My routine became cleaner and the progress was easy to track.','ltr',2],
+          ['فريدة سليم','Anti-Aging','شعرت بفرق حقيقي في طاقتي اليومية بعد ما بدأت الخطة.','rtl',3],
+          ['Dina Youssef','Weight Loss','Clear weekly targets helped me stay on track without overthinking.','ltr',4],
+          ['لمياء حسين','تحول كامل','المتابعة الأسبوعية غيرت طريقة تفكيري في الصحة والالتزام.','rtl',5],
+          ['Maged Fathy','Strength Plan','The progress was measurable and the system made sense from day one.','ltr',0],
+          ['Youssef Amin','Wellness','The lifestyle changes improved my day, not just my workouts.','ltr',1],
+          ['نورهان علي','متابعة مستمرة','الدعم المستمر خلاني أكمل حتى لما الحماس قل.','rtl',2],
+          ['Sherif Nour','Nutrition Plan','Having a structure that adapts to my schedule made it sustainable.','ltr',3],
+          ['هدى إبراهيم','برنامج صحي','الخطة كانت واضحة ومش معقدة، وده خلاني أستمر من غير ضغط.','rtl',4],
+          ['Rami Hassan','Competition Prep','Every week felt like a clear step forward, not just hard work.','ltr',5],
+          ['منى فاروق','إنقاص وزن','شعرت إن فيه اهتمام فعلي بوضعي، مش مجرد برنامج جاهز.','rtl',0],
+          ['Ahmed Saber','Training','The simplicity of the weekly structure made everything manageable.','ltr',1]
         ];
         var commentsB=[
-          ['Ahmed Tarek','Competition Prep','Training, nutrition, and support were connected in one simple system.','ltr',15],
-          ['ليلى حسن','Anti-Aging','الخطة كانت ماشية مع يومي ومش محتاجة تعقيد عشان ألتزم.','rtl',16],
-          ['Salma Nabil','Therapeutic Nutrition','The weekly structure made training easier to stick to.','ltr',17],
-          ['يوسف عادل','تحول جسم','حسيت إن فيه نظام واضح مش مجرد نصائح عامة.','rtl',18],
-          ['Nada Fouad','Lifestyle Plan','The plan was practical and still felt premium.','ltr',19],
-          ['أحمد مصطفى','إعداد بطولة','المتابعة كانت دقيقة وخلتني أجهز بشكل أقوى.','rtl',20],
-          ['Mona Zaki','Weight Loss','I liked that the plan was simple enough to continue.','ltr',21],
-          ['خالد سامح','برنامج تدريبي','كل أسبوع كان فيه تعديل واضح على حسب النتيجة.','rtl',22],
-          ['Farah Magdy','Wellness Support','It helped me build habits instead of chasing motivation.','ltr',23],
-          ['نورهان علي','متابعة مستمرة','الدعم المستمر خلاني أكمل حتى لما الحماس قل.','rtl',24],
-          ['هاني طارق','تحضير بطولة','النظام والدقة في المتابعة جعلاني أصل لأفضل حالاتي.','rtl',25],
-          ['Yasmine Gamal','Wellness','The holistic approach to health was exactly what I needed.','ltr',26],
-          ['محمود رضا','إنقاص وزن','وضوح الخطة من البداية جعل الالتزام أمراً طبيعياً.','rtl',27],
-          ['Rasha Salem','Body Transformation','Every week brought visible progress and renewed motivation.','ltr',28],
-          ['كريمة فؤاد','متابعة تغذية','الاهتمام بالتفاصيل الشخصية جعل الخطة مناسبة تماماً لي.','rtl',29]
+          ['Ahmed Tarek','Competition Prep','Training, nutrition, and support were connected in one simple system.','ltr',2],
+          ['ليلى حسن','Anti-Aging','الخطة كانت ماشية مع يومي ومش محتاجة تعقيد عشان ألتزم.','rtl',3],
+          ['Salma Nabil','Therapeutic Nutrition','The weekly structure made training easier to stick to.','ltr',4],
+          ['يوسف عادل','تحول جسم','حسيت إن فيه نظام واضح مش مجرد نصائح عامة.','rtl',5],
+          ['Nada Fouad','Lifestyle Plan','The plan was practical and still felt premium.','ltr',0],
+          ['أحمد مصطفى','إعداد بطولة','المتابعة كانت دقيقة وخلتني أجهز بشكل أقوى.','rtl',1],
+          ['Mona Zaki','Weight Loss','I liked that the plan was simple enough to continue.','ltr',2],
+          ['خالد سامح','برنامج تدريبي','كل أسبوع كان فيه تعديل واضح على حسب النتيجة.','rtl',3],
+          ['Farah Magdy','Wellness Support','It helped me build habits instead of chasing motivation.','ltr',4],
+          ['هاني طارق','تحضير بطولة','النظام والدقة في المتابعة جعلاني أصل لأفضل حالاتي.','rtl',5],
+          ['Yasmine Gamal','Wellness','The holistic approach to health was exactly what I needed.','ltr',0],
+          ['محمود رضا','إنقاص وزن','وضوح الخطة من البداية جعل الالتزام أمراً طبيعياً.','rtl',1],
+          ['Rasha Salem','Body Transformation','Every week brought visible progress and renewed motivation.','ltr',2],
+          ['كريمة فؤاد','متابعة تغذية','الاهتمام بالتفاصيل الشخصية جعل الخطة مناسبة تماماً لي.','rtl',3],
+          ['Ibrahim Nour','Nutrition','The approach connected food and training in a way that actually worked.','ltr',4],
+          ['نجلاء سعيد','صحة عامة','أول مرة أحس إن برنامج صحي ماشي مع أسلوب حياتي فعلاً.','rtl',5],
+          ['Tarek Fathy','Strength','Consistent follow-up kept me on track even during busy weeks.','ltr',0],
+          ['داليا وليد','تغذية علاجية','التفاصيل الدقيقة في الخطة أثرت فرقاً واضحاً في نتيجتي.','rtl',1],
+          ['Omar Essam','Recomposition','Seeing measurable results weekly kept my motivation high throughout.','ltr',2],
+          ['سلمى عماد','Anti-Aging','المتابعة المستمرة جعلتني أفهم جسمي أكثر وأتعامل معه بشكل أذكى.','rtl',3]
         ];
         function mkCard(c){
-          return '<article class="comment-card" dir="'+c[3]+'">'
-            +'<div><div class="quote">“</div><h3 class="comment-plan">'+c[1]+'</h3><p>'+c[2]+'</p></div>'
-            +'<div class="comment-person">'
-              +'<img class="comment-photo" src="'+photos[c[4] % photos.length]+'" alt="'+c[0]+'" loading="lazy">'
-              +'<div><span class="comment-name">'+c[0]+'</span><span class="comment-service">'+c[1]+'</span></div>'
+          return '<article class=”comment-card” dir=”'+c[3]+'”>'
+            +'<div class=”comment-body”><div class=”quote”>“</div><p>'+c[2]+'</p></div>'
+            +'<div class=”comment-person”>'
+              +mkAvatar(c[0],c[4])
+              +'<div><span class=”comment-name”>'+c[0]+'</span><span class=”comment-service”>'+c[1]+'</span></div>'
             +'</div>'
           +'</article>';
         }
-        m.innerHTML='<div class="marquee-row row-a">'+commentsA.concat(commentsA).map(mkCard).join('')+'</div>'
-          +'<div class="marquee-row row-b">'+commentsB.concat(commentsB).map(mkCard).join('')+'</div>';
+        m.innerHTML='<div class=”marquee-row row-a”>'+commentsA.concat(commentsA).map(mkCard).join('')+'</div>'
+          +'<div class=”marquee-row row-b”>'+commentsB.concat(commentsB).map(mkCard).join('')+'</div>';
         m.style.visibility='visible';
       }
 

@@ -14,9 +14,9 @@
 .o2f-v2-ar .comment-card p{direction:auto!important;text-align:start!important}
 .o2f-v2-ar .comment-card[dir="rtl"] p{direction:rtl!important;text-align:right!important}
 .o2f-v2-ar .comment-card .quote{font-size:34px!important;color:var(--lime)!important;line-height:1!important}
-.o2f-v2-ar .comment-card .comment-plan{font-size:13px!important;color:rgba(247,255,247,.55)!important;margin:4px 0 8px!important;font-weight:600!important}
-.o2f-v2-ar .comment-person{display:flex!important;align-items:center!important;gap:12px!important;margin-top:12px!important}
-.o2f-v2-ar .comment-photo{width:42px!important;height:42px!important;border-radius:50%!important;object-fit:cover!important;flex-shrink:0!important;border:2px solid rgba(168,255,120,.25)!important}
+.o2f-v2-ar .comment-body{flex:1!important}
+.o2f-v2-ar .comment-person{display:flex!important;align-items:center!important;gap:12px!important;margin-top:14px!important}
+.o2f-v2-ar .comment-avatar{width:44px!important;height:44px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:18px!important;font-weight:900!important;color:#fff!important;flex-shrink:0!important;text-transform:uppercase!important}
 .o2f-v2-ar .comment-name{display:block!important;color:#fff!important;font-weight:800!important;font-size:15px!important}
 .o2f-v2-ar .comment-service{display:block!important;color:var(--lime)!important;font-size:12px!important;font-weight:700!important}
 @media(max-width:720px){.o2f-v2-ar .comment-card{flex-basis:300px!important;width:300px!important;min-height:210px!important;padding:18px!important}}
