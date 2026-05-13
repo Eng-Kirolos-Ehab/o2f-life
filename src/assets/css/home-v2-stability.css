@@ -14,6 +14,7 @@ body:has(.o2f-v2),body:has(.o2f-v2-ar){
   transform:none!important;
   filter:none!important;
   perspective:none!important;
+  background:transparent!important;
 }
 
 /* ── Background parallax element — sibling of .o2f-v2 for correct fixed positioning ── */
