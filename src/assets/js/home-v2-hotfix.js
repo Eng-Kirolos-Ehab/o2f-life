@@ -85,7 +85,6 @@
         }
         m.innerHTML='<div class=”marquee-row row-a”>'+commentsA.concat(commentsA).map(mkCard).join('')+'</div>'
           +'<div class=”marquee-row row-b”>'+commentsB.concat(commentsB).map(mkCard).join('')+'</div>';
-        m.style.visibility='visible';
       }
 
       /* Add comment card — language aware */

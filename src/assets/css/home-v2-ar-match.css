@@ -7,7 +7,7 @@
 .o2f-v2-ar .marquee{position:relative!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;display:grid!important;gap:18px!important;overflow:hidden!important}
 .o2f-v2-ar .marquee-row{display:flex!important;gap:18px!important;width:max-content!important;will-change:transform!important}
 .o2f-v2-ar .marquee-row.row-a{animation:homeV2MoveA 120s linear infinite!important}
-.o2f-v2-ar .marquee-row.row-b{animation:homeV2MoveB 135s linear infinite!important;transform:translateX(-50%)!important}
+.o2f-v2-ar .marquee-row.row-b{animation:homeV2MoveB 135s linear infinite!important}
 
 /* ── Comment cards — identical to EN ── */
 .o2f-v2-ar .comment-card{flex:0 0 420px!important;width:420px!important;min-height:235px!important;padding:24px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;direction:ltr!important}
