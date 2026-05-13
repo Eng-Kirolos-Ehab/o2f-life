@@ -300,7 +300,6 @@ p,li,span{color:var(--muted);line-height:1.72}
               <button type="button" class="active" data-months="1" data-discount="0">1M</button>
               <button type="button" data-months="3" data-discount="10">3M</button>
               <button type="button" data-months="6" data-discount="15">6M</button>
-              <button type="button" data-months="12" data-discount="20">12M</button>
             </div>
             <span class="saving">Total: ${{ plan.price }}</span>
             <p>{{ plan.blurb }}</p>
@@ -401,13 +400,14 @@ p,li,span{color:var(--muted);line-height:1.72}
   </main>
 
   <footer class="v2-footer">
-    <span>© {{ "" | year }} {{ site.name }}. All rights reserved.</span>
+    <span>© {{ "" | year }} {{ site.name }} — Integrated health coaching</span>
     <nav class="v2-footer-links">
-      <a href="{{ '/en/privacy/' | url }}">Privacy</a>
-      <a href="{{ '/en/terms/' | url }}">Terms</a>
+      {% if site.social.whatsapp %}<a href="https://wa.me/{{ site.social.whatsapp }}" target="_blank" rel="noopener">WhatsApp ↗</a>{% endif %}
       {% if site.social.instagram %}<a href="{{ site.social.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
       {% if site.social.facebook %}<a href="{{ site.social.facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
-      <a href="/ar/">العربية</a>
+      <a href="{{ '/en/privacy/' | url }}">Privacy</a>
+      <a href="{{ '/en/terms/' | url }}">Terms</a>
+      <a href="/ar/">AR</a>
     </nav>
   </footer>
 

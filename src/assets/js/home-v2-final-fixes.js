@@ -108,9 +108,11 @@
       var price=plan.querySelector('.plan-price');
       var cur=plan.querySelector('.plan-currency');
       var saving=plan.querySelector('.saving');
+      var isAr2=!!document.querySelector('.o2f-v2-ar');
       if(price)price.textContent=monthly.toLocaleString('en-US');
-      if(cur)cur.textContent=currency+' / month';
-      if(saving)saving.textContent='Total: '+raw.toLocaleString('en-US')+' '+currency+(btn.dataset.save?' - save '+btn.dataset.save:'');
+      if(cur)cur.textContent=currency+(isAr2?' / شهر':' / month');
+      var sv=btn.dataset.save?((' — ')+(isAr2?'وفّر ':'save ')+btn.dataset.save):'';
+      if(saving)saving.textContent=(isAr2?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+currency+sv;
     }
 
     document.querySelectorAll('#plans .month-picker button').forEach(function(btn){btn.onclick=function(){updatePlan(btn.closest('.plan'),btn)}});

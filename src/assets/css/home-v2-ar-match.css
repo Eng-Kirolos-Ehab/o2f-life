@@ -20,3 +20,14 @@
 .o2f-v2-ar .stats small{color:rgba(247,255,247,.72)!important}
 @media(max-width:1050px){.o2f-v2-ar .grid2,.o2f-v2-ar .tab-panel,.o2f-v2-ar .before-wrap{grid-template-columns:1fr!important}.o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3{grid-template-columns:1fr 1fr!important}.o2f-v2-ar .gallery-grid{grid-template-columns:1fr 1fr!important}.o2f-v2-ar #coach .coach-photo{order:-1!important}}
 @media(max-width:720px){.o2f-v2-ar .journey,.o2f-v2-ar .plans,.o2f-v2-ar .steps,.o2f-v2-ar .cards3,.o2f-v2-ar .ba,.o2f-v2-ar .gallery-grid{grid-template-columns:1fr!important}.o2f-v2-ar .tab-panel.active{display:flex!important;flex-direction:column!important}.o2f-v2-ar .visual{order:-1!important}.o2f-v2-ar .plans .highlight{order:-1!important}.o2f-v2-ar .gallery-item,.o2f-v2-ar .gallery-item.big{grid-row:auto!important;height:260px!important}.o2f-v2-ar .result-card{grid-template-columns:1fr!important}}
+
+/* ── Add comment card — Arabic ── */
+.o2f-v2-ar .add-comment-card{max-width:980px!important;margin:32px auto 0!important;padding:24px!important;display:grid!important;grid-template-columns:1fr .8fr!important;gap:18px!important;align-items:stretch!important;direction:rtl!important}
+.o2f-v2-ar .add-comment-form{display:grid!important;gap:12px!important}
+.o2f-v2-ar .add-comment-form .form-row{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+.o2f-v2-ar .add-comment-form input,.o2f-v2-ar .add-comment-form textarea{width:100%!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:16px!important;padding:13px 15px!important;color:#fff!important;background:rgba(255,255,255,.08)!important;outline:none!important;resize:vertical!important;font-family:Tajawal,system-ui,sans-serif!important;direction:rtl!important;text-align:right!important}
+.o2f-v2-ar .add-comment-note{padding:22px!important;border-radius:22px!important;background:rgba(168,255,120,.07)!important;border:1px solid rgba(168,255,120,.20)!important}
+.o2f-v2-ar .add-comment-note ul{padding-right:18px!important;padding-left:0!important;margin:10px 0 0!important}
+.o2f-v2-ar .add-comment-card h3{color:#fff!important;font-size:clamp(20px,1.8vw,26px)!important}
+@media(max-width:1050px){.o2f-v2-ar .add-comment-card{grid-template-columns:1fr!important}}
+@media(max-width:720px){.o2f-v2-ar .add-comment-form .form-row{grid-template-columns:1fr!important}}
