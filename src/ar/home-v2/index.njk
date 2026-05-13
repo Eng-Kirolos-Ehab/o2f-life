@@ -145,7 +145,7 @@ p,li,span{color:var(--muted);line-height:1.8}
     <section class="section" id="coach">
       <div class="grid2 container">
         <div class="coach-photo glass">
-          <img src="/assets/images/hero.jpeg" alt="الكابتن أسامة عمران">
+          <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="الكابتن أسامة عمران">
           <div class="stats">
             <span>{{ site.stats.years }}<br><small>{{ hv2.coach.stats.years_label }}</small></span>
             <span>{{ site.stats.clients }}<br><small>{{ hv2.coach.stats.clients_label }}</small></span>
@@ -480,7 +480,7 @@ p,li,span{color:var(--muted);line-height:1.8}
         plan.querySelectorAll('.month-picker button').forEach(function(x) { x.classList.toggle('active', x === btn); });
         var total = Math.round(base * months * (1 - discount / 100));
         priceEl.textContent = '$' + base;
-        savingEl.textContent = 'Total: $' + total + (discount ? '  —  save ' + discount + '%' : '');
+        savingEl.textContent = 'الإجمالي: $' + total + (discount ? ' — وفّر ' + discount + '%' : '');
       };
     });
   });

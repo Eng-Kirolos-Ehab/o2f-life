@@ -215,8 +215,8 @@
       "items": [
         {
           "key": "basic",
-          "kicker": "Starter",
-          "name": "Basic Plan",
+          "kicker": "البداية",
+          "name": "الخطة الأساسية",
           "price": 80,
           "currency": "USD",
           "blurb": "بداية واضحة لمن يحتاج توجيه تدريب وتغذية.",
@@ -225,7 +225,7 @@
         {
           "key": "standard",
           "kicker": "الأكثر طلبًا",
-          "name": "Standard Plan",
+          "name": "الخطة القياسية",
           "price": 120,
           "currency": "USD",
           "highlight": true,
@@ -234,8 +234,8 @@
         },
         {
           "key": "premium",
-          "kicker": "Advanced",
-          "name": "Premium Plan",
+          "kicker": "المتقدمة",
+          "name": "الخطة المتقدمة",
           "price": 180,
           "currency": "USD",
           "blurb": "متابعة أعمق وتوجيه أعلى ومحاسبة أقوى.",

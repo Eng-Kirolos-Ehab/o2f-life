@@ -145,7 +145,7 @@ p,li,span{color:var(--muted);line-height:1.72}
     <section class="section" id="coach">
       <div class="grid2 container">
         <div class="coach-photo glass">
-          <img src="/assets/images/hero.jpeg" alt="Coach Osama Omran">
+          <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="Coach Osama Omran">
           <div class="stats">
             <span>{{ site.stats.years }}<br><small>{{ hv2.coach.stats.years_label }}</small></span>
             <span>{{ site.stats.clients }}<br><small>{{ hv2.coach.stats.clients_label }}</small></span>
