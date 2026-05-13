@@ -493,7 +493,11 @@ async function ghGet(path) {
   });
   if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
   const j = await res.json();
-  return { sha: j.sha, content: JSON.parse(atob(j.content.replace(/\n/g, ''))) };
+  const raw = atob(j.content.replace(/\n/g, ''));
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  const content = JSON.parse(new TextDecoder('utf-8').decode(bytes));
+  return { sha: j.sha, content };
 }
 
 async function ghPut(path, sha, content, message) {
