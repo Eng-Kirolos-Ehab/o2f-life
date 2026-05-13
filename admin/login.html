@@ -11,21 +11,35 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --ink:#0B1220; --mint:#00D9A3; --gold:#C9A84A; --off:#F7F8FA; --muted:rgba(247,248,250,.5); --line:rgba(255,255,255,.08); }
     body { background: var(--ink); color: var(--off); font-family: 'Tajawal', system-ui, sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-    .card { width: 100%; max-width: 380px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 20px; padding: 2.5rem 2rem; margin: 1rem; }
+    .card { width: 100%; max-width: 420px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 20px; padding: 2.5rem 2rem; margin: 1rem; }
     .logo { display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem; }
     .logo-mark { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--mint), var(--gold)); flex-shrink: 0; }
     .logo-text { font-size: 1.2rem; font-weight: 800; background: linear-gradient(135deg, var(--mint), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .logo-sub { font-size: .72rem; color: var(--muted); margin-top: 2px; }
     h1 { font-size: 1.3rem; margin-bottom: .4rem; }
-    .subtitle { font-size: .875rem; color: var(--muted); margin-bottom: 1.75rem; }
+    .subtitle { font-size: .875rem; color: var(--muted); margin-bottom: 1.75rem; line-height: 1.5; }
     .field { display: grid; gap: .4rem; margin-bottom: 1rem; }
     label { font-size: .8rem; color: var(--muted); }
-    input[type="password"] { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; color: var(--off); padding: .75rem 1rem; font-family: inherit; font-size: .95rem; width: 100%; outline: none; transition: border-color .2s, box-shadow .2s; }
-    input[type="password"]:focus { border-color: rgba(0,217,163,.5); box-shadow: 0 0 0 3px rgba(0,217,163,.12); }
+    input[type="password"], input[type="text"] {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px; color: var(--off); padding: .75rem 1rem;
+      font-family: monospace; font-size: .9rem; width: 100%;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    input[type="password"] { font-family: inherit; font-size: .95rem; }
+    input:focus { border-color: rgba(0,217,163,.5); box-shadow: 0 0 0 3px rgba(0,217,163,.12); }
     .btn { width: 100%; padding: .8rem; background: var(--mint); color: var(--ink); border: none; border-radius: 12px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: .5rem; transition: filter .15s, transform .15s; }
     .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
     .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
     .error { font-size: .82rem; color: #fca5a5; background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); border-radius: 10px; padding: .6rem .9rem; margin-top: .75rem; display: none; }
+    .step { display: none; }
+    .step.active { display: block; }
+    .token-hint { font-size: .78rem; color: var(--muted); margin-top: .5rem; line-height: 1.55; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 10px; padding: .65rem .9rem; }
+    .token-hint a { color: var(--mint); text-decoration: none; }
+    .token-hint a:hover { text-decoration: underline; }
+    .skip-btn { background: transparent; border: 1px solid rgba(255,255,255,.15); color: var(--muted); width: 100%; padding: .65rem; border-radius: 12px; font-family: inherit; font-size: .875rem; cursor: pointer; margin-top: .5rem; transition: all .15s; }
+    .skip-btn:hover { border-color: rgba(255,255,255,.3); color: var(--off); }
+    .step2-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; color: var(--mint); background: rgba(0,217,163,.1); border: 1px solid rgba(0,217,163,.2); border-radius: 999px; padding: .25rem .75rem; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
@@ -37,35 +51,99 @@
         <div class="logo-sub">لوحة التحكم</div>
       </div>
     </div>
-    <h1>تسجيل الدخول</h1>
-    <p class="subtitle">أدخل كلمة المرور للوصول إلى لوحة الإدارة الرئيسية</p>
-    <form onsubmit="handleLogin(event)">
+
+    <!-- Step 1: Password -->
+    <div class="step active" id="step1">
+      <h1>تسجيل الدخول</h1>
+      <p class="subtitle">أدخل كلمة المرور للوصول إلى لوحة الإدارة</p>
+      <form onsubmit="handleLogin(event)">
+        <div class="field">
+          <label for="pass">كلمة المرور</label>
+          <input type="password" id="pass" placeholder="••••••••" autofocus autocomplete="current-password">
+        </div>
+        <button class="btn" type="submit" id="loginBtn">دخول</button>
+        <div class="error" id="errMsg">كلمة المرور غير صحيحة. حاول مرة أخرى.</div>
+      </form>
+    </div>
+
+    <!-- Step 2: GitHub Token -->
+    <div class="step" id="step2">
+      <div class="step2-badge">✓ كلمة المرور صحيحة</div>
+      <h1>ربط GitHub</h1>
+      <p class="subtitle">أدخل GitHub Personal Access Token لتفعيل الحفظ والنشر من لوحة التحكم.</p>
       <div class="field">
-        <label for="pass">كلمة المرور</label>
-        <input type="password" id="pass" placeholder="••••••••" autofocus autocomplete="current-password">
+        <label for="ghToken">GitHub Token (classic)</label>
+        <input type="text" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
       </div>
-      <button class="btn" type="submit" id="loginBtn">دخول</button>
-      <div class="error" id="errMsg">كلمة المرور غير صحيحة. حاول مرة أخرى.</div>
-    </form>
+      <div class="token-hint">
+        للحصول على token: اذهب إلى
+        <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">GitHub Settings → Tokens</a>
+        ← اختر <b>classic</b> ← فعّل صلاحية <b>repo</b> ← انسخ الـ token والصقه هنا.
+        <br><br>
+        التوكن يُحفظ في المتصفح فقط ولا يُرسل إلا إلى GitHub API مباشرةً.
+      </div>
+      <button class="btn" type="button" id="connectBtn" onclick="handleToken()">ربط وفتح لوحة التحكم</button>
+      <button class="skip-btn" type="button" onclick="skipToken()">تخطي (للقراءة فقط بدون حفظ)</button>
+      <div class="error" id="tokenErr">الـ token يجب أن يبدأ بـ ghp_ أو github_pat_</div>
+    </div>
   </div>
+
   <script>
     const PASS_HASH = '4008e341d0e8c6dc730352116664e0eadc13b56b6a6c82e8c8d91cb45992c6f6';
     if (sessionStorage.getItem('o2f-admin-auth') === '1') window.location.replace('./');
-    async function sha256(str) { const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)); return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join(''); }
+
+    async function sha256(str) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
     async function handleLogin(e) {
       e.preventDefault();
       const btn = document.getElementById('loginBtn');
       const pass = document.getElementById('pass').value;
       const err = document.getElementById('errMsg');
-      err.style.display = 'none'; btn.disabled = true; btn.textContent = 'جاري التحقق...';
+      err.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'جاري التحقق...';
       const hash = await sha256(pass);
       if (hash === PASS_HASH) {
         sessionStorage.setItem('o2f-admin-auth', '1');
-        window.location.replace('./');
+        // Check if token already saved
+        if (localStorage.getItem('o2f-gh-token')) {
+          window.location.replace('./');
+        } else {
+          document.getElementById('step1').classList.remove('active');
+          document.getElementById('step2').classList.add('active');
+          setTimeout(() => document.getElementById('ghToken').focus(), 100);
+        }
       } else {
-        err.style.display = 'block'; btn.disabled = false; btn.textContent = 'دخول'; document.getElementById('pass').value = ''; document.getElementById('pass').focus();
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'دخول';
+        document.getElementById('pass').value = '';
+        document.getElementById('pass').focus();
       }
     }
+
+    function handleToken() {
+      const token = document.getElementById('ghToken').value.trim();
+      const err = document.getElementById('tokenErr');
+      if (!token || (!token.startsWith('ghp_') && !token.startsWith('github_pat_'))) {
+        err.style.display = 'block';
+        return;
+      }
+      err.style.display = 'none';
+      localStorage.setItem('o2f-gh-token', token);
+      window.location.replace('./');
+    }
+
+    function skipToken() {
+      window.location.replace('./');
+    }
+
+    document.getElementById('ghToken').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleToken();
+    });
   </script>
 </body>
 </html>

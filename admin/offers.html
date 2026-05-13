@@ -7,8 +7,7 @@
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <script>
-    if (sessionStorage.getItem('o2f-admin-auth') !== '1' || !localStorage.getItem('o2f-gh-token')) {
-      sessionStorage.removeItem('o2f-admin-auth');
+    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
       window.location.replace('./login.html');
     }
   </script>

@@ -333,3 +333,298 @@ collections:
       - { name: description, label: "الوصف",       widget: text }
       - { name: cover,       label: "صورة الغلاف", widget: image, required: false }
       - { name: body,        label: "المحتوى",     widget: markdown }
+
+  # ════════════════════════════════════════════════════════════
+  #  HOME V2 — New homepage content (EN + AR)
+  # ════════════════════════════════════════════════════════════
+  - name: homev2
+    label: "🏠 Homepage Content (New)"
+    description: "Edit all text and images on the new EN and AR homepage."
+    files:
+
+      # ── Site images (hero photo, logo) ──────────────────────
+      - name: site-images
+        label: "📸 Site Images (Hero & Logo)"
+        file: "src/_data/site.json"
+        fields:
+          - { name: heroImage, label: "Coach Hero Photo", widget: image, hint: "Main photo shown on the homepage." }
+          - { name: logoUrl,   label: "Logo",             widget: image }
+          - { name: faviconUrl, label: "Favicon",         widget: image, required: false }
+
+      # ── English homepage content ─────────────────────────────
+      - name: homev2-en
+        label: "🇬🇧 English Homepage"
+        file: "src/_data/homeV2.json"
+        fields:
+          - label: "English Content"
+            name: en
+            widget: object
+            fields:
+
+              - label: "Hero Section"
+                name: hero
+                widget: object
+                fields:
+                  - { name: kicker,      label: "Kicker (small top text)", widget: string }
+                  - { name: title,       label: "Main headline",           widget: string }
+                  - { name: description, label: "Description",             widget: text }
+                  - { name: cta_primary,   label: "Primary button text",  widget: string }
+                  - { name: cta_secondary, label: "Secondary button text", widget: string }
+
+              - label: "Coach Section"
+                name: coach
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - { name: bio,    label: "Bio",    widget: text }
+                  - { name: cta,    label: "CTA button", widget: string }
+                  - name: chips
+                    label: "Highlight chips"
+                    widget: list
+                    field: { label: "Chip", name: item, widget: string }
+                  - label: "Stats labels"
+                    name: stats
+                    widget: object
+                    fields:
+                      - { name: years_label,   label: "Years label",   widget: string }
+                      - { name: clients_label, label: "Clients label", widget: string }
+                      - { name: custom_label,  label: "Custom label",  widget: string }
+                      - { name: support_label, label: "Support label", widget: string }
+
+              - label: "Journey Steps (3 steps)"
+                name: journey
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: "Step title", widget: string }
+                  - { name: desc,  label: "Step description", widget: text }
+
+              - label: "How It Works"
+                name: how_it_works
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - name: steps
+                    label: "Steps"
+                    widget: list
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { name: title, label: "Step title", widget: string }
+                      - { name: desc,  label: "Step description", widget: text }
+
+              - label: "Results Section"
+                name: results
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - { name: desc,   label: "Description", widget: text }
+                  - name: points
+                    label: "Bullet points"
+                    widget: list
+                    field: { label: "Point", name: item, widget: string }
+
+              - label: "Stories Section"
+                name: stories
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+
+              - label: "Contact Section"
+                name: contact
+                widget: object
+                fields:
+                  - { name: kicker,        label: "Kicker",              widget: string }
+                  - { name: title,         label: "Title",               widget: string }
+                  - { name: desc,          label: "Description",         widget: text }
+                  - { name: cta_primary,   label: "Primary button",      widget: string }
+                  - { name: cta_secondary, label: "Secondary button",    widget: string }
+
+              - label: "FAQ"
+                name: faq
+                widget: list
+                summary: "{{fields.q}}"
+                fields:
+                  - { name: q, label: "Question", widget: string }
+                  - { name: a, label: "Answer",   widget: text }
+
+              - label: "Plans Section"
+                name: plans
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - { name: desc,   label: "Description", widget: text }
+
+              - label: "Programs Section"
+                name: programs
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "Title",  widget: string }
+                  - { name: desc,   label: "Description", widget: text }
+                  - name: tabs
+                    label: "Program tabs"
+                    widget: list
+                    summary: "{{fields.label}}"
+                    fields:
+                      - { name: key,   label: "Key (no spaces)", widget: string }
+                      - { name: label, label: "Tab label",       widget: string }
+                      - { name: kicker, label: "Kicker",         widget: string }
+                      - { name: title,  label: "Title",          widget: string }
+                      - { name: desc,   label: "Description",    widget: text }
+                      - { name: caption_title, label: "Caption title", widget: string }
+                      - name: cards
+                        label: "Info cards (3)"
+                        widget: list
+                        summary: "{{fields.label}}"
+                        fields:
+                          - { name: label, label: "Card label", widget: string }
+                          - { name: text,  label: "Card text",  widget: text }
+
+          # Keep Arabic untouched in this file entry
+          - label: "Arabic Content (edited separately)"
+            name: ar
+            widget: hidden
+
+      # ── Arabic homepage content ──────────────────────────────
+      - name: homev2-ar
+        label: "🇸🇦 Arabic Homepage / الصفحة الرئيسية"
+        file: "src/_data/homeV2.json"
+        fields:
+          # Keep English untouched
+          - label: "English Content (edited separately)"
+            name: en
+            widget: hidden
+
+          - label: "المحتوى العربي"
+            name: ar
+            widget: object
+            fields:
+
+              - label: "قسم الهيرو"
+                name: hero
+                widget: object
+                fields:
+                  - { name: kicker,        label: "نص صغير في الأعلى", widget: string }
+                  - { name: title,         label: "العنوان الرئيسي",   widget: string }
+                  - { name: description,   label: "الوصف",             widget: text }
+                  - { name: cta_primary,   label: "نص الزر الأول",     widget: string }
+                  - { name: cta_secondary, label: "نص الزر الثاني",    widget: string }
+
+              - label: "قسم المدرب"
+                name: coach
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "العنوان", widget: string }
+                  - { name: bio,    label: "السيرة الذاتية", widget: text }
+                  - { name: cta,    label: "نص الزر", widget: string }
+                  - name: chips
+                    label: "الـ chips"
+                    widget: list
+                    field: { label: "Chip", name: item, widget: string }
+                  - label: "تسميات الإحصائيات"
+                    name: stats
+                    widget: object
+                    fields:
+                      - { name: years_label,   label: "تسمية السنوات",   widget: string }
+                      - { name: clients_label, label: "تسمية العملاء",   widget: string }
+                      - { name: custom_label,  label: "تسمية المخصص",    widget: string }
+                      - { name: support_label, label: "تسمية الدعم",     widget: string }
+
+              - label: "خطوات الرحلة"
+                name: journey
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: "عنوان الخطوة",  widget: string }
+                  - { name: desc,  label: "وصف الخطوة",   widget: text }
+
+              - label: "طريقة العمل"
+                name: how_it_works
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker", widget: string }
+                  - { name: title,  label: "العنوان", widget: string }
+                  - name: steps
+                    label: "الخطوات"
+                    widget: list
+                    summary: "{{fields.title}}"
+                    fields:
+                      - { name: title, label: "عنوان الخطوة", widget: string }
+                      - { name: desc,  label: "وصف الخطوة",  widget: text }
+
+              - label: "قسم النتائج"
+                name: results
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker",   widget: string }
+                  - { name: title,  label: "العنوان",  widget: string }
+                  - { name: desc,   label: "الوصف",    widget: text }
+                  - name: points
+                    label: "النقاط"
+                    widget: list
+                    field: { label: "نقطة", name: item, widget: string }
+
+              - label: "قسم التجارب"
+                name: stories
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker",   widget: string }
+                  - { name: title,  label: "العنوان",  widget: string }
+
+              - label: "قسم التواصل"
+                name: contact
+                widget: object
+                fields:
+                  - { name: kicker,        label: "Kicker",           widget: string }
+                  - { name: title,         label: "العنوان",          widget: string }
+                  - { name: desc,          label: "الوصف",            widget: text }
+                  - { name: cta_primary,   label: "الزر الأول",       widget: string }
+                  - { name: cta_secondary, label: "الزر الثاني",      widget: string }
+
+              - label: "الأسئلة الشائعة"
+                name: faq
+                widget: list
+                summary: "{{fields.q}}"
+                fields:
+                  - { name: q, label: "السؤال", widget: string }
+                  - { name: a, label: "الإجابة", widget: text }
+
+              - label: "قسم الباقات"
+                name: plans
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker",   widget: string }
+                  - { name: title,  label: "العنوان",  widget: string }
+                  - { name: desc,   label: "الوصف",    widget: text }
+
+              - label: "قسم البرامج"
+                name: programs
+                widget: object
+                fields:
+                  - { name: kicker, label: "Kicker",   widget: string }
+                  - { name: title,  label: "العنوان",  widget: string }
+                  - { name: desc,   label: "الوصف",    widget: text }
+                  - name: tabs
+                    label: "تابات البرامج"
+                    widget: list
+                    summary: "{{fields.label}}"
+                    fields:
+                      - { name: key,   label: "Key",          widget: string }
+                      - { name: label, label: "اسم التاب",    widget: string }
+                      - { name: kicker, label: "Kicker",      widget: string }
+                      - { name: title,  label: "العنوان",     widget: string }
+                      - { name: desc,   label: "الوصف",       widget: text }
+                      - { name: caption_title, label: "عنوان الكابشن", widget: string }
+                      - name: cards
+                        label: "الكروت (3)"
+                        widget: list
+                        summary: "{{fields.label}}"
+                        fields:
+                          - { name: label, label: "تسمية الكارت", widget: string }
+                          - { name: text,  label: "نص الكارت",    widget: text }
