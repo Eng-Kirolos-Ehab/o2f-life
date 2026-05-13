@@ -1,151 +1,4 @@
 {
-  "en": {
-    "hero": {
-      "kicker": "Coach Osama Omran — O2F Life",
-      "title": "Transform your body with a clear, guided system.",
-      "description": "Personalized coaching that combines training, nutrition, wellness direction, and real follow-up — built around your body, lifestyle, and goals.",
-      "cta_primary": "Start your transformation",
-      "cta_secondary": "Explore programs"
-    },
-    "coach": {
-      "kicker": "Who is Osama Omran?",
-      "title": "The coach behind the O2F system.",
-      "bio": "Osama Omran focuses on body transformation through a connected system that combines training, nutrition guidance, wellness direction, and practical follow-up. His approach is built around clarity, sustainability, and real progress — not random advice or short-term motivation.",
-      "chips": ["Personalized plans", "Training + Nutrition", "Follow-up", "Sustainable habits"],
-      "cta": "See how it works",
-      "stats": {
-        "years_label": "Years",
-        "clients_label": "Clients",
-        "custom_label": "Custom",
-        "support_label": "Support"
-      }
-    },
-    "journey": [
-      {"title": "Choose your goal", "desc": "Training transformation, anti-aging guidance, or Methylene Blue education."},
-      {"title": "Get a clear plan", "desc": "Training, nutrition, lifestyle, and follow-up are connected in one route."},
-      {"title": "Start with support", "desc": "Clear next steps, direct guidance, and a practical system to follow."}
-    ],
-    "how_it_works": {
-      "kicker": "How it works",
-      "title": "Simple process, clear next steps.",
-      "steps": [
-        {"title": "Assessment", "desc": "Your goal, body, lifestyle, and current level are reviewed first."},
-        {"title": "Personalized plan", "desc": "You receive a route built around training, nutrition, and the support you need."},
-        {"title": "Follow-up", "desc": "The plan evolves with your progress so the transformation stays realistic."}
-      ]
-    },
-    "results": {
-      "kicker": "Before & After",
-      "title": "Visible progress with a structured system.",
-      "desc": "Results come from clear planning, consistent follow-up, and practical adjustments over time.",
-      "beforeImage": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=900&q=85",
-      "afterImage": "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=900&q=85",
-      "points": [
-        "Clear tracking from the beginning.",
-        "Weekly follow-up and plan adjustments.",
-        "Training and nutrition aligned together."
-      ]
-    },
-    "stories": {
-      "kicker": "What clients say",
-      "title": "Real feedback in continuous motion."
-    },
-    "contact": {
-      "kicker": "Start now",
-      "title": "Ready to start your transformation?",
-      "desc": "Choose the path that fits your goal, and start with a system built around clarity, support, and real follow-up.",
-      "cta_primary": "Contact and subscribe",
-      "cta_secondary": "View plans"
-    },
-    "faq": [
-      {"q": "Is this only training?", "a": "No. It connects training, nutrition, wellness direction, and follow-up."},
-      {"q": "Not sure where to start?", "a": "Send your goal and current level, and the suitable route can be selected."}
-    ],
-    "plans": {
-      "kicker": "Plans",
-      "title": "Choose the level that matches your goal.",
-      "desc": "Select the number of months and see how the total changes. Longer plans give better value.",
-      "items": [
-        {
-          "key": "basic",
-          "kicker": "Starter",
-          "name": "Basic Plan",
-          "price": 80,
-          "currency": "USD",
-          "blurb": "For people who need a clean first step with training and nutrition direction.",
-          "features": ["Training direction", "Nutrition guidance", "Progress checkpoints", "Simple weekly structure"]
-        },
-        {
-          "key": "standard",
-          "kicker": "Most popular",
-          "name": "Standard Plan",
-          "price": 120,
-          "currency": "USD",
-          "highlight": true,
-          "blurb": "The balanced option for stronger follow-up and a more complete route.",
-          "features": ["Training plan", "Nutrition direction", "Weekly adjustments", "Progress tracking", "Clear action steps"]
-        },
-        {
-          "key": "premium",
-          "kicker": "Advanced",
-          "name": "Premium Plan",
-          "price": 180,
-          "currency": "USD",
-          "blurb": "For deeper follow-up, premium guidance, and stronger accountability.",
-          "features": ["Full transformation plan", "Detailed monitoring", "Lifestyle optimization", "Advanced support", "Higher accountability"]
-        }
-      ]
-    },
-    "programs": {
-      "kicker": "Choose your path",
-      "title": "Three clear routes inside one transformation system.",
-      "desc": "Each program explains who it is for, what it includes, and what the visitor should expect.",
-      "tabs": [
-        {
-          "key": "anti",
-          "label": "Anti-Aging",
-          "kicker": "Long-term vitality",
-          "title": "Anti-Aging & Long-Term Vitality",
-          "desc": "A guided route focused on recovery, vitality, sustainable habits, and better daily performance.",
-          "caption_title": "Continuity and vitality",
-          "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
-          "cards": [
-            {"label": "For whom?", "text": "People who want more energy, better recovery, and a healthier routine."},
-            {"label": "Includes", "text": "Lifestyle assessment, recovery direction, nutrition support, and follow-up."},
-            {"label": "Expected result", "text": "A clearer routine that supports vitality and consistency."}
-          ]
-        },
-        {
-          "key": "blue",
-          "label": "Methylene Blue",
-          "kicker": "Education first",
-          "title": "Methylene Blue Education & Guidance",
-          "desc": "A simple educational route that explains the idea clearly and guides the visitor toward the right next step.",
-          "caption_title": "Scientific but simple",
-          "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
-          "cards": [
-            {"label": "For whom?", "text": "People interested in focus, energy, and cellular-performance concepts."},
-            {"label": "Includes", "text": "Simple explanation, guided understanding, and consultation-first direction."},
-            {"label": "Safe next step", "text": "Ask, explore, and move forward with guidance instead of guessing."}
-          ]
-        },
-        {
-          "key": "training",
-          "label": "Training Transformation",
-          "kicker": "Visible transformation",
-          "title": "Training Transformation",
-          "desc": "A structured route that combines training, nutrition, and follow-up to drive visible physical transformation.",
-          "caption_title": "Movement and discipline",
-          "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
-          "cards": [
-            {"label": "For whom?", "text": "Beginners, returning trainees, and people who need clear structure."},
-            {"label": "Includes", "text": "Training plan, nutrition direction, weekly tracking, and adjustments."},
-            {"label": "Goal examples", "text": "Fat loss, muscle gain, recomposition, strength, and discipline."}
-          ]
-        }
-      ]
-    }
-  },
   "ar": {
     "hero": {
       "kicker": "الكابتن أسامة عمران — O2F Life",
@@ -158,8 +11,13 @@
       "kicker": "مين هو أسامة عمران؟",
       "title": "المدرب وراء نظام O2F.",
       "bio": "أسامة عمران يركز على التحول البدني من خلال نظام متصل يجمع التدريب، التغذية، التوجيه الصحي، والمتابعة العملية. الهدف هو الوضوح والاستمرارية والنتائج الواقعية.",
-      "chips": ["خطط مخصصة", "تدريب + تغذية", "متابعة", "عادات مستدامة"],
       "cta": "شوف النظام",
+      "chips": [
+        "خطط مخصصة",
+        "تدريب + تغذية",
+        "متابعة",
+        "عادات مستدامة"
+      ],
       "stats": {
         "years_label": "سنة",
         "clients_label": "عميل",
@@ -168,17 +26,111 @@
       }
     },
     "journey": [
-      {"title": "اختار هدفك", "desc": "تحول بدني، توجيه Anti-Aging، أو تثقيف عن Methylene Blue."},
-      {"title": "استلم خطة واضحة", "desc": "التدريب والتغذية ونمط الحياة والمتابعة في مسار واحد."},
-      {"title": "ابدأ بدعم مستمر", "desc": "خطوات واضحة وتوجيه عملي بدل العشوائية والتجربة والخطأ."}
+      {
+        "title": "اختار هدفك",
+        "desc": "تحول بدني، توجيه Anti-Aging، أو تثقيف عن Methylene Blue."
+      },
+      {
+        "title": "استلم خطة واضحة",
+        "desc": "التدريب والتغذية ونمط الحياة والمتابعة في مسار واحد."
+      },
+      {
+        "title": "ابدأ بدعم مستمر",
+        "desc": "خطوات واضحة وتوجيه عملي بدل العشوائية والتجربة والخطأ."
+      }
     ],
+    "programs": {
+      "kicker": "اختار مسارك",
+      "title": "ثلاث مسارات واضحة داخل نظام تحول واحد.",
+      "desc": "كل برنامج يوضح مناسب لمين، يشمل إيه، وإيه المتوقع من المتابعة.",
+      "tabs": [
+        {
+          "key": "anti",
+          "label": "Anti-Aging",
+          "kicker": "حيوية طويلة المدى",
+          "title": "مناهضة الشيخوخة والحيوية طويلة الأمد",
+          "desc": "مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.",
+          "caption_title": "استمرارية وحيوية",
+          "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
+          "cards": [
+            {
+              "label": "مناسب لمين؟",
+              "text": "للي عايز طاقة أفضل وتعافي أحسن وروتين صحي."
+            },
+            {
+              "label": "يشمل",
+              "text": "تقييم نمط الحياة، توجيه التعافي، دعم التغذية، والمتابعة."
+            },
+            {
+              "label": "النتيجة",
+              "text": "روتين أوضح يدعم الاستمرارية والحيوية."
+            }
+          ]
+        },
+        {
+          "key": "blue",
+          "label": "Methylene Blue",
+          "kicker": "التثقيف أولًا",
+          "title": "تثقيف وتوجيه في Methylene Blue",
+          "desc": "مسار توعوي يشرح الفكرة ببساطة ويوجه الزائر للخطوة المناسبة بأمان.",
+          "caption_title": "علمي لكن بسيط",
+          "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
+          "cards": [
+            {
+              "label": "مناسب لمين؟",
+              "text": "للمهتمين بالطاقة، التركيز، ومفاهيم الأداء الخلوي."
+            },
+            {
+              "label": "يشمل",
+              "text": "شرح مبسط، فهم موجه، وخطوة استشارية قبل أي قرار."
+            },
+            {
+              "label": "الخطوة الآمنة",
+              "text": "اسأل وافهم بدل التخمين أو الاستخدام العشوائي."
+            }
+          ]
+        },
+        {
+          "key": "training",
+          "label": "التحول التدريبي",
+          "kicker": "تحول واضح",
+          "title": "التحول التدريبي الكامل",
+          "desc": "مسار منظم يجمع التدريب والتغذية والمتابعة لتحقيق تحول بدني ملموس.",
+          "caption_title": "حركة وانضباط",
+          "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
+          "cards": [
+            {
+              "label": "مناسب لمين؟",
+              "text": "للمبتدئين، العائدين للتمرين، أو اللي محتاج نظام واضح."
+            },
+            {
+              "label": "يشمل",
+              "text": "خطة تدريب، توجيه تغذية، متابعة أسبوعية، وتعديلات."
+            },
+            {
+              "label": "أمثلة أهداف",
+              "text": "خسارة دهون، زيادة عضل، إعادة تشكيل الجسم، قوة، وانضباط."
+            }
+          ]
+        }
+      ]
+    },
     "how_it_works": {
       "kicker": "طريقة العمل",
       "title": "عملية بسيطة وخطوات واضحة.",
       "steps": [
-        {"title": "التقييم", "desc": "نراجع هدفك، جسمك، نمط حياتك، ومستواك الحالي."},
-        {"title": "خطة مخصصة", "desc": "تستلم مسار يجمع التدريب والتغذية والدعم المناسب لك."},
-        {"title": "متابعة وتعديل", "desc": "الخطة تتطور مع تقدمك عشان التحول يفضل واقعي ومستمر."}
+        {
+          "title": "التقييم",
+          "desc": "نراجع هدفك، جسمك، نمط حياتك، ومستواك الحالي."
+        },
+        {
+          "title": "خطة مخصصة",
+          "desc": "تستلم مسار يجمع التدريب والتغذية والدعم المناسب لك."
+        },
+        {
+          "title": "متابعة وتعديل",
+          "desc": "الخطة تتطور مع تقدمك عشان التحول يفضل واقعي ومستمر."
+        }
       ]
     },
     "results": {
@@ -205,8 +157,14 @@
       "cta_secondary": "تواصل معنا"
     },
     "faq": [
-      {"q": "هل هو تدريب فقط؟", "a": "لا. النظام يربط التدريب والتغذية والتوجيه الصحي والمتابعة."},
-      {"q": "مش عارف من أين تبدأ؟", "a": "أرسل هدفك ومستواك الحالي وهنرشدك للمسار المناسب."}
+      {
+        "q": "هل هو تدريب فقط؟",
+        "a": "لا. النظام يربط التدريب والتغذية والتوجيه الصحي والمتابعة."
+      },
+      {
+        "q": "مش عارف من أين تبدأ؟",
+        "a": "أرسل هدفك ومستواك الحالي وهنرشدك للمسار المناسب."
+      }
     ],
     "plans": {
       "kicker": "الباقات",
@@ -220,7 +178,12 @@
           "price": 80,
           "currency": "USD",
           "blurb": "بداية واضحة لمن يحتاج توجيه تدريب وتغذية.",
-          "features": ["توجيه تدريبي", "إرشاد تغذية", "نقاط متابعة", "هيكل أسبوعي بسيط"]
+          "features": [
+            "توجيه تدريبي",
+            "إرشاد تغذية",
+            "نقاط متابعة",
+            "هيكل أسبوعي بسيط"
+          ]
         },
         {
           "key": "standard",
@@ -230,7 +193,13 @@
           "currency": "USD",
           "highlight": true,
           "blurb": "الخيار المتوازن لمتابعة أقوى ومسار أكمل.",
-          "features": ["خطة تدريب", "توجيه تغذية", "تعديلات أسبوعية", "تتبع تقدم", "خطوات واضحة"]
+          "features": [
+            "خطة تدريب",
+            "توجيه تغذية",
+            "تعديلات أسبوعية",
+            "تتبع تقدم",
+            "خطوات واضحة"
+          ]
         },
         {
           "key": "premium",
@@ -239,55 +208,232 @@
           "price": 180,
           "currency": "USD",
           "blurb": "متابعة أعمق وتوجيه أعلى ومحاسبة أقوى.",
-          "features": ["خطة تحول كاملة", "مراقبة تفصيلية", "تحسين نمط الحياة", "دعم متقدم", "التزام أعلى"]
+          "features": [
+            "خطة تحول كاملة",
+            "مراقبة تفصيلية",
+            "تحسين نمط الحياة",
+            "دعم متقدم",
+            "التزام أعلى"
+          ]
+        }
+      ]
+    }
+  },
+  "en": {
+    "hero": {
+      "kicker": "Coach Osama Omran — O2F Life",
+      "title": "Transform your body with a clear, guided system.",
+      "description": "Personalized coaching that combines training, nutrition, wellness direction, and real follow-up — built around your body, lifestyle, and goals.",
+      "cta_primary": "Start your transformation",
+      "cta_secondary": "Explore programs"
+    },
+    "coach": {
+      "kicker": "Who is Osama Omran?",
+      "title": "The coach behind the O2F system.",
+      "bio": "Osama Omran focuses on body transformation through a connected system that combines training, nutrition guidance, wellness direction, and practical follow-up. His approach is built around clarity, sustainability, and real progress — not random advice or short-term motivation.",
+      "chips": [
+        "Personalized plans",
+        "Training + Nutrition",
+        "Follow-up",
+        "Sustainable habits"
+      ],
+      "cta": "See how it works",
+      "stats": {
+        "years_label": "Years",
+        "clients_label": "Clients",
+        "custom_label": "Custom",
+        "support_label": "Support"
+      }
+    },
+    "journey": [
+      {
+        "title": "Choose your goal",
+        "desc": "Training transformation, anti-aging guidance, or Methylene Blue education."
+      },
+      {
+        "title": "Get a clear plan",
+        "desc": "Training, nutrition, lifestyle, and follow-up are connected in one route."
+      },
+      {
+        "title": "Start with support",
+        "desc": "Clear next steps, direct guidance, and a practical system to follow."
+      }
+    ],
+    "how_it_works": {
+      "kicker": "How it works",
+      "title": "Simple process, clear next steps.",
+      "steps": [
+        {
+          "title": "Assessment",
+          "desc": "Your goal, body, lifestyle, and current level are reviewed first."
+        },
+        {
+          "title": "Personalized plan",
+          "desc": "You receive a route built around training, nutrition, and the support you need."
+        },
+        {
+          "title": "Follow-up",
+          "desc": "The plan evolves with your progress so the transformation stays realistic."
+        }
+      ]
+    },
+    "results": {
+      "kicker": "Before & After",
+      "title": "Visible progress with a structured system.",
+      "desc": "Results come from clear planning, consistent follow-up, and practical adjustments over time.",
+      "beforeImage": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=900&q=85",
+      "afterImage": "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=900&q=85",
+      "points": [
+        "Clear tracking from the beginning.",
+        "Weekly follow-up and plan adjustments.",
+        "Training and nutrition aligned together."
+      ]
+    },
+    "stories": {
+      "kicker": "What clients say",
+      "title": "Real feedback in continuous motion."
+    },
+    "contact": {
+      "kicker": "Start now",
+      "title": "Ready to start your transformation?",
+      "desc": "Choose the path that fits your goal, and start with a system built around clarity, support, and real follow-up.",
+      "cta_primary": "Contact and subscribe",
+      "cta_secondary": "View plans"
+    },
+    "faq": [
+      {
+        "q": "Is this only training?",
+        "a": "No. It connects training, nutrition, wellness direction, and follow-up."
+      },
+      {
+        "q": "Not sure where to start?",
+        "a": "Send your goal and current level, and the suitable route can be selected."
+      }
+    ],
+    "plans": {
+      "kicker": "Plans",
+      "title": "Choose the level that matches your goal.",
+      "desc": "Select the number of months and see how the total changes. Longer plans give better value.",
+      "items": [
+        {
+          "key": "basic",
+          "kicker": "Starter",
+          "name": "Basic Plan",
+          "price": 80,
+          "currency": "USD",
+          "blurb": "For people who need a clean first step with training and nutrition direction.",
+          "features": [
+            "Training direction",
+            "Nutrition guidance",
+            "Progress checkpoints",
+            "Simple weekly structure"
+          ]
+        },
+        {
+          "key": "standard",
+          "kicker": "Most popular",
+          "name": "Standard Plan",
+          "price": 120,
+          "currency": "USD",
+          "highlight": true,
+          "blurb": "The balanced option for stronger follow-up and a more complete route.",
+          "features": [
+            "Training plan",
+            "Nutrition direction",
+            "Weekly adjustments",
+            "Progress tracking",
+            "Clear action steps"
+          ]
+        },
+        {
+          "key": "premium",
+          "kicker": "Advanced",
+          "name": "Premium Plan",
+          "price": 180,
+          "currency": "USD",
+          "blurb": "For deeper follow-up, premium guidance, and stronger accountability.",
+          "features": [
+            "Full transformation plan",
+            "Detailed monitoring",
+            "Lifestyle optimization",
+            "Advanced support",
+            "Higher accountability"
+          ]
         }
       ]
     },
     "programs": {
-      "kicker": "اختار مسارك",
-      "title": "ثلاث مسارات واضحة داخل نظام تحول واحد.",
-      "desc": "كل برنامج يوضح مناسب لمين، يشمل إيه، وإيه المتوقع من المتابعة.",
+      "kicker": "Choose your path",
+      "title": "Three clear routes inside one transformation system.",
+      "desc": "Each program explains who it is for, what it includes, and what the visitor should expect.",
       "tabs": [
         {
           "key": "anti",
           "label": "Anti-Aging",
-          "kicker": "حيوية طويلة المدى",
-          "title": "مناهضة الشيخوخة والحيوية طويلة الأمد",
-          "desc": "مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.",
-          "caption_title": "استمرارية وحيوية",
+          "kicker": "Long-term vitality",
+          "title": "Anti-Aging & Long-Term Vitality",
+          "desc": "A guided route focused on recovery, vitality, sustainable habits, and better daily performance.",
+          "caption_title": "Continuity and vitality",
           "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
           "cards": [
-            {"label": "مناسب لمين؟", "text": "للي عايز طاقة أفضل وتعافي أحسن وروتين صحي."},
-            {"label": "يشمل", "text": "تقييم نمط الحياة، توجيه التعافي، دعم التغذية، والمتابعة."},
-            {"label": "النتيجة", "text": "روتين أوضح يدعم الاستمرارية والحيوية."}
+            {
+              "label": "For whom?",
+              "text": "People who want more energy, better recovery, and a healthier routine."
+            },
+            {
+              "label": "Includes",
+              "text": "Lifestyle assessment, recovery direction, nutrition support, and follow-up."
+            },
+            {
+              "label": "Expected result",
+              "text": "A clearer routine that supports vitality and consistency."
+            }
           ]
         },
         {
           "key": "blue",
           "label": "Methylene Blue",
-          "kicker": "التثقيف أولًا",
-          "title": "تثقيف وتوجيه في Methylene Blue",
-          "desc": "مسار توعوي يشرح الفكرة ببساطة ويوجه الزائر للخطوة المناسبة بأمان.",
-          "caption_title": "علمي لكن بسيط",
+          "kicker": "Education first",
+          "title": "Methylene Blue Education & Guidance",
+          "desc": "A simple educational route that explains the idea clearly and guides the visitor toward the right next step.",
+          "caption_title": "Scientific but simple",
           "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
           "cards": [
-            {"label": "مناسب لمين؟", "text": "للمهتمين بالطاقة، التركيز، ومفاهيم الأداء الخلوي."},
-            {"label": "يشمل", "text": "شرح مبسط، فهم موجه، وخطوة استشارية قبل أي قرار."},
-            {"label": "الخطوة الآمنة", "text": "اسأل وافهم بدل التخمين أو الاستخدام العشوائي."}
+            {
+              "label": "For whom?",
+              "text": "People interested in focus, energy, and cellular-performance concepts."
+            },
+            {
+              "label": "Includes",
+              "text": "Simple explanation, guided understanding, and consultation-first direction."
+            },
+            {
+              "label": "Safe next step",
+              "text": "Ask, explore, and move forward with guidance instead of guessing."
+            }
           ]
         },
         {
           "key": "training",
-          "label": "التحول التدريبي",
-          "kicker": "تحول واضح",
-          "title": "التحول التدريبي الكامل",
-          "desc": "مسار منظم يجمع التدريب والتغذية والمتابعة لتحقيق تحول بدني ملموس.",
-          "caption_title": "حركة وانضباط",
+          "label": "Training Transformation",
+          "kicker": "Visible transformation",
+          "title": "Training Transformation",
+          "desc": "A structured route that combines training, nutrition, and follow-up to drive visible physical transformation.",
+          "caption_title": "Movement and discipline",
           "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
           "cards": [
-            {"label": "مناسب لمين؟", "text": "للمبتدئين، العائدين للتمرين، أو اللي محتاج نظام واضح."},
-            {"label": "يشمل", "text": "خطة تدريب، توجيه تغذية، متابعة أسبوعية، وتعديلات."},
-            {"label": "أمثلة أهداف", "text": "خسارة دهون، زيادة عضل، إعادة تشكيل الجسم، قوة، وانضباط."}
+            {
+              "label": "For whom?",
+              "text": "Beginners, returning trainees, and people who need clear structure."
+            },
+            {
+              "label": "Includes",
+              "text": "Training plan, nutrition direction, weekly tracking, and adjustments."
+            },
+            {
+              "label": "Goal examples",
+              "text": "Fat loss, muscle gain, recomposition, strength, and discipline."
+            }
           ]
         }
       ]
