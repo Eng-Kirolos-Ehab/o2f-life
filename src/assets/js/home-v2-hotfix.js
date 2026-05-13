@@ -29,12 +29,8 @@
       var old=stories.querySelector('.container');if(old){old.classList.remove('container')}
       var m=stories.querySelector('.marquee');
       if(m){
-        /* Avatar colors — deterministic by index */
-        var avatarColors=['rgba(168,255,120,.28)','rgba(84,200,255,.28)','rgba(255,190,80,.28)','rgba(200,100,255,.28)','rgba(0,217,163,.28)','rgba(255,120,120,.28)'];
-        function mkAvatar(name,idx){
-          var bg=avatarColors[idx%avatarColors.length];
-          var initial=(name||'?')[0].toUpperCase();
-          return '<div class=”comment-avatar” style=”background:'+bg+'”>'+initial+'</div>';
+        function mkAvatar(name){
+          return '<div class=”comment-avatar”>'+((name||'?')[0].toUpperCase())+'</div>';
         }
         /* c = [name, service, text, dir, colorIdx] */
         var commentsA=[
@@ -57,35 +53,35 @@
           ['هدى إبراهيم','برنامج صحي','الخطة كانت واضحة ومش معقدة، وده خلاني أستمر من غير ضغط.','rtl',4],
           ['Rami Hassan','Competition Prep','Every week felt like a clear step forward, not just hard work.','ltr',5],
           ['منى فاروق','إنقاص وزن','شعرت إن فيه اهتمام فعلي بوضعي، مش مجرد برنامج جاهز.','rtl',0],
-          ['Ahmed Saber','Training','The simplicity of the weekly structure made everything manageable.','ltr',1]
+          ['Ahmed Saber','Training','The simplicity of the weekly structure made everything manageable.','ltr']
         ];
         var commentsB=[
-          ['Ahmed Tarek','Competition Prep','Training, nutrition, and support were connected in one simple system.','ltr',2],
-          ['ليلى حسن','Anti-Aging','الخطة كانت ماشية مع يومي ومش محتاجة تعقيد عشان ألتزم.','rtl',3],
-          ['Salma Nabil','Therapeutic Nutrition','The weekly structure made training easier to stick to.','ltr',4],
-          ['يوسف عادل','تحول جسم','حسيت إن فيه نظام واضح مش مجرد نصائح عامة.','rtl',5],
-          ['Nada Fouad','Lifestyle Plan','The plan was practical and still felt premium.','ltr',0],
-          ['أحمد مصطفى','إعداد بطولة','المتابعة كانت دقيقة وخلتني أجهز بشكل أقوى.','rtl',1],
-          ['Mona Zaki','Weight Loss','I liked that the plan was simple enough to continue.','ltr',2],
-          ['خالد سامح','برنامج تدريبي','كل أسبوع كان فيه تعديل واضح على حسب النتيجة.','rtl',3],
-          ['Farah Magdy','Wellness Support','It helped me build habits instead of chasing motivation.','ltr',4],
-          ['هاني طارق','تحضير بطولة','النظام والدقة في المتابعة جعلاني أصل لأفضل حالاتي.','rtl',5],
-          ['Yasmine Gamal','Wellness','The holistic approach to health was exactly what I needed.','ltr',0],
-          ['محمود رضا','إنقاص وزن','وضوح الخطة من البداية جعل الالتزام أمراً طبيعياً.','rtl',1],
-          ['Rasha Salem','Body Transformation','Every week brought visible progress and renewed motivation.','ltr',2],
-          ['كريمة فؤاد','متابعة تغذية','الاهتمام بالتفاصيل الشخصية جعل الخطة مناسبة تماماً لي.','rtl',3],
-          ['Ibrahim Nour','Nutrition','The approach connected food and training in a way that actually worked.','ltr',4],
-          ['نجلاء سعيد','صحة عامة','أول مرة أحس إن برنامج صحي ماشي مع أسلوب حياتي فعلاً.','rtl',5],
-          ['Tarek Fathy','Strength','Consistent follow-up kept me on track even during busy weeks.','ltr',0],
-          ['داليا وليد','تغذية علاجية','التفاصيل الدقيقة في الخطة أثرت فرقاً واضحاً في نتيجتي.','rtl',1],
-          ['Omar Essam','Recomposition','Seeing measurable results weekly kept my motivation high throughout.','ltr',2],
-          ['سلمى عماد','Anti-Aging','المتابعة المستمرة جعلتني أفهم جسمي أكثر وأتعامل معه بشكل أذكى.','rtl',3]
+          ['Ahmed Tarek','Competition Prep','Training, nutrition, and support were connected in one simple system.','ltr'],
+          ['ليلى حسن','Anti-Aging','الخطة كانت ماشية مع يومي ومش محتاجة تعقيد عشان ألتزم.','rtl'],
+          ['Salma Nabil','Therapeutic Nutrition','The weekly structure made training easier to stick to.','ltr'],
+          ['يوسف عادل','تحول جسم','حسيت إن فيه نظام واضح مش مجرد نصائح عامة.','rtl'],
+          ['Nada Fouad','Lifestyle Plan','The plan was practical and still felt premium.','ltr'],
+          ['أحمد مصطفى','إعداد بطولة','المتابعة كانت دقيقة وخلتني أجهز بشكل أقوى.','rtl'],
+          ['Mona Zaki','Weight Loss','I liked that the plan was simple enough to continue.','ltr'],
+          ['خالد سامح','برنامج تدريبي','كل أسبوع كان فيه تعديل واضح على حسب النتيجة.','rtl'],
+          ['Farah Magdy','Wellness Support','It helped me build habits instead of chasing motivation.','ltr'],
+          ['هاني طارق','تحضير بطولة','النظام والدقة في المتابعة جعلاني أصل لأفضل حالاتي.','rtl'],
+          ['Yasmine Gamal','Wellness','The holistic approach to health was exactly what I needed.','ltr'],
+          ['محمود رضا','إنقاص وزن','وضوح الخطة من البداية جعل الالتزام أمراً طبيعياً.','rtl'],
+          ['Rasha Salem','Body Transformation','Every week brought visible progress and renewed motivation.','ltr'],
+          ['كريمة فؤاد','متابعة تغذية','الاهتمام بالتفاصيل الشخصية جعل الخطة مناسبة تماماً لي.','rtl'],
+          ['Ibrahim Nour','Nutrition','The approach connected food and training in a way that actually worked.','ltr'],
+          ['نجلاء سعيد','صحة عامة','أول مرة أحس إن برنامج صحي ماشي مع أسلوب حياتي فعلاً.','rtl'],
+          ['Tarek Fathy','Strength','Consistent follow-up kept me on track even during busy weeks.','ltr'],
+          ['داليا وليد','تغذية علاجية','التفاصيل الدقيقة في الخطة أثرت فرقاً واضحاً في نتيجتي.','rtl'],
+          ['Omar Essam','Recomposition','Seeing measurable results weekly kept my motivation high throughout.','ltr'],
+          ['سلمى عماد','Anti-Aging','المتابعة المستمرة جعلتني أفهم جسمي أكثر وأتعامل معه بشكل أذكى.','rtl']
         ];
         function mkCard(c){
           return '<article class=”comment-card” dir=”'+c[3]+'”>'
-            +'<div class=”comment-body”><div class=”quote”>“</div><p>'+c[2]+'</p></div>'
+            +'<div class=”comment-body”><div class=”quote”>”</div><p>'+c[2]+'</p></div>'
             +'<div class=”comment-person”>'
-              +mkAvatar(c[0],c[4])
+              +mkAvatar(c[0])
               +'<div><span class=”comment-name”>'+c[0]+'</span><span class=”comment-service”>'+c[1]+'</span></div>'
             +'</div>'
           +'</article>';
