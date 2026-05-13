@@ -2,476 +2,357 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <title>محرر المحتوى — O2F.life</title>
+  <title>محرر المحتوى — O2F</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;700&display=swap">
-  <script>
-    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
-      window.location.replace('./login.html');
-    }
-  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+  <script>if(sessionStorage.getItem('o2f-admin-auth')!=='1')window.location.replace('./login.html');</script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --ink: #0B1220; --ink2: #0f1929;
-      --mint: #00D9A3; --gold: #C9A84A;
-      --off: #F7F8FA; --muted: rgba(247,248,250,.55);
-      --line: rgba(255,255,255,.08); --line2: rgba(255,255,255,.12);
-      --radius: 16px;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0b1220;--bg2:#111827;--bg3:rgba(255,255,255,.04);
+      --mint:#00D9A3;--gold:#C9A84A;--red:#ef4444;
+      --off:#F7F8FA;--muted:rgba(247,248,250,.52);
+      --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
+      --r:14px;
     }
-    body { background: var(--ink); color: var(--off); font-family: 'Tajawal', system-ui, sans-serif; min-height: 100vh; }
+    html,body{height:100%;overflow:hidden}
+    body{background:var(--bg);color:var(--off);font-family:'Tajawal',system-ui,sans-serif;display:flex;flex-direction:column}
 
-    /* ── Header ── */
-    .header { position: sticky; top: 0; z-index: 40; background: rgba(11,18,32,.92); border-bottom: 1px solid var(--line); backdrop-filter: blur(18px); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; }
-    .header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; }
-    .mark { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, var(--mint), var(--gold)); }
-    .header-actions { display: flex; gap: 8px; align-items: center; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line2); border-radius: 11px; background: rgba(255,255,255,.07); color: var(--off); padding: 8px 14px; text-decoration: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; transition: .18s; white-space: nowrap; }
-    .btn:hover { background: rgba(255,255,255,.13); }
-    .btn.primary { background: var(--mint); color: var(--ink); border-color: transparent; font-weight: 800; }
-    .btn.primary:hover { background: #00edb3; }
-    .btn.primary:disabled { opacity: .5; cursor: not-allowed; }
-    .btn.ghost { background: transparent; }
+    /* ── Top bar ── */
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:0 18px;height:54px;border-bottom:1px solid var(--line);
+      background:rgba(11,18,32,.95);backdrop-filter:blur(14px);
+      flex-shrink:0;z-index:40;position:relative;
+    }
+    .topbar-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px}
+    .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--mint),var(--gold));flex-shrink:0}
+    .topbar-right{display:flex;align-items:center;gap:8px}
+    .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);border-radius:10px;background:rgba(255,255,255,.06);color:var(--off);padding:7px 13px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;text-decoration:none;transition:.15s;white-space:nowrap}
+    .btn:hover{background:rgba(255,255,255,.11)}
+    .btn.primary{background:var(--mint);color:var(--bg);border-color:transparent;font-weight:800}
+    .btn.primary:hover{background:#00edb3}
+    .btn.primary:disabled{opacity:.5;cursor:not-allowed}
+    .btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+    .btn.ghost:hover{color:var(--off);background:rgba(255,255,255,.06)}
 
     /* ── Lang tabs ── */
-    .lang-bar { display: flex; gap: 8px; padding: 16px 20px 0; }
-    .lang-tab { border: 1px solid var(--line2); border-radius: 999px; background: transparent; color: var(--muted); padding: 8px 18px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; transition: .18s; }
-    .lang-tab.active { background: rgba(0,217,163,.15); border-color: rgba(0,217,163,.45); color: var(--mint); }
+    .lang-tabs{display:flex;gap:4px;padding:4px;background:rgba(255,255,255,.06);border-radius:10px}
+    .lang-tab{border:none;background:transparent;color:var(--muted);padding:5px 14px;border-radius:7px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;transition:.15s}
+    .lang-tab.active{background:rgba(0,217,163,.18);color:var(--mint)}
 
-    /* ── Main layout ── */
-    .main { max-width: 920px; margin: 0 auto; padding: 20px 16px 80px; }
+    /* ── Layout ── */
+    .layout{display:flex;flex:1;overflow:hidden}
 
-    /* ── Section accordion ── */
-    .acc { margin-bottom: 12px; border: 1px solid var(--line2); border-radius: var(--radius); overflow: hidden; }
-    .acc-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; background: rgba(255,255,255,.04); user-select: none; }
-    .acc-head:hover { background: rgba(255,255,255,.07); }
-    .acc-title { font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-    .acc-icon { font-size: 18px; }
-    .acc-chevron { font-size: 12px; color: var(--muted); transition: transform .2s; }
-    .acc.open .acc-chevron { transform: rotate(180deg); }
-    .acc-body { display: none; padding: 20px; border-top: 1px solid var(--line); }
-    .acc.open .acc-body { display: block; }
+    /* ── Sidebar ── */
+    .sidebar{
+      width:200px;flex-shrink:0;border-left:1px solid var(--line);
+      overflow-y:auto;padding:12px 8px;display:flex;flex-direction:column;gap:2px;
+    }
+    .sidebar-section{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:10px 10px 4px;margin-top:4px}
+    .sidebar-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:.14s;border:none;background:transparent;width:100%;text-align:right}
+    .sidebar-item:hover{background:rgba(255,255,255,.06);color:var(--off)}
+    .sidebar-item.active{background:rgba(0,217,163,.12);color:var(--mint)}
+    .sidebar-item .si-icon{font-size:15px;flex-shrink:0}
+
+    /* ── Main ── */
+    .main{flex:1;overflow-y:auto;padding:24px}
+    .section-page{display:none}
+    .section-page.active{display:block}
+    .page-title{font-size:20px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+    .page-title span{font-size:22px}
 
     /* ── Fields ── */
-    .field { margin-bottom: 16px; }
-    .field label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: .04em; text-transform: uppercase; }
-    .field input, .field textarea, .field select {
-      width: 100%; border: 1px solid var(--line2); border-radius: 11px;
-      background: rgba(255,255,255,.05); color: var(--off);
-      padding: 11px 14px; font-family: inherit; font-size: 14px;
-      outline: none; transition: border-color .18s;
+    .field-group{margin-bottom:20px}
+    .field-group>label,.field-label{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+    .field-row{display:grid;gap:14px;margin-bottom:16px}
+    .field-row.cols2{grid-template-columns:1fr 1fr}
+    .field-row.cols4{grid-template-columns:1fr 1fr 1fr 1fr}
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+    input,textarea,select{
+      width:100%;border:1px solid var(--line2);border-radius:10px;
+      background:rgba(255,255,255,.05);color:var(--off);
+      padding:10px 13px;font-family:inherit;font-size:14px;
+      outline:none;transition:border-color .15s;
     }
-    .field input:focus, .field textarea:focus { border-color: rgba(0,217,163,.5); background: rgba(0,217,163,.04); }
-    .field textarea { resize: vertical; min-height: 80px; }
-    .field.en input, .field.en textarea { font-family: 'Inter', system-ui, sans-serif; direction: ltr; text-align: left; }
+    input:focus,textarea:focus{border-color:rgba(0,217,163,.5);background:rgba(0,217,163,.04)}
+    textarea{resize:vertical;min-height:76px}
+    .ltr input,.ltr textarea{font-family:'Inter',system-ui,sans-serif;direction:ltr;text-align:left}
 
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media(max-width:600px) { .grid2 { grid-template-columns: 1fr; } }
+    /* ── Divider ── */
+    .divider{height:1px;background:var(--line);margin:24px 0}
 
-    /* ── List editor (journey / steps / points / faq / chips) ── */
-    .list-editor { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
-    .list-item { position: relative; border: 1px solid var(--line2); border-radius: 12px; padding: 14px 14px 14px 48px; background: rgba(255,255,255,.03); }
-    .list-item[dir="ltr"] { padding: 14px 48px 14px 14px; }
-    .list-item .rm { position: absolute; top: 10px; left: 10px; border: none; background: rgba(239,68,68,.1); color: #fca5a5; border-radius: 8px; width: 28px; height: 28px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-    .list-item[dir="ltr"] .rm { left: auto; right: 10px; }
-    .add-btn { border: 1px dashed var(--line2); border-radius: 11px; background: transparent; color: var(--muted); padding: 9px; width: 100%; cursor: pointer; font-family: inherit; font-size: 13px; transition: .18s; }
-    .add-btn:hover { border-color: var(--mint); color: var(--mint); background: rgba(0,217,163,.05); }
+    /* ── List items (journey/steps/faq) ── */
+    .list-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+    .list-item{border:1px solid var(--line2);border-radius:11px;padding:14px 14px 14px 44px;position:relative;background:rgba(255,255,255,.03)}
+    .list-item .rm{position:absolute;top:10px;left:10px;width:26px;height:26px;border:none;border-radius:7px;background:rgba(239,68,68,.12);color:#fca5a5;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+    .list-item .rm:hover{background:rgba(239,68,68,.22)}
+    .list-item .ltr-item{direction:ltr;text-align:left}
+    .add-item-btn{width:100%;padding:9px;border:1px dashed var(--line2);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;font-size:13px;transition:.14s}
+    .add-item-btn:hover{border-color:var(--mint);color:var(--mint);background:rgba(0,217,163,.04)}
 
-    /* ── Image drop zone ── */
-    .drop-zone { border: 2px dashed var(--line2); border-radius: var(--radius); padding: 32px; text-align: center; cursor: pointer; transition: .2s; position: relative; }
-    .drop-zone.dragover { border-color: var(--mint); background: rgba(0,217,163,.06); }
-    .drop-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .drop-zone p { color: var(--muted); font-size: 14px; pointer-events: none; }
-    .drop-zone .drop-icon { font-size: 32px; margin-bottom: 10px; pointer-events: none; }
-    .img-preview { margin-top: 14px; border-radius: 12px; overflow: hidden; max-height: 280px; position: relative; }
-    .img-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .img-preview .img-url { background: rgba(0,0,0,.55); color: #fff; font-size: 12px; padding: 6px 10px; word-break: break-all; text-align: left; }
+    /* ── Image editors ── */
+    .img-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .img-card{border:1px solid var(--line2);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.03)}
+    .img-card-head{padding:10px 14px;font-size:12px;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line)}
+    .img-preview{position:relative;height:160px;background:rgba(255,255,255,.04);overflow:hidden}
+    .img-preview img{width:100%;height:100%;object-fit:cover;display:block}
+    .img-preview .no-img{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:28px}
+    .img-drop{position:relative;border-top:1px solid var(--line);padding:10px 14px;display:flex;align-items:center;gap:10px}
+    .img-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .img-drop-label{font-size:12px;color:var(--muted);pointer-events:none}
+    .img-url-row{padding:8px 14px;padding-top:0}
+    .img-url-row input{font-family:'Inter',monospace;font-size:11px;direction:ltr;text-align:left;border-radius:7px;padding:7px 10px}
+    .drop-active{border-color:var(--mint)!important;background:rgba(0,217,163,.06)!important}
+
+    /* ── Tab images (programs) ── */
+    .tab-imgs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+    /* ── Saving status ── */
+    .save-bar{
+      position:fixed;bottom:0;left:0;right:0;
+      padding:12px 18px;background:rgba(11,18,32,.96);border-top:1px solid var(--line2);
+      backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:50;
+    }
+    .save-status{font-size:12px;color:var(--muted)}
 
     /* ── Toast ── */
-    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink2); border: 1px solid var(--line2); border-radius: 999px; padding: 12px 22px; font-size: 14px; font-weight: 700; display: none; z-index: 999; box-shadow: 0 18px 50px rgba(0,0,0,.4); }
-    .toast.show { display: block; }
-    .toast.ok { border-color: rgba(0,217,163,.4); color: var(--mint); }
-    .toast.err { border-color: rgba(239,68,68,.4); color: #fca5a5; }
+    .toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--line2);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:700;display:none;z-index:999;box-shadow:0 14px 40px rgba(0,0,0,.4);white-space:nowrap}
+    .toast.show{display:block}
+    .toast.ok{border-color:rgba(0,217,163,.35);color:var(--mint)}
+    .toast.err{border-color:rgba(239,68,68,.35);color:#fca5a5}
 
-    /* ── Save bar ── */
-    .save-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 14px 20px; background: rgba(11,18,32,.95); border-top: 1px solid var(--line2); backdrop-filter: blur(18px); display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 50; }
-    .save-status { font-size: 13px; color: var(--muted); }
+    /* ── Loading ── */
+    .loading-overlay{position:fixed;inset:0;background:rgba(11,18,32,.82);display:flex;align-items:center;justify-content:center;z-index:100;font-size:15px;font-weight:700;gap:10px;color:var(--mint)}
 
-    /* ── Tab panels ── */
-    .lang-panel { display: none; }
-    .lang-panel.active { display: block; }
+    @media(max-width:700px){
+      .sidebar{display:none}
+      .field-row.cols2,.field-row.cols4{grid-template-columns:1fr}
+      .img-grid,.tab-imgs{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header-brand">
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">⏳ جاري تحميل البيانات...</div>
+
+<!-- Top bar -->
+<header class="topbar">
+  <div class="topbar-brand">
     <div class="mark"></div>
     <span>محرر المحتوى</span>
   </div>
-  <div class="header-actions">
-    <a class="btn ghost" href="./">← الرئيسية</a>
-    <button class="btn primary" id="saveBtn" onclick="saveAll()">حفظ التغييرات</button>
+  <div class="topbar-right">
+    <div class="lang-tabs">
+      <button class="lang-tab active" onclick="setLang('ar')">🇸🇦 عربي</button>
+      <button class="lang-tab" onclick="setLang('en')">🇬🇧 English</button>
+    </div>
+    <button class="btn primary" id="saveBtn" onclick="saveAll()">💾 حفظ</button>
+    <a class="btn ghost" href="./">← رجوع</a>
   </div>
 </header>
 
-<div class="lang-bar">
-  <button class="lang-tab active" data-lang="ar" onclick="switchLang('ar')">🇸🇦 عربي</button>
-  <button class="lang-tab" data-lang="en" onclick="switchLang('en')">🇬🇧 English</button>
-  <button class="lang-tab" data-lang="images" onclick="switchLang('images')">🖼️ الصور</button>
-</div>
+<div class="layout">
 
-<main class="main">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">المحتوى</div>
+    <button class="sidebar-item active" onclick="showPage('hero')"><span class="si-icon">🦅</span> البطل</button>
+    <button class="sidebar-item" onclick="showPage('coach')"><span class="si-icon">🧑‍💼</span> المدرب</button>
+    <button class="sidebar-item" onclick="showPage('programs')"><span class="si-icon">📋</span> البرامج</button>
+    <button class="sidebar-item" onclick="showPage('howitworks')"><span class="si-icon">⚙️</span> طريقة العمل</button>
+    <button class="sidebar-item" onclick="showPage('results')"><span class="si-icon">🏆</span> النتائج</button>
+    <button class="sidebar-item" onclick="showPage('stories')"><span class="si-icon">💬</span> التجارب</button>
+    <button class="sidebar-item" onclick="showPage('contact')"><span class="si-icon">📞</span> التواصل</button>
+    <button class="sidebar-item" onclick="showPage('faq')"><span class="si-icon">❓</span> الأسئلة</button>
+    <button class="sidebar-item" onclick="showPage('plans')"><span class="si-icon">💰</span> الباقات</button>
+    <div class="sidebar-section">الصور</div>
+    <button class="sidebar-item" onclick="showPage('images')"><span class="si-icon">🖼️</span> كل الصور</button>
+  </aside>
 
-  <!-- ═══ ARABIC PANEL ═══ -->
-  <div class="lang-panel active" id="panel-ar">
+  <!-- Main content -->
+  <main class="main" style="padding-bottom:70px">
 
-    <!-- Hero -->
-    <div class="acc open">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🦅</span> قسم البطل (Hero)</span>
-        <span class="acc-chevron">▲</span>
+    <!-- HERO -->
+    <div class="section-page active" id="page-hero">
+      <div class="page-title"><span>🦅</span> <span id="hero-title-label">قسم البطل</span></div>
+      <div class="field"><label id="lbl-kicker">Kicker (نص صغير)</label><input id="hero.kicker"></div>
+      <div class="field"><label id="lbl-headline">العنوان الرئيسي</label><input id="hero.title"></div>
+      <div class="field"><label id="lbl-desc">الوصف</label><textarea id="hero.description"></textarea></div>
+      <div class="field-row cols2">
+        <div class="field"><label id="lbl-cta1">الزر الأول</label><input id="hero.cta_primary"></div>
+        <div class="field"><label id="lbl-cta2">الزر الثاني</label><input id="hero.cta_secondary"></div>
       </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker (نص صغير أعلى)</label><input id="ar.hero.kicker" value=""></div>
-        <div class="field"><label>العنوان الرئيسي</label><input id="ar.hero.title" value=""></div>
-        <div class="field"><label>الوصف</label><textarea id="ar.hero.description"></textarea></div>
-        <div class="grid2">
-          <div class="field"><label>نص الزر الأول</label><input id="ar.hero.cta_primary" value=""></div>
-          <div class="field"><label>نص الزر الثاني</label><input id="ar.hero.cta_secondary" value=""></div>
-        </div>
+      <div class="divider"></div>
+      <div class="field"><label id="lbl-journey">خطوات الرحلة (3 خطوات)</label></div>
+      <div class="list-wrap" id="journey-list"></div>
+      <button class="add-item-btn" onclick="addJourneyItem()">+ <span id="lbl-add-step">إضافة خطوة</span></button>
+    </div>
+
+    <!-- COACH -->
+    <div class="section-page" id="page-coach">
+      <div class="page-title"><span>🧑‍💼</span> <span id="coach-title-label">قسم المدرب</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="coach.kicker"></div>
+        <div class="field"><label id="lbl-coachtitle">العنوان</label><input id="coach.title"></div>
+      </div>
+      <div class="field"><label id="lbl-bio">السيرة الذاتية</label><textarea id="coach.bio" style="min-height:100px"></textarea></div>
+      <div class="field"><label id="lbl-cta">زر CTA</label><input id="coach.cta"></div>
+      <div class="field"><label id="lbl-chips">Chips (كل سطر chip)</label><textarea id="coach.chips" style="min-height:80px"></textarea></div>
+      <div class="divider"></div>
+      <div class="field-row cols4">
+        <div class="field"><label id="lbl-years">سنوات</label><input id="coach.stats.years_label"></div>
+        <div class="field"><label id="lbl-clients">عملاء</label><input id="coach.stats.clients_label"></div>
+        <div class="field"><label id="lbl-custom">مخصص</label><input id="coach.stats.custom_label"></div>
+        <div class="field"><label id="lbl-support">دعم</label><input id="coach.stats.support_label"></div>
       </div>
     </div>
 
-    <!-- Journey -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🗺️</span> خطوات الرحلة (3 خطوات)</span>
-        <span class="acc-chevron">▼</span>
+    <!-- PROGRAMS -->
+    <div class="section-page" id="page-programs">
+      <div class="page-title"><span>📋</span> <span id="programs-title-label">البرامج</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="programs.kicker"></div>
+        <div class="field"><label id="lbl-prog-title">العنوان</label><input id="programs.title"></div>
       </div>
-      <div class="acc-body">
-        <div id="ar.journey" class="list-editor"></div>
-        <button class="add-btn" onclick="addJourneyStep('ar')">+ إضافة خطوة</button>
+      <div class="field"><label id="lbl-prog-desc">الوصف</label><textarea id="programs.desc"></textarea></div>
+      <div id="programs-tabs-editor"></div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="section-page" id="page-howitworks">
+      <div class="page-title"><span>⚙️</span> <span id="hiw-title-label">طريقة العمل</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="hiw.kicker"></div>
+        <div class="field"><label id="lbl-hiw-title">العنوان</label><input id="hiw.title"></div>
+      </div>
+      <div class="field"><label id="lbl-steps">الخطوات</label></div>
+      <div class="list-wrap" id="hiw-steps-list"></div>
+      <button class="add-item-btn" onclick="addHiwStep()">+ <span id="lbl-add-hiw">إضافة خطوة</span></button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="section-page" id="page-results">
+      <div class="page-title"><span>🏆</span> <span id="results-title-label">النتائج</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="results.kicker"></div>
+        <div class="field"><label id="lbl-results-title">العنوان</label><input id="results.title"></div>
+      </div>
+      <div class="field"><label id="lbl-results-desc">الوصف</label><textarea id="results.desc"></textarea></div>
+      <div class="field"><label id="lbl-points">نقاط النتائج (كل سطر نقطة)</label><textarea id="results.points" style="min-height:90px"></textarea></div>
+    </div>
+
+    <!-- STORIES -->
+    <div class="section-page" id="page-stories">
+      <div class="page-title"><span>💬</span> <span id="stories-title-label">التجارب</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="stories.kicker"></div>
+        <div class="field"><label id="lbl-stories-title">العنوان</label><input id="stories.title"></div>
       </div>
     </div>
 
-    <!-- Coach -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🧑‍💼</span> قسم المدرب</span>
-        <span class="acc-chevron">▼</span>
+    <!-- CONTACT -->
+    <div class="section-page" id="page-contact">
+      <div class="page-title"><span>📞</span> <span id="contact-title-label">التواصل</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="contact.kicker"></div>
+        <div class="field"><label id="lbl-contact-title">العنوان</label><input id="contact.title"></div>
       </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.coach.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.coach.title" value=""></div>
-        <div class="field"><label>السيرة الذاتية</label><textarea id="ar.coach.bio"></textarea></div>
-        <div class="field"><label>نص زر CTA</label><input id="ar.coach.cta" value=""></div>
-        <div class="field"><label>Chips (تسميات مميزة — كل سطر chip)</label>
-          <textarea id="ar.coach.chips" style="min-height:90px"></textarea>
-        </div>
-        <div class="grid2">
-          <div class="field"><label>تسمية السنوات</label><input id="ar.coach.stats.years_label" value=""></div>
-          <div class="field"><label>تسمية العملاء</label><input id="ar.coach.stats.clients_label" value=""></div>
-          <div class="field"><label>تسمية المخصص</label><input id="ar.coach.stats.custom_label" value=""></div>
-          <div class="field"><label>تسمية الدعم</label><input id="ar.coach.stats.support_label" value=""></div>
-        </div>
+      <div class="field"><label id="lbl-contact-desc">الوصف</label><textarea id="contact.desc"></textarea></div>
+      <div class="field-row cols2">
+        <div class="field"><label id="lbl-contact-cta1">الزر الأول</label><input id="contact.cta_primary"></div>
+        <div class="field"><label id="lbl-contact-cta2">الزر الثاني</label><input id="contact.cta_secondary"></div>
       </div>
+      <div class="divider"></div>
+      <div class="field"><label id="lbl-faq-title2">الأسئلة الشائعة</label></div>
+      <div class="list-wrap" id="faq-list"></div>
+      <button class="add-item-btn" onclick="addFaqItem()">+ <span id="lbl-add-faq">إضافة سؤال</span></button>
     </div>
 
-    <!-- Programs -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">📋</span> قسم البرامج</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.programs.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.programs.title" value=""></div>
-        <div class="field"><label>الوصف</label><textarea id="ar.programs.desc"></textarea></div>
-        <div id="ar-program-tabs"></div>
-      </div>
+    <!-- FAQ standalone (redirect) -->
+    <div class="section-page" id="page-faq">
+      <div class="page-title"><span>❓</span> الأسئلة الشائعة</div>
+      <p style="color:var(--muted);font-size:14px">الأسئلة الشائعة موجودة في قسم التواصل.</p>
+      <button class="btn" style="margin-top:12px" onclick="showPage('contact')">اذهب لقسم التواصل</button>
     </div>
 
-    <!-- How it works -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">⚙️</span> طريقة العمل</span>
-        <span class="acc-chevron">▼</span>
+    <!-- PLANS -->
+    <div class="section-page" id="page-plans">
+      <div class="page-title"><span>💰</span> <span id="plans-title-label">الباقات</span></div>
+      <div class="field-row cols2">
+        <div class="field"><label>Kicker</label><input id="plans.kicker"></div>
+        <div class="field"><label id="lbl-plans-title">العنوان</label><input id="plans.title"></div>
       </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.how_it_works.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.how_it_works.title" value=""></div>
-        <div id="ar.how_it_works.steps" class="list-editor"></div>
-        <button class="add-btn" onclick="addStep('ar')">+ إضافة خطوة</button>
-      </div>
+      <div class="field"><label id="lbl-plans-desc">الوصف</label><textarea id="plans.desc"></textarea></div>
     </div>
 
-    <!-- Results -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🏆</span> قسم النتائج</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.results.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.results.title" value=""></div>
-        <div class="field"><label>الوصف</label><textarea id="ar.results.desc"></textarea></div>
-        <div class="field"><label>نقاط النتائج (كل سطر نقطة)</label>
-          <textarea id="ar.results.points" style="min-height:100px"></textarea>
-        </div>
-      </div>
-    </div>
+    <!-- IMAGES -->
+    <div class="section-page" id="page-images">
+      <div class="page-title"><span>🖼️</span> إدارة الصور</div>
 
-    <!-- Stories -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">💬</span> قسم التجارب</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.stories.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.stories.title" value=""></div>
-      </div>
-    </div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:18px">اسحب صورة على أي حقل أو انقر لاختيار ملف. التغييرات تُحفظ مع زر الحفظ الرئيسي.</p>
 
-    <!-- Contact -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">📞</span> قسم التواصل</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.contact.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.contact.title" value=""></div>
-        <div class="field"><label>الوصف</label><textarea id="ar.contact.desc"></textarea></div>
-        <div class="grid2">
-          <div class="field"><label>نص الزر الأول</label><input id="ar.contact.cta_primary" value=""></div>
-          <div class="field"><label>نص الزر الثاني</label><input id="ar.contact.cta_secondary" value=""></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">❓</span> الأسئلة الشائعة</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div id="ar.faq" class="list-editor"></div>
-        <button class="add-btn" onclick="addFaq('ar')">+ إضافة سؤال</button>
-      </div>
-    </div>
-
-    <!-- Plans -->
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">💰</span> قسم الباقات</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field"><label>Kicker</label><input id="ar.plans.kicker" value=""></div>
-        <div class="field"><label>العنوان</label><input id="ar.plans.title" value=""></div>
-        <div class="field"><label>الوصف</label><textarea id="ar.plans.desc"></textarea></div>
-      </div>
-    </div>
-
-  </div><!-- /panel-ar -->
-
-
-  <!-- ═══ ENGLISH PANEL ═══ -->
-  <div class="lang-panel" id="panel-en">
-
-    <div class="acc open">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🦅</span> Hero Section</span>
-        <span class="acc-chevron">▲</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.hero.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Main Headline</label><input id="en.hero.title" value="" dir="ltr"></div>
-        <div class="field en"><label>Description</label><textarea id="en.hero.description" dir="ltr"></textarea></div>
-        <div class="grid2">
-          <div class="field en"><label>Primary CTA</label><input id="en.hero.cta_primary" value="" dir="ltr"></div>
-          <div class="field en"><label>Secondary CTA</label><input id="en.hero.cta_secondary" value="" dir="ltr"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🗺️</span> Journey Steps</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div id="en.journey" class="list-editor"></div>
-        <button class="add-btn" onclick="addJourneyStep('en')">+ Add Step</button>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🧑‍💼</span> Coach Section</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.coach.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.coach.title" value="" dir="ltr"></div>
-        <div class="field en"><label>Bio</label><textarea id="en.coach.bio" dir="ltr"></textarea></div>
-        <div class="field en"><label>CTA button</label><input id="en.coach.cta" value="" dir="ltr"></div>
-        <div class="field en"><label>Chips (one per line)</label>
-          <textarea id="en.coach.chips" dir="ltr" style="min-height:90px"></textarea>
-        </div>
-        <div class="grid2">
-          <div class="field en"><label>Years label</label><input id="en.coach.stats.years_label" value="" dir="ltr"></div>
-          <div class="field en"><label>Clients label</label><input id="en.coach.stats.clients_label" value="" dir="ltr"></div>
-          <div class="field en"><label>Custom label</label><input id="en.coach.stats.custom_label" value="" dir="ltr"></div>
-          <div class="field en"><label>Support label</label><input id="en.coach.stats.support_label" value="" dir="ltr"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">📋</span> Programs Section</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.programs.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.programs.title" value="" dir="ltr"></div>
-        <div class="field en"><label>Description</label><textarea id="en.programs.desc" dir="ltr"></textarea></div>
-        <div id="en-program-tabs"></div>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">⚙️</span> How It Works</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.how_it_works.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.how_it_works.title" value="" dir="ltr"></div>
-        <div id="en.how_it_works.steps" class="list-editor"></div>
-        <button class="add-btn" onclick="addStep('en')">+ Add Step</button>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🏆</span> Results Section</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.results.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.results.title" value="" dir="ltr"></div>
-        <div class="field en"><label>Description</label><textarea id="en.results.desc" dir="ltr"></textarea></div>
-        <div class="field en"><label>Points (one per line)</label>
-          <textarea id="en.results.points" dir="ltr" style="min-height:100px"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">💬</span> Stories Section</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.stories.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.stories.title" value="" dir="ltr"></div>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">📞</span> Contact Section</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.contact.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.contact.title" value="" dir="ltr"></div>
-        <div class="field en"><label>Description</label><textarea id="en.contact.desc" dir="ltr"></textarea></div>
-        <div class="grid2">
-          <div class="field en"><label>Primary CTA</label><input id="en.contact.cta_primary" value="" dir="ltr"></div>
-          <div class="field en"><label>Secondary CTA</label><input id="en.contact.cta_secondary" value="" dir="ltr"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">❓</span> FAQ</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div id="en.faq" class="list-editor"></div>
-        <button class="add-btn" onclick="addFaq('en')">+ Add FAQ</button>
-      </div>
-    </div>
-
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">💰</span> Plans Section</span>
-        <span class="acc-chevron">▼</span>
-      </div>
-      <div class="acc-body">
-        <div class="field en"><label>Kicker</label><input id="en.plans.kicker" value="" dir="ltr"></div>
-        <div class="field en"><label>Title</label><input id="en.plans.title" value="" dir="ltr"></div>
-        <div class="field en"><label>Description</label><textarea id="en.plans.desc" dir="ltr"></textarea></div>
-      </div>
-    </div>
-
-  </div><!-- /panel-en -->
-
-
-  <!-- ═══ IMAGES PANEL ═══ -->
-  <div class="lang-panel" id="panel-images">
-
-    <div class="acc open">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🧑‍💼</span> صورة المدرب الرئيسية</span>
-        <span class="acc-chevron">▲</span>
-      </div>
-      <div class="acc-body">
-        <p style="color:var(--muted);font-size:13px;margin-bottom:14px">هذه الصورة تظهر في قسم المدرب في الموقعين العربي والإنجليزي.</p>
-        <div class="drop-zone" id="heroDropZone">
-          <div class="drop-icon">📸</div>
-          <p>اسحب وأفلت صورة هنا، أو انقر للاختيار</p>
-          <p style="font-size:12px;margin-top:6px">JPG، PNG، WEBP — أقصى حجم 5MB</p>
-          <input type="file" accept="image/*" onchange="handleImageFile(this.files[0], 'hero')">
-        </div>
-        <div class="img-preview" id="heroPreview" style="display:none">
-          <img id="heroPreviewImg" src="" alt="">
-          <div class="img-url" id="heroPreviewUrl"></div>
-        </div>
-        <div style="margin-top:12px">
-          <div class="field"><label>أو أدخل URL الصورة مباشرة</label>
-            <input id="heroImageUrl" value="" dir="ltr" placeholder="/assets/images/hero.jpeg" style="font-family:monospace">
+      <!-- Hero image -->
+      <div class="field-group">
+        <label class="field-label">📸 صورة المدرب الرئيسية</label>
+        <div class="img-grid" style="grid-template-columns:1fr">
+          <div class="img-card" id="zone-hero" ondragover="onDragOver(event,'zone-hero')" ondragleave="onDragLeave('zone-hero')" ondrop="onDrop(event,'hero')">
+            <div class="img-preview"><img id="prev-hero" src="" onerror="this.style.display='none'" style="display:none"><div class="no-img" id="nimg-hero">📷</div></div>
+            <div class="img-drop">
+              <input type="file" accept="image/*" onchange="onFileSelect(this,'hero')">
+              <span class="img-drop-label">اسحب صورة هنا أو انقر للاختيار — JPG, PNG, WEBP (أقصى 5MB)</span>
+            </div>
+            <div class="img-url-row"><input id="url-hero" placeholder="/assets/images/hero.jpeg" oninput="previewUrl('hero',this.value)"></div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="acc">
-      <div class="acc-head" onclick="toggleAcc(this)">
-        <span class="acc-title"><span class="acc-icon">🖼️</span> صور البرامج (Tabs)</span>
-        <span class="acc-chevron">▼</span>
+      <div class="divider"></div>
+
+      <!-- Before / After -->
+      <div class="field-group">
+        <label class="field-label">⚖️ صور قبل / بعد (Results)</label>
+        <div class="img-grid">
+          <div class="img-card" id="zone-before" ondragover="onDragOver(event,'zone-before')" ondragleave="onDragLeave('zone-before')" ondrop="onDrop(event,'before')">
+            <div class="img-card-head">قبل — Before</div>
+            <div class="img-preview"><img id="prev-before" src="" onerror="this.style.display='none'" style="display:none"><div class="no-img" id="nimg-before">🖼️</div></div>
+            <div class="img-drop">
+              <input type="file" accept="image/*" onchange="onFileSelect(this,'before')">
+              <span class="img-drop-label">اسحب أو انقر</span>
+            </div>
+            <div class="img-url-row"><input id="url-before" placeholder="https://..." oninput="previewUrl('before',this.value)"></div>
+          </div>
+          <div class="img-card" id="zone-after" ondragover="onDragOver(event,'zone-after')" ondragleave="onDragLeave('zone-after')" ondrop="onDrop(event,'after')">
+            <div class="img-card-head">بعد — After</div>
+            <div class="img-preview"><img id="prev-after" src="" onerror="this.style.display='none'" style="display:none"><div class="no-img" id="nimg-after">🖼️</div></div>
+            <div class="img-drop">
+              <input type="file" accept="image/*" onchange="onFileSelect(this,'after')">
+              <span class="img-drop-label">اسحب أو انقر</span>
+            </div>
+            <div class="img-url-row"><input id="url-after" placeholder="https://..." oninput="previewUrl('after',this.value)"></div>
+          </div>
+        </div>
       </div>
-      <div class="acc-body">
-        <p style="color:var(--muted);font-size:13px;margin-bottom:16px">صور تظهر في قسم البرامج داخل كل تاب.</p>
-        <div id="tab-images-editor"></div>
+
+      <div class="divider"></div>
+
+      <!-- Program tab images -->
+      <div class="field-group">
+        <label class="field-label">🎯 صور تابات البرامج</label>
+        <div class="tab-imgs" id="tab-imgs-container"></div>
       </div>
-    </div>
 
-  </div><!-- /panel-images -->
+    </div><!-- /page-images -->
 
-</main>
+  </main>
+</div><!-- /layout -->
 
 <div class="save-bar">
-  <span class="save-status" id="saveStatus">تحميل البيانات...</span>
+  <span class="save-status" id="saveStatus">جاري التحميل...</span>
   <button class="btn primary" id="saveBtnBar" onclick="saveAll()">💾 حفظ التغييرات</button>
 </div>
 
@@ -479,653 +360,411 @@
 
 <script>
 const REPO = 'Eng-Kirolos-Ehab/o2f-life';
-const HV2_FILE  = 'src/_data/homeV2.json';
-const SITE_FILE = 'src/_data/site.json';
-
+const HV2  = 'src/_data/homeV2.json';
+const SITE = 'src/_data/site.json';
 const token = localStorage.getItem('o2f-gh-token');
-let hv2Data = null, siteData = null;
-let hv2Sha = '', siteSha = '';
 
-/* ─── GitHub API ─── */
+let hv2Data = null, siteData = null, hv2Sha = '', siteSha = '';
+let curLang = 'ar';
+
+/* ─── GitHub helpers ─── */
 async function ghGet(path) {
-  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+    headers:{Authorization:`token ${token}`,Accept:'application/vnd.github.v3+json'}
   });
-  if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
-  const j = await res.json();
-  const raw = atob(j.content.replace(/\n/g, ''));
+  if(!r.ok) throw new Error(`GET ${path} → ${r.status}`);
+  const j = await r.json();
+  const raw = atob(j.content.replace(/\n/g,''));
   const bytes = new Uint8Array(raw.length);
-  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
-  const content = JSON.parse(new TextDecoder('utf-8').decode(bytes));
-  return { sha: j.sha, content };
+  for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+  return {sha:j.sha, content:JSON.parse(new TextDecoder('utf-8').decode(bytes))};
 }
-
-async function ghPut(path, sha, content, message) {
-  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2))));
-  const body = { message, content: encoded, sha };
-  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `token ${token}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/vnd.github.v3+json'
-    },
-    body: JSON.stringify(body)
+async function ghPut(path,sha,content,msg){
+  const enc = btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2))));
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{
+    method:'PUT',
+    headers:{Authorization:`token ${token}`,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
+    body:JSON.stringify({message:msg,content:enc,sha})
   });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || 'Save failed');
-  }
-  const j = await res.json();
-  return j.content.sha;
+  if(!r.ok){const e=await r.json();throw new Error(e.message||'Save failed')}
+  return (await r.json()).content.sha;
 }
-
-async function ghUploadImage(filename, base64Data) {
-  const path = `src/assets/images/uploads/${filename}`;
+async function ghUpload(fname,b64){
+  const path=`src/assets/images/uploads/${fname}`;
   let sha;
-  try {
-    const existing = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-      headers: { Authorization: `token ${token}` }
-    });
-    if (existing.ok) { sha = (await existing.json()).sha; }
-  } catch {}
-  const body = { message: `Admin: upload image ${filename}`, content: base64Data };
-  if (sha) body.sha = sha;
-  const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-    method: 'PUT',
-    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) throw new Error('Image upload failed');
-  return `/assets/images/uploads/${filename}`;
+  try{const x=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{headers:{Authorization:`token ${token}`}});if(x.ok)sha=(await x.json()).sha}catch(_){}
+  const body={message:`Admin: upload ${fname}`,content:b64};
+  if(sha)body.sha=sha;
+  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{method:'PUT',headers:{Authorization:`token ${token}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error('Upload failed');
+  return `/assets/images/uploads/${fname}`;
 }
 
-/* ─── Load data ─── */
-async function loadData() {
-  try {
-    if (!token) {
-      showToast('لم يتم العثور على GitHub token. سجّل دخولك مجدداً.', 'err');
-      setTimeout(() => location.replace('./login.html'), 2000);
-      return;
-    }
-    const [hv2Res, siteRes] = await Promise.all([ghGet(HV2_FILE), ghGet(SITE_FILE)]);
-    hv2Data = hv2Res.content; hv2Sha = hv2Res.sha;
-    siteData = siteRes.content; siteSha = siteRes.sha;
-    populateFields();
-    setStatus('جاهز للتعديل ✓');
-  } catch (e) {
-    showToast('خطأ في تحميل البيانات: ' + e.message, 'err');
-    setStatus('خطأ في التحميل');
-  }
+/* ─── Load ─── */
+async function loadAll(){
+  try{
+    if(!token){showToast('لم يتم العثور على GitHub token','err');setTimeout(()=>location.replace('./login.html'),2000);return;}
+    const [h,s]=await Promise.all([ghGet(HV2),ghGet(SITE)]);
+    hv2Data=h.content;hv2Sha=h.sha;siteData=s.content;siteSha=s.sha;
+    populateAll();
+    document.getElementById('loadingOverlay').style.display='none';
+    setStatus('جاهز ✓');
+  }catch(e){showToast('خطأ في التحميل: '+e.message,'err');setStatus('خطأ');document.getElementById('loadingOverlay').style.display='none';}
 }
 
 /* ─── Populate ─── */
-function set(id, val) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  if (el.tagName === 'TEXTAREA') el.value = val || '';
-  else el.value = val || '';
-}
-
-function populateFields() {
-  const ar = hv2Data.ar, en = hv2Data.en;
-
-  /* AR hero */
-  set('ar.hero.kicker', ar.hero.kicker);
-  set('ar.hero.title', ar.hero.title);
-  set('ar.hero.description', ar.hero.description);
-  set('ar.hero.cta_primary', ar.hero.cta_primary);
-  set('ar.hero.cta_secondary', ar.hero.cta_secondary);
-
-  /* AR coach */
-  set('ar.coach.kicker', ar.coach.kicker);
-  set('ar.coach.title', ar.coach.title);
-  set('ar.coach.bio', ar.coach.bio);
-  set('ar.coach.cta', ar.coach.cta);
-  set('ar.coach.chips', (ar.coach.chips || []).join('\n'));
-  set('ar.coach.stats.years_label', ar.coach.stats.years_label);
-  set('ar.coach.stats.clients_label', ar.coach.stats.clients_label);
-  set('ar.coach.stats.custom_label', ar.coach.stats.custom_label);
-  set('ar.coach.stats.support_label', ar.coach.stats.support_label);
-
-  /* AR journey */
-  renderJourney('ar', ar.journey || []);
-
-  /* AR programs */
-  renderProgramTabs('ar', ar.programs.tabs || []);
-  set('ar.programs.kicker', ar.programs.kicker);
-  set('ar.programs.title', ar.programs.title);
-  set('ar.programs.desc', ar.programs.desc);
-
-  /* AR how_it_works */
-  set('ar.how_it_works.kicker', ar.how_it_works.kicker);
-  set('ar.how_it_works.title', ar.how_it_works.title);
-  renderSteps('ar', ar.how_it_works.steps || []);
-
-  /* AR results */
-  set('ar.results.kicker', ar.results.kicker);
-  set('ar.results.title', ar.results.title);
-  set('ar.results.desc', ar.results.desc);
-  set('ar.results.points', (ar.results.points || []).join('\n'));
-
-  /* AR stories */
-  set('ar.stories.kicker', ar.stories.kicker);
-  set('ar.stories.title', ar.stories.title);
-
-  /* AR contact */
-  set('ar.contact.kicker', ar.contact.kicker);
-  set('ar.contact.title', ar.contact.title);
-  set('ar.contact.desc', ar.contact.desc);
-  set('ar.contact.cta_primary', ar.contact.cta_primary);
-  set('ar.contact.cta_secondary', ar.contact.cta_secondary);
-
-  /* AR faq */
-  renderFaq('ar', ar.faq || []);
-
-  /* AR plans */
-  set('ar.plans.kicker', ar.plans.kicker);
-  set('ar.plans.title', ar.plans.title);
-  set('ar.plans.desc', ar.plans.desc);
-
-  /* EN hero */
-  set('en.hero.kicker', en.hero.kicker);
-  set('en.hero.title', en.hero.title);
-  set('en.hero.description', en.hero.description);
-  set('en.hero.cta_primary', en.hero.cta_primary);
-  set('en.hero.cta_secondary', en.hero.cta_secondary);
-
-  /* EN coach */
-  set('en.coach.kicker', en.coach.kicker);
-  set('en.coach.title', en.coach.title);
-  set('en.coach.bio', en.coach.bio);
-  set('en.coach.cta', en.coach.cta);
-  set('en.coach.chips', (en.coach.chips || []).join('\n'));
-  set('en.coach.stats.years_label', en.coach.stats.years_label);
-  set('en.coach.stats.clients_label', en.coach.stats.clients_label);
-  set('en.coach.stats.custom_label', en.coach.stats.custom_label);
-  set('en.coach.stats.support_label', en.coach.stats.support_label);
-
-  /* EN journey */
-  renderJourney('en', en.journey || []);
-
-  /* EN programs */
-  renderProgramTabs('en', en.programs.tabs || []);
-  set('en.programs.kicker', en.programs.kicker);
-  set('en.programs.title', en.programs.title);
-  set('en.programs.desc', en.programs.desc);
-
-  /* EN how_it_works */
-  set('en.how_it_works.kicker', en.how_it_works.kicker);
-  set('en.how_it_works.title', en.how_it_works.title);
-  renderSteps('en', en.how_it_works.steps || []);
-
-  /* EN results */
-  set('en.results.kicker', en.results.kicker);
-  set('en.results.title', en.results.title);
-  set('en.results.desc', en.results.desc);
-  set('en.results.points', (en.results.points || []).join('\n'));
-
-  /* EN stories */
-  set('en.stories.kicker', en.stories.kicker);
-  set('en.stories.title', en.stories.title);
-
-  /* EN contact */
-  set('en.contact.kicker', en.contact.kicker);
-  set('en.contact.title', en.contact.title);
-  set('en.contact.desc', en.contact.desc);
-  set('en.contact.cta_primary', en.contact.cta_primary);
-  set('en.contact.cta_secondary', en.contact.cta_secondary);
-
-  /* EN faq */
-  renderFaq('en', en.faq || []);
-
-  /* EN plans */
-  set('en.plans.kicker', en.plans.kicker);
-  set('en.plans.title', en.plans.title);
-  set('en.plans.desc', en.plans.desc);
-
-  /* Images */
+function v(id,val){const el=document.getElementById(id);if(el)el.value=val||''}
+function populateAll(){
+  const L=hv2Data[curLang];
+  v('hero.kicker',L.hero.kicker);v('hero.title',L.hero.title);
+  v('hero.description',L.hero.description);
+  v('hero.cta_primary',L.hero.cta_primary);v('hero.cta_secondary',L.hero.cta_secondary);
+  renderJourney(L.journey||[]);
+  v('coach.kicker',L.coach.kicker);v('coach.title',L.coach.title);
+  v('coach.bio',L.coach.bio);v('coach.cta',L.coach.cta);
+  v('coach.chips',(L.coach.chips||[]).join('\n'));
+  v('coach.stats.years_label',L.coach.stats.years_label);
+  v('coach.stats.clients_label',L.coach.stats.clients_label);
+  v('coach.stats.custom_label',L.coach.stats.custom_label);
+  v('coach.stats.support_label',L.coach.stats.support_label);
+  v('programs.kicker',L.programs.kicker);v('programs.title',L.programs.title);v('programs.desc',L.programs.desc);
+  renderProgramTabs(L.programs.tabs||[]);
+  v('hiw.kicker',L.how_it_works.kicker);v('hiw.title',L.how_it_works.title);
+  renderHiwSteps(L.how_it_works.steps||[]);
+  v('results.kicker',L.results.kicker);v('results.title',L.results.title);
+  v('results.desc',L.results.desc);v('results.points',(L.results.points||[]).join('\n'));
+  v('stories.kicker',L.stories.kicker);v('stories.title',L.stories.title);
+  v('contact.kicker',L.contact.kicker);v('contact.title',L.contact.title);
+  v('contact.desc',L.contact.desc);v('contact.cta_primary',L.contact.cta_primary);
+  v('contact.cta_secondary',L.contact.cta_secondary);
+  renderFaq(L.faq||[]);
+  v('plans.kicker',L.plans.kicker);v('plans.title',L.plans.title);v('plans.desc',L.plans.desc);
   populateImages();
+  updateLangLabels();
+}
+function populateImages(){
+  const heroUrl=siteData.heroImage||'';
+  v('url-hero',heroUrl);previewUrl('hero',heroUrl);
+  const en=hv2Data.en;
+  const beforeUrl=en.results.beforeImage||'';const afterUrl=en.results.afterImage||'';
+  v('url-before',beforeUrl);previewUrl('before',beforeUrl);
+  v('url-after',afterUrl);previewUrl('after',afterUrl);
+  renderTabImages(en.programs.tabs||[]);
 }
 
-function populateImages() {
-  const heroUrl = siteData.heroImage || '/assets/images/hero.jpeg';
-  set('heroImageUrl', heroUrl);
-  showImagePreview('hero', heroUrl);
-  renderTabImagesEditor();
+/* ─── Language labels ─── */
+const labels={
+  ar:{
+    'hero-title-label':'قسم البطل','lbl-kicker':'Kicker (نص صغير)','lbl-headline':'العنوان الرئيسي','lbl-desc':'الوصف',
+    'lbl-cta1':'الزر الأول','lbl-cta2':'الزر الثاني','lbl-journey':'خطوات الرحلة','lbl-add-step':'إضافة خطوة',
+    'coach-title-label':'قسم المدرب','lbl-coachtitle':'العنوان','lbl-bio':'السيرة الذاتية','lbl-cta':'زر CTA','lbl-chips':'Chips (كل سطر chip)',
+    'lbl-years':'تسمية سنوات','lbl-clients':'تسمية عملاء','lbl-custom':'تسمية مخصص','lbl-support':'تسمية دعم',
+    'programs-title-label':'البرامج','lbl-prog-title':'العنوان','lbl-prog-desc':'الوصف',
+    'hiw-title-label':'طريقة العمل','lbl-hiw-title':'العنوان','lbl-steps':'الخطوات','lbl-add-hiw':'إضافة خطوة',
+    'results-title-label':'النتائج','lbl-results-title':'العنوان','lbl-results-desc':'الوصف','lbl-points':'نقاط (كل سطر نقطة)',
+    'stories-title-label':'التجارب','lbl-stories-title':'العنوان',
+    'contact-title-label':'التواصل','lbl-contact-title':'العنوان','lbl-contact-desc':'الوصف','lbl-contact-cta1':'الزر الأول','lbl-contact-cta2':'الزر الثاني',
+    'lbl-faq-title2':'الأسئلة الشائعة','lbl-add-faq':'إضافة سؤال',
+    'plans-title-label':'الباقات','lbl-plans-title':'العنوان','lbl-plans-desc':'الوصف',
+  },
+  en:{
+    'hero-title-label':'Hero Section','lbl-kicker':'Kicker (small text)','lbl-headline':'Main Headline','lbl-desc':'Description',
+    'lbl-cta1':'Primary CTA','lbl-cta2':'Secondary CTA','lbl-journey':'Journey Steps','lbl-add-step':'Add Step',
+    'coach-title-label':'Coach Section','lbl-coachtitle':'Title','lbl-bio':'Bio','lbl-cta':'CTA Button','lbl-chips':'Chips (one per line)',
+    'lbl-years':'Years label','lbl-clients':'Clients label','lbl-custom':'Custom label','lbl-support':'Support label',
+    'programs-title-label':'Programs Section','lbl-prog-title':'Title','lbl-prog-desc':'Description',
+    'hiw-title-label':'How It Works','lbl-hiw-title':'Title','lbl-steps':'Steps','lbl-add-hiw':'Add Step',
+    'results-title-label':'Results Section','lbl-results-title':'Title','lbl-results-desc':'Description','lbl-points':'Points (one per line)',
+    'stories-title-label':'Stories Section','lbl-stories-title':'Title',
+    'contact-title-label':'Contact Section','lbl-contact-title':'Title','lbl-contact-desc':'Description','lbl-contact-cta1':'Primary CTA','lbl-contact-cta2':'Secondary CTA',
+    'lbl-faq-title2':'FAQ','lbl-add-faq':'Add Question',
+    'plans-title-label':'Plans Section','lbl-plans-title':'Title','lbl-plans-desc':'Description',
+  }
+};
+function updateLangLabels(){
+  const m=labels[curLang];
+  const isEn=curLang==='en';
+  Object.entries(m).forEach(([id,text])=>{const el=document.getElementById(id);if(el)el.textContent=text;});
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    if(!el.id.startsWith('url-')&&!el.closest('#page-images')){
+      if(isEn){el.style.direction='ltr';el.style.textAlign='left';el.style.fontFamily="'Inter',system-ui,sans-serif";}
+      else{el.style.direction='';el.style.textAlign='';el.style.fontFamily='';}
+    }
+  });
 }
 
 /* ─── List renderers ─── */
-function renderJourney(lang, steps) {
-  const container = document.getElementById(lang + '.journey');
-  if (!container) return;
-  container.innerHTML = '';
-  const isAr = lang === 'ar';
-  steps.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'list-item';
-    if (!isAr) div.dir = 'ltr';
-    div.innerHTML = `
-      <button class="rm" onclick="this.parentNode.remove()">×</button>
-      <div class="field"><label>${isAr ? 'عنوان الخطوة' : 'Step title'}</label>
-        <input data-key="title" value="${esc(s.title)}" ${!isAr ? 'dir="ltr"' : ''}>
-      </div>
-      <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
-        <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}>${esc(s.desc)}</textarea>
-      </div>`;
-    container.appendChild(div);
+function makeRm(fn){const b=document.createElement('button');b.className='rm';b.innerHTML='×';b.onclick=fn;return b;}
+function addInput(parent,key,val,placeholder,isTextarea,isEn){
+  const el=document.createElement(isTextarea?'textarea':'input');
+  el.dataset.key=key;el.value=val||'';if(placeholder)el.placeholder=placeholder;
+  if(isEn){el.style.direction='ltr';el.style.textAlign='left';el.style.fontFamily="'Inter',system-ui,sans-serif";}
+  if(isTextarea)el.style.minHeight='60px';
+  parent.appendChild(el);return el;
+}
+function renderJourney(steps){
+  const c=document.getElementById('journey-list');c.innerHTML='';
+  steps.forEach((s)=>{
+    const div=document.createElement('div');div.className='list-item';
+    const rm=makeRm(()=>div.remove());div.appendChild(rm);
+    const isEn=curLang==='en';
+    const t=document.createElement('div');t.style.marginBottom='8px';
+    addInput(t,'title',s.title,curLang==='ar'?'عنوان الخطوة':'Step title',false,isEn);
+    div.appendChild(t);
+    addInput(div,'desc',s.desc,curLang==='ar'?'الوصف':'Description',true,isEn);
+    c.appendChild(div);
   });
 }
-
-function addJourneyStep(lang) {
-  const isAr = lang === 'ar';
-  const container = document.getElementById(lang + '.journey');
-  const div = document.createElement('div');
-  div.className = 'list-item';
-  if (!isAr) div.dir = 'ltr';
-  div.innerHTML = `
-    <button class="rm" onclick="this.parentNode.remove()">×</button>
-    <div class="field"><label>${isAr ? 'عنوان الخطوة' : 'Step title'}</label>
-      <input data-key="title" value="" ${!isAr ? 'dir="ltr"' : ''}>
-    </div>
-    <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
-      <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}></textarea>
-    </div>`;
-  container.appendChild(div);
+function addJourneyItem(){
+  const c=document.getElementById('journey-list');
+  const div=document.createElement('div');div.className='list-item';
+  const rm=makeRm(()=>div.remove());div.appendChild(rm);
+  const isEn=curLang==='en';
+  const t=document.createElement('div');t.style.marginBottom='8px';
+  addInput(t,'title','',curLang==='ar'?'عنوان الخطوة':'Step title',false,isEn);
+  div.appendChild(t);
+  addInput(div,'desc','',curLang==='ar'?'الوصف':'Description',true,isEn);
+  c.appendChild(div);
 }
-
-function renderSteps(lang, steps) {
-  const container = document.getElementById(lang + '.how_it_works.steps');
-  if (!container) return;
-  container.innerHTML = '';
-  const isAr = lang === 'ar';
-  steps.forEach(s => {
-    const div = document.createElement('div');
-    div.className = 'list-item';
-    if (!isAr) div.dir = 'ltr';
-    div.innerHTML = `
-      <button class="rm" onclick="this.parentNode.remove()">×</button>
-      <div class="field"><label>${isAr ? 'العنوان' : 'Title'}</label>
-        <input data-key="title" value="${esc(s.title)}" ${!isAr ? 'dir="ltr"' : ''}>
-      </div>
-      <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
-        <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}>${esc(s.desc)}</textarea>
-      </div>`;
-    container.appendChild(div);
-  });
-}
-
-function addStep(lang) {
-  const isAr = lang === 'ar';
-  const container = document.getElementById(lang + '.how_it_works.steps');
-  const div = document.createElement('div');
-  div.className = 'list-item';
-  if (!isAr) div.dir = 'ltr';
-  div.innerHTML = `
-    <button class="rm" onclick="this.parentNode.remove()">×</button>
-    <div class="field"><label>${isAr ? 'العنوان' : 'Title'}</label>
-      <input data-key="title" value="" ${!isAr ? 'dir="ltr"' : ''}>
-    </div>
-    <div class="field"><label>${isAr ? 'الوصف' : 'Description'}</label>
-      <textarea data-key="desc" ${!isAr ? 'dir="ltr"' : ''}></textarea>
-    </div>`;
-  container.appendChild(div);
-}
-
-function renderFaq(lang, items) {
-  const container = document.getElementById(lang + '.faq');
-  if (!container) return;
-  container.innerHTML = '';
-  const isAr = lang === 'ar';
-  items.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'list-item';
-    if (!isAr) div.dir = 'ltr';
-    div.innerHTML = `
-      <button class="rm" onclick="this.parentNode.remove()">×</button>
-      <div class="field"><label>${isAr ? 'السؤال' : 'Question'}</label>
-        <input data-key="q" value="${esc(item.q)}" ${!isAr ? 'dir="ltr"' : ''}>
-      </div>
-      <div class="field"><label>${isAr ? 'الإجابة' : 'Answer'}</label>
-        <textarea data-key="a" ${!isAr ? 'dir="ltr"' : ''}>${esc(item.a)}</textarea>
-      </div>`;
-    container.appendChild(div);
-  });
-}
-
-function addFaq(lang) {
-  const isAr = lang === 'ar';
-  const container = document.getElementById(lang + '.faq');
-  const div = document.createElement('div');
-  div.className = 'list-item';
-  if (!isAr) div.dir = 'ltr';
-  div.innerHTML = `
-    <button class="rm" onclick="this.parentNode.remove()">×</button>
-    <div class="field"><label>${isAr ? 'السؤال' : 'Question'}</label>
-      <input data-key="q" value="" ${!isAr ? 'dir="ltr"' : ''}>
-    </div>
-    <div class="field"><label>${isAr ? 'الإجابة' : 'Answer'}</label>
-      <textarea data-key="a" ${!isAr ? 'dir="ltr"' : ''}></textarea>
-    </div>`;
-  container.appendChild(div);
-}
-
-function renderProgramTabs(lang, tabs) {
-  const container = document.getElementById(lang + '-program-tabs');
-  if (!container) return;
-  container.innerHTML = '';
-  const isAr = lang === 'ar';
-  tabs.forEach((tab, ti) => {
-    const wrap = document.createElement('div');
-    wrap.style.cssText = 'border:1px solid var(--line2);border-radius:12px;padding:16px;margin-top:14px';
-    wrap.dataset.tabIndex = ti;
-    wrap.innerHTML = `
-      <p style="font-weight:800;margin-bottom:14px;color:var(--mint)">${isAr ? 'تاب' : 'Tab'} ${ti + 1}: <input data-field="label" value="${esc(tab.label)}" ${!isAr ? 'dir="ltr"' : ''} style="background:transparent;border:none;border-bottom:1px solid var(--line2);color:var(--off);font-weight:800;width:180px;padding:2px 4px;outline:none"></p>
-      <div class="grid2">
-        <div class="field ${isAr ? '' : 'en'}"><label>Kicker</label><input data-field="kicker" value="${esc(tab.kicker)}" ${!isAr ? 'dir="ltr"' : ''}></div>
-        <div class="field ${isAr ? '' : 'en'}"><label>${isAr ? 'عنوان Caption' : 'Caption Title'}</label><input data-field="caption_title" value="${esc(tab.caption_title)}" ${!isAr ? 'dir="ltr"' : ''}></div>
-      </div>
-      <div class="field ${isAr ? '' : 'en'}"><label>${isAr ? 'العنوان الكامل' : 'Full Title'}</label><input data-field="title" value="${esc(tab.title)}" ${!isAr ? 'dir="ltr"' : ''}></div>
-      <div class="field ${isAr ? '' : 'en'}"><label>${isAr ? 'الوصف' : 'Description'}</label><textarea data-field="desc" ${!isAr ? 'dir="ltr"' : ''}>${esc(tab.desc)}</textarea></div>
-      <div class="tab-cards" data-lang="${lang}" data-tab="${ti}">
-        ${(tab.cards || []).map((c, ci) => `
-          <div class="field ${isAr ? '' : 'en'}" style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px">
-            <label>${isAr ? 'كارت' : 'Card'} ${ci + 1}</label>
-            <input data-card="${ci}" data-cfield="label" value="${esc(c.label)}" placeholder="${isAr ? 'عنوان' : 'Label'}" style="margin-bottom:8px" ${!isAr ? 'dir="ltr"' : ''}>
-            <textarea data-card="${ci}" data-cfield="text" ${!isAr ? 'dir="ltr"' : ''}>${esc(c.text)}</textarea>
-          </div>`).join('')}
-      </div>`;
-    container.appendChild(wrap);
-  });
-}
-
-function renderTabImagesEditor() {
-  const container = document.getElementById('tab-images-editor');
-  if (!container) return;
-  const tabs = (hv2Data.en.programs.tabs || []);
-  container.innerHTML = '';
-  tabs.forEach((tab, i) => {
-    const wrap = document.createElement('div');
-    wrap.style.cssText = 'margin-bottom:24px';
-    wrap.innerHTML = `
-      <p style="font-weight:800;margin-bottom:10px">${tab.label}</p>
-      <div class="drop-zone" id="tabDrop-${i}" style="padding:20px">
-        <div class="drop-icon" style="font-size:22px">🖼️</div>
-        <p style="font-size:13px">اسحب صورة هنا أو انقر</p>
-        <input type="file" accept="image/*" onchange="handleImageFile(this.files[0], 'tab-${i}')">
-      </div>
-      <div class="field" style="margin-top:10px">
-        <label>URL الصورة (unsplash أو مسار محلي)</label>
-        <input id="tabImg-${i}" value="${esc(tab.image || '')}" dir="ltr" style="font-family:monospace;font-size:12px">
-      </div>`;
-    container.appendChild(wrap);
-    setupDrop(`tabDrop-${i}`, `tab-${i}`);
-  });
-}
-
-/* ─── Read fields back ─── */
-function val(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
-}
-
-function readListItems(containerId, keys) {
-  const container = document.getElementById(containerId);
-  if (!container) return [];
-  return Array.from(container.querySelectorAll('.list-item')).map(item => {
-    const obj = {};
-    keys.forEach(k => {
-      const el = item.querySelector(`[data-key="${k}"]`);
-      obj[k] = el ? el.value.trim() : '';
-    });
+function readList(containerId,keys){
+  return Array.from(document.getElementById(containerId).querySelectorAll('.list-item')).map(item=>{
+    const obj={};keys.forEach(k=>{const el=item.querySelector(`[data-key="${k}"]`);obj[k]=el?el.value.trim():'';});
     return obj;
   });
 }
-
-function readFaqItems(lang) {
-  return readListItems(lang + '.faq', ['q', 'a']);
+function renderHiwSteps(steps){
+  const c=document.getElementById('hiw-steps-list');c.innerHTML='';
+  steps.forEach(s=>{
+    const div=document.createElement('div');div.className='list-item';
+    const rm=makeRm(()=>div.remove());div.appendChild(rm);
+    const isEn=curLang==='en';
+    const t=document.createElement('div');t.style.marginBottom='8px';
+    addInput(t,'title',s.title,curLang==='ar'?'العنوان':'Title',false,isEn);
+    div.appendChild(t);
+    addInput(div,'desc',s.desc,curLang==='ar'?'الوصف':'Description',true,isEn);
+    c.appendChild(div);
+  });
 }
-
-function readStepItems(lang) {
-  return readListItems(lang + '.how_it_works.steps', ['title', 'desc']);
+function addHiwStep(){
+  const c=document.getElementById('hiw-steps-list');
+  const div=document.createElement('div');div.className='list-item';
+  const rm=makeRm(()=>div.remove());div.appendChild(rm);
+  const isEn=curLang==='en';
+  const t=document.createElement('div');t.style.marginBottom='8px';
+  addInput(t,'title','',curLang==='ar'?'العنوان':'Title',false,isEn);
+  div.appendChild(t);
+  addInput(div,'desc','',curLang==='ar'?'الوصف':'Description',true,isEn);
+  c.appendChild(div);
 }
-
-function readJourneyItems(lang) {
-  return readListItems(lang + '.journey', ['title', 'desc']);
+function renderFaq(items){
+  const c=document.getElementById('faq-list');c.innerHTML='';
+  items.forEach(item=>{
+    const div=document.createElement('div');div.className='list-item';
+    const rm=makeRm(()=>div.remove());div.appendChild(rm);
+    const isEn=curLang==='en';
+    const t=document.createElement('div');t.style.marginBottom='8px';
+    addInput(t,'q',item.q,curLang==='ar'?'السؤال':'Question',false,isEn);
+    div.appendChild(t);
+    addInput(div,'a',item.a,curLang==='ar'?'الإجابة':'Answer',true,isEn);
+    c.appendChild(div);
+  });
 }
-
-function readProgramTabs(lang) {
-  const container = document.getElementById(lang + '-program-tabs');
-  if (!container) return hv2Data[lang].programs.tabs;
-  const origTabs = hv2Data[lang].programs.tabs || [];
-  return Array.from(container.children).map((wrap, ti) => {
-    const orig = origTabs[ti] || {};
-    const field = (f) => { const el = wrap.querySelector(`[data-field="${f}"]`); return el ? el.value.trim() : (orig[f] || ''); };
-    const cards = (orig.cards || []).map((c, ci) => {
-      const lbl = wrap.querySelector(`[data-card="${ci}"][data-cfield="label"]`);
-      const txt = wrap.querySelector(`[data-card="${ci}"][data-cfield="text"]`);
-      return { label: lbl ? lbl.value.trim() : c.label, text: txt ? txt.value.trim() : c.text };
+function addFaqItem(){
+  const c=document.getElementById('faq-list');
+  const div=document.createElement('div');div.className='list-item';
+  const rm=makeRm(()=>div.remove());div.appendChild(rm);
+  const isEn=curLang==='en';
+  const t=document.createElement('div');t.style.marginBottom='8px';
+  addInput(t,'q','',curLang==='ar'?'السؤال':'Question',false,isEn);
+  div.appendChild(t);
+  addInput(div,'a','',curLang==='ar'?'الإجابة':'Answer',true,isEn);
+  c.appendChild(div);
+}
+function renderProgramTabs(tabs){
+  const c=document.getElementById('programs-tabs-editor');c.innerHTML='';
+  const isEn=curLang==='en';
+  tabs.forEach((tab,i)=>{
+    const wrap=document.createElement('div');
+    wrap.style.cssText='border:1px solid var(--line2);border-radius:12px;padding:16px;margin-top:14px';
+    wrap.dataset.idx=i;
+    const head=document.createElement('div');
+    head.style.cssText='font-weight:800;color:var(--mint);margin-bottom:12px;font-size:14px';
+    head.textContent=`Tab ${i+1}: ${tab.label}`;
+    wrap.appendChild(head);
+    const row=document.createElement('div');row.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px';
+    ['kicker','caption_title'].forEach(f=>{
+      const d=document.createElement('div');
+      const l=document.createElement('label');l.textContent=f;l.style.cssText='display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:5px';
+      const inp=document.createElement('input');inp.dataset.field=f;inp.value=tab[f]||'';
+      if(isEn){inp.style.direction='ltr';inp.style.textAlign='left';inp.style.fontFamily="'Inter',system-ui,sans-serif";}
+      d.appendChild(l);d.appendChild(inp);row.appendChild(d);
     });
-    /* Tab image URL comes from the Images panel (shared across languages) */
-    const imgInput = document.getElementById('tabImg-' + ti);
-    const image = imgInput ? imgInput.value.trim() : (orig.image || '');
-    return { key: orig.key, label: field('label'), kicker: field('kicker'), title: field('title'), desc: field('desc'), caption_title: field('caption_title'), image, cards };
+    wrap.appendChild(row);
+    ['title','desc'].forEach(f=>{
+      const d=document.createElement('div');d.style.marginBottom='10px';
+      const l=document.createElement('label');l.textContent=f;l.style.cssText='display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:5px';
+      const el=f==='desc'?document.createElement('textarea'):document.createElement('input');
+      el.dataset.field=f;el.value=tab[f]||'';
+      if(isEn){el.style.direction='ltr';el.style.textAlign='left';el.style.fontFamily="'Inter',system-ui,sans-serif";}
+      if(f==='desc')el.style.minHeight='60px';
+      d.appendChild(l);d.appendChild(el);wrap.appendChild(d);
+    });
+    /* cards */
+    (tab.cards||[]).forEach((card,ci)=>{
+      const cd=document.createElement('div');cd.style.cssText='border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px';
+      ['label','text'].forEach(cf=>{
+        const inp=document.createElement('input');inp.dataset.card=ci;inp.dataset.cfield=cf;inp.value=card[cf]||'';inp.placeholder=cf;
+        if(isEn){inp.style.direction='ltr';inp.style.textAlign='left';inp.style.fontFamily="'Inter',system-ui,sans-serif";}
+        cd.appendChild(inp);
+      });
+      wrap.appendChild(cd);
+    });
+    c.appendChild(wrap);
+  });
+}
+function renderTabImages(tabs){
+  const c=document.getElementById('tab-imgs-container');c.innerHTML='';
+  tabs.forEach((tab,i)=>{
+    const wrap=document.createElement('div');
+    wrap.className='img-card';
+    wrap.id='zone-tab-'+i;
+    wrap.setAttribute('ondragover',`onDragOver(event,'zone-tab-${i}')`);
+    wrap.setAttribute('ondragleave',`onDragLeave('zone-tab-${i}')`);
+    wrap.setAttribute('ondrop',`onDrop(event,'tab-${i}')`);
+    wrap.innerHTML=`
+      <div class="img-card-head">${tab.label}</div>
+      <div class="img-preview"><img id="prev-tab-${i}" src="${tab.image||''}" onerror="this.style.display='none'" ${tab.image?'':'style="display:none"'}><div class="no-img" id="nimg-tab-${i}" ${tab.image?'style="display:none"':''}>🎯</div></div>
+      <div class="img-drop">
+        <input type="file" accept="image/*" onchange="onFileSelect(this,'tab-${i}')">
+        <span class="img-drop-label">اسحب أو انقر</span>
+      </div>
+      <div class="img-url-row"><input id="url-tab-${i}" value="${tab.image||''}" placeholder="https://..." oninput="previewUrl('tab-${i}',this.value)"></div>`;
+    c.appendChild(wrap);
   });
 }
 
-/* ─── Build data objects ─── */
-function buildHv2() {
-  return {
-    en: {
-      hero: {
-        kicker: val('en.hero.kicker'), title: val('en.hero.title'),
-        description: val('en.hero.description'), cta_primary: val('en.hero.cta_primary'),
-        cta_secondary: val('en.hero.cta_secondary')
-      },
-      coach: {
-        kicker: val('en.coach.kicker'), title: val('en.coach.title'),
-        bio: val('en.coach.bio'), cta: val('en.coach.cta'),
-        chips: val('en.coach.chips').split('\n').map(s => s.trim()).filter(Boolean),
-        stats: {
-          years_label: val('en.coach.stats.years_label'),
-          clients_label: val('en.coach.stats.clients_label'),
-          custom_label: val('en.coach.stats.custom_label'),
-          support_label: val('en.coach.stats.support_label')
-        }
-      },
-      journey: readJourneyItems('en'),
-      programs: {
-        kicker: val('en.programs.kicker'), title: val('en.programs.title'),
-        desc: val('en.programs.desc'), tabs: readProgramTabs('en')
-      },
-      how_it_works: {
-        kicker: val('en.how_it_works.kicker'), title: val('en.how_it_works.title'),
-        steps: readStepItems('en')
-      },
-      results: {
-        kicker: val('en.results.kicker'), title: val('en.results.title'),
-        desc: val('en.results.desc'),
-        points: val('en.results.points').split('\n').map(s => s.trim()).filter(Boolean)
-      },
-      stories: { kicker: val('en.stories.kicker'), title: val('en.stories.title') },
-      contact: {
-        kicker: val('en.contact.kicker'), title: val('en.contact.title'),
-        desc: val('en.contact.desc'), cta_primary: val('en.contact.cta_primary'),
-        cta_secondary: val('en.contact.cta_secondary')
-      },
-      faq: readFaqItems('en'),
-      plans: {
-        kicker: val('en.plans.kicker'), title: val('en.plans.title'),
-        desc: val('en.plans.desc'), items: hv2Data.en.plans.items
-      }
-    },
-    ar: {
-      hero: {
-        kicker: val('ar.hero.kicker'), title: val('ar.hero.title'),
-        description: val('ar.hero.description'), cta_primary: val('ar.hero.cta_primary'),
-        cta_secondary: val('ar.hero.cta_secondary')
-      },
-      coach: {
-        kicker: val('ar.coach.kicker'), title: val('ar.coach.title'),
-        bio: val('ar.coach.bio'), cta: val('ar.coach.cta'),
-        chips: val('ar.coach.chips').split('\n').map(s => s.trim()).filter(Boolean),
-        stats: {
-          years_label: val('ar.coach.stats.years_label'),
-          clients_label: val('ar.coach.stats.clients_label'),
-          custom_label: val('ar.coach.stats.custom_label'),
-          support_label: val('ar.coach.stats.support_label')
-        }
-      },
-      journey: readJourneyItems('ar'),
-      programs: {
-        kicker: val('ar.programs.kicker'), title: val('ar.programs.title'),
-        desc: val('ar.programs.desc'), tabs: readProgramTabs('ar')
-      },
-      how_it_works: {
-        kicker: val('ar.how_it_works.kicker'), title: val('ar.how_it_works.title'),
-        steps: readStepItems('ar')
-      },
-      results: {
-        kicker: val('ar.results.kicker'), title: val('ar.results.title'),
-        desc: val('ar.results.desc'),
-        points: val('ar.results.points').split('\n').map(s => s.trim()).filter(Boolean)
-      },
-      stories: { kicker: val('ar.stories.kicker'), title: val('ar.stories.title') },
-      contact: {
-        kicker: val('ar.contact.kicker'), title: val('ar.contact.title'),
-        desc: val('ar.contact.desc'), cta_primary: val('ar.contact.cta_primary'),
-        cta_secondary: val('ar.contact.cta_secondary')
-      },
-      faq: readFaqItems('ar'),
-      plans: {
-        kicker: val('ar.plans.kicker'), title: val('ar.plans.title'),
-        desc: val('ar.plans.desc'), items: hv2Data.ar.plans.items
-      }
-    }
-  };
+/* ─── Image preview ─── */
+function previewUrl(key,url){
+  const img=document.getElementById('prev-'+key);
+  const noImg=document.getElementById('nimg-'+key);
+  if(!img)return;
+  if(url){img.src=url;img.style.display='block';if(noImg)noImg.style.display='none';}
+  else{img.style.display='none';if(noImg)noImg.style.display='flex';}
 }
 
-/* ─── Save ─── */
-async function saveAll() {
-  const btn = document.getElementById('saveBtnBar');
-  btn.disabled = true;
-  btn.textContent = '⏳ جاري الحفظ...';
-  setStatus('جاري الحفظ...');
-  try {
-    const newHv2 = buildHv2();
-    hv2Sha = await ghPut(HV2_FILE, hv2Sha, newHv2, 'Admin: update homepage content [en+ar]');
-    hv2Data = newHv2;
-
-    /* Save hero image URL if changed */
-    const heroUrl = val('heroImageUrl');
-    if (heroUrl && heroUrl !== siteData.heroImage) {
-      siteData.heroImage = heroUrl;
-      siteSha = await ghPut(SITE_FILE, siteSha, siteData, 'Admin: update hero image');
-    }
-
-    showToast('تم الحفظ بنجاح ✓ — سيظهر على الموقع خلال دقيقة', 'ok');
-    setStatus('تم الحفظ ✓');
-  } catch (e) {
-    showToast('خطأ في الحفظ: ' + e.message, 'err');
-    setStatus('خطأ في الحفظ');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '💾 حفظ التغييرات';
-  }
+/* ─── Drag & drop ─── */
+function onDragOver(e,zoneId){e.preventDefault();document.getElementById(zoneId).classList.add('drop-active');}
+function onDragLeave(zoneId){document.getElementById(zoneId).classList.remove('drop-active');}
+function onDrop(e,key){
+  e.preventDefault();
+  const zoneId='zone-'+key.replace('-','_').replace(/(tab)_(\d)/,'tab-$2');
+  document.querySelectorAll('.drop-active').forEach(el=>el.classList.remove('drop-active'));
+  const file=e.dataTransfer.files[0];
+  if(file&&file.type.startsWith('image/'))processImage(file,key);
 }
-
-/* ─── Image upload ─── */
-function handleImageFile(file, target) {
-  if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { showToast('الصورة أكبر من 5MB', 'err'); return; }
-  const reader = new FileReader();
-  reader.onload = async (e) => {
-    const dataUrl = e.target.result;
-    const base64 = dataUrl.split(',')[1];
-    showImagePreview(target, dataUrl);
-    try {
-      const ext = file.name.split('.').pop();
-      const filename = Date.now() + '-' + (target === 'hero' ? 'hero' : 'tab-' + target.split('-')[1]) + '.' + ext;
+function onFileSelect(input,key){if(input.files[0])processImage(input.files[0],key);}
+async function processImage(file,key){
+  if(file.size>5*1024*1024){showToast('الصورة أكبر من 5MB','err');return;}
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    const dataUrl=e.target.result;
+    previewUrl(key,dataUrl);
+    const urlInput=document.getElementById('url-'+key);
+    try{
       setStatus('جاري رفع الصورة...');
-      const url = await ghUploadImage(filename, base64);
-      if (target === 'hero') { set('heroImageUrl', url); showImagePreview('hero', url); }
-      else {
-        const idx = target.split('-')[1];
-        const tabInput = document.getElementById('tabImg-' + idx);
-        if (tabInput) tabInput.value = url;
-      }
-      showToast('تم رفع الصورة ✓', 'ok');
-      setStatus('جاهز ✓');
-    } catch (err) {
-      showToast('خطأ في رفع الصورة: ' + err.message, 'err');
-      setStatus('خطأ في رفع الصورة');
-    }
+      const b64=dataUrl.split(',')[1];
+      const ext=file.name.split('.').pop();
+      const fname=`${Date.now()}-${key.replace(/[^a-z0-9]/g,'-')}.${ext}`;
+      const url=await ghUpload(fname,b64);
+      if(urlInput){urlInput.value=url;previewUrl(key,url);}
+      showToast('تم رفع الصورة ✓','ok');setStatus('جاهز ✓');
+    }catch(err){showToast('خطأ في الرفع: '+err.message,'err');setStatus('خطأ في الرفع');}
   };
   reader.readAsDataURL(file);
 }
 
-function showImagePreview(target, src) {
-  if (target === 'hero') {
-    const preview = document.getElementById('heroPreview');
-    const img = document.getElementById('heroPreviewImg');
-    const urlEl = document.getElementById('heroPreviewUrl');
-    if (preview && img) { preview.style.display = 'block'; img.src = src; urlEl.textContent = src; }
-  }
-}
-
-function setupDrop(zoneId, target) {
-  const zone = document.getElementById(zoneId);
-  if (!zone) return;
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-  zone.addEventListener('drop', e => {
-    e.preventDefault(); zone.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) handleImageFile(file, target);
+/* ─── Read values ─── */
+function val(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function readProgramTabs(){
+  const orig=hv2Data[curLang].programs.tabs||[];
+  return Array.from(document.getElementById('programs-tabs-editor').children).map((wrap,ti)=>{
+    const orig_tab=orig[ti]||{};
+    const fv=f=>{const el=wrap.querySelector(`[data-field="${f}"]`);return el?el.value.trim():(orig_tab[f]||'');};
+    const cards=(orig_tab.cards||[]).map((c,ci)=>{
+      const lbl=wrap.querySelector(`[data-card="${ci}"][data-cfield="label"]`);
+      const txt=wrap.querySelector(`[data-card="${ci}"][data-cfield="text"]`);
+      return{label:lbl?lbl.value.trim():c.label,text:txt?txt.value.trim():c.text};
+    });
+    const imgInput=document.getElementById(`url-tab-${ti}`);
+    const image=imgInput?imgInput.value.trim():(orig_tab.image||'');
+    return{key:orig_tab.key,label:fv('label')||orig_tab.label,kicker:fv('kicker'),title:fv('title'),desc:fv('desc'),caption_title:fv('caption_title'),image,cards};
   });
 }
-
-/* ─── Setup hero drop zone ─── */
-function setupHeroDrop() {
-  const zone = document.getElementById('heroDropZone');
-  if (!zone) return;
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-  zone.addEventListener('drop', e => {
-    e.preventDefault(); zone.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) handleImageFile(file, 'hero');
-  });
+function buildLang(lang){
+  const orig=hv2Data[lang];
+  /* If not current lang, return unchanged */
+  if(lang!==curLang)return orig;
+  return{
+    hero:{kicker:val('hero.kicker'),title:val('hero.title'),description:val('hero.description'),cta_primary:val('hero.cta_primary'),cta_secondary:val('hero.cta_secondary')},
+    coach:{kicker:val('coach.kicker'),title:val('coach.title'),bio:val('coach.bio'),cta:val('coach.cta'),
+      chips:val('coach.chips').split('\n').map(s=>s.trim()).filter(Boolean),
+      stats:{years_label:val('coach.stats.years_label'),clients_label:val('coach.stats.clients_label'),custom_label:val('coach.stats.custom_label'),support_label:val('coach.stats.support_label')}},
+    journey:readList('journey-list',['title','desc']),
+    programs:{kicker:val('programs.kicker'),title:val('programs.title'),desc:val('programs.desc'),tabs:readProgramTabs()},
+    how_it_works:{kicker:val('hiw.kicker'),title:val('hiw.title'),steps:readList('hiw-steps-list',['title','desc'])},
+    results:{...orig.results,kicker:val('results.kicker'),title:val('results.title'),desc:val('results.desc'),points:val('results.points').split('\n').map(s=>s.trim()).filter(Boolean)},
+    stories:{kicker:val('stories.kicker'),title:val('stories.title')},
+    contact:{kicker:val('contact.kicker'),title:val('contact.title'),desc:val('contact.desc'),cta_primary:val('contact.cta_primary'),cta_secondary:val('contact.cta_secondary')},
+    faq:readList('faq-list',['q','a']),
+    plans:{...orig.plans,kicker:val('plans.kicker'),title:val('plans.title'),desc:val('plans.desc')},
+  };
 }
 
-/* ─── UI helpers ─── */
-function toggleAcc(head) {
-  head.parentNode.classList.toggle('open');
-  head.querySelector('.acc-chevron').textContent = head.parentNode.classList.contains('open') ? '▲' : '▼';
+/* ─── Save ─── */
+async function saveAll(){
+  const btn=document.getElementById('saveBtnBar');
+  btn.disabled=true;btn.textContent='⏳ جاري الحفظ...';setStatus('جاري الحفظ...');
+  try{
+    const newHv2={ar:buildLang('ar'),en:buildLang('en')};
+    /* Sync images across both langs */
+    const tabImgs=Array.from(document.getElementById('tab-imgs-container').children).map((c,i)=>{
+      const inp=document.getElementById('url-tab-'+i);return inp?inp.value.trim():'';
+    });
+    ['ar','en'].forEach(lang=>{
+      (newHv2[lang].programs.tabs||[]).forEach((t,i)=>{if(tabImgs[i]!==undefined)t.image=tabImgs[i];});
+      const bu=val('url-before'),au=val('url-after');
+      if(bu)newHv2[lang].results.beforeImage=bu;
+      if(au)newHv2[lang].results.afterImage=au;
+    });
+    hv2Sha=await ghPut(HV2,hv2Sha,newHv2,'Admin: update homepage content');
+    hv2Data=newHv2;
+    const heroUrl=val('url-hero');
+    if(heroUrl&&heroUrl!==siteData.heroImage){
+      siteData.heroImage=heroUrl;
+      siteSha=await ghPut(SITE,siteSha,siteData,'Admin: update hero image');
+    }
+    showToast('تم الحفظ ✓ — سيظهر على الموقع خلال دقيقة','ok');setStatus('تم الحفظ ✓');
+  }catch(e){showToast('خطأ: '+e.message,'err');setStatus('خطأ في الحفظ');}
+  finally{btn.disabled=false;btn.textContent='💾 حفظ التغييرات';}
 }
 
-function switchLang(lang) {
-  document.querySelectorAll('.lang-tab').forEach(t => t.classList.toggle('active', t.dataset.lang === lang));
-  document.querySelectorAll('.lang-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + lang));
+/* ─── UI ─── */
+function showPage(id){
+  document.querySelectorAll('.section-page').forEach(p=>p.classList.toggle('active',p.id==='page-'+id));
+  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')===`showPage('${id}')`));
 }
-
-function setStatus(msg) { const el = document.getElementById('saveStatus'); if (el) el.textContent = msg; }
-
-function showToast(msg, type) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'toast show ' + (type || '');
-  setTimeout(() => t.className = 'toast', 3800);
+function setLang(lang){
+  curLang=lang;
+  document.querySelectorAll('.lang-tab').forEach(t=>t.classList.toggle('active',t.getAttribute('onclick')===`setLang('${lang}')`));
+  if(hv2Data)populateAll();
 }
-
-function esc(s) { return (s || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function setStatus(msg){const el=document.getElementById('saveStatus');if(el)el.textContent=msg;}
+function showToast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+(type||'');setTimeout(()=>t.className='toast',3800);}
 
 /* ─── Init ─── */
-const params = new URLSearchParams(location.search);
-if (params.get('lang') === 'en') switchLang('en');
-if (params.get('lang') === 'images' || location.hash === '#images') switchLang('images');
-
-setupHeroDrop();
-loadData();
+const params=new URLSearchParams(location.search);
+if(params.get('lang')==='en')curLang='en';
+loadAll();
 </script>
 </body>
 </html>
