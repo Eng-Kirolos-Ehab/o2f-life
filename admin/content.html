@@ -172,6 +172,8 @@
     <button class="sidebar-item" onclick="showPage('plans')"><span class="si-icon">💰</span> الباقات</button>
     <div class="sidebar-section">الصور</div>
     <button class="sidebar-item" onclick="showPage('images')"><span class="si-icon">🖼️</span> كل الصور</button>
+    <div class="sidebar-section">الإعدادات</div>
+    <button class="sidebar-item" onclick="showPage('social')"><span class="si-icon">🔗</span> سوشيال ميديا</button>
   </aside>
 
   <!-- Main content -->
@@ -348,6 +350,20 @@
 
     </div><!-- /page-images -->
 
+    <!-- SOCIAL LINKS -->
+    <div class="section-page" id="page-social">
+      <div class="page-title"><span>🔗</span> روابط السوشيال ميديا</div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:20px">هذه الروابط تظهر في الفوتر وقسم التواصل في كلا الصفحتين العربية والإنجليزية.</p>
+      <div class="field"><label>WhatsApp (رقم مع كود الدولة)</label><input id="social.whatsapp" dir="ltr" placeholder="+201234567890" style="font-family:monospace"></div>
+      <div class="field"><label>Instagram URL</label><input id="social.instagram" dir="ltr" placeholder="https://www.instagram.com/..."></div>
+      <div class="field"><label>Facebook URL</label><input id="social.facebook" dir="ltr" placeholder="https://www.facebook.com/..."></div>
+      <div class="field"><label>YouTube URL</label><input id="social.youtube" dir="ltr" placeholder="https://www.youtube.com/..."></div>
+      <div class="field"><label>TikTok URL</label><input id="social.tiktok" dir="ltr" placeholder="https://www.tiktok.com/..."></div>
+      <div class="field"><label>X / Twitter URL</label><input id="social.x" dir="ltr" placeholder="https://x.com/..."></div>
+      <div class="divider"></div>
+      <div class="field"><label>رابط Google Form (نموذج الاشتراك)</label><input id="site.googleForm" dir="ltr" placeholder="https://docs.google.com/forms/..."></div>
+    </div><!-- /page-social -->
+
   </main>
 </div><!-- /layout -->
 
@@ -440,7 +456,18 @@ function populateAll(){
   renderFaq(L.faq||[]);
   v('plans.kicker',L.plans.kicker);v('plans.title',L.plans.title);v('plans.desc',L.plans.desc);
   populateImages();
+  populateSocial();
   updateLangLabels();
+}
+function populateSocial(){
+  if(!siteData) return;
+  v('social.whatsapp', siteData.social&&siteData.social.whatsapp||siteData.whatsapp||'');
+  v('social.instagram', siteData.social&&siteData.social.instagram||'');
+  v('social.facebook', siteData.social&&siteData.social.facebook||'');
+  v('social.youtube', siteData.social&&siteData.social.youtube||'');
+  v('social.tiktok', siteData.social&&siteData.social.tiktok||'');
+  v('social.x', siteData.social&&siteData.social.x||'');
+  v('site.googleForm', siteData.googleForm||'');
 }
 function populateImages(){
   const heroUrl=siteData.heroImage||'';
@@ -738,11 +765,27 @@ async function saveAll(){
     });
     hv2Sha=await ghPut(HV2,hv2Sha,newHv2,'Admin: update homepage content');
     hv2Data=newHv2;
+    /* Save site.json changes */
     const heroUrl=val('url-hero');
-    if(heroUrl&&heroUrl!==siteData.heroImage){
-      siteData.heroImage=heroUrl;
-      siteSha=await ghPut(SITE,siteSha,siteData,'Admin: update hero image');
+    const waNum=val('social.whatsapp');
+    const igUrl=val('social.instagram');
+    const fbUrl=val('social.facebook');
+    const ytUrl=val('social.youtube');
+    const ttUrl=val('social.tiktok');
+    const xUrl=val('social.x');
+    const gForm=val('site.googleForm');
+    const siteChanged=(heroUrl&&heroUrl!==siteData.heroImage)||waNum!==((siteData.social&&siteData.social.whatsapp)||siteData.whatsapp||'');
+    if(heroUrl) siteData.heroImage=heroUrl;
+    if(siteData.social){
+      siteData.social.whatsapp=waNum;
+      siteData.social.instagram=igUrl;
+      siteData.social.facebook=fbUrl;
+      siteData.social.youtube=ytUrl;
+      siteData.social.tiktok=ttUrl;
+      siteData.social.x=xUrl;
     }
+    if(gForm) siteData.googleForm=gForm;
+    siteSha=await ghPut(SITE,siteSha,siteData,'Admin: update site settings & images');
     showToast('تم الحفظ ✓ — سيظهر على الموقع خلال دقيقة','ok');setStatus('تم الحفظ ✓');
   }catch(e){showToast('خطأ: '+e.message,'err');setStatus('خطأ في الحفظ');}
   finally{btn.disabled=false;btn.textContent='💾 حفظ التغييرات';}

@@ -225,10 +225,17 @@ p,li,span{color:var(--muted);line-height:1.72}
 .final{padding-bottom:160px}
 .faq{display:grid;gap:14px}
 .faq .glass{padding:24px}
-.v2-footer{padding:28px clamp(16px,5vw,76px) 100px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(247,255,247,.45);position:relative;z-index:3}
-.v2-footer a{color:rgba(247,255,247,.45);text-decoration:none;transition:color .18s}
-.v2-footer a:hover{color:var(--lime)}
-.v2-footer-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.social-contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.v2-footer{padding:28px clamp(16px,5vw,76px) 100px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:16px;font-size:13px;color:rgba(247,255,247,.45);position:relative;z-index:3}
+.v2-footer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.v2-footer-brand strong{color:#fff;font-size:15px;display:block;margin-bottom:2px}
+.v2-footer-social{display:flex;gap:10px;flex-wrap:wrap}
+.v2-footer-social a{color:rgba(247,255,247,.7);text-decoration:none;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 13px;font-size:12px;transition:.18s}
+.v2-footer-social a:hover{color:#fff;border-color:var(--lime)}
+.v2-footer-social a.wa{background:rgba(37,211,102,.12);border-color:rgba(37,211,102,.3);color:rgba(37,211,102,.9)}
+.v2-footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-top:1px solid rgba(255,255,255,.06);padding-top:14px}
+.v2-footer-bottom a{color:rgba(247,255,247,.45);text-decoration:none;transition:color .18s}
+.v2-footer-bottom a:hover{color:var(--lime)}
 @keyframes moveLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes moveRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 @media(max-width:1050px){.grid2,.tab-panel,.before-wrap{grid-template-columns:1fr}.plans,.steps,.cards3,.detail-grid{grid-template-columns:1fr 1fr}.coach-photo{min-height:520px}.gallery-grid{grid-template-columns:1fr 1fr}.dock{bottom:18px!important;top:auto!important}}
@@ -246,7 +253,7 @@ p,li,span{color:var(--muted);line-height:1.72}
     <a href="#gallery">Gallery</a>
     <a href="#plans">Plans</a>
     <a href="/ar/" class="dock-lang">AR</a>
-    
+    <a href="https://wa.me/+201279777609" class="dock-lang">WA ↗</a>
   </nav>
 
   <main class="o2f-main">
@@ -511,7 +518,6 @@ p,li,span{color:var(--muted);line-height:1.72}
               <button type="button" class="active" data-months="1" data-discount="0">1M</button>
               <button type="button" data-months="3" data-discount="10">3M</button>
               <button type="button" data-months="6" data-discount="15">6M</button>
-              <button type="button" data-months="12" data-discount="20">12M</button>
             </div>
             <span class="saving">Total: $80</span>
             <p>For people who need a clean first step with training and nutrition direction.</p>
@@ -537,7 +543,6 @@ p,li,span{color:var(--muted);line-height:1.72}
               <button type="button" class="active" data-months="1" data-discount="0">1M</button>
               <button type="button" data-months="3" data-discount="10">3M</button>
               <button type="button" data-months="6" data-discount="15">6M</button>
-              <button type="button" data-months="12" data-discount="20">12M</button>
             </div>
             <span class="saving">Total: $120</span>
             <p>The balanced option for stronger follow-up and a more complete route.</p>
@@ -565,7 +570,6 @@ p,li,span{color:var(--muted);line-height:1.72}
               <button type="button" class="active" data-months="1" data-discount="0">1M</button>
               <button type="button" data-months="3" data-discount="10">3M</button>
               <button type="button" data-months="6" data-discount="15">6M</button>
-              <button type="button" data-months="12" data-discount="20">12M</button>
             </div>
             <span class="saving">Total: $180</span>
             <p>For deeper follow-up, premium guidance, and stronger accountability.</p>
@@ -596,234 +600,9 @@ p,li,span{color:var(--muted);line-height:1.72}
           <span class="kicker">What clients say</span>
           <h2>Real feedback in continuous motion.</h2>
         </div>
-        <div class="marquee">
-          <div class="marquee-row row-a">
-            
-            
-              
-                
-              
-            
-              
-                
-              
-            
-              
-                
-              
-            
-              
-                
-              
-            
-              
-                
-              
-            
-              
-                
-              
-            
-            
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
-              <span class="avatar">M</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
-              <span class="avatar">أ</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
-              <span class="avatar">N</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
-              <span class="avatar">س</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
-              <span class="avatar">O</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
-              <span class="avatar">ل</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
-            </article>
-            
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
-              <span class="avatar">M</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
-              <span class="avatar">أ</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
-              <span class="avatar">N</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
-              <span class="avatar">س</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
-              <span class="avatar">O</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
-              <span class="avatar">ل</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
-            </article>
-            
-          </div>
-          <div class="marquee-row row-b" style="transform:translateX(-50%)">
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
-              <span class="avatar">ل</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
-              <span class="avatar">O</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
-              <span class="avatar">س</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
-              <span class="avatar">N</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
-              <span class="avatar">أ</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
-              <span class="avatar">M</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
-            </article>
-            
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
-              <span class="avatar">ل</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
-              <span class="avatar">O</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
-              <span class="avatar">س</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
-              <span class="avatar">N</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
-              <span class="avatar">أ</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
-            </article>
-            
-            <article class="comment-card">
-              <div class="quote">"</div>
-              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
-              <span class="avatar">M</span>
-              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
-              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
-            </article>
-            
-          </div>
+        <div class="marquee" id="enMarquee" style="visibility:hidden">
+          <div class="marquee-row row-a"></div>
+          <div class="marquee-row row-b" style="transform:translateX(-50%)"></div>
         </div>
       </div>
     </section>
@@ -835,19 +614,21 @@ p,li,span{color:var(--muted);line-height:1.72}
           <span class="kicker">Start now</span>
           <h2>Ready to start your transformation?</h2>
           <p>Choose the path that fits your goal, and start with a system built around clarity, support, and real follow-up.</p>
-          <div class="btns" style="justify-content:flex-start;margin-top:18px">
-            <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Contact and subscribe</a>
-            <a class="btn" href="#plans">View plans</a>
+          <div class="social-contact-links">
+            <a class="btn primary" href="https://wa.me/+201279777609" target="_blank" rel="noopener">WhatsApp ↗</a>
+            <a class="btn" href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn" href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Facebook</a>
+            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header" target="_blank" rel="noopener">Contact and subscribe</a>
           </div>
         </article>
         <div class="faq">
           
-          <article class="glass">
+          <article class="glass" style="padding:24px">
             <h3>Is this only training?</h3>
             <p>No. It connects training, nutrition, wellness direction, and follow-up.</p>
           </article>
           
-          <article class="glass">
+          <article class="glass" style="padding:24px">
             <h3>Not sure where to start?</h3>
             <p>Send your goal and current level, and the suitable route can be selected.</p>
           </article>
@@ -859,14 +640,27 @@ p,li,span{color:var(--muted);line-height:1.72}
   </main>
 
   <footer class="v2-footer">
-    <span>© 2026 O2F life. All rights reserved.</span>
-    <nav class="v2-footer-links">
-      <a href="/en/privacy/">Privacy</a>
-      <a href="/en/terms/">Terms</a>
-      <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
-      
-      <a href="/ar/">العربية</a>
-    </nav>
+    <div class="v2-footer-top">
+      <div class="v2-footer-brand">
+        <strong>O2F life</strong>
+        <span>Integrated health coaching — Coach Osama Omran</span>
+      </div>
+      <nav class="v2-footer-social">
+        <a class="wa" href="https://wa.me/+201279777609" target="_blank" rel="noopener">WhatsApp ↗</a>
+        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">TikTok</a>
+      </nav>
+    </div>
+    <div class="v2-footer-bottom">
+      <span>© 2026 O2F life. All rights reserved.</span>
+      <nav style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="/en/privacy/">Privacy</a>
+        <a href="/en/terms/">Terms</a>
+        <a href="/ar/" style="color:var(--mint)">AR</a>
+      </nav>
+    </div>
   </footer>
 
 </div>
@@ -978,8 +772,8 @@ p,li,span{color:var(--muted);line-height:1.72}
       <ul class="space-y-2 text-brand-off/60">
         <li><a class="hover:text-brand-mint" href="mailto:info@o2f.life">info@o2f.life</a></li>
         <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">Instagram</a></li>
-        
-        
+        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">Facebook</a></li>
+        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">YouTube</a></li>
       </ul>
     </div>
   </div>
