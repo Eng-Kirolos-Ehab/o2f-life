@@ -330,9 +330,54 @@ p,li,span{color:var(--muted);line-height:1.72}
           <span class="kicker">{{ hv2.stories.kicker }}</span>
           <h2>{{ hv2.stories.title }}</h2>
         </div>
-        <div class="marquee" id="enMarquee">
-          <div class="marquee-row row-a"></div>
-          <div class="marquee-row row-b"></div>
+        <div class="marquee">
+          <div class="marquee-row row-a">
+            {% set approved = [] %}
+            {% for c in comments.items %}
+              {% if c.status == "approved" %}
+                {% set approved = (approved.push(c), approved) %}
+              {% endif %}
+            {% endfor %}
+            {% set allCmts = approved if approved.length else comments.items %}
+            {% for c in allCmts %}
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>{{ c.comment }}</p>
+              <span class="avatar">{{ c.name[0] }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+            </article>
+            {% endfor %}
+            {% for c in allCmts %}
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>{{ c.comment }}</p>
+              <span class="avatar">{{ c.name[0] }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+            </article>
+            {% endfor %}
+          </div>
+          <div class="marquee-row row-b" style="transform:translateX(-50%)">
+            {% for c in allCmts | reverse %}
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>{{ c.comment }}</p>
+              <span class="avatar">{{ c.name[0] }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+            </article>
+            {% endfor %}
+            {% for c in allCmts %}
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>{{ c.comment }}</p>
+              <span class="avatar">{{ c.name[0] }}</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">{{ c.name }}</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
+            </article>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </section>
