@@ -216,9 +216,10 @@ p,li,span{color:var(--muted);line-height:1.8}
 .month-picker button{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:9px 6px;font-weight:950;cursor:pointer}
 .month-picker button.active{background:rgba(168,255,120,.24);border-color:rgba(168,255,120,.55)}
 .saving{font-size:12px;color:var(--lime)!important;font-weight:900;min-height:18px}
-.marquee{display:grid;gap:14px;overflow:hidden}
-.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 32s linear infinite;will-change:transform}
+.marquee{display:grid;gap:14px;overflow:hidden;direction:ltr}
+.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 32s linear infinite;will-change:transform;direction:ltr}
 .marquee-row:nth-child(2){animation:moveRight 38s linear infinite;transform:translateX(-50%)}
+.coach-grid{grid-template-columns:minmax(520px,1.1fr) minmax(320px,.9fr)}
 .comment-card{width:360px;padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22);direction:ltr}.comment-card p{direction:auto;text-align:start}
 .quote{font-size:34px;color:var(--lime);line-height:1}
 .avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(168,255,120,.18);color:#fff!important;font-weight:950;margin-top:14px}
@@ -295,16 +296,7 @@ p,li,span{color:var(--muted);line-height:1.8}
 
     
     <section class="section" id="coach">
-      <div class="grid2 container">
-        <div class="coach-photo glass">
-          <img src="/assets/images/hero.jpeg" alt="الكابتن أسامة عمران">
-          <div class="stats">
-            <span>20+<br><small>سنة</small></span>
-            <span>1000+<br><small>عميل</small></span>
-            <span>100%<br><small>مخصص</small></span>
-            <span>24/7<br><small>دعم</small></span>
-          </div>
-        </div>
+      <div class="grid2 coach-grid container">
         <article class="panel glass">
           <span class="kicker">مين هو أسامة عمران؟</span>
           <h2>المدرب وراء نظام O2F.</h2>
@@ -322,6 +314,15 @@ p,li,span{color:var(--muted);line-height:1.8}
           </div>
           <a class="btn primary" href="#how" style="margin-top:18px">شوف النظام</a>
         </article>
+        <div class="coach-photo glass">
+          <img src="/assets/images/hero.jpeg" alt="الكابتن أسامة عمران">
+          <div class="stats">
+            <span>20+<br><small>سنة</small></span>
+            <span>1000+<br><small>عميل</small></span>
+            <span>100%<br><small>مخصص</small></span>
+            <span>24/7<br><small>دعم</small></span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -601,9 +602,234 @@ p,li,span{color:var(--muted);line-height:1.8}
           <span class="kicker">آراء العملاء</span>
           <h2>تجارب واقعية بحركة مستمرة.</h2>
         </div>
-        <div class="marquee" id="arMarquee">
-          <div class="marquee-row row-a"></div>
-          <div class="marquee-row row-b"></div>
+        <div class="marquee">
+          <div class="marquee-row row-a">
+            
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            
+            
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
+              <span class="avatar">M</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
+              <span class="avatar">أ</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
+              <span class="avatar">N</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
+              <span class="avatar">س</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
+              <span class="avatar">O</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
+              <span class="avatar">ل</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
+            </article>
+            
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
+              <span class="avatar">M</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
+              <span class="avatar">أ</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
+              <span class="avatar">N</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
+              <span class="avatar">س</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
+              <span class="avatar">O</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
+              <span class="avatar">ل</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
+            </article>
+            
+          </div>
+          <div class="marquee-row row-b" style="transform:translateX(-50%)">
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
+              <span class="avatar">ل</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
+              <span class="avatar">O</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
+              <span class="avatar">س</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
+              <span class="avatar">N</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
+              <span class="avatar">أ</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
+              <span class="avatar">M</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
+            </article>
+            
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>كنت محتاجة حد يعدل الخطة معايا حسب النتيجة، مش جدول ثابت وخلاص. التجربة كانت منظمة جدًا.</p>
+              <span class="avatar">ل</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">ليلى ك.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">متابعة وتغذية</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The training plan was realistic. I could follow it at the gym without overcomplicating everything.</p>
+              <span class="avatar">O</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Omar H.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Strength Training</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>حسيت إن البرنامج مركز على الطاقة والنوم والعادات مش بس الوزن. ده فرق معايا جدًا.</p>
+              <span class="avatar">س</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">سارة ع.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">مكافحة الشيخوخة</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>Simple, clear, and personalized. The plan fit my work schedule and helped me stay consistent.</p>
+              <span class="avatar">N</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Noura K.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Nutrition Coaching</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>أكتر حاجة عجبتني إن الخطة كانت واقعية ومش حرمان. المتابعة خلتني أكمل بدل ما أوقف بعد أسبوعين.</p>
+              <span class="avatar">أ</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">أحمد م.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">خسارة وزن</span>
+            </article>
+            
+            <article class="comment-card">
+              <div class="quote">"</div>
+              <p>The follow-up made the difference. I finally understood how to eat without feeling restricted.</p>
+              <span class="avatar">M</span>
+              <span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">Mariam A.</span>
+              <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">Transformation Plan</span>
+            </article>
+            
+          </div>
         </div>
       </div>
     </section>
