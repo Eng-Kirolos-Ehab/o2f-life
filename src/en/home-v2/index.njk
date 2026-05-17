@@ -358,7 +358,7 @@ p,li,span{color:var(--muted);line-height:1.72}
             </article>
             {% endfor %}
           </div>
-          <div class="marquee-row row-b" style="transform:translateX(-50%)">
+          <div class="marquee-row row-b">
             {% for c in allCmts | reverse %}
             <article class="comment-card">
               <div class="quote">"</div>
@@ -368,7 +368,7 @@ p,li,span{color:var(--muted);line-height:1.72}
               <span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">{{ c.service }}</span>
             </article>
             {% endfor %}
-            {% for c in allCmts %}
+            {% for c in allCmts | reverse %}
             <article class="comment-card">
               <div class="quote">"</div>
               <p>{{ c.comment }}</p>
