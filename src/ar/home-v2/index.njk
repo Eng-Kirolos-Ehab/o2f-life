@@ -84,9 +84,10 @@ p,li,span{color:var(--muted);line-height:1.8}
 .month-picker button{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:9px 6px;font-weight:950;cursor:pointer}
 .month-picker button.active{background:rgba(168,255,120,.24);border-color:rgba(168,255,120,.55)}
 .saving{font-size:12px;color:var(--lime)!important;font-weight:900;min-height:18px}
-.marquee{display:grid;gap:14px;overflow:hidden}
-.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 32s linear infinite;will-change:transform}
+.marquee{display:grid;gap:14px;overflow:hidden;direction:ltr}
+.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 32s linear infinite;will-change:transform;direction:ltr}
 .marquee-row:nth-child(2){animation:moveRight 38s linear infinite;transform:translateX(-50%)}
+.coach-grid{grid-template-columns:minmax(520px,1.1fr) minmax(320px,.9fr)}
 .comment-card{width:360px;padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22);direction:ltr}.comment-card p{direction:auto;text-align:start}
 .quote{font-size:34px;color:var(--lime);line-height:1}
 .avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(168,255,120,.18);color:#fff!important;font-weight:950;margin-top:14px}
@@ -151,16 +152,7 @@ p,li,span{color:var(--muted);line-height:1.8}
 
     {# ── COACH ── #}
     <section class="section" id="coach">
-      <div class="grid2 container">
-        <div class="coach-photo glass">
-          <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="الكابتن أسامة عمران">
-          <div class="stats">
-            <span>{{ site.stats.years }}<br><small>{{ hv2.coach.stats.years_label }}</small></span>
-            <span>{{ site.stats.clients }}<br><small>{{ hv2.coach.stats.clients_label }}</small></span>
-            <span>{{ site.stats.custom }}<br><small>{{ hv2.coach.stats.custom_label }}</small></span>
-            <span>{{ site.stats.support }}<br><small>{{ hv2.coach.stats.support_label }}</small></span>
-          </div>
-        </div>
+      <div class="grid2 coach-grid container">
         <article class="panel glass">
           <span class="kicker">{{ hv2.coach.kicker }}</span>
           <h2>{{ hv2.coach.title }}</h2>
@@ -172,6 +164,15 @@ p,li,span{color:var(--muted);line-height:1.8}
           </div>
           <a class="btn primary" href="#how" style="margin-top:18px">{{ hv2.coach.cta }}</a>
         </article>
+        <div class="coach-photo glass">
+          <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="الكابتن أسامة عمران">
+          <div class="stats">
+            <span>{{ site.stats.years }}<br><small>{{ hv2.coach.stats.years_label }}</small></span>
+            <span>{{ site.stats.clients }}<br><small>{{ hv2.coach.stats.clients_label }}</small></span>
+            <span>{{ site.stats.custom }}<br><small>{{ hv2.coach.stats.custom_label }}</small></span>
+            <span>{{ site.stats.support }}<br><small>{{ hv2.coach.stats.support_label }}</small></span>
+          </div>
+        </div>
       </div>
     </section>
 
