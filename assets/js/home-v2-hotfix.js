@@ -75,16 +75,16 @@
           ['سلمى عماد','Anti-Aging','المتابعة المستمرة جعلتني أفهم جسمي أكثر وأتعامل معه بشكل أذكى.','rtl']
         ];
         function mkCard(c){
-          return '<article class=”comment-card” dir=”'+c[3]+'”>'
-            +'<div class=”quote”>”</div>'
+          return '<article class="comment-card" dir="'+c[3]+'">'
+            +'<div class="quote">"</div>'
             +'<p>'+c[2]+'</p>'
-            +'<span class=”avatar”>'+c[0][0]+'</span>'
-            +'<span class=”comment-name” style=”display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px”>'+c[0]+'</span>'
-            +'<span class=”comment-service” style=”color:var(--lime);font-size:12px;font-weight:800”>'+c[1]+'</span>'
+            +'<span class="avatar">'+c[0][0]+'</span>'
+            +'<span class="comment-name" style="display:block;color:#fff;font-weight:900;font-size:14px;margin-top:6px">'+c[0]+'</span>'
+            +'<span class="comment-service" style="color:var(--lime);font-size:12px;font-weight:800">'+c[1]+'</span>'
           +'</article>';
         }
-        m.innerHTML='<div class=”marquee-row row-a”>'+commentsA.concat(commentsA).map(mkCard).join('')+'</div>'
-          +'<div class=”marquee-row row-b” style=”transform:translateX(-50%)”>'+commentsB.concat(commentsB).map(mkCard).join('')+'</div>';
+        m.innerHTML='<div class="marquee-row row-a">'+commentsA.concat(commentsA,commentsA).map(mkCard).join('')+'</div>'
+          +'<div class="marquee-row row-b">'+commentsB.concat(commentsB,commentsB).map(mkCard).join('')+'</div>';
       }
 
       /* Add comment card — language aware */
