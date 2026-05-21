@@ -34,11 +34,14 @@ p,li,span{color:var(--muted);line-height:1.72}
 .journey-card{padding:22px;text-align:left;min-height:170px}
 .num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:#06110d!important;font-weight:1000;margin-bottom:14px}
 .grid2{display:grid;grid-template-columns:minmax(320px,.9fr) minmax(520px,1.1fr);gap:clamp(22px,5vw,68px);align-items:center}
-.coach-photo{min-height:660px}
+.coach-media{display:grid;gap:14px}
+.coach-photo{min-height:600px}
 .coach-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
 .coach-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.65))}
-.stats{position:absolute;z-index:2;left:18px;right:18px;bottom:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.stats span{padding:12px;border-radius:18px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.14);text-align:center;font-weight:950;backdrop-filter:blur(12px)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stats span{min-height:92px;padding:14px 10px;border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.18);text-align:center;font-weight:950;backdrop-filter:blur(16px);display:grid;place-items:center;align-content:center}
+.stats strong{display:block;color:var(--lime);font-size:clamp(26px,3vw,38px);line-height:1;text-shadow:0 0 28px rgba(168,255,120,.35)}
+.stats small{display:block;margin-top:8px;color:rgba(247,255,247,.72);font-size:12px;line-height:1.25}
 .panel{padding:30px}
 .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .chip{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);font-size:12px;font-weight:850;color:#fff!important}
@@ -84,10 +87,12 @@ p,li,span{color:var(--muted);line-height:1.72}
 .features li{margin:9px 0;padding-left:14px;position:relative}
 .features li:before{content:"";position:absolute;left:0;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--lime)}
 .plan .btn{margin-top:auto}
-.marquee{display:grid;gap:14px;overflow:hidden}
-.marquee-row{display:flex;gap:14px;width:max-content;animation:moveLeft 32s linear infinite;will-change:transform}
-.marquee-row:nth-child(2){animation:moveRight 38s linear infinite;transform:translateX(-50%)}
-.comment-card{width:360px;padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22)}
+.marquee{display:grid;gap:16px;overflow:hidden;padding-block:4px;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee-row{display:flex;align-items:stretch;gap:16px;width:max-content;min-width:200%;will-change:transform}
+.marquee-row.row-a{animation:moveLeft 72s linear infinite}
+.marquee-row.row-b{animation:moveRight 86s linear infinite;animation-delay:-28s;transform:translateX(-50%)}
+.marquee-row:hover{animation-play-state:paused}
+.comment-card{flex:0 0 clamp(290px,28vw,380px);width:clamp(290px,28vw,380px);min-height:230px;padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22);overflow:hidden}.comment-card p,.comment-card b{overflow-wrap:anywhere;text-wrap:pretty}
 .quote{font-size:34px;color:var(--lime);line-height:1}
 .avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(168,255,120,.18);color:#fff!important;font-weight:950;margin-top:14px}
 .final{padding-bottom:160px}
@@ -107,8 +112,8 @@ p,li,span{color:var(--muted);line-height:1.72}
 .v2-footer-bottom a:hover{color:var(--lime)}
 @keyframes moveLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes moveRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-@media(max-width:1050px){.grid2,.tab-panel,.before-wrap{grid-template-columns:1fr}.plans,.steps,.cards3,.detail-grid{grid-template-columns:1fr 1fr}.coach-photo{min-height:520px}.gallery-grid{grid-template-columns:1fr 1fr}.dock{bottom:18px!important;top:auto!important}}
-@media(max-width:720px){.section{padding:68px 16px}.hero{min-height:auto;padding-top:92px;padding-bottom:110px}.journey,.plans,.steps,.cards3,.detail-grid,.ba,.gallery-grid{grid-template-columns:1fr}.dock{bottom:14px!important;top:auto!important;max-width:calc(100vw - 18px);overflow:visible;justify-content:flex-start}.dock a,.dock button{font-size:11px;padding:9px 10px}.social-panel{right:auto;left:0;bottom:auto;top:48px}.lead{text-align:center}.btns{flex-direction:column}.btn{width:100%}.coach-photo{order:-1;min-height:430px}.stats{grid-template-columns:1fr 1fr}.tabs-nav{grid-template-columns:1fr;border-radius:26px}.visual{min-height:320px;order:-1}.tab-panel.active{display:flex;flex-direction:column}.ba{min-height:auto}.ba-card{min-height:330px}.plans .highlight{order:-1}.result-card{grid-template-columns:1fr}.month-picker{grid-template-columns:1fr 1fr}.comment-card{width:300px}.gallery-item,.gallery-item.big{grid-row:auto;height:260px}h1{font-size:clamp(42px,13vw,66px)}.v2-footer{flex-direction:column;text-align:center;gap:10px}}
+@media(max-width:1050px){.grid2,.tab-panel,.before-wrap{grid-template-columns:1fr}.plans,.steps,.cards3,.detail-grid{grid-template-columns:1fr 1fr}.coach-photo{min-height:520px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-grid{grid-template-columns:1fr 1fr}.dock{bottom:18px!important;top:auto!important}}
+@media(max-width:720px){.section{padding:68px 16px}.hero{min-height:auto;padding-top:92px;padding-bottom:110px}.journey,.plans,.steps,.cards3,.detail-grid,.ba,.gallery-grid{grid-template-columns:1fr}.dock{bottom:14px!important;top:auto!important;max-width:calc(100vw - 18px);overflow:visible;justify-content:flex-start}.dock a,.dock button{font-size:11px;padding:9px 10px}.social-panel{right:auto;left:0;bottom:auto;top:48px}.lead{text-align:center}.btns{flex-direction:column}.btn{width:100%}.coach-media{order:-1}.coach-photo{min-height:430px}.stats{grid-template-columns:1fr 1fr}.stats span{min-height:82px}.tabs-nav{grid-template-columns:1fr;border-radius:26px}.visual{min-height:320px;order:-1}.tab-panel.active{display:flex;flex-direction:column}.ba{min-height:auto}.ba-card{min-height:330px}.plans .highlight{order:-1}.result-card{grid-template-columns:1fr}.month-picker{grid-template-columns:1fr 1fr}.marquee{gap:12px;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}.marquee-row{gap:12px}.marquee-row.row-a{animation-duration:82s}.marquee-row.row-b{animation-duration:96s}.comment-card{flex-basis:min(78vw,300px);width:min(78vw,300px);min-height:210px}.gallery-item,.gallery-item.big{grid-row:auto;height:260px}h1{font-size:clamp(42px,13vw,66px)}.v2-footer{flex-direction:column;text-align:center;gap:10px}}
 </style>
 
 <div class="o2f-bg" id="o2fBg"></div>
@@ -152,13 +157,15 @@ p,li,span{color:var(--muted);line-height:1.72}
     {# ── COACH ── #}
     <section class="section" id="coach">
       <div class="grid2 container">
-        <div class="coach-photo glass">
-          <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="Coach Osama Omran">
+        <div class="coach-media">
+          <div class="coach-photo glass">
+            <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="Coach Osama Omran">
+          </div>
           <div class="stats">
-            <span>{{ site.stats.years }}<br><small>{{ hv2.coach.stats.years_label }}</small></span>
-            <span>{{ site.stats.clients }}<br><small>{{ hv2.coach.stats.clients_label }}</small></span>
-            <span>{{ site.stats.custom }}<br><small>{{ hv2.coach.stats.custom_label }}</small></span>
-            <span>{{ site.stats.support }}<br><small>{{ hv2.coach.stats.support_label }}</small></span>
+            <span><strong>{{ site.stats.years }}</strong><small>{{ pages.home.en.hero.stats_years_label or hv2.coach.stats.years_label }}</small></span>
+            <span><strong>{{ site.stats.clients }}</strong><small>{{ pages.home.en.hero.stats_clients_label or hv2.coach.stats.clients_label }}</small></span>
+            <span><strong>{{ site.stats.custom }}</strong><small>{{ pages.home.en.hero.stats_custom_label or hv2.coach.stats.custom_label }}</small></span>
+            <span><strong>{{ site.stats.support }}</strong><small>{{ pages.home.en.hero.stats_support_label or hv2.coach.stats.support_label }}</small></span>
           </div>
         </div>
         <article class="panel glass">
