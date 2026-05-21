@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <script>
-    if (sessionStorage.getItem('o2f-admin-auth') !== '1') {
+    if (localStorage.getItem('o2f-admin-auth') !== '1' && sessionStorage.getItem('o2f-admin-auth') !== '1') {
       window.location.replace('./login.html');
     }
   </script>
@@ -33,6 +33,9 @@
     .section-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;margin-top:36px}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card.primary-card{grid-column:1/-1;min-height:170px;background:linear-gradient(135deg,rgba(0,217,163,.13),rgba(201,168,74,.08));border-color:rgba(0,217,163,.24)}
+    .card.primary-card h2{font-size:24px}
+    .card.primary-card p{max-width:760px}
     .card{position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:22px;padding:24px;min-height:200px;transition:.2s;box-shadow:0 18px 50px rgba(0,0,0,.2)}
     .card:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,217,163,.14),transparent 50%);opacity:0;transition:.25s}
     .card:hover{transform:translateY(-3px);border-color:rgba(0,217,163,.4)}
@@ -75,6 +78,13 @@
     <p class="section-label">تحكم في المحتوى</p>
     <section class="grid">
 
+      <a class="card primary-card" href="./content.html">
+        <div class="icon mint">⚙️</div>
+        <h2>لوحة تحكم الصفحة الرئيسية كاملة</h2>
+        <p>تحكم في العربي والإنجليزي من نفس الشاشة: النصوص، أرقام الخبرة، الباقات، البرامج، الصور، الأسئلة، وروابط التواصل. بدّل اللغة من أعلى المحرر واحفظ التغييرات على GitHub.</p>
+        <div class="arrow">فتح لوحة التحكم الكاملة ←</div>
+      </a>
+
       <a class="card" href="./content.html?lang=ar">
         <div class="icon mint">🇸🇦</div>
         <h2>الموقع العربي</h2>
@@ -113,6 +123,7 @@
   <script>
     function logout() {
       sessionStorage.removeItem('o2f-admin-auth');
+      localStorage.removeItem('o2f-admin-auth');
       localStorage.removeItem('o2f-gh-token');
       window.location.replace('./login.html');
     }

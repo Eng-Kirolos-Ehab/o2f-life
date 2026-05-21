@@ -162,10 +162,10 @@ p,li,span{color:var(--muted);line-height:1.72}
             <img src="{{ site.heroImage or '/assets/images/hero.jpeg' }}" alt="Coach Osama Omran">
           </div>
           <div class="stats">
-            <span><strong>{{ site.stats.years }}</strong><small>{{ pages.home.en.hero.stats_years_label or hv2.coach.stats.years_label }}</small></span>
-            <span><strong>{{ site.stats.clients }}</strong><small>{{ pages.home.en.hero.stats_clients_label or hv2.coach.stats.clients_label }}</small></span>
-            <span><strong>{{ site.stats.custom }}</strong><small>{{ pages.home.en.hero.stats_custom_label or hv2.coach.stats.custom_label }}</small></span>
-            <span><strong>{{ site.stats.support }}</strong><small>{{ pages.home.en.hero.stats_support_label or hv2.coach.stats.support_label }}</small></span>
+            <span><strong>{{ site.stats.years }}</strong><small>{{ hv2.coach.stats.years_label or pages.home.en.hero.stats_years_label }}</small></span>
+            <span><strong>{{ site.stats.clients }}</strong><small>{{ hv2.coach.stats.clients_label or pages.home.en.hero.stats_clients_label }}</small></span>
+            <span><strong>{{ site.stats.custom }}</strong><small>{{ hv2.coach.stats.custom_label or pages.home.en.hero.stats_custom_label }}</small></span>
+            <span><strong>{{ site.stats.support }}</strong><small>{{ hv2.coach.stats.support_label or pages.home.en.hero.stats_support_label }}</small></span>
           </div>
         </div>
         <article class="panel glass">

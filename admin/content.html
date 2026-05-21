@@ -7,7 +7,7 @@
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
-  <script>if(sessionStorage.getItem('o2f-admin-auth')!=='1')window.location.replace('./login.html');</script>
+  <script>if(localStorage.getItem('o2f-admin-auth')!=='1'&&sessionStorage.getItem('o2f-admin-auth')!=='1')window.location.replace('./login.html');</script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -93,6 +93,12 @@
     .list-item .ltr-item{direction:ltr;text-align:left}
     .add-item-btn{width:100%;padding:9px;border:1px dashed var(--line2);border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;font-size:13px;transition:.14s}
     .add-item-btn:hover{border-color:var(--mint);color:var(--mint);background:rgba(0,217,163,.04)}
+    .notice{border:1px solid rgba(0,217,163,.18);background:rgba(0,217,163,.06);border-radius:12px;padding:12px 14px;margin-bottom:18px;color:var(--muted);font-size:13px;line-height:1.65}
+    .notice strong{color:var(--mint)}
+    .plan-card{border:1px solid var(--line2);border-radius:12px;padding:16px;margin-top:14px;background:rgba(255,255,255,.03)}
+    .plan-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;color:var(--mint);font-weight:800}
+    .checkline{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:700}
+    .checkline input{width:auto}
 
     /* ── Image editors ── */
     .img-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -206,6 +212,13 @@
       <div class="field"><label id="lbl-cta">زر CTA</label><input id="coach.cta"></div>
       <div class="field"><label id="lbl-chips">Chips (كل سطر chip)</label><textarea id="coach.chips" style="min-height:80px"></textarea></div>
       <div class="divider"></div>
+      <div class="notice"><strong>أرقام الخبرة</strong> تظهر في العربي والإنجليزي من نفس المصدر. غيّر الرقم هنا، وغيّر التسمية لكل لغة من الحقول التالية.</div>
+      <div class="field-row cols4">
+        <div class="field"><label>Years Number</label><input id="site.stats.years"></div>
+        <div class="field"><label>Clients Number</label><input id="site.stats.clients"></div>
+        <div class="field"><label>Custom Number</label><input id="site.stats.custom"></div>
+        <div class="field"><label>Support Number</label><input id="site.stats.support"></div>
+      </div>
       <div class="field-row cols4">
         <div class="field"><label id="lbl-years">سنوات</label><input id="coach.stats.years_label"></div>
         <div class="field"><label id="lbl-clients">عملاء</label><input id="coach.stats.clients_label"></div>
@@ -290,6 +303,9 @@
         <div class="field"><label id="lbl-plans-title">العنوان</label><input id="plans.title"></div>
       </div>
       <div class="field"><label id="lbl-plans-desc">الوصف</label><textarea id="plans.desc"></textarea></div>
+      <div class="divider"></div>
+      <div class="field"><label id="lbl-plan-items">تفاصيل الباقات</label></div>
+      <div id="plans-items-editor"></div>
     </div>
 
     <!-- IMAGES -->
@@ -443,6 +459,7 @@ function populateAll(){
   v('coach.stats.clients_label',L.coach.stats.clients_label);
   v('coach.stats.custom_label',L.coach.stats.custom_label);
   v('coach.stats.support_label',L.coach.stats.support_label);
+  populateSiteStats();
   v('programs.kicker',L.programs.kicker);v('programs.title',L.programs.title);v('programs.desc',L.programs.desc);
   renderProgramTabs(L.programs.tabs||[]);
   v('hiw.kicker',L.how_it_works.kicker);v('hiw.title',L.how_it_works.title);
@@ -455,6 +472,7 @@ function populateAll(){
   v('contact.cta_secondary',L.contact.cta_secondary);
   renderFaq(L.faq||[]);
   v('plans.kicker',L.plans.kicker);v('plans.title',L.plans.title);v('plans.desc',L.plans.desc);
+  renderPlanItems(L.plans.items||[]);
   populateImages();
   populateSocial();
   updateLangLabels();
@@ -468,6 +486,14 @@ function populateSocial(){
   v('social.tiktok', siteData.social&&siteData.social.tiktok||'');
   v('social.x', siteData.social&&siteData.social.x||'');
   v('site.googleForm', siteData.googleForm||'');
+}
+function populateSiteStats(){
+  if(!siteData) return;
+  const stats=siteData.stats||{};
+  v('site.stats.years', stats.years||'20+');
+  v('site.stats.clients', stats.clients||'1000+');
+  v('site.stats.custom', stats.custom||'100%');
+  v('site.stats.support', stats.support||'24/7');
 }
 function populateImages(){
   const heroUrl=siteData.heroImage||'';
@@ -492,7 +518,7 @@ const labels={
     'stories-title-label':'التجارب','lbl-stories-title':'العنوان',
     'contact-title-label':'التواصل','lbl-contact-title':'العنوان','lbl-contact-desc':'الوصف','lbl-contact-cta1':'الزر الأول','lbl-contact-cta2':'الزر الثاني',
     'lbl-faq-title2':'الأسئلة الشائعة','lbl-add-faq':'إضافة سؤال',
-    'plans-title-label':'الباقات','lbl-plans-title':'العنوان','lbl-plans-desc':'الوصف',
+    'plans-title-label':'الباقات','lbl-plans-title':'العنوان','lbl-plans-desc':'الوصف','lbl-plan-items':'تفاصيل الباقات',
   },
   en:{
     'hero-title-label':'Hero Section','lbl-kicker':'Kicker (small text)','lbl-headline':'Main Headline','lbl-desc':'Description',
@@ -505,7 +531,7 @@ const labels={
     'stories-title-label':'Stories Section','lbl-stories-title':'Title',
     'contact-title-label':'Contact Section','lbl-contact-title':'Title','lbl-contact-desc':'Description','lbl-contact-cta1':'Primary CTA','lbl-contact-cta2':'Secondary CTA',
     'lbl-faq-title2':'FAQ','lbl-add-faq':'Add Question',
-    'plans-title-label':'Plans Section','lbl-plans-title':'Title','lbl-plans-desc':'Description',
+    'plans-title-label':'Plans Section','lbl-plans-title':'Title','lbl-plans-desc':'Description','lbl-plan-items':'Plan Details',
   }
 };
 function updateLangLabels(){
@@ -649,6 +675,39 @@ function renderProgramTabs(tabs){
     c.appendChild(wrap);
   });
 }
+function renderPlanItems(items){
+  const c=document.getElementById('plans-items-editor');c.innerHTML='';
+  const isEn=curLang==='en';
+  items.forEach((plan,i)=>{
+    const wrap=document.createElement('div');
+    wrap.className='plan-card';
+    wrap.dataset.key=plan.key||`plan-${i+1}`;
+    wrap.innerHTML=`
+      <div class="plan-head">
+        <span>${curLang==='ar'?'باقة':'Plan'} ${i+1}: ${plan.name||plan.key||''}</span>
+        <label class="checkline"><input type="checkbox" data-field="highlight" ${plan.highlight?'checked':''}> ${curLang==='ar'?'تمييز الباقة':'Highlight'}</label>
+      </div>
+      <div class="field-row cols2">
+        <div class="field"><label>${curLang==='ar'?'عنوان صغير':'Kicker'}</label><input data-field="kicker"></div>
+        <div class="field"><label>${curLang==='ar'?'اسم الباقة':'Plan Name'}</label><input data-field="name"></div>
+      </div>
+      <div class="field-row cols2">
+        <div class="field"><label>${curLang==='ar'?'السعر':'Price'}</label><input data-field="price" inputmode="decimal"></div>
+        <div class="field"><label>${curLang==='ar'?'العملة':'Currency'}</label><input data-field="currency"></div>
+      </div>
+      <div class="field"><label>${curLang==='ar'?'الوصف المختصر':'Blurb'}</label><textarea data-field="blurb"></textarea></div>
+      <div class="field"><label>${curLang==='ar'?'المميزات - كل سطر ميزة':'Features - one per line'}</label><textarea data-field="features" style="min-height:105px"></textarea></div>`;
+    const set=(field,value)=>{const el=wrap.querySelector(`[data-field="${field}"]`);if(el&&el.type!=='checkbox')el.value=value||'';};
+    set('kicker',plan.kicker);set('name',plan.name);set('price',plan.price);set('currency',plan.currency);set('blurb',plan.blurb);
+    set('features',(plan.features||[]).join('\n'));
+    if(isEn){
+      wrap.querySelectorAll('input,textarea').forEach(el=>{
+        if(el.type!=='checkbox'){el.style.direction='ltr';el.style.textAlign='left';el.style.fontFamily="'Inter',system-ui,sans-serif";}
+      });
+    }
+    c.appendChild(wrap);
+  });
+}
 function renderTabImages(tabs){
   const c=document.getElementById('tab-imgs-container');c.innerHTML='';
   tabs.forEach((tab,i)=>{
@@ -727,6 +786,30 @@ function readProgramTabs(){
     return{key:orig_tab.key,label:fv('label')||orig_tab.label,kicker:fv('kicker'),title:fv('title'),desc:fv('desc'),caption_title:fv('caption_title'),image,cards};
   });
 }
+function readPlanItems(){
+  const orig=hv2Data[curLang].plans.items||[];
+  return Array.from(document.getElementById('plans-items-editor').children).map((wrap,i)=>{
+    const original=orig[i]||{};
+    const field=name=>{
+      const el=wrap.querySelector(`[data-field="${name}"]`);
+      if(!el) return original[name]||'';
+      return el.type==='checkbox' ? el.checked : el.value.trim();
+    };
+    const priceRaw=field('price');
+    const price=priceRaw==='' ? '' : Number(priceRaw);
+    const item={
+      key:wrap.dataset.key||original.key||`plan-${i+1}`,
+      kicker:field('kicker'),
+      name:field('name'),
+      price:Number.isFinite(price) ? price : priceRaw,
+      currency:field('currency'),
+      blurb:field('blurb'),
+      features:field('features').split('\n').map(s=>s.trim()).filter(Boolean)
+    };
+    if(field('highlight')) item.highlight=true;
+    return item;
+  });
+}
 function buildLang(lang){
   const orig=hv2Data[lang];
   /* If not current lang, return unchanged */
@@ -743,14 +826,15 @@ function buildLang(lang){
     stories:{kicker:val('stories.kicker'),title:val('stories.title')},
     contact:{kicker:val('contact.kicker'),title:val('contact.title'),desc:val('contact.desc'),cta_primary:val('contact.cta_primary'),cta_secondary:val('contact.cta_secondary')},
     faq:readList('faq-list',['q','a']),
-    plans:{...orig.plans,kicker:val('plans.kicker'),title:val('plans.title'),desc:val('plans.desc')},
+    plans:{...orig.plans,kicker:val('plans.kicker'),title:val('plans.title'),desc:val('plans.desc'),items:readPlanItems()},
   };
 }
 
 /* ─── Save ─── */
 async function saveAll(){
   const btn=document.getElementById('saveBtnBar');
-  btn.disabled=true;btn.textContent='⏳ جاري الحفظ...';setStatus('جاري الحفظ...');
+  const topBtn=document.getElementById('saveBtn');
+  btn.disabled=true;if(topBtn)topBtn.disabled=true;btn.textContent='⏳ جاري الحفظ...';setStatus('جاري الحفظ...');
   try{
     const newHv2={ar:buildLang('ar'),en:buildLang('en')};
     /* Sync images across both langs */
@@ -774,6 +858,13 @@ async function saveAll(){
     const ttUrl=val('social.tiktok');
     const xUrl=val('social.x');
     const gForm=val('site.googleForm');
+    siteData.stats={
+      ...(siteData.stats||{}),
+      years:val('site.stats.years')||'20+',
+      clients:val('site.stats.clients')||'1000+',
+      custom:val('site.stats.custom')||'100%',
+      support:val('site.stats.support')||'24/7'
+    };
     const siteChanged=(heroUrl&&heroUrl!==siteData.heroImage)||waNum!==((siteData.social&&siteData.social.whatsapp)||siteData.whatsapp||'');
     if(heroUrl) siteData.heroImage=heroUrl;
     if(siteData.social){
@@ -788,7 +879,7 @@ async function saveAll(){
     siteSha=await ghPut(SITE,siteSha,siteData,'Admin: update site settings & images');
     showToast('تم الحفظ ✓ — سيظهر على الموقع خلال دقيقة','ok');setStatus('تم الحفظ ✓');
   }catch(e){showToast('خطأ: '+e.message,'err');setStatus('خطأ في الحفظ');}
-  finally{btn.disabled=false;btn.textContent='💾 حفظ التغييرات';}
+  finally{btn.disabled=false;if(topBtn)topBtn.disabled=false;btn.textContent='💾 حفظ التغييرات';}
 }
 
 /* ─── UI ─── */
@@ -807,6 +898,7 @@ function showToast(msg,type){const t=document.getElementById('toast');t.textCont
 /* ─── Init ─── */
 const params=new URLSearchParams(location.search);
 if(params.get('lang')==='en')curLang='en';
+document.querySelectorAll('.lang-tab').forEach(t=>t.classList.toggle('active',t.getAttribute('onclick')===`setLang('${curLang}')`));
 loadAll();
 </script>
 </body>
