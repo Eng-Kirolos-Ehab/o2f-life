@@ -10,7 +10,18 @@
     </div>
 
     <div class="o2f-comments-marquee" data-aos="fade-up" data-aos-delay="220">
-      <div class="o2f-comments-track" id="o2f-comments-track">
+      <div class="o2f-comments-track o2f-comments-row-a" id="o2f-comments-track">
+        {% for item in comments.items %}{% if item.status == 'approved' %}
+        <article class="o2f-comment-card">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div><h3 class="text-lg font-bold text-brand-off">{{ item.name }}</h3><p class="text-xs text-brand-mint mt-1">{{ item.service }}</p></div>
+            <div class="text-brand-gold text-sm">★★★★★</div>
+          </div>
+          <p class="text-brand-off/70 text-sm leading-relaxed">“{{ item.comment }}”</p>
+        </article>
+        {% endif %}{% endfor %}
+      </div>
+      <div class="o2f-comments-track o2f-comments-row-b" id="o2f-comments-track-secondary">
         {% for item in comments.items %}{% if item.status == 'approved' %}
         <article class="o2f-comment-card">
           <div class="flex items-start justify-between gap-3 mb-4">
@@ -41,16 +52,35 @@
     </div>
   </div>
 </section>
-<style>.o2f-comments-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.o2f-comments-track{display:flex;gap:1rem;width:max-content;animation:o2fCommentsMove 42s linear infinite}.o2f-comments-track:hover{animation-play-state:paused}.o2f-comment-card{width:min(330px,82vw);min-height:210px;padding:1.1rem;border-radius:1.35rem;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);box-shadow:0 18px 45px rgba(0,0,0,.25);transition:.25s}.o2f-comment-card:nth-child(2n){margin-top:1.25rem}.o2f-comment-card:hover{transform:translateY(-6px);border-color:rgba(0,217,163,.45);background:rgba(0,217,163,.08)}.o2f-comment-form{display:grid;gap:.85rem}.o2f-comment-form input,.o2f-comment-form textarea{width:100%;border:1px solid rgba(255,255,255,.12);border-radius:.95rem;padding:.85rem 1rem;color:#F7F8FA;background:rgba(255,255,255,.055);outline:none;resize:vertical}@keyframes o2fCommentsMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}html[dir="rtl"] .o2f-comments-track{animation-name:o2fCommentsMoveRtl}@keyframes o2fCommentsMoveRtl{from{transform:translateX(-50%)}to{transform:translateX(0)}}@media(max-width:640px){.o2f-comments-track{animation-duration:55s}.o2f-comment-card:nth-child(2n){margin-top:0}}</style>
+<style>
+.o2f-comments-marquee{display:grid;gap:1rem;overflow:hidden;padding:.35rem 0;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.o2f-comments-track{display:flex;align-items:stretch;gap:1.15rem;width:max-content;min-width:200%;will-change:transform}
+.o2f-comments-row-a{animation:o2fCommentsMoveLtr 72s linear infinite}
+.o2f-comments-row-b{animation:o2fCommentsMoveRtl 86s linear infinite;animation-delay:-28s;transform:translateX(-50%)}
+.o2f-comments-track:hover{animation-play-state:paused}
+.o2f-comment-card{flex:0 0 clamp(280px,28vw,360px);width:clamp(280px,28vw,360px);min-height:220px;padding:1.15rem;border-radius:1.25rem;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 45px rgba(0,0,0,.22);transition:transform .25s ease,border-color .25s ease,background .25s ease;overflow:hidden}
+.o2f-comment-card p,.o2f-comment-card h3{overflow-wrap:anywhere;text-wrap:pretty}
+.o2f-comment-card:hover{transform:translateY(-5px);border-color:rgba(0,217,163,.45);background:rgba(0,217,163,.075)}
+.o2f-comment-form{display:grid;gap:.85rem}
+.o2f-comment-form input,.o2f-comment-form textarea{width:100%;border:1px solid rgba(255,255,255,.12);border-radius:.95rem;padding:.85rem 1rem;color:#F7F8FA;background:rgba(255,255,255,.055);outline:none;resize:vertical}
+@keyframes o2fCommentsMoveLtr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes o2fCommentsMoveRtl{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+html[dir="rtl"] .o2f-comments-track{animation-name:o2fCommentsMoveRtl}
+html[dir="rtl"] .o2f-comments-row-b{animation-name:o2fCommentsMoveLtr}
+html[dir="rtl"] .o2f-comment-card{direction:rtl;text-align:right}
+@media(max-width:640px){.o2f-comments-marquee{gap:.85rem;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}.o2f-comments-track{gap:.85rem}.o2f-comments-row-a{animation-duration:82s}.o2f-comments-row-b{animation-duration:96s}.o2f-comment-card{flex-basis:min(78vw,300px);width:min(78vw,300px);min-height:210px}.o2f-comment-card:hover{transform:none}}
+</style>
 <script>(function(){
 var SUPABASE_URL='https://qalzanmeusuqssrgxumg.supabase.co';
 var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFhbHphbm1ldXN1cXNzcmd4dW1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2MjAxMDMsImV4cCI6MjA5MzE5NjEwM30.PHP_zC5firTlCfA9zFLXO1iqzUXMbiTsM6-7wKsDPOU';
-var t=document.getElementById('o2f-comments-track'),f=document.getElementById('comment-form');if(!t||!f)return;
+var rows=Array.from(document.querySelectorAll('.o2f-comments-track')),t=document.getElementById('o2f-comments-track'),f=document.getElementById('comment-form');if(!t||!f||!rows.length)return;
 function clean(v){return String(v||'').replace(/[<>]/g,'').trim()}
 function api(path,opts){opts=opts||{};opts.headers=Object.assign({'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'},opts.headers||{});return fetch(SUPABASE_URL+'/rest/v1/'+path,opts)}
 function card(x){return '<article class="o2f-comment-card"><div class="flex items-start justify-between gap-3 mb-4"><div><h3 class="text-lg font-bold text-brand-off">'+clean(x.name)+'</h3><p class="text-xs text-brand-mint mt-1">'+clean(x.service||'O2F')+'</p></div><div class="text-brand-gold text-sm">★★★★★</div></div><p class="text-brand-off/70 text-sm leading-relaxed">“'+clean(x.comment)+'”</p></article>'}
-function loadFallback(){var cards=Array.from(t.children).map(function(el){return el.outerHTML}).join('');t.innerHTML=cards+cards}
-async function loadApproved(){try{var res=await api('comments?select=id,name,service,comment,rating,status&status=eq.approved&order=created_at.desc&limit=12');if(!res.ok)throw new Error('load failed');var data=await res.json();if(data.length){t.innerHTML=data.map(card).join('');}loadFallback()}catch(e){loadFallback()}}
+function repeat(html){return html+html+html}
+function loadFallback(){rows.forEach(function(row){var cards=Array.from(row.children).map(function(el){return el.outerHTML}).join('');row.innerHTML=repeat(cards)})}
+function fillRows(data){var a=data.map(card).join(''),b=data.slice().reverse().map(card).join('');rows[0].innerHTML=repeat(a);if(rows[1])rows[1].innerHTML=repeat(b)}
+async function loadApproved(){try{var res=await api('comments?select=id,name,service,comment,rating,status&status=eq.approved&order=created_at.desc&limit=12');if(!res.ok)throw new Error('load failed');var data=await res.json();if(data.length){fillRows(data)}else{loadFallback()}}catch(e){loadFallback()}}
 loadApproved();
 f.addEventListener('submit',async function(e){e.preventDefault();var s=document.getElementById('o2f-comment-status');s.classList.remove('hidden');s.textContent='{{ 'جاري إرسال التعليق...' if lang == 'ar' else 'Submitting your comment...' }}';var item={name:clean(document.getElementById('o2f-comment-name').value),service:clean(document.getElementById('o2f-comment-service').value||'O2F'),comment:clean(document.getElementById('o2f-comment-text').value),status:'pending',rating:5};try{var res=await api('comments',{method:'POST',body:JSON.stringify(item)});if(!res.ok)throw new Error('submit failed');f.reset();s.textContent='{{ 'تم إرسال تعليقك للمراجعة.' if lang == 'ar' else 'Your comment was submitted for review.' }}'}catch(err){s.textContent='{{ 'تعذر إرسال التعليق الآن. حاول لاحقًا.' if lang == 'ar' else 'Could not submit now. Please try again later.' }}'}})
 })();</script>
