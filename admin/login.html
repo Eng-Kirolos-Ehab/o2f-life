@@ -90,7 +90,7 @@
 
   <script>
     const PASS_HASH = '4008e341d0e8c6dc730352116664e0eadc13b56b6a6c82e8c8d91cb45992c6f6';
-    if (sessionStorage.getItem('o2f-admin-auth') === '1') window.location.replace('./');
+    if (localStorage.getItem('o2f-admin-auth') === '1' || sessionStorage.getItem('o2f-admin-auth') === '1') window.location.replace('./');
 
     async function sha256(str) {
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -108,6 +108,7 @@
       const hash = await sha256(pass);
       if (hash === PASS_HASH) {
         sessionStorage.setItem('o2f-admin-auth', '1');
+        localStorage.setItem('o2f-admin-auth', '1');
         // Check if token already saved
         if (localStorage.getItem('o2f-gh-token')) {
           window.location.replace('./');
