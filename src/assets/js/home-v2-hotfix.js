@@ -104,6 +104,7 @@
     ];
     var cards=[].slice.call(document.querySelectorAll('#plans .plan'));
     cards.forEach(function(card,i){
+      if(card.dataset.gender==='female')return;
       var d=planData[i]||planData[0];
       card.dataset.egM1=d.eg[0];card.dataset.egM3=d.eg[1];card.dataset.egM6=d.eg[2];
       card.dataset.gulfM1=d.gulf[0];card.dataset.gulfM3=d.gulf[1];card.dataset.gulfM6=d.gulf[2];
@@ -127,10 +128,11 @@
       var raw=Number(plan.dataset[key]||plan.dataset['intM'+months]||0);
       var monthly=Math.round(raw/Number(months));
       var price=plan.querySelector('.plan-price'),cur=plan.querySelector('.plan-currency'),saving=plan.querySelector('.saving');
+      var cardCurrency=plan.dataset.fixedCurrency||currency;
       if(price)price.textContent=monthly.toLocaleString('en-US');
-      if(cur)cur.textContent=currency+(isAr?' / شهر':' / month');
+      if(cur)cur.textContent=cardCurrency+(isAr?' / شهر':' / month');
       var sv=btn.dataset.save?(' — '+(isAr?'وفّر ':'save ')+btn.dataset.save):'';
-      if(saving)saving.textContent=(isAr?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+currency+sv;
+      if(saving)saving.textContent=(isAr?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+cardCurrency+sv;
     }
     document.querySelectorAll('#plans .month-picker button').forEach(function(btn){btn.onclick=function(){updatePlan(btn.closest('.plan'),btn)}});
     setRegion('int');

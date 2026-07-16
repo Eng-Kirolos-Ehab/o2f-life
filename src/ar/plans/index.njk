@@ -14,6 +14,18 @@ description: "اختر الباقة المناسبة — التحول الشام
   </div>
 </section>
 
+{# GENDER TOGGLE #}
+<section class="pt-4 pb-2">
+  <div class="container-x">
+    <div class="flex justify-center" data-aos="fade-up">
+      <div class="gender-tabs inline-flex rounded-xl border border-brand-line bg-white/3 p-1 gap-1">
+        <button type="button" class="gender-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all" data-gender="male">👨 رجال</button>
+        <button type="button" class="gender-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all" data-gender="female">🌸 نساء</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 {# REFERRAL TOGGLE #}
 {% if referral.enabled %}
 <section class="pt-4 pb-4">
@@ -53,13 +65,14 @@ description: "اختر الباقة المناسبة — التحول الشام
   <div class="container-x">
     <div class="flex flex-wrap justify-center gap-6 items-stretch">
 
-      {% set orderedKeys = ["basic","standard","advanced"] %}
+      {% set orderedKeys = ["basic","standard","advanced","women"] %}
       {% for key in orderedKeys %}
         {% set p = plans[key] %}
         {% if p.visible !== false %}
         <div class="plan-card card flex flex-col relative w-full sm:w-[22rem] lg:w-96
                     {% if p.highlight %}ring-2 ring-brand-mint/60{% endif %}"
              data-aos="fade-up" data-aos-delay="{{ loop.index0 * 120 + 100 }}"
+             data-gender="{{ p.gender }}"
              data-egypt-m1-amount="{{ p.pricing.egypt.m1.amount }}"   data-egypt-m1-currency="{{ p.pricing.egypt.m1.currency }}"   data-egypt-m1-label="{{ p.pricing.egypt.m1.label_ar }}"
              data-egypt-m3-amount="{{ p.pricing.egypt.m3.amount }}"   data-egypt-m3-currency="{{ p.pricing.egypt.m3.currency }}"   data-egypt-m3-label="{{ p.pricing.egypt.m3.label_ar }}"   data-egypt-m3-save="{{ p.pricing.egypt.m3.save }}"   data-egypt-m3-total="{{ p.pricing.egypt.m3.total }}"
              data-egypt-m6-amount="{{ p.pricing.egypt.m6.amount }}"   data-egypt-m6-currency="{{ p.pricing.egypt.m6.currency }}"   data-egypt-m6-label="{{ p.pricing.egypt.m6.label_ar }}"   data-egypt-m6-save="{{ p.pricing.egypt.m6.save }}"   data-egypt-m6-total="{{ p.pricing.egypt.m6.total }}"
@@ -107,6 +120,7 @@ description: "اختر الباقة المناسبة — التحول الشام
              class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 w-full justify-center">
             {{ p.ar.cta }}
           </a>
+          {% if p.ar.note %}<p class="text-center text-xs text-brand-off/50 mt-3 italic">{{ p.ar.note }}</p>{% endif %}
         </div>
         {% endif %}
       {% endfor %}
@@ -154,8 +168,12 @@ description: "اختر الباقة المناسبة — التحول الشام
   .dur-btn { color: rgba(247,248,250,0.5); }
   .dur-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
   .dur-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,.06); }
+  .gender-btn { color: rgba(247,248,250,0.6); }
+  .gender-btn.active { background: rgba(0,217,163,.15); color: #00D9A3; }
+  .gender-btn:hover:not(.active) { color: #F7F8FA; background: rgba(255,255,255,.06); }
   .plan-card { transition: transform .25s ease, box-shadow .25s ease; }
   .plan-card:hover { transform: translateY(-5px); }
+  .plan-card.gender-hidden { display: none; }
   @media (max-width: 639px) { .plan-card { width: 100%; } }
 </style>
 
@@ -259,5 +277,23 @@ description: "اختر الباقة المناسبة — التحول الشام
   detectRegionByIp().then(setRegion);
   var refCheck = document.getElementById('referral-check');
   if (refCheck) refCheck.addEventListener('change', function () { setReferral(refCheck.checked); });
+
+  const GENDER_KEY = 'o2f_gender';
+  function setGender(gender) {
+    if (gender !== 'male' && gender !== 'female') gender = 'male';
+    try { localStorage.setItem(GENDER_KEY, gender); } catch (e) {}
+    document.querySelectorAll('.gender-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.gender === gender);
+    });
+    document.querySelectorAll('.plan-card[data-gender]').forEach(function (card) {
+      card.classList.toggle('gender-hidden', card.dataset.gender !== gender);
+    });
+  }
+  let savedGender = 'male';
+  try { savedGender = localStorage.getItem(GENDER_KEY) || 'male'; } catch (e) {}
+  setGender(savedGender);
+  document.querySelectorAll('.gender-btn').forEach(function (b) {
+    b.addEventListener('click', function () { setGender(b.dataset.gender); });
+  });
 })();
 </script>

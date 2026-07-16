@@ -82,6 +82,11 @@ p,li,span{color:var(--muted);line-height:1.72}
 .month-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px;border-radius:18px;background:rgba(255,255,255,.1)}
 .month-picker button{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:9px 6px;font-weight:950;cursor:pointer}
 .month-picker button.active{background:rgba(168,255,120,.24);border-color:rgba(168,255,120,.55)}
+.gender-tabs{display:flex;justify-content:center;gap:8px;margin:0 0 28px;padding:6px;border-radius:18px;background:rgba(255,255,255,.06);width:fit-content;margin-inline:auto}
+.gender-tab{border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.6);border-radius:14px;padding:10px 20px;font-weight:800;cursor:pointer;font-size:14px}
+.gender-tab.active{background:rgba(168,255,120,.24);border-color:rgba(168,255,120,.55);color:#fff}
+.plan.gender-hidden{display:none}
+.plan-note{margin-top:10px;font-size:12px;font-style:italic;opacity:.55;text-align:center}
 .saving{font-size:12px;color:var(--lime)!important;font-weight:900;min-height:18px}
 .features{padding:0;list-style:none}
 .features li{margin:9px 0;padding-left:14px;position:relative}
@@ -305,16 +310,25 @@ p,li,span{color:var(--muted);line-height:1.72}
           <h2>{{ hv2.plans.title }}</h2>
           <p>{{ hv2.plans.desc }}</p>
         </div>
+        <div class="gender-tabs" role="tablist">
+          <button type="button" class="gender-tab active" data-gender="male">👨 Men</button>
+          <button type="button" class="gender-tab" data-gender="female">🌸 Women</button>
+        </div>
         <div class="plans">
           {% for plan in hv2.plans.items %}
-          <article class="glass plan{% if plan.highlight %} highlight{% endif %}" data-plan="{{ plan.key }}" data-price="{{ plan.price }}">
+          <article class="glass plan{% if plan.highlight %} highlight{% endif %}"
+                    data-plan="{{ plan.key }}" data-price="{{ plan.price }}" data-gender="{{ plan.gender }}"
+                    data-fixed-currency="{{ plan.fixed_currency }}"
+                    data-eg-m1="{{ plan.eg_m1 }}" data-eg-m3="{{ plan.eg_m3 }}" data-eg-m6="{{ plan.eg_m6 }}"
+                    data-gulf-m1="{{ plan.gulf_m1 }}" data-gulf-m3="{{ plan.gulf_m3 }}" data-gulf-m6="{{ plan.gulf_m6 }}"
+                    data-int-m1="{{ plan.intl_m1 }}" data-int-m3="{{ plan.intl_m3 }}" data-int-m6="{{ plan.intl_m6 }}">
             <span class="kicker">{{ plan.kicker }}</span>
             <h3>{{ plan.name }}</h3>
-            <div class="price"><span class="plan-price">${{ plan.price }}</span> <small>/ month</small></div>
+            <div class="price"><span class="plan-price">${{ plan.price }}</span> <small class="plan-currency">/ month</small></div>
             <div class="month-picker">
               <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
+              <button type="button" data-months="3"{% if plan.save_m3 %} data-save="{{ plan.save_m3 }}"{% else %} data-discount="10"{% endif %}>3M</button>
+              <button type="button" data-months="6"{% if plan.save_m6 %} data-save="{{ plan.save_m6 }}"{% else %} data-discount="15"{% endif %}>6M</button>
             </div>
             <span class="saving">Total: ${{ plan.price }}</span>
             <p>{{ plan.blurb }}</p>
@@ -324,6 +338,7 @@ p,li,span{color:var(--muted);line-height:1.72}
               {% endfor %}
             </ul>
             <a class="btn{% if plan.highlight %} primary{% endif %}" href="{{ site.googleForm }}">Subscribe now</a>
+            {% if plan.note %}<p class="plan-note">{{ plan.note }}</p>{% endif %}
           </article>
           {% endfor %}
         </div>
@@ -513,6 +528,24 @@ p,li,span{color:var(--muted);line-height:1.72}
         savingEl.textContent = 'Total: $' + total + (discount ? ' — save ' + discount + '%' : '');
       };
     });
+  });
+
+  var GENDER_KEY = 'o2f_gender';
+  function setGender(gender) {
+    if (gender !== 'male' && gender !== 'female') gender = 'male';
+    try { localStorage.setItem(GENDER_KEY, gender); } catch (e) {}
+    document.querySelectorAll('.gender-tab').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.gender === gender);
+    });
+    document.querySelectorAll('.plan[data-gender]').forEach(function (plan) {
+      plan.classList.toggle('gender-hidden', plan.dataset.gender !== gender);
+    });
+  }
+  var savedGender = 'male';
+  try { savedGender = localStorage.getItem(GENDER_KEY) || 'male'; } catch (e) {}
+  setGender(savedGender);
+  document.querySelectorAll('.gender-tab').forEach(function (b) {
+    b.addEventListener('click', function () { setGender(b.dataset.gender); });
   });
 
   updateParallax();

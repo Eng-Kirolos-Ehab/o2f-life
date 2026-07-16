@@ -4,6 +4,7 @@
     "visible": true,
     "highlight": false,
     "order": 1,
+    "gender": "male",
     "pricing": {
       "egypt": {
         "m1": { "amount": "5,000", "currency": "EGP", "label": "per month",                    "label_ar": "شهريًا" },
@@ -53,6 +54,7 @@
     "visible": true,
     "highlight": true,
     "order": 2,
+    "gender": "male",
     "pricing": {
       "egypt": {
         "m1": { "amount": "2,400", "currency": "EGP", "label": "per month",                    "label_ar": "شهريًا" },
@@ -104,6 +106,7 @@
     "visible": false,
     "highlight": false,
     "order": 3,
+    "gender": "male",
     "pricing": {
       "egypt": {
         "m1": { "amount": "7,500", "currency": "EGP", "label": "per month", "label_ar": "شهريًا" },
@@ -150,6 +153,54 @@
         "مرونة كاملة أونلاين"
       ],
       "cta": "ابدأ الخطة المتطوّرة"
+    }
+  },
+  "women": {
+    "slug": "women",
+    "visible": true,
+    "highlight": false,
+    "order": 4,
+    "gender": "female",
+    "pricing": {
+      "egypt": {
+        "m1": { "amount": "300", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "250", "currency": "SAR", "label": "/mo · 3-month plan", "label_ar": "شهريًا · باقة 3 شهور", "total": "750", "save": "150 SAR" },
+        "m6": { "amount": "200", "currency": "SAR", "label": "/mo · 6-month plan", "label_ar": "شهريًا · باقة 6 شهور", "total": "1,200", "save": "600 SAR" }
+      },
+      "gulf": {
+        "m1": { "amount": "300", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "250", "currency": "SAR", "label": "/mo · 3-month plan", "label_ar": "شهريًا · باقة 3 شهور", "total": "750", "save": "150 SAR" },
+        "m6": { "amount": "200", "currency": "SAR", "label": "/mo · 6-month plan", "label_ar": "شهريًا · باقة 6 شهور", "total": "1,200", "save": "600 SAR" }
+      },
+      "international": {
+        "m1": { "amount": "300", "currency": "SAR", "label": "per month", "label_ar": "شهريًا" },
+        "m3": { "amount": "250", "currency": "SAR", "label": "/mo · 3-month plan", "label_ar": "شهريًا · باقة 3 شهور", "total": "750", "save": "150 SAR" },
+        "m6": { "amount": "200", "currency": "SAR", "label": "/mo · 6-month plan", "label_ar": "شهريًا · باقة 6 شهور", "total": "1,200", "save": "600 SAR" }
+      }
+    },
+    "en": {
+      "name": "SheFit 🌸",
+      "tagline": "For every woman who feels she deserves to start again",
+      "blurb": "There are moments when our body and soul need deeper care than just a \"diet\" or a \"workout\"... SheFit isn't just a training program — it's your glow up journey: a space where you truly listen to your body and treat yourself with gentleness and awareness.",
+      "features": [
+        "🤍 A plan that respects your physical and emotional state",
+        "🌿 Honest intention before every step",
+        "💫 Ongoing care for your body and inner energy"
+      ],
+      "note": "Begin with a pure intention… the rest follows, God willing 🤲",
+      "cta": "Start Your Journey"
+    },
+    "ar": {
+      "name": "SheFit 🌸",
+      "tagline": "لكل بنت تحس إنها تستاهل تبدأ من جديد",
+      "blurb": "في لحظات نحس فيها إن جسمنا وروحنا يحتاجون اهتمام أعمق من مجرد \"دايت\" أو \"تمرين\"… SheFit مش مجرد برنامج تدريب، ده رحلة الـ glow up بتاعك: مساحة تسمعين فيها لجسمك، وتتعاملين مع نفسك بلطف ووعي.",
+      "features": [
+        "🤍 خطة تراعي حالتك الجسدية والنفسية",
+        "🌿 نية صادقة قبل أي خطوة",
+        "💫 متابعة تحسين لجسمك وطاقتك الداخلية"
+      ],
+      "note": "ابدئي بنية صافية… الباقي يجي بتوفيق 🤲",
+      "cta": "ابدئي رحلتك"
     }
   }
 }

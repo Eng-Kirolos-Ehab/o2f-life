@@ -100,10 +100,11 @@
       var cur=plan.querySelector('.plan-currency');
       var saving=plan.querySelector('.saving');
       var isAr2=!!document.querySelector('.o2f-v2-ar');
+      var cardCurrency=plan.dataset.fixedCurrency||currency;
       if(price)price.textContent=monthly.toLocaleString('en-US');
-      if(cur)cur.textContent=currency+(isAr2?' / شهر':' / month');
+      if(cur)cur.textContent=cardCurrency+(isAr2?' / شهر':' / month');
       var sv=btn.dataset.save?((' — ')+(isAr2?'وفّر ':'save ')+btn.dataset.save):'';
-      if(saving)saving.textContent=(isAr2?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+currency+sv;
+      if(saving)saving.textContent=(isAr2?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+cardCurrency+sv;
     }
 
     document.querySelectorAll('#plans .month-picker button').forEach(function(btn){btn.onclick=function(){updatePlan(btn.closest('.plan'),btn)}});

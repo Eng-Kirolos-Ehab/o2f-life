@@ -173,6 +173,7 @@
       "items": [
         {
           "key": "basic",
+          "gender": "male",
           "kicker": "البداية",
           "name": "الخطة الأساسية",
           "price": 80,
@@ -187,6 +188,7 @@
         },
         {
           "key": "standard",
+          "gender": "male",
           "kicker": "الأكثر طلبًا",
           "name": "الخطة القياسية",
           "price": 120,
@@ -203,6 +205,7 @@
         },
         {
           "key": "premium",
+          "gender": "male",
           "kicker": "المتقدمة",
           "name": "الخطة المتقدمة",
           "price": 180,
@@ -215,6 +218,27 @@
             "دعم متقدم",
             "التزام أعلى"
           ]
+        },
+        {
+          "key": "women",
+          "gender": "female",
+          "kicker": "🌸 SheFit",
+          "name": "SheFit 🌸",
+          "price": 300,
+          "currency": "SAR",
+          "fixed_currency": "SAR",
+          "eg_m1": 300, "eg_m3": 750, "eg_m6": 1200,
+          "gulf_m1": 300, "gulf_m3": 750, "gulf_m6": 1200,
+          "intl_m1": 300, "intl_m3": 750, "intl_m6": 1200,
+          "save_m3": "150 SAR",
+          "save_m6": "600 SAR",
+          "blurb": "في لحظات نحس فيها إن جسمنا وروحنا يحتاجون اهتمام أعمق من مجرد \"دايت\" أو \"تمرين\"… SheFit مش مجرد برنامج تدريب، ده رحلة الـ glow up بتاعك: مساحة تسمعين فيها لجسمك، وتتعاملين مع نفسك بلطف ووعي.",
+          "features": [
+            "🤍 خطة تراعي حالتك الجسدية والنفسية",
+            "🌿 نية صادقة قبل أي خطوة",
+            "💫 متابعة تحسين لجسمك وطاقتك الداخلية"
+          ],
+          "note": "ابدئي بنية صافية… الباقي يجي بتوفيق 🤲"
         }
       ]
     }
@@ -317,6 +341,7 @@
       "items": [
         {
           "key": "basic",
+          "gender": "male",
           "kicker": "Starter",
           "name": "Basic Plan",
           "price": 80,
@@ -331,6 +356,7 @@
         },
         {
           "key": "standard",
+          "gender": "male",
           "kicker": "Most popular",
           "name": "Standard Plan",
           "price": 120,
@@ -347,6 +373,7 @@
         },
         {
           "key": "premium",
+          "gender": "male",
           "kicker": "Advanced",
           "name": "Premium Plan",
           "price": 180,
@@ -359,6 +386,27 @@
             "Advanced support",
             "Higher accountability"
           ]
+        },
+        {
+          "key": "women",
+          "gender": "female",
+          "kicker": "🌸 SheFit",
+          "name": "SheFit 🌸",
+          "price": 300,
+          "currency": "SAR",
+          "fixed_currency": "SAR",
+          "eg_m1": 300, "eg_m3": 750, "eg_m6": 1200,
+          "gulf_m1": 300, "gulf_m3": 750, "gulf_m6": 1200,
+          "intl_m1": 300, "intl_m3": 750, "intl_m6": 1200,
+          "save_m3": "150 SAR",
+          "save_m6": "600 SAR",
+          "blurb": "There are moments when our body and soul need deeper care than just a \"diet\" or a \"workout\"... SheFit isn't just a training program — it's your glow up journey: a space where you truly listen to your body and treat yourself with gentleness and awareness.",
+          "features": [
+            "🤍 A plan that respects your physical and emotional state",
+            "🌿 Honest intention before every step",
+            "💫 Ongoing care for your body and inner energy"
+          ],
+          "note": "Begin with a pure intention… the rest follows, God willing 🤲"
         }
       ]
     },

@@ -89,6 +89,7 @@ collections:
               - { name: visible,   label: "Show on site?",      widget: boolean, default: true }
               - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: false }
               - { name: order,     label: "Display order",      widget: number,  default: 1 }
+              - { name: gender,    label: "Shown under toggle", widget: select, options: [ "male", "female" ], default: "male" }
               - label: "Regional Pricing"
                 name: pricing
                 widget: object
@@ -126,6 +127,7 @@ collections:
                   - { name: blurb,    label: "Description", widget: text }
                   - { name: features, label: "Features",   widget: list, field: { label: "Feature", name: item, widget: string } }
                   - { name: cta,      label: "CTA button text", widget: string }
+                  - { name: note,     label: "Small note under button (optional)", widget: string, required: false }
               - label: "Arabic Content / المحتوى العربي"
                 name: ar
                 widget: object
@@ -135,6 +137,7 @@ collections:
                   - { name: blurb,    label: "الوصف",           widget: text }
                   - { name: features, label: "المميزات",        widget: list, field: { label: "ميزة", name: item, widget: string } }
                   - { name: cta,      label: "نص الزر",         widget: string }
+                  - { name: note,     label: "ملاحظة صغيرة تحت الزر (اختياري)", widget: string, required: false }
 
           - label: "Standard Plan"
             name: standard
@@ -144,6 +147,7 @@ collections:
               - { name: visible, label: "Show on site?", widget: boolean, default: true }
               - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: true }
               - { name: order, label: "Display order", widget: number, default: 2 }
+              - { name: gender, label: "Shown under toggle", widget: select, options: [ "male", "female" ], default: "male" }
               - label: "Regional Pricing"
                 name: pricing
                 widget: object
@@ -171,14 +175,16 @@ collections:
                   { name: tagline, widget: string },
                   { name: blurb, widget: text },
                   { name: features, widget: list, field: { label: Feature, name: item, widget: string } },
-                  { name: cta, widget: string }
+                  { name: cta, widget: string },
+                  { name: note, label: "Small note under button (optional)", widget: string, required: false }
                 ] }
               - { label: "Arabic Content", name: ar, widget: object, fields: [
                   { name: name, widget: string },
                   { name: tagline, widget: string },
                   { name: blurb, widget: text },
                   { name: features, widget: list, field: { label: "ميزة", name: item, widget: string } },
-                  { name: cta, widget: string }
+                  { name: cta, widget: string },
+                  { name: note, label: "ملاحظة صغيرة تحت الزر (اختياري)", widget: string, required: false }
                 ] }
 
           - label: "Advanced Plan"
@@ -189,6 +195,7 @@ collections:
               - { name: visible, label: "Show on site?", widget: boolean, default: true }
               - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: false }
               - { name: order, label: "Display order", widget: number, default: 3 }
+              - { name: gender, label: "Shown under toggle", widget: select, options: [ "male", "female" ], default: "male" }
               - label: "Regional Pricing"
                 name: pricing
                 widget: object
@@ -216,14 +223,64 @@ collections:
                   { name: tagline, widget: string },
                   { name: blurb, widget: text },
                   { name: features, widget: list, field: { label: Feature, name: item, widget: string } },
-                  { name: cta, widget: string }
+                  { name: cta, widget: string },
+                  { name: note, label: "Small note under button (optional)", widget: string, required: false }
                 ] }
               - { label: "Arabic Content", name: ar, widget: object, fields: [
                   { name: name, widget: string },
                   { name: tagline, widget: string },
                   { name: blurb, widget: text },
                   { name: features, widget: list, field: { label: "ميزة", name: item, widget: string } },
-                  { name: cta, widget: string }
+                  { name: cta, widget: string },
+                  { name: note, label: "ملاحظة صغيرة تحت الزر (اختياري)", widget: string, required: false }
+                ] }
+
+          - label: "SheFit — Women's Plan 🌸"
+            name: women
+            widget: object
+            fields:
+              - { name: slug, widget: string, default: "women" }
+              - { name: visible, label: "Show on site?", widget: boolean, default: true }
+              - { name: highlight, label: "Mark as 'Most popular'?", widget: boolean, default: false }
+              - { name: order, label: "Display order", widget: number, default: 4 }
+              - { name: gender, label: "Shown under toggle", widget: select, options: [ "male", "female" ], default: "female" }
+              - label: "Regional Pricing"
+                name: pricing
+                widget: object
+                fields:
+                  - { label: "🇪🇬 Egypt", name: egypt, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "SAR" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+                  - { label: "🇸🇦 Gulf / Arab", name: gulf, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "SAR" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+                  - { label: "🌍 International", name: international, widget: object, fields: [
+                      { name: amount, widget: string },
+                      { name: currency, widget: string, default: "SAR" },
+                      { name: period, widget: string, default: "per month" },
+                      { name: period_ar, widget: string, default: "شهريًا" }
+                    ] }
+              - { label: "English Content", name: en, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, field: { label: Feature, name: item, widget: string } },
+                  { name: cta, widget: string },
+                  { name: note, label: "Small note under button (optional)", widget: string, required: false }
+                ] }
+              - { label: "Arabic Content", name: ar, widget: object, fields: [
+                  { name: name, widget: string },
+                  { name: tagline, widget: string },
+                  { name: blurb, widget: text },
+                  { name: features, widget: list, field: { label: "ميزة", name: item, widget: string } },
+                  { name: cta, widget: string },
+                  { name: note, label: "ملاحظة صغيرة تحت الزر (اختياري)", widget: string, required: false }
                 ] }
 
       # ─── Custom / special plans ───────────────────────────────

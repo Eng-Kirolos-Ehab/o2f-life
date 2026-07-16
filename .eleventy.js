@@ -2,7 +2,18 @@ module.exports = function(eleventyConfig) {
   // Copy static assets as-is
   eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
-  eleventyConfig.addPassthroughCopy({ "src/assets/css": "assets/css" });
+  // NOTE: main.css is the Tailwind entry file (raw @tailwind directives) — it is
+  // compiled separately by the tailwindcss CLI (css:build/css:watch) straight to
+  // _site/assets/css/main.css. It must NOT be passthrough-copied here, or Eleventy's
+  // directory-level copy races the Tailwind watcher and can overwrite the compiled
+  // output with the uncompiled source (styling silently breaks in `npm run dev`).
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-ar-match.css": "assets/css/home-v2-ar-match.css" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-final-fixes.css": "assets/css/home-v2-final-fixes.css" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-hide-whatsapp.css": "assets/css/home-v2-hide-whatsapp.css" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-hotfix.css": "assets/css/home-v2-hotfix.css" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-nav-restore.css": "assets/css/home-v2-nav-restore.css" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-polish.css": "assets/css/home-v2-polish.css" });
+  eleventyConfig.addPassthroughCopy({ "src/assets/css/home-v2-stability.css": "assets/css/home-v2-stability.css" });
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
   eleventyConfig.addPassthroughCopy("CNAME");
 
