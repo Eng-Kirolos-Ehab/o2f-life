@@ -310,12 +310,9 @@ p,li,span{color:var(--muted);line-height:1.72}
           <h2>{{ hv2.plans.title }}</h2>
           <p>{{ hv2.plans.desc }}</p>
         </div>
-        <div class="gender-tabs" role="tablist">
-          <button type="button" class="gender-tab active" data-gender="male">👨 Men</button>
-          <button type="button" class="gender-tab" data-gender="female">🌸 Women</button>
-        </div>
+        {# Women (SheFit) plans hidden 2026-09-23 — single plans list. #}
         <div class="plans">
-          {% for plan in hv2.plans.items %}
+          {% for plan in hv2.plans.items %}{% if plan.gender != "female" %}
           <article class="glass plan{% if plan.highlight %} highlight{% endif %}"
                     data-plan="{{ plan.key }}" data-price="{{ plan.price }}" data-gender="{{ plan.gender }}"
                     data-fixed-currency="{{ plan.fixed_currency }}"
@@ -340,7 +337,7 @@ p,li,span{color:var(--muted);line-height:1.72}
             <a class="btn{% if plan.highlight %} primary{% endif %}" href="{{ site.googleForm }}">Subscribe now</a>
             {% if plan.note %}<p class="plan-note">{{ plan.note }}</p>{% endif %}
           </article>
-          {% endfor %}
+          {% endif %}{% endfor %}
         </div>
       </div>
     </section>
@@ -543,7 +540,7 @@ p,li,span{color:var(--muted);line-height:1.72}
   }
   var savedGender = 'male';
   try { savedGender = localStorage.getItem(GENDER_KEY) || 'male'; } catch (e) {}
-  setGender(savedGender);
+  setGender('male'); // women plans hidden — always show the single (male) list
   document.querySelectorAll('.gender-tab').forEach(function (b) {
     b.addEventListener('click', function () { setGender(b.dataset.gender); });
   });

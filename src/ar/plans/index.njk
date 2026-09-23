@@ -14,17 +14,7 @@ description: "اختر الباقة المناسبة — التحول الشام
   </div>
 </section>
 
-{# GENDER TOGGLE #}
-<section class="pt-4 pb-2">
-  <div class="container-x">
-    <div class="flex justify-center" data-aos="fade-up">
-      <div class="gender-tabs inline-flex rounded-xl border border-brand-line bg-white/3 p-1 gap-1">
-        <button type="button" class="gender-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all" data-gender="male">👨 رجال</button>
-        <button type="button" class="gender-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all" data-gender="female">🌸 نساء</button>
-      </div>
-    </div>
-  </div>
-</section>
+{# Gender toggle removed 2026-09-23 — women (SheFit) plans hidden, single plans list. #}
 
 {# REFERRAL TOGGLE #}
 {% if referral.enabled %}
@@ -291,7 +281,7 @@ description: "اختر الباقة المناسبة — التحول الشام
   }
   let savedGender = 'male';
   try { savedGender = localStorage.getItem(GENDER_KEY) || 'male'; } catch (e) {}
-  setGender(savedGender);
+  setGender('male'); // women plans hidden — always show the single (male) list
   document.querySelectorAll('.gender-btn').forEach(function (b) {
     b.addEventListener('click', function () { setGender(b.dataset.gender); });
   });

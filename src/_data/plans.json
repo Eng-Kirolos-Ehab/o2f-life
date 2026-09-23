@@ -157,7 +157,7 @@
   },
   "women": {
     "slug": "women",
-    "visible": true,
+    "visible": false,
     "highlight": false,
     "order": 4,
     "gender": "female",
