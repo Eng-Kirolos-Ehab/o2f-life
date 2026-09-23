@@ -522,10 +522,7 @@ p,li,span{color:var(--muted);line-height:1.8}
           <h2>اختار المستوى المناسب لهدفك.</h2>
           <p>الباقات واضحة وسهلة — اختار عدد الشهور وشوف الإجمالي.</p>
         </div>
-        <div class="gender-tabs" role="tablist">
-          <button type="button" class="gender-tab active" data-gender="male">👨 رجال</button>
-          <button type="button" class="gender-tab" data-gender="female">🌸 نساء</button>
-        </div>
+        
         <div class="plans">
           
           <article class="glass plan"
@@ -623,35 +620,6 @@ p,li,span{color:var(--muted);line-height:1.8}
             </ul>
             <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">اشترك الآن</a>
             
-          </article>
-          
-          <article class="glass plan"
-                    data-plan="women" data-price="300" data-gender="female"
-                    data-fixed-currency="SAR"
-                    data-eg-m1="300" data-eg-m3="750" data-eg-m6="1200"
-                    data-gulf-m1="300" data-gulf-m3="750" data-gulf-m6="1200"
-                    data-int-m1="300" data-int-m3="750" data-int-m6="1200">
-            <span class="kicker">🌸 SheFit</span>
-            <h3>SheFit 🌸</h3>
-            <div class="price" dir="ltr"><span class="plan-price">$300</span> <small class="plan-currency">/ شهر</small></div>
-            <div class="month-picker" dir="ltr">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-save="150 SAR">3M</button>
-              <button type="button" data-months="6" data-save="600 SAR">6M</button>
-            </div>
-            <span class="saving" dir="ltr">الإجمالي: $300</span>
-            <p>في لحظات نحس فيها إن جسمنا وروحنا يحتاجون اهتمام أعمق من مجرد &quot;دايت&quot; أو &quot;تمرين&quot;… SheFit مش مجرد برنامج تدريب، ده رحلة الـ glow up بتاعك: مساحة تسمعين فيها لجسمك، وتتعاملين مع نفسك بلطف ووعي.</p>
-            <ul class="features">
-              
-              <li>🤍 خطة تراعي حالتك الجسدية والنفسية</li>
-              
-              <li>🌿 نية صادقة قبل أي خطوة</li>
-              
-              <li>💫 متابعة تحسين لجسمك وطاقتك الداخلية</li>
-              
-            </ul>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">اشترك الآن</a>
-            <p class="plan-note">ابدئي بنية صافية… الباقي يجي بتوفيق 🤲</p>
           </article>
           
         </div>
@@ -1042,7 +1010,7 @@ p,li,span{color:var(--muted);line-height:1.8}
   }
   var savedGender = 'male';
   try { savedGender = localStorage.getItem(GENDER_KEY) || 'male'; } catch (e) {}
-  setGender(savedGender);
+  setGender('male'); // women plans hidden — always show the single (male) list
   document.querySelectorAll('.gender-tab').forEach(function (b) {
     b.addEventListener('click', function () { setGender(b.dataset.gender); });
   });

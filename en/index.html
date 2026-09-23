@@ -521,10 +521,7 @@ p,li,span{color:var(--muted);line-height:1.72}
           <h2>Choose the level that matches your goal.</h2>
           <p>Select the number of months and see how the total changes. Longer plans give better value.</p>
         </div>
-        <div class="gender-tabs" role="tablist">
-          <button type="button" class="gender-tab active" data-gender="male">👨 Men</button>
-          <button type="button" class="gender-tab" data-gender="female">🌸 Women</button>
-        </div>
+        
         <div class="plans">
           
           <article class="glass plan"
@@ -622,35 +619,6 @@ p,li,span{color:var(--muted);line-height:1.72}
             </ul>
             <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Subscribe now</a>
             
-          </article>
-          
-          <article class="glass plan"
-                    data-plan="women" data-price="300" data-gender="female"
-                    data-fixed-currency="SAR"
-                    data-eg-m1="300" data-eg-m3="750" data-eg-m6="1200"
-                    data-gulf-m1="300" data-gulf-m3="750" data-gulf-m6="1200"
-                    data-int-m1="300" data-int-m3="750" data-int-m6="1200">
-            <span class="kicker">🌸 SheFit</span>
-            <h3>SheFit 🌸</h3>
-            <div class="price"><span class="plan-price">$300</span> <small class="plan-currency">/ month</small></div>
-            <div class="month-picker">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-save="150 SAR">3M</button>
-              <button type="button" data-months="6" data-save="600 SAR">6M</button>
-            </div>
-            <span class="saving">Total: $300</span>
-            <p>There are moments when our body and soul need deeper care than just a &quot;diet&quot; or a &quot;workout&quot;... SheFit isn&#39;t just a training program — it&#39;s your glow up journey: a space where you truly listen to your body and treat yourself with gentleness and awareness.</p>
-            <ul class="features">
-              
-              <li>🤍 A plan that respects your physical and emotional state</li>
-              
-              <li>🌿 Honest intention before every step</li>
-              
-              <li>💫 Ongoing care for your body and inner energy</li>
-              
-            </ul>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Subscribe now</a>
-            <p class="plan-note">Begin with a pure intention… the rest follows, God willing 🤲</p>
           </article>
           
         </div>
@@ -1040,7 +1008,7 @@ p,li,span{color:var(--muted);line-height:1.72}
   }
   var savedGender = 'male';
   try { savedGender = localStorage.getItem(GENDER_KEY) || 'male'; } catch (e) {}
-  setGender(savedGender);
+  setGender('male'); // women plans hidden — always show the single (male) list
   document.querySelectorAll('.gender-tab').forEach(function (b) {
     b.addEventListener('click', function () { setGender(b.dataset.gender); });
   });
