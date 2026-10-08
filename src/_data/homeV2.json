@@ -167,78 +167,37 @@
       }
     ],
     "plans": {
-      "kicker": "الباقات",
-      "title": "اختار المستوى المناسب لهدفك.",
-      "desc": "الباقات واضحة وسهلة — اختار عدد الشهور وشوف الإجمالي.",
+      "kicker": "الباقة",
+      "title": "باقة التحول الشامل",
+      "desc": "باقة وحدة فيها كل شي. اختار المدة وشوف السعر.",
       "items": [
         {
-          "key": "basic",
+          "key": "transformation",
           "gender": "male",
-          "kicker": "البداية",
-          "name": "الخطة الأساسية",
-          "price": 80,
-          "currency": "USD",
-          "blurb": "بداية واضحة لمن يحتاج توجيه تدريب وتغذية.",
-          "features": [
-            "توجيه تدريبي",
-            "إرشاد تغذية",
-            "نقاط متابعة",
-            "هيكل أسبوعي بسيط"
-          ]
-        },
-        {
-          "key": "standard",
-          "gender": "male",
-          "kicker": "الأكثر طلبًا",
-          "name": "الخطة القياسية",
-          "price": 120,
+          "kicker": "ايش تستلم معي",
+          "name": "باقة التحول الشامل",
+          "price": 100,
           "currency": "USD",
           "highlight": true,
-          "blurb": "الخيار المتوازن لمتابعة أقوى ومسار أكمل.",
+          "eg_m1": 2400,
+          "eg_m3": 6480,
+          "eg_m6": 11520,
+          "gulf_m1": 100,
+          "gulf_m3": 250,
+          "gulf_m6": 450,
+          "intl_m1": 100,
+          "intl_m3": 250,
+          "intl_m6": 450,
+          "blurb": "أنا معك في الأكل والتمرين والمكملات، خطوة خطوة لين توصل لهدفك.",
           "features": [
-            "خطة تدريب",
-            "توجيه تغذية",
-            "تعديلات أسبوعية",
-            "تتبع تقدم",
-            "خطوات واضحة"
+            "خطة أكل بالجرام على ذوقك وتحاليلك",
+            "جدول تمرين بفيديو لكل تمرين",
+            "جدول مكملات وأعشاب بمواعيدها",
+            "دليل مشروبات طبيعية",
+            "متابعة يومية معي على واتساب",
+            "تقرير أسبوعي وتعديل الخطة على حسب تقدمك",
+            "قراءة تحاليلك ومتابعتها"
           ]
-        },
-        {
-          "key": "premium",
-          "gender": "male",
-          "kicker": "المتقدمة",
-          "name": "الخطة المتقدمة",
-          "price": 180,
-          "currency": "USD",
-          "blurb": "متابعة أعمق وتوجيه أعلى ومحاسبة أقوى.",
-          "features": [
-            "خطة تحول كاملة",
-            "مراقبة تفصيلية",
-            "تحسين نمط الحياة",
-            "دعم متقدم",
-            "التزام أعلى"
-          ]
-        },
-        {
-          "key": "women",
-          "gender": "female",
-          "kicker": "🌸 SheFit",
-          "name": "SheFit 🌸",
-          "price": 300,
-          "currency": "SAR",
-          "fixed_currency": "SAR",
-          "eg_m1": 300, "eg_m3": 750, "eg_m6": 1200,
-          "gulf_m1": 300, "gulf_m3": 750, "gulf_m6": 1200,
-          "intl_m1": 300, "intl_m3": 750, "intl_m6": 1200,
-          "save_m3": "150 SAR",
-          "save_m6": "600 SAR",
-          "blurb": "في لحظات نحس فيها إن جسمنا وروحنا يحتاجون اهتمام أعمق من مجرد \"دايت\" أو \"تمرين\"… SheFit مش مجرد برنامج تدريب، ده رحلة الـ glow up بتاعك: مساحة تسمعين فيها لجسمك، وتتعاملين مع نفسك بلطف ووعي.",
-          "features": [
-            "🤍 خطة تراعي حالتك الجسدية والنفسية",
-            "🌿 نية صادقة قبل أي خطوة",
-            "💫 متابعة تحسين لجسمك وطاقتك الداخلية"
-          ],
-          "note": "ابدئي بنية صافية… الباقي يجي بتوفيق 🤲"
         }
       ]
     }
@@ -335,78 +294,37 @@
       }
     ],
     "plans": {
-      "kicker": "Plans",
-      "title": "Choose the level that matches your goal.",
-      "desc": "Select the number of months and see how the total changes. Longer plans give better value.",
+      "kicker": "The plan",
+      "title": "Full Transformation Plan",
+      "desc": "One plan with everything included. Pick the duration to see the price.",
       "items": [
         {
-          "key": "basic",
+          "key": "transformation",
           "gender": "male",
-          "kicker": "Starter",
-          "name": "Basic Plan",
-          "price": 80,
-          "currency": "USD",
-          "blurb": "For people who need a clean first step with training and nutrition direction.",
-          "features": [
-            "Training direction",
-            "Nutrition guidance",
-            "Progress checkpoints",
-            "Simple weekly structure"
-          ]
-        },
-        {
-          "key": "standard",
-          "gender": "male",
-          "kicker": "Most popular",
-          "name": "Standard Plan",
-          "price": 120,
+          "kicker": "What you get with me",
+          "name": "Full Transformation Plan",
+          "price": 100,
           "currency": "USD",
           "highlight": true,
-          "blurb": "The balanced option for stronger follow-up and a more complete route.",
+          "eg_m1": 2400,
+          "eg_m3": 6480,
+          "eg_m6": 11520,
+          "gulf_m1": 100,
+          "gulf_m3": 250,
+          "gulf_m6": 450,
+          "intl_m1": 100,
+          "intl_m3": 250,
+          "intl_m6": 450,
+          "blurb": "I'm with you on food, training and supplements, step by step until you reach your goal.",
           "features": [
-            "Training plan",
-            "Nutrition direction",
-            "Weekly adjustments",
-            "Progress tracking",
-            "Clear action steps"
+            "Gram-precise meal plan built on your taste and labs",
+            "Training program with a video for every exercise",
+            "Supplements & herbs schedule with exact timing",
+            "Natural drinks guide",
+            "Daily WhatsApp follow-up with me",
+            "Weekly report and plan adjustments as you progress",
+            "Lab results reading and follow-up"
           ]
-        },
-        {
-          "key": "premium",
-          "gender": "male",
-          "kicker": "Advanced",
-          "name": "Premium Plan",
-          "price": 180,
-          "currency": "USD",
-          "blurb": "For deeper follow-up, premium guidance, and stronger accountability.",
-          "features": [
-            "Full transformation plan",
-            "Detailed monitoring",
-            "Lifestyle optimization",
-            "Advanced support",
-            "Higher accountability"
-          ]
-        },
-        {
-          "key": "women",
-          "gender": "female",
-          "kicker": "🌸 SheFit",
-          "name": "SheFit 🌸",
-          "price": 300,
-          "currency": "SAR",
-          "fixed_currency": "SAR",
-          "eg_m1": 300, "eg_m3": 750, "eg_m6": 1200,
-          "gulf_m1": 300, "gulf_m3": 750, "gulf_m6": 1200,
-          "intl_m1": 300, "intl_m3": 750, "intl_m6": 1200,
-          "save_m3": "150 SAR",
-          "save_m6": "600 SAR",
-          "blurb": "There are moments when our body and soul need deeper care than just a \"diet\" or a \"workout\"... SheFit isn't just a training program — it's your glow up journey: a space where you truly listen to your body and treat yourself with gentleness and awareness.",
-          "features": [
-            "🤍 A plan that respects your physical and emotional state",
-            "🌿 Honest intention before every step",
-            "💫 Ongoing care for your body and inner energy"
-          ],
-          "note": "Begin with a pure intention… the rest follows, God willing 🤲"
         }
       ]
     },

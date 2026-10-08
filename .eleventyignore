@@ -1,7 +1,1 @@
-# Prevent duplicate hidden/legacy homepage templates from producing conflicting output
-src/en/index.njk
-src/en/home-old/index.njk
-src/ar/index.njk
-src/en/home-current.njk
-src/ar/home-current.njk
-src/en/index-v2.njk
+﻿# Legacy homepage templates were removed on 2026-10-08 (backup: o2f-life-backups\2026-10-08-before-single-plan).

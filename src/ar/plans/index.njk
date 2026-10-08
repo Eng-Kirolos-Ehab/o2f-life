@@ -1,15 +1,15 @@
 ---
-title: "الباقات"
-description: "اختر الباقة المناسبة — التحول الشامل أو العلاجية — مع تسعير تلقائي حسب موقع الزائر."
+title: "الباقة"
+description: "باقة التحول الشامل مع الكوتش أسامة عمران: خطة أكل وتمرين ومكملات ومتابعة يومية."
 ---
 
 <section class="grid-bg relative overflow-hidden">
   <div class="absolute top-10 -left-20 w-96 h-96 rounded-full bg-brand-mint/10 blur-3xl animate-pulse-soft pointer-events-none"></div>
   <div class="container-x py-16 sm:py-20 relative">
-    <p class="section-kicker" data-aos="fade-up">اختر الباقة</p>
-    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">باقات مبنيّة <span class="gradient-mint-text">حواليك.</span></h1>
+    <p class="section-kicker" data-aos="fade-up">الباقة</p>
+    <h1 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">باقة مبنيّة <span class="gradient-mint-text">عليك.</span></h1>
     <p class="text-lg text-brand-off/70 max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-      كل باقة مخصّصة بالكامل. التزام أطول = سعر شهري أقل.
+      كل شي فيها مفصّل على جسمك وهدفك. التزام أطول = سعر شهري أقل.
     </p>
   </div>
 </section>
@@ -74,7 +74,7 @@ description: "اختر الباقة المناسبة — التحول الشام
              data-intl-m6-amount="{{ p.pricing.international.m6.amount }}" data-intl-m6-currency="{{ p.pricing.international.m6.currency }}" data-intl-m6-label="{{ p.pricing.international.m6.label_ar }}" data-intl-m6-save="{{ p.pricing.international.m6.save }}" data-intl-m6-total="{{ p.pricing.international.m6.total }}">
 
           <div class="flex flex-wrap gap-2 mb-3 min-h-[1.75rem]">
-            {% if p.highlight %}<span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأكثر شعبية</span>{% endif %}
+            {% if p.highlight %}<span class="chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">★ الأنسب للنتيجة: 3 شهور</span>{% endif %}
             <span class="save-badge chip hidden bg-brand-mint/15 text-brand-mint border-brand-mint/30 text-xs font-bold"></span>
             <span class="referral-plan-badge chip hidden bg-brand-gold/15 text-brand-gold border-brand-gold/30 text-xs font-bold">🎁 {{ referral.ar.badge if referral else "خصم التوصية" }}</span>
           </div>
@@ -83,8 +83,8 @@ description: "اختر الباقة المناسبة — التحول الشام
           <p class="text-brand-mint text-sm mb-4">{{ p.ar.tagline }}</p>
 
           <div class="dur-tabs inline-flex rounded-lg border border-brand-line bg-white/3 p-0.5 gap-0.5 mb-4 self-start" role="tablist">
-            <button type="button" class="dur-btn active px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">شهر</button>
-            <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
+            <button type="button" class="dur-btn px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m1">شهر</button>
+            <button type="button" class="dur-btn active relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m3">
               3 شهور<span class="save-tip-m3 absolute -top-2 -left-1 px-1 py-px text-[9px] font-bold bg-brand-mint text-brand-ink rounded-full leading-tight hidden"></span>
             </button>
             <button type="button" class="dur-btn relative px-2.5 py-1 rounded-md text-[11px] font-semibold transition-all" data-dur="m6">
@@ -106,9 +106,10 @@ description: "اختر الباقة المناسبة — التحول الشام
             {% for f in p.ar.features %}<li class="flex gap-2"><span class="text-brand-mint flex-shrink-0">✓</span>{{ f }}</li>{% endfor %}
           </ul>
 
-          <a href="{{ '/ar/contact/' | url }}"
-             class="{% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 w-full justify-center">
-            {{ p.ar.cta }}
+          <a href="https://wa.me/{{ site.social.whatsapp | replace('+', '') }}?text={{ ('السلام عليكم كوتش أسامة، حاب أشترك في ' + p.ar.name + ' (3 شهور)') | urlencode }}"
+             target="_blank" rel="noopener" data-plan-name="{{ p.ar.name }}"
+             class="plan-wa {% if p.highlight %}btn-primary{% else %}btn-ghost{% endif %} mt-6 w-full justify-center">
+            {{ p.ar.cta }} على واتساب
           </a>
           {% if p.ar.note %}<p class="text-center text-xs text-brand-off/50 mt-3 italic">{{ p.ar.note }}</p>{% endif %}
         </div>
@@ -225,6 +226,11 @@ description: "اختر الباقة المناسبة — التحول الشام
     if (elLbl)  elLbl.textContent  = label;
     if (elTot) { total ? (elTot.textContent = TOTAL_AR + total + ' ' + currency, elTot.classList.remove('hidden')) : elTot.classList.add('hidden'); }
     if (elSave) { save ? (elSave.textContent = SAVE_AR + save, elSave.classList.remove('hidden')) : elSave.classList.add('hidden'); }
+    var wa = card.querySelector('.plan-wa');
+    if (wa) {
+      var durTxt = dur === 'm1' ? 'شهر' : dur.slice(1) + ' شهور';
+      wa.href = wa.href.split('?')[0] + '?text=' + encodeURIComponent('السلام عليكم كوتش أسامة، حاب أشترك في ' + wa.dataset.planName + ' (' + durTxt + ')');
+    }
 
     ['m3','m6'].forEach(function (d) {
       var tip = card.querySelector('.save-tip-' + d);

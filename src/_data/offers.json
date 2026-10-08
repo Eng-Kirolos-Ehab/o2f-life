@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "appliesTo": "m3",
   "freeMonths": 1,
   "badge": {

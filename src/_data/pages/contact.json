@@ -7,14 +7,14 @@
     "hero": {
       "kicker": "Contact",
       "title": "Let's talk.",
-      "description": "Pick the way that works best for you — the signup form, WhatsApp, or email. We reply within 24 hours."
+      "description": "Pick what suits you: WhatsApp or email."
     },
     "cards": {
       "form": {
-        "badge": "Recommended",
-        "title": "Signup form",
-        "description": "Tell us about yourself, your goals and your schedule. Takes about 3 minutes. Coach Osama reviews every response personally and replies within 24 hours.",
-        "cta": "Open the form"
+        "badge": "The plan",
+        "title": "Full Transformation Plan",
+        "description": "See what you get with me and the price, pick your duration, and subscribe on WhatsApp. I reply personally.",
+        "cta": "View the plan"
       },
       "whatsapp": {
         "title": "WhatsApp",
@@ -32,7 +32,7 @@
     },
     "process": {
       "title": "What happens after you sign up?",
-      "description": "Coach Osama reviews your answers, sends a short follow-up if needed, and schedules your onboarding call within 24 hours."
+      "description": "Coach Osama reviews your answers, sends a short follow-up if needed, and schedules your onboarding call."
     }
   },
   "ar": {
@@ -43,14 +43,14 @@
     "hero": {
       "kicker": "تواصل",
       "title": "يلا نتكلّم.",
-      "description": "اختر الطريقة الأنسب ليك — فورم التسجيل، واتساب، أو إيميل. بنرد في خلال ٢٤ ساعة."
+      "description": "اختار الطريقة اللي تناسبك: واتساب أو إيميل."
     },
     "cards": {
       "form": {
-        "badge": "مُفضّل",
-        "title": "فورم التسجيل",
-        "description": "قوللنا عن نفسك، أهدافك، ووقتك المتاح. ميحتاجش أكتر من ٣ دقايق. الكابتن أسامة بيراجع كل الردود بنفسه وبيرد في خلال ٢٤ ساعة.",
-        "cta": "افتح الفورم"
+        "badge": "الباقة",
+        "title": "باقة التحول الشامل",
+        "description": "شوف ايش تستلم معي والسعر، واختار المدة اللي تناسبك. الاشتراك يتم على واتساب، وأرد عليك بنفسي.",
+        "cta": "شوف الباقة"
       },
       "whatsapp": {
         "title": "واتساب",
@@ -68,7 +68,7 @@
     },
     "process": {
       "title": "بيحصل إيه بعد ما تسجّل؟",
-      "description": "الكابتن أسامة بيراجع إجاباتك، وبيبعتلك رسالة متابعة قصيرة لو محتاج، وبيحدّد معاد مكالمة الـonboarding في خلال ٢٤ ساعة."
+      "description": "الكابتن أسامة بيراجع إجاباتك، وبيبعتلك رسالة متابعة قصيرة لو محتاج، وبيحدّد معاد مكالمة البداية."
     }
   }
 }
