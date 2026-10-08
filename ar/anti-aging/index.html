@@ -147,7 +147,7 @@
     </h1>
     <p class="text-lg text-brand-off/75 max-w-2xl" data-aos="fade-up" data-aos-delay="200">استعد مظهرك الشبابي الصحي من خلال برنامجنا المخصّص لمكافحة الشيخوخة — مجموعة خطط متكاملة لتحسين صحة البشرة، رفع الطاقة، وتعزيز الثقة بالنفس والحيوية.</p>
     <div class="flex flex-wrap gap-3 mt-8" data-aos="fade-up" data-aos-delay="300">
-      <a href="/ar/contact/?service=anti-aging" class="btn-primary">احجز استشارة</a>
+      <a href="#elite" class="btn-primary">احجز استشارة</a>
       <a href="#package-details" class="btn-ghost">شوف تفاصيل الباقة</a>
     </div>
   </div>
@@ -381,32 +381,94 @@
   </div>
 </section>
 
-<section class="section bg-white/[0.02]">
-  <div class="container-x max-w-4xl">
-    <p class="section-kicker text-center" data-aos="fade-up">عروض لفترة محدودة</p>
-    <h2 class="section-title text-center mb-10" data-aos="fade-up" data-aos-delay="100">اختار رحلتك.</h2>
-    <div class="grid sm:grid-cols-2 gap-5">
+
+
+
+<section id="elite" class="elite-sec">
+<style>
+.elite-sec{position:relative;padding:88px 16px;background:radial-gradient(900px 420px at 50% -10%,rgba(201,168,74,.20),transparent 70%),linear-gradient(180deg,#07080b,#0d0f14 60%,#07080b);overflow:hidden}
+.elite-sec:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(201,168,74,.035) 0 1px,transparent 1px 22px);pointer-events:none}
+.elite-wrap{position:relative;max-width:980px;margin:0 auto;text-align:center}
+.elite-crown{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid rgba(201,168,74,.45);border-radius:999px;color:#E8CF8A;font-size:13px;font-weight:700;letter-spacing:.06em;background:rgba(201,168,74,.08)}
+.elite-title{margin:18px 0 10px;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.25;background:linear-gradient(90deg,#B8913A,#F3DFA2 45%,#C9A84A 70%,#F3DFA2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.elite-sub{max-width:640px;margin:0 auto 40px;color:rgba(247,248,250,.72);line-height:1.9}
+.elite-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
+.elite-card{position:relative;border-radius:26px;padding:34px 26px 28px;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(201,168,74,.28);box-shadow:0 30px 80px rgba(0,0,0,.45);display:flex;flex-direction:column}
+.elite-card.hi{border:1.5px solid rgba(232,207,138,.75);background:linear-gradient(160deg,rgba(201,168,74,.16),rgba(255,255,255,.02) 60%);box-shadow:0 30px 90px rgba(201,168,74,.18)}
+.elite-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:6px 16px;border-radius:999px;background:linear-gradient(90deg,#B8913A,#F3DFA2,#C9A84A);color:#1B1403;font-size:12.5px;font-weight:900}
+.elite-dur{color:#E8CF8A;font-weight:800;letter-spacing:.04em;font-size:15px}
+.elite-price{margin:14px 0 2px;font-size:clamp(38px,6vw,52px);font-weight:900;color:#F7F8FA;line-height:1.1;font-variant-numeric:tabular-nums}
+.elite-price small{font-size:16px;color:#E8CF8A;font-weight:800;margin-inline-start:6px}
+.elite-per{color:rgba(247,248,250,.6);font-size:14px;margin-bottom:22px}
+.elite-cta{margin-top:auto;display:block;padding:15px 18px;border-radius:16px;font-weight:900;text-decoration:none;border:1px solid rgba(201,168,74,.6);color:#F3DFA2;transition:transform .2s ease}
+.elite-card.hi .elite-cta{background:linear-gradient(90deg,#B8913A,#F3DFA2 50%,#C9A84A);color:#1B1403;border:0}
+.elite-cta:hover{transform:translateY(-2px)}
+.elite-box{margin-top:26px;border-radius:24px;padding:26px;text-align:start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.elite-box h3{margin:0 0 14px;color:#E8CF8A;font-size:19px;font-weight:900}
+.elite-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px}
+.elite-list li{display:flex;gap:10px;color:rgba(247,248,250,.84);line-height:1.7;font-size:15px}
+.elite-list li:before{content:"◆";color:#C9A84A;font-size:11px;margin-top:6px}
+.elite-note{margin-top:18px;border-radius:20px;padding:20px 22px;text-align:start;background:rgba(201,168,74,.09);border:1px solid rgba(201,168,74,.38);color:rgba(247,248,250,.88);line-height:1.9;font-size:15px}
+.elite-note b{color:#F3DFA2}
+.elite-note strong{display:block;color:#E8CF8A;margin-bottom:4px;font-size:16px}
+@media(max-width:720px){.elite-sec{padding:70px 16px}.elite-grid,.elite-list{grid-template-columns:1fr}.elite-card.hi{order:-1}}
+</style>
+<div class="elite-wrap">
+  <span class="elite-crown">♛ باقة النخبة</span>
+  <h2 class="elite-title">باقة النخبة لمكافحة الشيخوخة</h2>
+  <p class="elite-sub">برنامج خاص لناس قررت تستثمر في صحتها وشبابها. متابعة شخصية معي، وبروتوكول كامل مبني على تحاليلك.</p>
+  <div class="elite-grid">
+    
+    
+    <div class="elite-card" data-eg="18000" data-usd="750" data-months="6">
       
-      <div class="card card-hover text-center " data-aos="fade-left">
-        
-        <div class="text-sm text-brand-off/60 uppercase tracking-wider mb-2">باقة ٣ شهور</div>
-        <div class="text-5xl font-bold text-brand-mint mb-2">1200 <span class="text-xl">ر.س</span></div>
-        <p class="text-brand-off/70 text-sm mb-6">ابدأ تشوف تحوّل ملحوظ.</p>
-        <a href="/ar/contact/?service=anti-aging-1m" class="btn-ghost w-full justify-center">احجز ٣ شهور</a>
-      </div>
-      
-      <div class="card card-hover text-center ring-2 ring-brand-mint/50 relative" data-aos="fade-right">
-        <span class="absolute -top-3 left-1/2 -translate-x-1/2 chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">أفضل قيمة</span>
-        <div class="text-sm text-brand-off/60 uppercase tracking-wider mb-2">باقة ٦ شهور</div>
-        <div class="text-5xl font-bold text-brand-mint mb-2">2000 <span class="text-xl">ر.س</span></div>
-        <p class="text-brand-off/70 text-sm mb-6">تحوّل كامل — عادات ونتائج تدوم.</p>
-        <a href="/ar/contact/?service=anti-aging-2m" class="btn-primary w-full justify-center">احجز ٦ شهور</a>
-      </div>
-      
+      <div class="elite-dur">6 شهور</div>
+      <div class="elite-price"><span class="ep-amt">$750</span><small class="ep-cur">USD</small></div>
+      <div class="elite-per"><span class="ep-pm"></span> في الشهر</div>
+      <a class="elite-cta" target="_blank" rel="noopener" data-wa="السلام عليكم كوتش أسامة، حاب أشترك في باقة النخبة لمكافحة الشيخوخة (6 شهور)" href="https://wa.me/201279777609?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%83%D9%88%D8%AA%D8%B4%20%D8%A3%D8%B3%D8%A7%D9%85%D8%A9%D8%8C%20%D8%AD%D8%A7%D8%A8%20%D8%A3%D8%B4%D8%AA%D8%B1%D9%83%20%D9%81%D9%8A%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D9%86%D8%AE%D8%A8%D8%A9%20%D9%84%D9%85%D9%83%D8%A7%D9%81%D8%AD%D8%A9%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%D9%88%D8%AE%D8%A9%20(6%20%D8%B4%D9%87%D9%88%D8%B1)">اشترك في 6 شهور</a>
     </div>
-    <p class="text-center text-brand-off/60 text-xs mt-6" data-aos="fade-up">الأسعار تختلف حسب المنطقة — تواصل معنا للأسعار داخل مصر أو الدولية.</p>
+    
+    
+    <div class="elite-card hi" data-eg="30000" data-usd="1250" data-months="12">
+      <span class="elite-badge">الأفضل · وفّر 17%</span>
+      <div class="elite-dur">12 شهر</div>
+      <div class="elite-price"><span class="ep-amt">$1250</span><small class="ep-cur">USD</small></div>
+      <div class="elite-per"><span class="ep-pm"></span> في الشهر</div>
+      <a class="elite-cta" target="_blank" rel="noopener" data-wa="السلام عليكم كوتش أسامة، حاب أشترك في باقة النخبة لمكافحة الشيخوخة (12 شهر)" href="https://wa.me/201279777609?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%83%D9%88%D8%AA%D8%B4%20%D8%A3%D8%B3%D8%A7%D9%85%D8%A9%D8%8C%20%D8%AD%D8%A7%D8%A8%20%D8%A3%D8%B4%D8%AA%D8%B1%D9%83%20%D9%81%D9%8A%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D9%86%D8%AE%D8%A8%D8%A9%20%D9%84%D9%85%D9%83%D8%A7%D9%81%D8%AD%D8%A9%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%D9%88%D8%AE%D8%A9%20(12%20%D8%B4%D9%87%D8%B1)">اشترك في 12 شهر</a>
+    </div>
+    
   </div>
+  <div class="elite-box">
+    <h3>ايش فيها</h3>
+    <ul class="elite-list"><li>متابعة شخصية معي على واتساب طول مدة الاشتراك</li><li>قراءة تحاليلك وتحاليل متابعة دورية كل 3 شهور</li><li>بروتوكول مكمّلات وببتيدات بالاسم والجرعة والمواعيد</li><li>خطة أكل بالجرام مضادة للالتهاب ومناسبة لهرموناتك</li><li>برنامج تمرين يحافظ على العضل والحيوية</li><li>تحسين النوم وإدارة التوتر</li><li>تعديل البروتوكول على حسب نتايجك وتحاليلك</li></ul>
+  </div>
+  <div class="elite-note"><strong>⚠️ مهم قبل ما تشترك</strong>الباقة فيها بروتوكول <b>مكمّلات وببتيدات</b> أحدده لك بالاسم والجرعة. تكلفتها <b>مو داخلة في سعر الباقة</b>، تشتريها أنت من برّا، وتختلف من شخص لشخص على حسب تحاليلك وهدفك. يعني هذي باقة لشخص مستعد يصرف على صحته.</div>
+</div>
+<script>
+(function(){
+  var fmt=function(n){return Number(n).toLocaleString('en-US')};
+  function paint(isEg){
+    document.querySelectorAll('.elite-card').forEach(function(c){
+      var amt=isEg?+c.dataset.eg:+c.dataset.usd, m=+c.dataset.months;
+      c.querySelector('.ep-amt').textContent=isEg?fmt(amt):'$'+fmt(amt);
+      c.querySelector('.ep-cur').textContent=isEg?'جنيه':'USD';
+      var pm=Math.round(amt/m);
+      c.querySelector('.ep-pm').textContent=isEg?fmt(pm)+' جنيه':'$'+fmt(pm);
+    });
+  }
+  var cached=null; try{cached=localStorage.getItem('o2f_region_auto')}catch(e){}
+  paint(cached==='egypt');
+  if(!cached){
+    fetch('https://ipapi.co/json/').then(function(r){return r.json()}).then(function(d){
+      var cc=d&&d.country_code||''; var reg=cc==='EG'?'egypt':(['SA','AE','KW','QA','BH','OM'].indexOf(cc)>-1?'gulf':'international');
+      try{localStorage.setItem('o2f_region_auto',reg)}catch(e){}
+      paint(reg==='egypt');
+    }).catch(function(){});
+  }
+})();
+</script>
 </section>
+
 
 <section class="section">
   <div class="container-x">
@@ -415,7 +477,7 @@
       <div class="relative text-center max-w-2xl mx-auto">
         <h2 class="text-2xl sm:text-3xl mb-3">ابدأ رحلة تجديد شبابك من اليوم.</h2>
         <p class="text-brand-off/80 mb-6">الشباب مو مجرّد حلم — خلّه واقعك من اليوم.</p>
-        <a href="/ar/contact/?service=anti-aging" class="btn-primary">احجز استشارة</a>
+        <a href="#elite" class="btn-primary">احجز استشارة</a>
       </div>
     </div>
   </div>
