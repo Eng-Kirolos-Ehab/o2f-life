@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "discount": {
     "egypt":         { "amount": "500", "currency": "EGP" },
     "gulf":          { "amount": "10",  "currency": "USD" },
