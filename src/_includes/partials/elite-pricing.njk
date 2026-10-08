@@ -1,0 +1,77 @@
+{# Elite anti-aging package: black & gold, 6 / 12 months, EGP inside Egypt and USD elsewhere. Expects `P` = pages.antiaging[lang].pricing and `isAr`. #}
+{% set waBase = "https://wa.me/" + (site.whatsapp | replace("+", "") | replace(" ", "")) + "?text=" %}
+<section id="elite" class="elite-sec">
+<style>
+.elite-sec{position:relative;padding:88px 16px;background:radial-gradient(900px 420px at 50% -10%,rgba(201,168,74,.20),transparent 70%),linear-gradient(180deg,#07080b,#0d0f14 60%,#07080b);overflow:hidden}
+.elite-sec:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(201,168,74,.035) 0 1px,transparent 1px 22px);pointer-events:none}
+.elite-wrap{position:relative;max-width:980px;margin:0 auto;text-align:center}
+.elite-crown{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid rgba(201,168,74,.45);border-radius:999px;color:#E8CF8A;font-size:13px;font-weight:700;letter-spacing:.06em;background:rgba(201,168,74,.08)}
+.elite-title{margin:18px 0 10px;font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.25;background:linear-gradient(90deg,#B8913A,#F3DFA2 45%,#C9A84A 70%,#F3DFA2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.elite-sub{max-width:640px;margin:0 auto 40px;color:rgba(247,248,250,.72);line-height:1.9}
+.elite-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
+.elite-card{position:relative;border-radius:26px;padding:34px 26px 28px;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(201,168,74,.28);box-shadow:0 30px 80px rgba(0,0,0,.45);display:flex;flex-direction:column}
+.elite-card.hi{border:1.5px solid rgba(232,207,138,.75);background:linear-gradient(160deg,rgba(201,168,74,.16),rgba(255,255,255,.02) 60%);box-shadow:0 30px 90px rgba(201,168,74,.18)}
+.elite-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:6px 16px;border-radius:999px;background:linear-gradient(90deg,#B8913A,#F3DFA2,#C9A84A);color:#1B1403;font-size:12.5px;font-weight:900}
+.elite-dur{color:#E8CF8A;font-weight:800;letter-spacing:.04em;font-size:15px}
+.elite-price{margin:14px 0 2px;font-size:clamp(38px,6vw,52px);font-weight:900;color:#F7F8FA;line-height:1.1;font-variant-numeric:tabular-nums}
+.elite-price small{font-size:16px;color:#E8CF8A;font-weight:800;margin-inline-start:6px}
+.elite-per{color:rgba(247,248,250,.6);font-size:14px;margin-bottom:22px}
+.elite-cta{margin-top:auto;display:block;padding:15px 18px;border-radius:16px;font-weight:900;text-decoration:none;border:1px solid rgba(201,168,74,.6);color:#F3DFA2;transition:transform .2s ease}
+.elite-card.hi .elite-cta{background:linear-gradient(90deg,#B8913A,#F3DFA2 50%,#C9A84A);color:#1B1403;border:0}
+.elite-cta:hover{transform:translateY(-2px)}
+.elite-box{margin-top:26px;border-radius:24px;padding:26px;text-align:start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.elite-box h3{margin:0 0 14px;color:#E8CF8A;font-size:19px;font-weight:900}
+.elite-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px}
+.elite-list li{display:flex;gap:10px;color:rgba(247,248,250,.84);line-height:1.7;font-size:15px}
+.elite-list li:before{content:"◆";color:#C9A84A;font-size:11px;margin-top:6px}
+.elite-note{margin-top:18px;border-radius:20px;padding:20px 22px;text-align:start;background:rgba(201,168,74,.09);border:1px solid rgba(201,168,74,.38);color:rgba(247,248,250,.88);line-height:1.9;font-size:15px}
+.elite-note b{color:#F3DFA2}
+.elite-note strong{display:block;color:#E8CF8A;margin-bottom:4px;font-size:16px}
+@media(max-width:720px){.elite-sec{padding:70px 16px}.elite-grid,.elite-list{grid-template-columns:1fr}.elite-card.hi{order:-1}}
+</style>
+<div class="elite-wrap">
+  <span class="elite-crown">♛ {{ P.kicker }}</span>
+  <h2 class="elite-title">{{ P.title }}</h2>
+  <p class="elite-sub">{{ P.subtitle }}</p>
+  <div class="elite-grid">
+    {% for plan in P.plans %}
+    {% set pr = P.prices[plan.key] %}
+    <div class="elite-card{% if plan.highlight %} hi{% endif %}" data-eg="{{ pr.eg }}" data-usd="{{ pr.usd }}" data-months="{{ plan.months }}">
+      {% if plan.badge %}<span class="elite-badge">{{ plan.badge }}</span>{% endif %}
+      <div class="elite-dur">{{ plan.label }}</div>
+      <div class="elite-price"><span class="ep-amt">${{ pr.usd }}</span><small class="ep-cur">USD</small></div>
+      <div class="elite-per"><span class="ep-pm"></span> {{ P.per_month }}</div>
+      <a class="elite-cta" target="_blank" rel="noopener" data-wa="{{ P.wa_text }} ({{ plan.label }})" href="{{ waBase }}{{ (P.wa_text + ' (' + plan.label + ')') | urlencode }}">{{ plan.cta }}</a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="elite-box">
+    <h3>{{ P.includes_title }}</h3>
+    <ul class="elite-list">{% for it in P.includes %}<li>{{ it }}</li>{% endfor %}</ul>
+  </div>
+  <div class="elite-note"><strong>⚠️ {{ P.notice_title }}</strong>{{ P.notice | safe }}</div>
+</div>
+<script>
+(function(){
+  var fmt=function(n){return Number(n).toLocaleString('en-US')};
+  function paint(isEg){
+    document.querySelectorAll('.elite-card').forEach(function(c){
+      var amt=isEg?+c.dataset.eg:+c.dataset.usd, m=+c.dataset.months;
+      c.querySelector('.ep-amt').textContent=isEg?fmt(amt):'$'+fmt(amt);
+      c.querySelector('.ep-cur').textContent=isEg?'{{ "جنيه" if isAr else "EGP" }}':'USD';
+      var pm=Math.round(amt/m);
+      c.querySelector('.ep-pm').textContent=isEg?fmt(pm)+' {{ "جنيه" if isAr else "EGP" }}':'$'+fmt(pm);
+    });
+  }
+  var cached=null; try{cached=localStorage.getItem('o2f_region_auto')}catch(e){}
+  paint(cached==='egypt');
+  if(!cached){
+    fetch('https://ipapi.co/json/').then(function(r){return r.json()}).then(function(d){
+      var cc=d&&d.country_code||''; var reg=cc==='EG'?'egypt':(['SA','AE','KW','QA','BH','OM'].indexOf(cc)>-1?'gulf':'international');
+      try{localStorage.setItem('o2f_region_auto',reg)}catch(e){}
+      paint(reg==='egypt');
+    }).catch(function(){});
+  }
+})();
+</script>
+</section>

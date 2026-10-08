@@ -14,7 +14,7 @@ description: "Restore your youth and radiance with our innovative anti-aging pro
     </h1>
     <p class="text-lg text-brand-off/75 max-w-2xl" data-aos="fade-up" data-aos-delay="200">{{ pages.antiaging.en.hero.description }}</p>
     <div class="flex flex-wrap gap-3 mt-8" data-aos="fade-up" data-aos-delay="300">
-      <a href="{{ '/en/contact/?service=anti-aging' | url }}" class="btn-primary">{{ pages.antiaging.en.hero.cta_primary }}</a>
+      <a href="#elite" class="btn-primary">{{ pages.antiaging.en.hero.cta_primary }}</a>
       <a href="#package-details" class="btn-ghost">{{ pages.antiaging.en.hero.cta_secondary }}</a>
     </div>
   </div>
@@ -104,24 +104,8 @@ description: "Restore your youth and radiance with our innovative anti-aging pro
   </div>
 </section>
 
-<section class="section bg-white/[0.02]">
-  <div class="container-x max-w-4xl">
-    <p class="section-kicker text-center" data-aos="fade-up">{{ pages.antiaging.en.pricing.kicker }}</p>
-    <h2 class="section-title text-center mb-10" data-aos="fade-up" data-aos-delay="100">{{ pages.antiaging.en.pricing.title }}</h2>
-    <div class="grid sm:grid-cols-2 gap-5">
-      {% for plan in pages.antiaging.en.pricing.plans %}
-      <div class="card card-hover text-center {% if plan.highlight %}ring-2 ring-brand-mint/50 relative{% endif %}" data-aos="{% if loop.index == 1 %}fade-right{% else %}fade-left{% endif %}">
-        {% if plan.badge %}<span class="absolute -top-3 left-1/2 -translate-x-1/2 chip bg-brand-mint text-brand-ink border-brand-mint text-xs font-bold">{{ plan.badge }}</span>{% endif %}
-        <div class="text-sm text-brand-off/60 uppercase tracking-wider mb-2">{{ plan.label }}</div>
-        <div class="text-5xl font-bold text-brand-mint mb-2">{{ plan.price }} <span class="text-xl">{{ plan.currency }}</span></div>
-        <p class="text-brand-off/70 text-sm mb-6">{{ plan.description }}</p>
-        <a href="{{ ('/en/contact/?service=anti-aging-' + loop.index + 'm') | url }}" class="{% if plan.highlight %}btn-primary{% else %}btn-ghost{% endif %} w-full justify-center">{{ plan.cta }}</a>
-      </div>
-      {% endfor %}
-    </div>
-    <p class="text-center text-brand-off/60 text-xs mt-6" data-aos="fade-up">{{ pages.antiaging.en.pricing.note }}</p>
-  </div>
-</section>
+{% set P = pages.antiaging.en.pricing %}{% set isAr = false %}
+{% include "partials/elite-pricing.njk" %}
 
 <section class="section">
   <div class="container-x">
@@ -130,7 +114,7 @@ description: "Restore your youth and radiance with our innovative anti-aging pro
       <div class="relative text-center max-w-2xl mx-auto">
         <h2 class="text-2xl sm:text-3xl mb-3">{{ pages.antiaging.en.cta.title }}</h2>
         <p class="text-brand-off/80 mb-6">{{ pages.antiaging.en.cta.description }}</p>
-        <a href="{{ '/en/contact/?service=anti-aging' | url }}" class="btn-primary">{{ pages.antiaging.en.cta.button }}</a>
+        <a href="#elite" class="btn-primary">{{ pages.antiaging.en.cta.button }}</a>
       </div>
     </div>
   </div>
