@@ -215,7 +215,7 @@ p,li,span{color:var(--muted);line-height:1.72}
               </div>
             </div>
             <div class="visual glass">
-              <img class="tab-media" src="{{ tab.image }}" alt="{{ tab.title }}">
+              <img class="tab-media" src="{{ tab.image | url }}" style="object-position:{{ tab.image_pos or 'center' }}" alt="{{ tab.title }}">
               <div class="visual-caption"><b>{{ tab.caption_title }}</b></div>
             </div>
           </article>

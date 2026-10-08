@@ -176,7 +176,7 @@ description: "Choose the right coaching plan with automatic pricing based on the
   const gulfCountries = ['SA', 'AE', 'KW', 'QA', 'BH', 'OM'];
   const REFERRAL_DISC = {
     egypt:         { amount: '{{ referral.discount.egypt.amount if referral else "500" }}',  currency: '{{ referral.discount.egypt.currency if referral else "EGP" }}' },
-    gulf:          { amount: '{{ referral.discount.gulf.amount if referral else "38" }}',   currency: '{{ referral.discount.gulf.currency if referral else "SAR" }}' },
+    gulf:          { amount: '{{ referral.discount.gulf.amount if referral else "10" }}',   currency: '{{ referral.discount.gulf.currency if referral else "USD" }}' },
     international: { amount: '{{ referral.discount.international.amount if referral else "10" }}', currency: '{{ referral.discount.international.currency if referral else "USD" }}' }
   };
   let currentRegion = DEFAULT_REGION;

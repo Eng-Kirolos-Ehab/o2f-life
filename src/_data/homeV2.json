@@ -51,7 +51,7 @@
           "title": "مناهضة الشيخوخة والحيوية طويلة الأمد",
           "desc": "مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.",
           "caption_title": "استمرارية وحيوية",
-          "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
+          "image": "/assets/images/osama.jpeg",
           "cards": [
             {
               "label": "مناسب لمين؟",
@@ -65,7 +65,8 @@
               "label": "النتيجة",
               "text": "روتين أوضح يدعم الاستمرارية والحيوية."
             }
-          ]
+          ],
+          "image_pos": "center 30%"
         },
         {
           "key": "blue",
@@ -97,7 +98,7 @@
           "title": "التحول الشامل",
           "desc": "مسار منظم يجمع التدريب والتغذية والمتابعة لتحقيق تحول بدني ملموس.",
           "caption_title": "حركة وانضباط",
-          "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
+          "image": "/assets/images/coach-pose-correction.jpg",
           "cards": [
             {
               "label": "مناسب لمين؟",
@@ -111,7 +112,8 @@
               "label": "أمثلة أهداف",
               "text": "خسارة دهون، زيادة عضل، إعادة تشكيل الجسم، قوة، وانضباط."
             }
-          ]
+          ],
+          "image_pos": "center 35%"
         }
       ]
     },
@@ -340,7 +342,7 @@
           "title": "Anti-Aging & Long-Term Vitality",
           "desc": "A guided route focused on recovery, vitality, sustainable habits, and better daily performance.",
           "caption_title": "Continuity and vitality",
-          "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1100&q=85",
+          "image": "/assets/images/osama.jpeg",
           "cards": [
             {
               "label": "For whom?",
@@ -354,7 +356,8 @@
               "label": "Expected result",
               "text": "A clearer routine that supports vitality and consistency."
             }
-          ]
+          ],
+          "image_pos": "center 30%"
         },
         {
           "key": "blue",
@@ -386,7 +389,7 @@
           "title": "Training Transformation",
           "desc": "A structured route that combines training, nutrition, and follow-up to drive visible physical transformation.",
           "caption_title": "Movement and discipline",
-          "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1100&q=85",
+          "image": "/assets/images/coach-pose-correction.jpg",
           "cards": [
             {
               "label": "For whom?",
@@ -400,7 +403,8 @@
               "label": "Goal examples",
               "text": "Fat loss, muscle gain, recomposition, strength, and discipline."
             }
-          ]
+          ],
+          "image_pos": "center 35%"
         }
       ]
     }

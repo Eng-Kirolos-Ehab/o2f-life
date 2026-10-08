@@ -20,7 +20,7 @@ permalink: "/ar/blog/"
   <div class="container-x grid md:grid-cols-2 lg:grid-cols-3 gap-5">
     {% set posts = collections.blog_ar | reverse %}
     {% if posts.length == 0 %}
-      <p class="text-brand-off/60">لسه مفيش مقالات — أول مقال جاي قريب!</p>
+      <p class="text-brand-off/60">للحين ما فيه مقالات — أول مقال جاي قريب!</p>
     {% endif %}
     {% for post in posts %}
       <a href="{{ post.url }}" class="card hover:border-brand-mint transition-colors flex flex-col">
