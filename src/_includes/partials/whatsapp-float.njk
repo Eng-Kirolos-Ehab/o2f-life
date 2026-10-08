@@ -4,7 +4,7 @@
 {% set waHref = "https://wa.me/" + (site.whatsapp | replace("+", "") | replace(" ", "")) +
                 "?text=" + (waMsg | urlencode) %}
 
-<a href="{{ waHref }}" target="_blank" rel="noopener"
+<a href="{{ waHref }}" target="_blank" rel="noopener" id="whatsapp-float"
    aria-label="WhatsApp"
    class="fixed bottom-5 ltr:right-5 rtl:left-5 z-50
           inline-flex h-14 w-14 items-center justify-center
