@@ -78,15 +78,13 @@
     var cards=[].slice.call(document.querySelectorAll('#plans .plan'));
     var currency='USD',region='int';
 
+    // Egypt pays in EGP; every other country (Gulf included) sees USD.
     function regionFromCountry(c){
-      c=String(c||'').toUpperCase();
-      if(c==='EG')return 'eg';
-      if(['SA','AE','KW','QA','BH','OM'].indexOf(c)!==-1)return 'gulf';
-      return 'int';
+      return String(c||'').toUpperCase()==='EG'?'eg':'int';
     }
     function setRegion(r){
-      region=r||'int';
-      currency=region==='eg'?'EGP':region==='gulf'?'SAR':'USD';
+      region=r==='eg'?'eg':'int';
+      currency=region==='eg'?'EGP':'USD';
       cards.forEach(function(plan){updatePlan(plan,plan.querySelector('.month-picker button.active')||plan.querySelector('.month-picker button'))});
     }
     function updatePlan(plan,btn){
@@ -103,8 +101,17 @@
       var cardCurrency=plan.dataset.fixedCurrency||currency;
       if(price)price.textContent=monthly.toLocaleString('en-US');
       if(cur)cur.textContent=cardCurrency+(isAr2?' / شهر':' / month');
-      var sv=btn.dataset.save?((' — ')+(isAr2?'وفّر ':'save ')+btn.dataset.save):'';
-      if(saving)saving.textContent=(isAr2?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+cardCurrency+sv;
+      var m1=Number(plan.dataset[region+'M1']||plan.dataset.intM1||0);
+      var pct=m1&&months!=='1'?Math.round((1-raw/(m1*Number(months)))*100):0;
+      var sv=pct>0?((' — ')+(isAr2?'وفّر ':'save ')+pct+'%'):'';
+      var best=months==='3'?(isAr2?' · الأنسب للنتيجة ★':' · Best for results ★'):'';
+      if(saving)saving.textContent=(isAr2?'الإجمالي: ':'Total: ')+raw.toLocaleString('en-US')+' '+cardCurrency+sv+best;
+      var wa=plan.querySelector('.plan-wa');
+      if(wa){
+        var dur=isAr2?(months==='1'?'شهر':months+' شهور'):(months==='1'?'1 month':months+' months');
+        var msg=isAr2?'السلام عليكم كوتش أسامة، حاب أشترك في '+wa.dataset.planName+' ('+dur+')':'Hi Coach Osama, I would like to subscribe to the '+wa.dataset.planName+' ('+dur+')';
+        wa.href=wa.href.split('?')[0]+'?text='+encodeURIComponent(msg);
+      }
     }
 
     document.querySelectorAll('#plans .month-picker button').forEach(function(btn){btn.onclick=function(){updatePlan(btn.closest('.plan'),btn)}});

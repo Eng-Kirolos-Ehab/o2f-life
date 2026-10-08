@@ -76,13 +76,19 @@ body:has(.o2f-v2-ar) [class*="chatbot"]{
   display:none!important;
 }
 
+/* ── Program tabs: inactive ones must still look like buttons ── */
+html body .o2f-v2 .tab-btn:not(.active),html body .o2f-v2-ar .tab-btn:not(.active){
+  border:1px solid rgba(255,255,255,.22)!important;
+  background:rgba(255,255,255,.06)!important;
+}
+
 /* ── Responsive dock ── */
 @media(max-width:1050px){
   .o2f-v2 .dock,.o2f-v2-ar .dock{top:auto!important;bottom:18px!important}
   .o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:70px!important;padding-bottom:105px!important}
 }
 @media(max-width:720px){
-  .o2f-v2 .dock,.o2f-v2-ar .dock{
+  html body .o2f-v2 .dock,html body .o2f-v2-ar .dock{
     top:auto!important;
     bottom:calc(18px + env(safe-area-inset-bottom))!important;
     left:50%!important;
@@ -90,8 +96,19 @@ body:has(.o2f-v2-ar) [class*="chatbot"]{
     transform:translateX(-50%)!important;
     width:calc(100vw - 18px)!important;
     max-width:470px!important;
-    overflow:visible!important;
+    /* one slim row that scrolls sideways instead of wrapping over the content */
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scrollbar-width:none!important;
+    gap:3px!important;
+    padding:5px!important;
+    height:auto!important;
+    min-height:0!important;
   }
+  .o2f-v2 .dock::-webkit-scrollbar,.o2f-v2-ar .dock::-webkit-scrollbar{display:none!important}
+  html body .o2f-v2 .dock a,html body .o2f-v2-ar .dock a{flex:0 0 auto!important;width:auto!important;max-width:none!important;font-size:11.5px!important;padding:8px 7px!important;min-height:0!important;line-height:1.2!important}
   .o2f-v2 .hero,.o2f-v2-ar .hero{padding-top:64px!important;padding-bottom:120px!important}
   .o2f-v2 .final,.o2f-v2-ar .final{padding-bottom:160px!important}
   .o2f-v2 .social-panel,.o2f-v2-ar .social-panel{

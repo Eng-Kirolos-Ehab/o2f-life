@@ -208,6 +208,7 @@ p,li,span{color:var(--muted);line-height:1.8}
 .gallery-item:hover img{transform:scale(1.06);filter:brightness(1.12)}
 .gallery-item span{position:absolute;right:14px;bottom:14px;padding:8px 12px;border-radius:999px;background:rgba(0,0,0,.44);color:#fff!important;font-weight:900;font-size:12px}
 .plan{min-height:520px;display:flex;flex-direction:column;gap:12px}
+.plans:has(> .plan:only-child){grid-template-columns:minmax(0,460px);justify-content:center}
 .plan.highlight{background:linear-gradient(145deg,rgba(168,255,120,.22),rgba(255,255,255,.08))}
 .price{font-size:42px;font-weight:1000;color:#fff;letter-spacing:-.04em;line-height:1}
 .price small{font-size:13px;color:var(--muted);font-weight:850}
@@ -277,7 +278,7 @@ p,li,span{color:var(--muted);line-height:1.8}
         <h1>حوّل جسمك بنظام واضح ومتابعة حقيقية.</h1>
         <p class="lead">كوتشينج شخصي يجمع بين التدريب، التغذية، التوجيه الصحي، والمتابعة العملية — مبني على جسمك، أسلوب حياتك، وهدفك.</p>
         <div class="btns">
-          <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">ابدأ التحول الآن</a>
+          <a class="btn primary" href="#plans">ابدأ التحول الآن</a>
           <a class="btn" href="#programs">استكشف البرامج</a>
         </div>
         <div class="journey">
@@ -285,7 +286,7 @@ p,li,span{color:var(--muted);line-height:1.8}
           <article class="glass journey-card">
             <span class="num">1</span>
             <b>اختار هدفك</b>
-            <p>تحول بدني، توجيه Anti-Aging، أو تثقيف عن Methylene Blue.</p>
+            <p>تحول شامل، مكافحة الشيخوخة، أو تثقيف عن الميثيلين بلو.</p>
           </article>
           
           <article class="glass journey-card">
@@ -343,17 +344,17 @@ p,li,span{color:var(--muted);line-height:1.8}
       <div class="container">
         <div class="section-head">
           <span class="kicker">اختار مسارك</span>
-          <h2>ثلاث مسارات واضحة داخل نظام تحول واحد.</h2>
-          <p>كل برنامج يوضح مناسب لمين، يشمل إيه، وإيه المتوقع من المتابعة.</p>
+          <h2>كل اللي تحتاجه داخل باقة التحول الشامل.</h2>
+          <p>اضغط على كل برنامج وشوف لمين مناسب، وايش فيه، وايش تتوقع من المتابعة.</p>
         </div>
         <div class="tabs-shell glass">
           <div class="tabs-nav">
             
-            <button class="tab-btn active" data-tab="anti" type="button">Anti-Aging</button>
+            <button class="tab-btn active" data-tab="anti" type="button">مكافحة الشيخوخة</button>
             
-            <button class="tab-btn" data-tab="blue" type="button">Methylene Blue</button>
+            <button class="tab-btn" data-tab="blue" type="button">ميثيلين بلو</button>
             
-            <button class="tab-btn" data-tab="training" type="button">التحول التدريبي</button>
+            <button class="tab-btn" data-tab="training" type="button">التحول الشامل</button>
             
           </div>
           
@@ -364,7 +365,7 @@ p,li,span{color:var(--muted);line-height:1.8}
               <p>مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.</p>
               <div class="cards3">
                 
-                <div class="mini"><b>مناسب لمين؟</b><span>للي عايز طاقة أفضل وتعافي أحسن وروتين صحي.</span></div>
+                <div class="mini"><b>مناسب لمين؟</b><span>للي حاب طاقة أفضل وتعافي أحسن وروتين صحي.</span></div>
                 
                 <div class="mini"><b>يشمل</b><span>تقييم نمط الحياة، توجيه التعافي، دعم التغذية، والمتابعة.</span></div>
                 
@@ -381,7 +382,7 @@ p,li,span{color:var(--muted);line-height:1.8}
           <article class="tab-panel" id="tab-blue">
             <div class="tab-copy glass">
               <span class="kicker">التثقيف أولًا</span>
-              <h3>تثقيف وتوجيه في Methylene Blue</h3>
+              <h3>تثقيف وتوجيه في الميثيلين بلو</h3>
               <p>مسار توعوي يشرح الفكرة ببساطة ويوجه الزائر للخطوة المناسبة بأمان.</p>
               <div class="cards3">
                 
@@ -394,7 +395,7 @@ p,li,span{color:var(--muted);line-height:1.8}
               </div>
             </div>
             <div class="visual glass">
-              <img class="tab-media" src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="تثقيف وتوجيه في Methylene Blue">
+              <img class="tab-media" src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="تثقيف وتوجيه في الميثيلين بلو">
               <div class="visual-caption"><b>علمي لكن بسيط</b></div>
             </div>
           </article>
@@ -402,11 +403,11 @@ p,li,span{color:var(--muted);line-height:1.8}
           <article class="tab-panel" id="tab-training">
             <div class="tab-copy glass">
               <span class="kicker">تحول واضح</span>
-              <h3>التحول التدريبي الكامل</h3>
+              <h3>التحول الشامل</h3>
               <p>مسار منظم يجمع التدريب والتغذية والمتابعة لتحقيق تحول بدني ملموس.</p>
               <div class="cards3">
                 
-                <div class="mini"><b>مناسب لمين؟</b><span>للمبتدئين، العائدين للتمرين، أو اللي محتاج نظام واضح.</span></div>
+                <div class="mini"><b>مناسب لمين؟</b><span>للمبتدئين، واللي راجعين للتمرين، أو اللي يحتاج نظام واضح.</span></div>
                 
                 <div class="mini"><b>يشمل</b><span>خطة تدريب، توجيه تغذية، متابعة أسبوعية، وتعديلات.</span></div>
                 
@@ -415,7 +416,7 @@ p,li,span{color:var(--muted);line-height:1.8}
               </div>
             </div>
             <div class="visual glass">
-              <img class="tab-media" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="التحول التدريبي الكامل">
+              <img class="tab-media" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="التحول الشامل">
               <div class="visual-caption"><b>حركة وانضباط</b></div>
             </div>
           </article>
@@ -518,107 +519,48 @@ p,li,span{color:var(--muted);line-height:1.8}
     <section class="section" id="plans">
       <div class="container">
         <div class="section-head">
-          <span class="kicker">الباقات</span>
-          <h2>اختار المستوى المناسب لهدفك.</h2>
-          <p>الباقات واضحة وسهلة — اختار عدد الشهور وشوف الإجمالي.</p>
+          <span class="kicker">الباقة</span>
+          <h2>باقة التحول الشامل</h2>
+          <p>باقة وحدة فيها كل شي. اختار المدة وشوف السعر.</p>
         </div>
         
         <div class="plans">
           
-          <article class="glass plan"
-                    data-plan="basic" data-price="80" data-gender="male"
-                    data-fixed-currency=""
-                    data-eg-m1="" data-eg-m3="" data-eg-m6=""
-                    data-gulf-m1="" data-gulf-m3="" data-gulf-m6=""
-                    data-int-m1="" data-int-m3="" data-int-m6="">
-            <span class="kicker">البداية</span>
-            <h3>الخطة الأساسية</h3>
-            <div class="price" dir="ltr"><span class="plan-price">$80</span> <small class="plan-currency">/ شهر</small></div>
-            <div class="month-picker" dir="ltr">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
-            </div>
-            <span class="saving" dir="ltr">الإجمالي: $80</span>
-            <p>بداية واضحة لمن يحتاج توجيه تدريب وتغذية.</p>
-            <ul class="features">
-              
-              <li>توجيه تدريبي</li>
-              
-              <li>إرشاد تغذية</li>
-              
-              <li>نقاط متابعة</li>
-              
-              <li>هيكل أسبوعي بسيط</li>
-              
-            </ul>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">اشترك الآن</a>
-            
-          </article>
-          
           <article class="glass plan highlight"
-                    data-plan="standard" data-price="120" data-gender="male"
+                    data-plan="transformation" data-price="100" data-gender="male"
                     data-fixed-currency=""
-                    data-eg-m1="" data-eg-m3="" data-eg-m6=""
-                    data-gulf-m1="" data-gulf-m3="" data-gulf-m6=""
-                    data-int-m1="" data-int-m3="" data-int-m6="">
-            <span class="kicker">الأكثر طلبًا</span>
-            <h3>الخطة القياسية</h3>
-            <div class="price" dir="ltr"><span class="plan-price">$120</span> <small class="plan-currency">/ شهر</small></div>
+                    data-eg-m1="2400" data-eg-m3="6480" data-eg-m6="11520"
+                    data-gulf-m1="100" data-gulf-m3="250" data-gulf-m6="450"
+                    data-int-m1="100" data-int-m3="250" data-int-m6="450">
+            <span class="kicker">ايش تستلم معي</span>
+            <h3>باقة التحول الشامل</h3>
+            <div class="price" dir="ltr"><span class="plan-price">$100</span> <small class="plan-currency">/ شهر</small></div>
             <div class="month-picker" dir="ltr">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
+              <button type="button" data-months="1">1M</button>
+              <button type="button" class="active" data-months="3">3M</button>
+              <button type="button" data-months="6">6M</button>
             </div>
-            <span class="saving" dir="ltr">الإجمالي: $120</span>
-            <p>الخيار المتوازن لمتابعة أقوى ومسار أكمل.</p>
+            <span class="saving">الإجمالي: $250</span>
+            <p>أنا معك في الأكل والتمرين والمكملات، خطوة خطوة لين توصل لهدفك.</p>
             <ul class="features">
               
-              <li>خطة تدريب</li>
+              <li>خطة أكل بالجرام على ذوقك وتحاليلك</li>
               
-              <li>توجيه تغذية</li>
+              <li>جدول تمرين بفيديو لكل تمرين</li>
               
-              <li>تعديلات أسبوعية</li>
+              <li>جدول مكملات وأعشاب بمواعيدها</li>
               
-              <li>تتبع تقدم</li>
+              <li>دليل مشروبات طبيعية</li>
               
-              <li>خطوات واضحة</li>
+              <li>متابعة يومية معي على واتساب</li>
               
-            </ul>
-            <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">اشترك الآن</a>
-            
-          </article>
-          
-          <article class="glass plan"
-                    data-plan="premium" data-price="180" data-gender="male"
-                    data-fixed-currency=""
-                    data-eg-m1="" data-eg-m3="" data-eg-m6=""
-                    data-gulf-m1="" data-gulf-m3="" data-gulf-m6=""
-                    data-int-m1="" data-int-m3="" data-int-m6="">
-            <span class="kicker">المتقدمة</span>
-            <h3>الخطة المتقدمة</h3>
-            <div class="price" dir="ltr"><span class="plan-price">$180</span> <small class="plan-currency">/ شهر</small></div>
-            <div class="month-picker" dir="ltr">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
-            </div>
-            <span class="saving" dir="ltr">الإجمالي: $180</span>
-            <p>متابعة أعمق وتوجيه أعلى ومحاسبة أقوى.</p>
-            <ul class="features">
+              <li>تقرير أسبوعي وتعديل الخطة على حسب تقدمك</li>
               
-              <li>خطة تحول كاملة</li>
-              
-              <li>مراقبة تفصيلية</li>
-              
-              <li>تحسين نمط الحياة</li>
-              
-              <li>دعم متقدم</li>
-              
-              <li>التزام أعلى</li>
+              <li>قراءة تحاليلك ومتابعتها</li>
               
             </ul>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">اشترك الآن</a>
+            <a class="btn primary plan-wa" target="_blank" rel="noopener" data-plan-name="باقة التحول الشامل"
+               href="https://wa.me/201279777609?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%83%D9%88%D8%AA%D8%B4%20%D8%A3%D8%B3%D8%A7%D9%85%D8%A9%D8%8C%20%D8%AD%D8%A7%D8%A8%20%D8%A3%D8%B4%D8%AA%D8%B1%D9%83%20%D9%81%D9%8A%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%AA%D8%AD%D9%88%D9%84%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%20(3%20%D8%B4%D9%87%D9%88%D8%B1)">اشترك الآن على واتساب</a>
             
           </article>
           
@@ -875,8 +817,8 @@ p,li,span{color:var(--muted);line-height:1.8}
           <div class="social-contact-links">
             <a class="btn primary" href="https://wa.me/+201279777609" target="_blank" rel="noopener">واتساب ↗</a>
             <a class="btn" href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
-            <a class="btn" href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Facebook</a>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header" target="_blank" rel="noopener">ابدأ الآن</a>
+            
+            <a class="btn" href="#plans">ابدأ الآن</a>
           </div>
         </article>
         <div class="faq">
@@ -907,9 +849,9 @@ p,li,span{color:var(--muted);line-height:1.8}
       <nav class="v2-footer-social">
         <a class="wa" href="https://wa.me/+201279777609" target="_blank" rel="noopener">واتساب ↗</a>
         <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">TikTok</a>
+        
+        <a href="https://www.youtube.com/channel/UCSod-kY0CKaJmNaWcD0hVNg" target="_blank" rel="noopener">YouTube</a>
+        
       </nav>
     </div>
     <div class="v2-footer-bottom">
@@ -1052,8 +994,8 @@ p,li,span{color:var(--muted);line-height:1.8}
       <ul class="space-y-2 text-brand-off/60">
         <li><a class="hover:text-brand-mint" href="mailto:info@o2f.life">info@o2f.life</a></li>
         <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">Instagram</a></li>
-        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">Facebook</a></li>
-        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">YouTube</a></li>
+        
+        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCSod-kY0CKaJmNaWcD0hVNg">YouTube</a></li>
       </ul>
     </div>
   </div>
@@ -1074,7 +1016,7 @@ p,li,span{color:var(--muted);line-height:1.8}
 
 
 
-<a href="https://wa.me/201279777609?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%83%D8%A7%D8%A8%D8%AA%D9%86%20%D8%A3%D8%B3%D8%A7%D9%85%D8%A9%D8%8C%20%D8%AD%D8%A7%D8%A8%D8%A8%20%D8%A3%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%AE%D8%AF%D9%85%D8%A7%D8%AA" target="_blank" rel="noopener"
+<a href="https://wa.me/201279777609?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%83%D8%A7%D8%A8%D8%AA%D9%86%20%D8%A3%D8%B3%D8%A7%D9%85%D8%A9%D8%8C%20%D8%AD%D8%A7%D8%A8%D8%A8%20%D8%A3%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D8%AE%D8%AF%D9%85%D8%A7%D8%AA" target="_blank" rel="noopener" id="whatsapp-float"
    aria-label="WhatsApp"
    class="fixed bottom-5 ltr:right-5 rtl:left-5 z-50
           inline-flex h-14 w-14 items-center justify-center

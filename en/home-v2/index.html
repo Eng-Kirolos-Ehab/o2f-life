@@ -208,6 +208,7 @@ p,li,span{color:var(--muted);line-height:1.72}
 .gallery-item:hover img{transform:scale(1.06);filter:brightness(1.12)}
 .gallery-item span{position:absolute;left:14px;bottom:14px;padding:8px 12px;border-radius:999px;background:rgba(0,0,0,.44);color:#fff!important;font-weight:900;font-size:12px}
 .plan{min-height:520px;display:flex;flex-direction:column;gap:12px}
+.plans:has(> .plan:only-child){grid-template-columns:minmax(0,460px);justify-content:center}
 .plan.highlight{background:linear-gradient(145deg,rgba(168,255,120,.22),rgba(255,255,255,.08))}
 .price{font-size:42px;font-weight:1000;color:#fff;letter-spacing:-.04em;line-height:1}
 .price small{font-size:13px;color:var(--muted);font-weight:850}
@@ -276,7 +277,7 @@ p,li,span{color:var(--muted);line-height:1.72}
         <h1>Transform your body with a clear, guided system.</h1>
         <p class="lead">Personalized coaching that combines training, nutrition, wellness direction, and real follow-up — built around your body, lifestyle, and goals.</p>
         <div class="btns">
-          <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Start your transformation</a>
+          <a class="btn primary" href="#plans">Start your transformation</a>
           <a class="btn" href="#programs">Explore programs</a>
         </div>
         <div class="journey">
@@ -517,107 +518,48 @@ p,li,span{color:var(--muted);line-height:1.72}
     <section class="section" id="plans">
       <div class="container">
         <div class="section-head">
-          <span class="kicker">Plans</span>
-          <h2>Choose the level that matches your goal.</h2>
-          <p>Select the number of months and see how the total changes. Longer plans give better value.</p>
+          <span class="kicker">The plan</span>
+          <h2>Full Transformation Plan</h2>
+          <p>One plan with everything included. Pick the duration to see the price.</p>
         </div>
         
         <div class="plans">
           
-          <article class="glass plan"
-                    data-plan="basic" data-price="80" data-gender="male"
-                    data-fixed-currency=""
-                    data-eg-m1="" data-eg-m3="" data-eg-m6=""
-                    data-gulf-m1="" data-gulf-m3="" data-gulf-m6=""
-                    data-int-m1="" data-int-m3="" data-int-m6="">
-            <span class="kicker">Starter</span>
-            <h3>Basic Plan</h3>
-            <div class="price"><span class="plan-price">$80</span> <small class="plan-currency">/ month</small></div>
-            <div class="month-picker">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
-            </div>
-            <span class="saving">Total: $80</span>
-            <p>For people who need a clean first step with training and nutrition direction.</p>
-            <ul class="features">
-              
-              <li>Training direction</li>
-              
-              <li>Nutrition guidance</li>
-              
-              <li>Progress checkpoints</li>
-              
-              <li>Simple weekly structure</li>
-              
-            </ul>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Subscribe now</a>
-            
-          </article>
-          
           <article class="glass plan highlight"
-                    data-plan="standard" data-price="120" data-gender="male"
+                    data-plan="transformation" data-price="100" data-gender="male"
                     data-fixed-currency=""
-                    data-eg-m1="" data-eg-m3="" data-eg-m6=""
-                    data-gulf-m1="" data-gulf-m3="" data-gulf-m6=""
-                    data-int-m1="" data-int-m3="" data-int-m6="">
-            <span class="kicker">Most popular</span>
-            <h3>Standard Plan</h3>
-            <div class="price"><span class="plan-price">$120</span> <small class="plan-currency">/ month</small></div>
+                    data-eg-m1="2400" data-eg-m3="6480" data-eg-m6="11520"
+                    data-gulf-m1="100" data-gulf-m3="250" data-gulf-m6="450"
+                    data-int-m1="100" data-int-m3="250" data-int-m6="450">
+            <span class="kicker">What you get with me</span>
+            <h3>Full Transformation Plan</h3>
+            <div class="price"><span class="plan-price">$100</span> <small class="plan-currency">/ month</small></div>
             <div class="month-picker">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
+              <button type="button" data-months="1">1M</button>
+              <button type="button" class="active" data-months="3">3M</button>
+              <button type="button" data-months="6">6M</button>
             </div>
-            <span class="saving">Total: $120</span>
-            <p>The balanced option for stronger follow-up and a more complete route.</p>
+            <span class="saving">Total: $250</span>
+            <p>I&#39;m with you on food, training and supplements, step by step until you reach your goal.</p>
             <ul class="features">
               
-              <li>Training plan</li>
+              <li>Gram-precise meal plan built on your taste and labs</li>
               
-              <li>Nutrition direction</li>
+              <li>Training program with a video for every exercise</li>
               
-              <li>Weekly adjustments</li>
+              <li>Supplements &amp; herbs schedule with exact timing</li>
               
-              <li>Progress tracking</li>
+              <li>Natural drinks guide</li>
               
-              <li>Clear action steps</li>
+              <li>Daily WhatsApp follow-up with me</li>
               
-            </ul>
-            <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Subscribe now</a>
-            
-          </article>
-          
-          <article class="glass plan"
-                    data-plan="premium" data-price="180" data-gender="male"
-                    data-fixed-currency=""
-                    data-eg-m1="" data-eg-m3="" data-eg-m6=""
-                    data-gulf-m1="" data-gulf-m3="" data-gulf-m6=""
-                    data-int-m1="" data-int-m3="" data-int-m6="">
-            <span class="kicker">Advanced</span>
-            <h3>Premium Plan</h3>
-            <div class="price"><span class="plan-price">$180</span> <small class="plan-currency">/ month</small></div>
-            <div class="month-picker">
-              <button type="button" class="active" data-months="1" data-discount="0">1M</button>
-              <button type="button" data-months="3" data-discount="10">3M</button>
-              <button type="button" data-months="6" data-discount="15">6M</button>
-            </div>
-            <span class="saving">Total: $180</span>
-            <p>For deeper follow-up, premium guidance, and stronger accountability.</p>
-            <ul class="features">
+              <li>Weekly report and plan adjustments as you progress</li>
               
-              <li>Full transformation plan</li>
-              
-              <li>Detailed monitoring</li>
-              
-              <li>Lifestyle optimization</li>
-              
-              <li>Advanced support</li>
-              
-              <li>Higher accountability</li>
+              <li>Lab results reading and follow-up</li>
               
             </ul>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header">Subscribe now</a>
+            <a class="btn primary plan-wa" target="_blank" rel="noopener" data-plan-name="Full Transformation Plan"
+               href="https://wa.me/201279777609?text=Hi%20Coach%20Osama%2C%20I%20would%20like%20to%20subscribe%20to%20the%20Full%20Transformation%20Plan%20(3%20months)">Subscribe on WhatsApp</a>
             
           </article>
           
@@ -874,8 +816,8 @@ p,li,span{color:var(--muted);line-height:1.72}
           <div class="social-contact-links">
             <a class="btn primary" href="https://wa.me/+201279777609" target="_blank" rel="noopener">WhatsApp ↗</a>
             <a class="btn" href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
-            <a class="btn" href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Facebook</a>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfafiMRn5PggOY8Ks4TcE70pji2zJx78yPpIVp5I9RQc6sIIQ/viewform?usp=header" target="_blank" rel="noopener">Contact and subscribe</a>
+            
+            <a class="btn" href="#plans">Contact and subscribe</a>
           </div>
         </article>
         <div class="faq">
@@ -906,9 +848,9 @@ p,li,span{color:var(--muted);line-height:1.72}
       <nav class="v2-footer-social">
         <a class="wa" href="https://wa.me/+201279777609" target="_blank" rel="noopener">WhatsApp ↗</a>
         <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.instagram.com/osama.fit/" target="_blank" rel="noopener">TikTok</a>
+        
+        <a href="https://www.youtube.com/channel/UCSod-kY0CKaJmNaWcD0hVNg" target="_blank" rel="noopener">YouTube</a>
+        
       </nav>
     </div>
     <div class="v2-footer-bottom">
@@ -1050,8 +992,8 @@ p,li,span{color:var(--muted);line-height:1.72}
       <ul class="space-y-2 text-brand-off/60">
         <li><a class="hover:text-brand-mint" href="mailto:info@o2f.life">info@o2f.life</a></li>
         <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">Instagram</a></li>
-        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">Facebook</a></li>
-        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.instagram.com/osama.fit/">YouTube</a></li>
+        
+        <li><a class="hover:text-brand-mint" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCSod-kY0CKaJmNaWcD0hVNg">YouTube</a></li>
       </ul>
     </div>
   </div>
@@ -1072,7 +1014,7 @@ p,li,span{color:var(--muted);line-height:1.72}
 
 
 
-<a href="https://wa.me/201279777609?text=Hi%20Coach%20Osama%2C%20I&#39;d%20like%20to%20ask%20about%20your%20coaching%20services" target="_blank" rel="noopener"
+<a href="https://wa.me/201279777609?text=Hi%20Coach%20Osama%2C%20I&#39;d%20like%20to%20ask%20about%20your%20coaching%20services" target="_blank" rel="noopener" id="whatsapp-float"
    aria-label="WhatsApp"
    class="fixed bottom-5 ltr:right-5 rtl:left-5 z-50
           inline-flex h-14 w-14 items-center justify-center
