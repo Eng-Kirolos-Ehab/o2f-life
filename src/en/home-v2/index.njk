@@ -210,9 +210,10 @@ p,li,span{color:var(--muted);line-height:1.72}
               <p>{{ tab.desc }}</p>
               <div class="cards3">
                 {% for card in tab.cards %}
-                <div class="mini"><b>{{ card.label }}</b><span>{{ card.text }}</span></div>
+                <div class="mini"><b>{{ card.label }}</b><span{% if card.text_eg %} class="geo-text" data-int="{{ card.text }}" data-eg="{{ card.text_eg }}"{% endif %}>{{ card.text }}</span></div>
                 {% endfor %}
               </div>
+              {% if tab.cta %}<a class="btn primary" style="margin-top:18px;display:inline-flex" href="{{ tab.cta.url }}" target="_blank" rel="noopener">{{ tab.cta.text }}</a>{% endif %}
             </div>
             <div class="visual glass">
               <img class="tab-media" src="{{ tab.image | url }}" style="object-position:{{ tab.image_pos or 'center' }}" alt="{{ tab.title }}">

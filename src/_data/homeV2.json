@@ -45,53 +45,6 @@
       "desc": "اضغط على كل برنامج وشوف لمين مناسب، وايش فيه، وايش تتوقع من المتابعة.",
       "tabs": [
         {
-          "key": "anti",
-          "label": "مكافحة الشيخوخة",
-          "kicker": "حيوية طويلة المدى",
-          "title": "مناهضة الشيخوخة والحيوية طويلة الأمد",
-          "desc": "مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.",
-          "caption_title": "استمرارية وحيوية",
-          "image": "/assets/images/osama.jpeg",
-          "cards": [
-            {
-              "label": "مناسب لمين؟",
-              "text": "للي حاب طاقة أفضل وتعافي أحسن وروتين صحي."
-            },
-            {
-              "label": "يشمل",
-              "text": "تقييم نمط الحياة، توجيه التعافي، دعم التغذية، والمتابعة."
-            },
-            {
-              "label": "النتيجة",
-              "text": "روتين أوضح يدعم الاستمرارية والحيوية."
-            }
-          ],
-          "image_pos": "center 30%"
-        },
-        {
-          "key": "blue",
-          "label": "ميثيلين بلو",
-          "kicker": "التثقيف أولًا",
-          "title": "تثقيف وتوجيه في الميثيلين بلو",
-          "desc": "مسار توعوي يشرح الفكرة ببساطة ويوجه الزائر للخطوة المناسبة بأمان.",
-          "caption_title": "علمي لكن بسيط",
-          "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
-          "cards": [
-            {
-              "label": "مناسب لمين؟",
-              "text": "للمهتمين بالطاقة، التركيز، ومفاهيم الأداء الخلوي."
-            },
-            {
-              "label": "يشمل",
-              "text": "شرح مبسط، فهم موجه، وخطوة استشارية قبل أي قرار."
-            },
-            {
-              "label": "الخطوة الآمنة",
-              "text": "اسأل وافهم بدل التخمين أو الاستخدام العشوائي."
-            }
-          ]
-        },
-        {
           "key": "training",
           "label": "التحول الشامل",
           "kicker": "تحول واضح",
@@ -114,6 +67,59 @@
             }
           ],
           "image_pos": "center 35%"
+        },
+        {
+          "key": "blue",
+          "label": "ميثيلين بلو",
+          "kicker": "طاقة وتركيز",
+          "title": "بتعاني من قلة تركيز؟ حاسس بخمول وتعب طول اليوم؟",
+          "desc": "الميثيلين بلو يساعد خلاياك تنتج طاقة أفضل: تركيز أعلى، صفاء ذهن، ونشاط طول اليوم. أنا أستخدمه بنفسي من أكثر من 5 سنين، وعملائي شافوا الفرق.",
+          "caption_title": "المنتج + طريقة الاستخدام",
+          "image": "/assets/images/methylene-blue-genuva.jpg",
+          "cards": [
+            {
+              "label": "تستلم",
+              "text": "عبوة 50 مل بتركيز 1% ونقاوة طبية، مع طريقة الاستخدام بالتفصيل، ومتابعة معي على الواتساب."
+            },
+            {
+              "label": "السعر",
+              "text": "50 دولار، شامل طريقة الاستخدام.",
+              "text_eg": "2000 جنيه، شامل طريقة الاستخدام."
+            },
+            {
+              "label": "تنبيه مهم",
+              "text": "ممنوع مع مضادات الاكتئاب، ونقص إنزيم G6PD، والحمل والرضاعة."
+            }
+          ],
+          "cta": {
+            "text": "اطلب الآن على الواتساب",
+            "url": "https://wa.me/201279777609?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D9%83%D9%88%D8%AA%D8%B4%20%D8%A3%D8%B3%D8%A7%D9%85%D8%A9%D8%8C%20%D8%A3%D8%A8%D8%BA%D9%89%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A7%D9%84%D9%85%D9%8A%D8%AB%D9%8A%D9%84%D9%8A%D9%86%20%D8%A8%D9%84%D9%88%20%D9%85%D8%B9%20%D8%B7%D8%B1%D9%8A%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85"
+          },
+          "image_pos": "center 55%"
+        },
+        {
+          "key": "anti",
+          "label": "مكافحة الشيخوخة",
+          "kicker": "حيوية طويلة المدى",
+          "title": "مناهضة الشيخوخة والحيوية طويلة الأمد",
+          "desc": "مسار يركز على التعافي، الحيوية، العادات المستدامة، وتحسين الأداء اليومي.",
+          "caption_title": "استمرارية وحيوية",
+          "image": "/assets/images/osama.jpeg",
+          "cards": [
+            {
+              "label": "مناسب لمين؟",
+              "text": "للي حاب طاقة أفضل وتعافي أحسن وروتين صحي."
+            },
+            {
+              "label": "يشمل",
+              "text": "تقييم نمط الحياة، توجيه التعافي، دعم التغذية، والمتابعة."
+            },
+            {
+              "label": "النتيجة",
+              "text": "روتين أوضح يدعم الاستمرارية والحيوية."
+            }
+          ],
+          "image_pos": "center 30%"
         }
       ]
     },
@@ -336,53 +342,6 @@
       "desc": "Each program explains who it is for, what it includes, and what the visitor should expect.",
       "tabs": [
         {
-          "key": "anti",
-          "label": "Anti-Aging",
-          "kicker": "Long-term vitality",
-          "title": "Anti-Aging & Long-Term Vitality",
-          "desc": "A guided route focused on recovery, vitality, sustainable habits, and better daily performance.",
-          "caption_title": "Continuity and vitality",
-          "image": "/assets/images/osama.jpeg",
-          "cards": [
-            {
-              "label": "For whom?",
-              "text": "People who want more energy, better recovery, and a healthier routine."
-            },
-            {
-              "label": "Includes",
-              "text": "Lifestyle assessment, recovery direction, nutrition support, and follow-up."
-            },
-            {
-              "label": "Expected result",
-              "text": "A clearer routine that supports vitality and consistency."
-            }
-          ],
-          "image_pos": "center 30%"
-        },
-        {
-          "key": "blue",
-          "label": "Methylene Blue",
-          "kicker": "Education first",
-          "title": "Methylene Blue Education & Guidance",
-          "desc": "A simple educational route that explains the idea clearly and guides the visitor toward the right next step.",
-          "caption_title": "Scientific but simple",
-          "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1100&q=85",
-          "cards": [
-            {
-              "label": "For whom?",
-              "text": "People interested in focus, energy, and cellular-performance concepts."
-            },
-            {
-              "label": "Includes",
-              "text": "Simple explanation, guided understanding, and consultation-first direction."
-            },
-            {
-              "label": "Safe next step",
-              "text": "Ask, explore, and move forward with guidance instead of guessing."
-            }
-          ]
-        },
-        {
           "key": "training",
           "label": "Training Transformation",
           "kicker": "Visible transformation",
@@ -405,6 +364,59 @@
             }
           ],
           "image_pos": "center 35%"
+        },
+        {
+          "key": "blue",
+          "label": "Methylene Blue",
+          "kicker": "Energy & focus",
+          "title": "Struggling to focus? Feeling sluggish and tired all day?",
+          "desc": "Methylene blue helps your cells produce energy more efficiently: sharper focus, mental clarity and steady energy all day. I have used it myself for over 5 years, and my clients have felt the difference.",
+          "caption_title": "Product + usage guide",
+          "image": "/assets/images/methylene-blue-genuva.jpg",
+          "cards": [
+            {
+              "label": "You get",
+              "text": "A 50 ml bottle, 1% concentration and medical-grade purity, with a detailed usage guide, plus WhatsApp follow-up with me."
+            },
+            {
+              "label": "Price",
+              "text": "$50, including the usage guide.",
+              "text_eg": "2,000 EGP, including the usage guide."
+            },
+            {
+              "label": "Important",
+              "text": "Not for use with antidepressants, G6PD deficiency, pregnancy or breastfeeding."
+            }
+          ],
+          "cta": {
+            "text": "Order on WhatsApp",
+            "url": "https://wa.me/201279777609?text=Hi%20Coach%20Osama%2C%20I%20would%20like%20to%20order%20Methylene%20Blue%20with%20the%20usage%20guide"
+          },
+          "image_pos": "center 55%"
+        },
+        {
+          "key": "anti",
+          "label": "Anti-Aging",
+          "kicker": "Long-term vitality",
+          "title": "Anti-Aging & Long-Term Vitality",
+          "desc": "A guided route focused on recovery, vitality, sustainable habits, and better daily performance.",
+          "caption_title": "Continuity and vitality",
+          "image": "/assets/images/osama.jpeg",
+          "cards": [
+            {
+              "label": "For whom?",
+              "text": "People who want more energy, better recovery, and a healthier routine."
+            },
+            {
+              "label": "Includes",
+              "text": "Lifestyle assessment, recovery direction, nutrition support, and follow-up."
+            },
+            {
+              "label": "Expected result",
+              "text": "A clearer routine that supports vitality and consistency."
+            }
+          ],
+          "image_pos": "center 30%"
         }
       ]
     }
