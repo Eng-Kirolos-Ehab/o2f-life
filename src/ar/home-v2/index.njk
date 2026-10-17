@@ -131,7 +131,7 @@ p,li,span{color:var(--muted);line-height:1.8}
     <a href="#hero" class="active">الرئيسية</a>
     <a href="#coach">المدرب</a>
     <a href="#programs">البرامج</a>
-    <a href="#gallery">المعرض</a>
+    <a href="/start/" style="background:var(--lime);color:#06110d;font-weight:900">سجّل الآن ✍️</a>
     <a href="#plans">الباقات</a>
     <a href="/en/" class="dock-lang">EN</a>
     {% if site.social.whatsapp %}<a href="https://wa.me/{{ site.social.whatsapp }}" class="dock-lang">WA ↗</a>{% endif %}
@@ -146,7 +146,7 @@ p,li,span{color:var(--muted);line-height:1.8}
         <h1>{{ hv2.hero.title }}</h1>
         <p class="lead">{{ hv2.hero.description }}</p>
         <div class="btns">
-          <a class="btn primary" href="#plans">{{ hv2.hero.cta_primary }}</a>
+          <a class="btn primary" href="/start/">{{ hv2.hero.cta_primary }}</a>
           <a class="btn" href="#programs">{{ hv2.hero.cta_secondary }}</a>
         </div>
         <div class="journey">
@@ -344,6 +344,7 @@ p,li,span{color:var(--muted);line-height:1.8}
           </article>
           {% endif %}{% endfor %}
         </div>
+        <a class="glass" href="/start/" style="display:block;margin-top:22px;padding:20px 24px;text-align:center;text-decoration:none;color:#fff;font-weight:800">أول مرة معانا؟ عبّي <span style="color:var(--lime)">استمارة البداية</span> (٦ دقايق) وأنا أفصّل لك البرنامج ←</a>
       </div>
     </section>
 
@@ -419,7 +420,7 @@ p,li,span{color:var(--muted);line-height:1.8}
             {% if site.social.whatsapp %}<a class="btn primary" href="https://wa.me/{{ site.social.whatsapp }}" target="_blank" rel="noopener">واتساب ↗</a>{% endif %}
             {% if site.social.instagram %}<a class="btn" href="{{ site.social.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
             {% if site.social.facebook %}<a class="btn" href="{{ site.social.facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
-            <a class="btn" href="#plans">{{ hv2.contact.cta_primary }}</a>
+            <a class="btn" href="/start/">{{ hv2.contact.cta_primary }}</a>
           </div>
         </article>
         <div class="faq">
