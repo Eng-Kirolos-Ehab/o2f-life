@@ -1,0 +1,33 @@
+{# Instagram comments section for home-v2. Set igLang = "ar" | "en" before including. Separate from the 40 testimonials above. #}
+<style>
+.igq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.igq{padding:22px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 55px rgba(0,0,0,.22);direction:rtl;text-align:right}
+.igq-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.igq-av{flex:0 0 42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7)}
+.igq-who b{display:block;color:#fff;font-size:15px}
+.igq-who span{color:var(--muted);font-size:12px;direction:ltr;display:inline-block}
+.igq p{margin:0;color:#fff;line-height:1.8;font-size:15px;direction:rtl;text-align:right;overflow-wrap:anywhere}
+.igq a.igq-link{display:inline-block;margin-top:12px;color:var(--lime);font-size:12px;font-weight:800;text-decoration:none}
+.igq.mb{margin-top:18px}
+@media(max-width:720px){.igq-grid{grid-template-columns:1fr}}
+</style>
+<section class="section" id="ig-stories">
+  <div class="container">
+    <div class="section-head">
+      <span class="kicker">{% if igLang == "en" %}From Instagram comments{% else %}من تعليقات إنستجرام{% endif %}</span>
+      <h2>{% if igLang == "en" %}What people wrote under our reels.{% else %}كلامهم تحت الريلز، بدون تعديل.{% endif %}</h2>
+    </div>
+    <div class="igq-grid">
+      {% for q in igQuotes.items %}{% if not q.mb %}
+      <article class="igq">
+        <div class="igq-head">
+          <span class="igq-av">{{ q.name[0] | upper }}</span>
+          <div class="igq-who"><b>{{ q.name }}</b><span>@{{ q.handle }}</span></div>
+        </div>
+        <p>{{ q.text }}</p>
+        <a class="igq-link" href="{{ q.url }}" target="_blank" rel="noopener">{% if igLang == "en" %}View on Instagram ↗{% else %}شوف التعليق على إنستجرام ↗{% endif %}</a>
+      </article>
+      {% endif %}{% endfor %}
+    </div>
+  </div>
+</section>

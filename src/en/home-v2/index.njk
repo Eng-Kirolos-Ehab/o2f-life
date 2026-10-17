@@ -214,6 +214,7 @@ p,li,span{color:var(--muted);line-height:1.72}
                 {% endfor %}
               </div>
               {% if tab.cta %}<a class="btn primary" style="margin-top:18px;display:inline-flex" href="{{ tab.cta.url }}" target="_blank" rel="noopener">{{ tab.cta.text }}</a>{% endif %}
+              {% if tab.key == "blue" %}{% for q in igQuotes.items %}{% if q.mb %}<article class="igq mb"><div class="igq-head"><span class="igq-av">{{ q.name[0] | upper }}</span><div class="igq-who"><b>{{ q.name }}</b><span>@{{ q.handle }} · From Instagram comments</span></div></div><p>{{ q.text }}</p></article>{% endif %}{% endfor %}{% endif %}
             </div>
             <div class="visual glass">
               <img class="tab-media" src="{{ tab.image | url }}" style="object-position:{{ tab.image_pos or 'center' }}" alt="{{ tab.title }}">
@@ -403,6 +404,8 @@ p,li,span{color:var(--muted);line-height:1.72}
         </div>
       </div>
     </section>
+
+    {% set igLang = "en" %}{% include "partials/ig-quotes.njk" %}
 
     {# ── CONTACT / FINAL ── #}
     <section class="section final" id="contact">
