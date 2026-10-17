@@ -583,7 +583,8 @@ function pingTelegram(){
     const d={name:A.name,gender:g==='f'?'امرأة':'رجل',age:A.age,country:optLabel('country',A.country),city:A.city,whatsapp:A.whatsapp,plan:optLabel('plan',A.plan),goals:A.goals,health_note:computeFlags().length>0};
     const body=JSON.stringify({kind:'intake',d});
     const url='https://qalzanmeusuqssrgxumg.supabase.co/functions/v1/notify';
-    if(!(navigator.sendBeacon&&navigator.sendBeacon(url,new Blob([body],{type:'text/plain'})))) fetch(url,{method:'POST',body,keepalive:true}).catch(()=>{});
+    // fetch+keepalive (survives the jump to WhatsApp). sendBeacon was queued but never reached Supabase (tested 2026-10-17).
+    fetch(url,{method:'POST',body,keepalive:true,mode:'cors',credentials:'omit'}).catch(()=>{ try{navigator.sendBeacon&&navigator.sendBeacon(url,body)}catch(e){} });
   }catch(e){}
 }
 function waLink(){ return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(buildMessage())}`; }
