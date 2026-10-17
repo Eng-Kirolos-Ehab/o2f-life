@@ -85,6 +85,7 @@
     function setRegion(r){
       region=r==='eg'?'eg':'int';
       currency=region==='eg'?'EGP':'USD';
+      document.querySelectorAll('.geo-text').forEach(function(el){el.textContent=region==='eg'?el.dataset.eg:el.dataset.int});
       cards.forEach(function(plan){updatePlan(plan,plan.querySelector('.month-picker button.active')||plan.querySelector('.month-picker button'))});
     }
     function updatePlan(plan,btn){
