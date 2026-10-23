@@ -1,0 +1,242 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>O2F Start · الاستبيان</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b0c;--card:#17171a;--line:#2a2a2f;--gold:#FFD23F;--txt:#f2f2f2;--mut:#9a9a9a;--red:#FF5A5A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:Alexandria,Tahoma,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:24px 16px 60px}
+.wrap{width:100%;max-width:480px}
+.brand{text-align:center;font:44px 'Bebas Neue';letter-spacing:8px;margin-bottom:4px}
+.brand b{color:var(--gold);font-weight:400}
+.proto{text-align:center;color:var(--mut);font-size:13px;margin-bottom:18px}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#FF8A3D,var(--gold));transition:width .3s}
+.step{display:none;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px 20px}
+.step.on{display:block;animation:in .25s}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+h2{font-size:24px;font-weight:800;margin-bottom:6px}
+.hint{color:var(--mut);font-size:15px;margin-bottom:18px;line-height:1.7}
+label.f{display:block;font-size:15px;color:#ccc;margin:12px 0 6px}
+input[type=text],input[type=number]{width:100%;background:#0f0f11;border:2px solid var(--line);border-radius:14px;color:var(--txt);font:600 20px Alexandria;padding:12px 14px;outline:none}
+input:focus{border-color:var(--gold)}
+input.ltr{direction:ltr;text-align:center;letter-spacing:2px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.row3 small{display:block;text-align:center;color:var(--mut);font-size:13px;margin-top:4px}
+.opts{display:grid;gap:10px}
+.opt{background:#0f0f11;border:2px solid var(--line);border-radius:14px;padding:14px 16px;font-size:18px;cursor:pointer;display:flex;gap:12px;align-items:center;user-select:none}
+.opt .e{font-size:24px}
+.opt .d{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+.opt.sel{border-color:var(--gold);background:#221d0c}
+.btn{display:block;width:100%;margin-top:22px;background:var(--gold);color:#111;border:0;border-radius:14px;font:800 20px Alexandria;padding:14px;cursor:pointer}
+.btn:disabled{opacity:.35;cursor:default}
+.back{background:none;border:0;color:var(--mut);font:15px Alexandria;margin-top:12px;cursor:pointer;width:100%}
+.err{color:var(--red);font-size:15px;margin-top:10px;min-height:20px}
+.stop{border-color:#5a2a2a}
+.stop .ic{font-size:54px;text-align:center}
+.res .ic{font-size:54px;text-align:center}
+.kv{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 0;font-size:16px}
+.kv b{color:var(--gold)}
+.wa{display:block;text-align:center;text-decoration:none}
+</style></head><body><div class="wrap">
+<div class="brand">O2F <b>START</b></div>
+<div class="proto">نسخة تجريبية · 30 يوم</div>
+<div class="bar"><i id="bar"></i></div>
+
+<!-- 0: code + name -->
+<div class="step on" data-s="0">
+  <h2>أهلاً بك 👋</h2>
+  <p class="hint">اكتب الكود اللي وصلك في الخاص بعد التحويل، واسمك علشان نكتبه في برنامجك.</p>
+  <label class="f">كود الدخول</label>
+  <input type="text" id="code" class="ltr" placeholder="O2F-XXXXX" autocomplete="off">
+  <label class="f">اسمك</label>
+  <input type="text" id="name" placeholder="مثلاً: أحمد">
+  <div class="err" id="e0"></div>
+  <button class="btn" onclick="checkCode()">ابدأ</button>
+</div>
+
+<!-- 1: sex -->
+<div class="step" data-s="1">
+  <h2>أنت…</h2>
+  <p class="hint">علشان نحسب سعراتك صح ونخاطبك صح.</p>
+  <div class="opts" data-k="sex">
+    <div class="opt" data-v="m"><span class="e">👨</span>رجل</div>
+    <div class="opt" data-v="f"><span class="e">👩</span>امرأة</div>
+  </div>
+  <button class="btn" disabled>التالي</button><button class="back">رجوع</button>
+</div>
+
+<!-- 2: age weight height -->
+<div class="step" data-s="2">
+  <h2>عمرك ووزنك وطولك</h2>
+  <p class="hint">أرقام بالضبط، علشان الحساب يطلع دقيق.</p>
+  <div class="row3">
+    <div><input type="number" id="age" inputmode="numeric" class="ltr" placeholder="30"><small>العمر (سنة)</small></div>
+    <div><input type="number" id="wt" inputmode="decimal" class="ltr" placeholder="80"><small>الوزن (كجم)</small></div>
+    <div><input type="number" id="ht" inputmode="numeric" class="ltr" placeholder="175"><small>الطول (سم)</small></div>
+  </div>
+  <div class="err" id="e2"></div>
+  <button class="btn" onclick="checkBody()">التالي</button><button class="back">رجوع</button>
+</div>
+
+<!-- 3: goal -->
+<div class="step" data-s="3">
+  <h2>ايش هدفك؟</h2>
+  <p class="hint">اختار الأقرب لك.</p>
+  <div class="opts" data-k="goal">
+    <div class="opt" data-v="cut"><span class="e">🔥</span><span>تنشيف ونزول دهون<span class="d">أهم شيء أنزل من الكرش</span></span></div>
+    <div class="opt" data-v="tone"><span class="e">💪</span><span>شد وتحسين شكل<span class="d">أبغى جسم مشدود وعضل أوضح</span></span></div>
+    <div class="opt" data-v="health"><span class="e">⚡</span><span>صحة وطاقة<span class="d">نوم أحسن، نشاط، هضم مرتاح</span></span></div>
+  </div>
+  <button class="btn" disabled>التالي</button><button class="back">رجوع</button>
+</div>
+
+<!-- 4: place -->
+<div class="step" data-s="4">
+  <h2>وين بتتمرن؟</h2>
+  <p class="hint">4 أيام في الأسبوع، كل تمرين معه فيديو شرح.</p>
+  <div class="opts" data-k="place">
+    <div class="opt" data-v="gym"><span class="e">🏋️</span>في الجيم</div>
+    <div class="opt" data-v="home"><span class="e">🏠</span>في البيت</div>
+  </div>
+  <button class="btn" disabled>التالي</button><button class="back">رجوع</button>
+</div>
+
+<!-- 5: diet -->
+<div class="step" data-s="5">
+  <h2>نظام الأكل اللي يناسبك</h2>
+  <p class="hint">أنت تختار، ما نفرض عليك نظام.</p>
+  <div class="opts" data-k="diet">
+    <div class="opt" data-v="A"><span class="e">🍽️</span><span>متوازن<span class="d">فيه رز وخبز بكميات محسوبة</span></span></div>
+    <div class="opt" data-v="K"><span class="e">🥑</span><span>كيتو<span class="d">نشويات قليلة جداً، دهون صحية أكثر</span></span></div>
+  </div>
+  <button class="btn" disabled>التالي</button><button class="back">رجوع</button>
+</div>
+
+<!-- 6: budget -->
+<div class="step" data-s="6">
+  <h2>ميزانية الأكل</h2>
+  <p class="hint">نختار لك بدائل على قد ميزانيتك.</p>
+  <div class="opts" data-k="budget">
+    <div class="opt" data-v="eco"><span class="e">💵</span><span>اقتصادي<span class="d">بيض، فول، تونة، دجاج</span></span></div>
+    <div class="opt" data-v="mid"><span class="e">💰</span><span>متوسط<span class="d">دجاج، لحم أحياناً، سمك</span></span></div>
+    <div class="opt" data-v="high"><span class="e">💎</span><span>مرتاح<span class="d">لحم، سلمون، مكسرات</span></span></div>
+  </div>
+  <button class="btn" disabled>التالي</button><button class="back">رجوع</button>
+</div>
+
+<!-- 7: health -->
+<div class="step" data-s="7">
+  <h2>عندك شيء من هذي؟</h2>
+  <p class="hint">اختار كل اللي ينطبق عليك. سلامتك أولاً.</p>
+  <div class="opts" data-k="health" data-multi="1">
+    <div class="opt" data-v="preg" data-only="f"><span class="e">🤰</span>حمل أو رضاعة</div>
+    <div class="opt" data-v="diab"><span class="e">💉</span>سكري على أدوية</div>
+    <div class="opt" data-v="bp"><span class="e">❤️</span>ضغط أو قلب على أدوية</div>
+    <div class="opt" data-v="kid"><span class="e">🫘</span>مشكلة في الكلى</div>
+    <div class="opt" data-v="none"><span class="e">✅</span>لا شيء من هذا</div>
+  </div>
+  <button class="btn" disabled onclick="finish()">اطلع برنامجي</button><button class="back">رجوع</button>
+</div>
+
+<!-- stop: safety -->
+<div class="step stop" data-s="stop">
+  <div class="ic">🤝</div>
+  <h2 style="text-align:center" id="stopT"></h2>
+  <p class="hint" style="text-align:center" id="stopB"></p>
+  <a class="btn wa" id="stopA" target="_blank">أرغب في متابعة شخصية</a>
+</div>
+
+<!-- result -->
+<div class="step res" data-s="res">
+  <div class="ic">🎉</div>
+  <h2 style="text-align:center" id="resT"></h2>
+  <p class="hint" style="text-align:center" id="resB"></p>
+  <div id="kv"></div>
+  <a class="btn wa" id="resA" href="#">افتح برنامجي</a>
+  <p class="hint" id="resN" style="text-align:center;margin-top:10px"></p>
+  <a class="back wa" href="https://ig.me/m/osama.fit" target="_blank" style="color:var(--gold)">أرغب في متابعة شخصية</a>
+</div>
+</div>
+
+<script>
+// only hashes of the codes ship in the page; the plain list stays with Osama (codes-PRIVATE.txt)
+// one-time use: Supabase claim_start_code (start-codes.sql). If the server is down or paused, fall back to the local hash list so a paying client is never blocked
+const SB='https://qalzanmeusuqssrgxumg.supabase.co/rest/v1/rpc/claim_start_code',SBK='sb_publishable_9VVNo9eKlSTyVaE1a2GICA_xGESK9TC';
+async function claim(hash,name){
+  try{const ctl=new AbortController();setTimeout(()=>ctl.abort(),6000);
+    const r=await fetch(SB,{method:'POST',signal:ctl.signal,headers:{apikey:SBK,'Content-Type':'application/json'},body:JSON.stringify({p_hash:hash,p_name:name})});
+    if(r.ok){const v=await r.json();if(v=='ok'||v=='used'||v=='bad')return v}
+  }catch(e){}
+  return CODES.includes(hash)?'ok':'bad';
+}
+const CODES=["314ec0f09eb74ef8","3f91e71c531f220d","ce20cefa60d43001","c57954e159a20993","fc128197f7bb5bf4","969b7171f9bc2fda","472bf1f29d8e5c81","6871ab4907d889c7","34b7535169dac0da","6d04ed96c6026d3e","5988f30cfc6b7ccb","dd3cc305e14aced8","ac93355f6b15b6ab","4969f49d44dadbad","2bb3c0b4a6b4640c","c0da0db2366afc8b","362796259ca2710d","447cc1eab8d0bd61","8698d5a36fda7a50","53267e05f83ae4ea","f4f5b429f87970a4","a6809a0a5013bfdc","60842e3875077c53","1b7e29fdb339b1aa","be4ed60003982cbc","6f449df66960ed1f","b6fc8bc95ff7686d","b35f5730f9e899b1","14f329a4e9c62187","62fac5c336481fcd","b3493f016c9c8df6","9b6d462639d139c9","6d89a13a13c9aa1b","e3223b0df332b8c5","0c5c160dd4440826","0149443b22a3e0fa","185601670a9e2324","2db2d2ad6baab80f","77eb610bacf33c8f","cb7906970eb3a1b4","419c7d55f80e55f9","163d6e92b20f9f3c","0b897ab8e1a51fda","73d35358339e847a","d6d88b584e13e4c5","c1377f5fa77e50a2","e0ca21314651adf1","9e099b6ffae5881e","6c4964a2d6885607","17289718957cb680"];
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);
+const A={health:[]};const $=id=>document.getElementById(id);
+const steps=[...document.querySelectorAll('.step')];let cur=0;
+const go=s=>{steps.forEach(x=>x.classList.toggle('on',x.dataset.s==s));cur=s;$('bar').style.width=(typeof s=='number'?s/8*100:100)+'%';scrollTo(0,0)};
+// gendered verbs: «اكتب/اكتبي»
+const g=(m,f)=>A.sex=='f'?f:m;
+
+async function checkCode(){
+  const c=$('code').value.trim().toUpperCase();const n=$('name').value.trim();
+  if(n.length<2)return $('e0').textContent='اكتب اسمك.';
+  $('e0').textContent='لحظة…';
+  const v=await claim(await sha(c),n);
+  if(v=='bad')return $('e0').textContent='الكود غير صحيح. تأكد منه أو راسل الكوتش.';
+  if(v=='used')return $('e0').textContent='هذا الكود مستخدم من قبل. لو هو كودك، اكتب نفس الاسم اللي سجلت فيه، أو راسل الكوتش.';
+  A.code=c;A.name=n;$('e0').textContent='';go(1);
+}
+function checkBody(){
+  const age=+$('age').value,wt=+$('wt').value,ht=+$('ht').value;
+  if(!age||!wt||!ht)return $('e2').textContent='عبّي الثلاث أرقام.';
+  if(age<10||age>90||wt<35||wt>250||ht<130||ht>220)return $('e2').textContent='تأكد من الأرقام.';
+  Object.assign(A,{age,wt,ht});$('e2').textContent='';
+  if(age<18)return stop('عمرك أقل من 18 سنة','في هذا العمر الجسم ما زال ينمو، والبرنامج الجاهز ما يناسبك. الكوتش يجهز لك شيء خاص بك.');
+  go(3);
+}
+// option cards: single select enables "next"; health is multi with "none" exclusive
+document.querySelectorAll('.opts').forEach(box=>{
+  const k=box.dataset.k,multi=box.dataset.multi,btn=box.parentElement.querySelector('.btn');
+  box.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{
+    if(multi){
+      const v=o.dataset.v;
+      if(v=='none'){box.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel')}
+      else{box.querySelector('[data-v=none]').classList.remove('sel');o.classList.toggle('sel')}
+      A[k]=[...box.querySelectorAll('.sel')].map(x=>x.dataset.v);btn.disabled=!A[k].length;
+    }else{
+      box.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');A[k]=o.dataset.v;btn.disabled=false;
+    }
+  });
+  if(!multi)btn.onclick=()=>{if(k=='sex')prepHealth();go(cur+1)};
+});
+document.querySelectorAll('.back').forEach(b=>b.onclick=()=>go(cur-1));
+function prepHealth(){document.querySelectorAll('[data-only=f]').forEach(o=>{o.style.display=A.sex=='f'?'':'none';if(A.sex!='f')o.classList.remove('sel')})}
+
+const IG='https://ig.me/m/osama.fit';
+function stop(t,b){$('stopT').textContent=t;$('stopB').textContent=b;$('stopA').href=IG;go('stop')}
+
+function finish(){
+  if(A.health.some(v=>v!='none'))
+    return stop(g('حالتك تحتاج متابعة شخصية','حالتك تحتاج متابعة شخصية'),
+      g('مع الحمل أو الأدوية المزمنة، البرنامج الجاهز ما يكفي. راسل الكوتش وهو يجهز لك خطة تناسب حالتك وأدويتك. الكود حقك محفوظ.',
+        'مع الحمل أو الرضاعة أو الأدوية المزمنة، البرنامج الجاهز ما يكفي. راسلي الكوتش وهو يجهز لك خطة تناسب حالتك. الكود حقك محفوظ.'));
+  // Mifflin–St Jeor, light activity (4 training days), then goal adjustment
+  const bmr=10*A.wt+6.25*A.ht-5*A.age+(A.sex=='f'?-161:5);
+  const tdee=bmr*1.4;const adj={cut:-500,tone:-250,health:-150}[A.goal];
+  const kcal=Math.max(A.sex=='f'?1300:1500,Math.round((tdee+adj)/50)*50);
+  const tier=kcal<1700?1:kcal<=2200?2:3;const prog=A.diet+tier;
+  Object.assign(A,{kcal,prog});
+  const names={cut:'تنشيف ونزول دهون',tone:'شد وتحسين شكل',health:'صحة وطاقة'};
+  $('resT').textContent=`برنامجك جاهز يا ${A.name} 💪`;
+  $('resB').textContent=g('اليوم 1 من 30 يبدأ الحين. التزم، وأنا معك خطوة بخطوة.','اليوم 1 من 30 يبدأ الحين. التزمي، وأنا معك خطوة بخطوة.');
+  const kv=[['الهدف',names[A.goal]],['السعرات اليومية',kcal+' سعرة'],['نظام الأكل',A.diet=='A'?'متوازن':'كيتو'],['التمرين',(A.place=='gym'?'جيم':'بيت')+' · 4 أيام'],['ميزانية الأكل',{eco:'اقتصادي',mid:'متوسط',high:'مرتاح'}[A.budget]],['رقم البرنامج',prog+(A.place=='gym'?'-G':'-H')]];
+  $('kv').innerHTML=kv.map(([k,v])=>`<div class="kv"><span>${k}</span><b>${v}</b></div>`).join('');
+  // the real page will be /start30/p/?id=… once programs are built
+  // the program page builds itself from these answers; all six programs (A1–A3, K1–K3) live in program.html
+  $('resA').href='program.html?'+new URLSearchParams({p:prog,pl:A.place=='gym'?'G':'H',s:A.sex,n:A.name,k:kcal,b:A.budget,g:A.goal});
+  $('resN').textContent='';
+  console.log('O2F Start answers',A);
+  go('res');
+}
+</script></body></html>
