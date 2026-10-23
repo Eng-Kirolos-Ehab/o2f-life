@@ -2,6 +2,8 @@ module.exports = function(eleventyConfig) {
   // Copy static assets as-is
   eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
+  // O2F Start 30-day product: static intake + program + supplements, copied untouched
+  eleventyConfig.addPassthroughCopy({ "src/start30": "start30" });
   // NOTE: main.css is the Tailwind entry file (raw @tailwind directives) — it is
   // compiled separately by the tailwindcss CLI (css:build/css:watch) straight to
   // _site/assets/css/main.css. It must NOT be passthrough-copied here, or Eleventy's

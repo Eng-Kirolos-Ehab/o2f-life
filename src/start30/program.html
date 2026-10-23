@@ -1,0 +1,396 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O2F Start · برنامجك</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F0E8;--card:#fff;--border:#E2D9CE;--text:#1A1A1A;--dim:#4A4A4A;--muted:#808080;
+--gold:#B8860B;--gold-l:#D4A843;--teal:#2A7D6B;--teal-p:#E6F5EF;--orange:#C85A0A;--orange-p:#FEF0E4;
+--red:#B03030;--red-p:#FDECEA;--purple:#6A4FA0;--purple-p:#F0ECF8;--blue:#3A6FBB;--blue-p:#EEF3FC;--green:#2E7D3A;--green-p:#EBF5EC;
+--shadow:0 2px 12px rgba(0,0,0,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%;line-height:1.7}
+.app{background:var(--bg);padding-bottom:48px;margin:0 auto;width:100%;max-width:720px;animation:appIn .5s ease both}
+@keyframes appIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (min-width:760px){
+ body{background:radial-gradient(1200px 600px at 50% -10%,rgba(42,125,107,.10),transparent 60%),linear-gradient(180deg,#EFE9DD,#E8E0D2);padding:32px 24px 56px}
+ .app{max-width:760px;border-radius:26px;overflow:hidden;box-shadow:0 24px 70px rgba(15,48,40,.16),0 4px 16px rgba(0,0,0,.05);border:1px solid rgba(226,217,206,.9);padding-bottom:40px}}
+/* header */
+.hdr{background:linear-gradient(160deg,#0F3028,#1A5040 55%,#0A2018);color:#fff;padding:34px 22px 28px;position:relative;overflow:hidden;text-align:center}
+.hdr::before,.hdr::after{content:'';position:absolute;border-radius:50%;background:rgba(212,168,67,.10)}
+.hdr::before{width:260px;height:260px;top:-120px;left:-80px}.hdr::after{width:180px;height:180px;bottom:-90px;right:-50px}
+.eyebrow{display:inline-block;background:rgba(212,168,67,.18);color:#D4C870;border:1px solid rgba(212,168,67,.4);border-radius:30px;padding:3px 16px;font-size:14px;font-weight:700;letter-spacing:1px}
+.hdr h1{font:700 36px/1.3 Amiri,serif;margin:12px 0 4px}.hdr h1 em{font-style:normal;color:var(--gold-l)}
+.hdr p{font-weight:300;opacity:.9;font-size:16px}
+.stats{display:flex;background:var(--teal);color:#fff}
+.stats div{flex:1;text-align:center;padding:12px 4px;border-left:1px solid rgba(255,255,255,.18)}.stats div:last-child{border-left:0}
+.stats b{display:block;font-size:22px;font-weight:900}.stats span{font-size:12px;opacity:.85}
+/* nav */
+.nav{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;background:rgba(244,240,232,.96);backdrop-filter:blur(6px);padding:10px 12px;border-bottom:1px solid var(--border);scrollbar-width:none}
+.nav a{flex:0 0 auto;text-decoration:none;color:var(--dim);background:#fff;border:1px solid var(--border);border-radius:30px;padding:6px 14px;font-size:14px;font-weight:700}
+.nav a.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.sec{padding:8px 16px 0}
+.label{display:flex;align-items:center;gap:10px;margin:28px 0 14px}
+.label::before,.label::after{content:'';flex:1;height:1px;background:var(--border)}
+.label span{background:var(--c,var(--teal));color:#fff;border-radius:30px;padding:5px 18px;font-weight:800;font-size:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.note{border-right:5px solid var(--c,var(--teal));background:var(--p,var(--teal-p));border-radius:12px;padding:12px 14px;margin:10px 0;font-size:15px;color:var(--dim)}
+.note b{color:var(--text)}
+/* day tabs */
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tab{flex:1;border:2px solid var(--border);background:#fff;border-radius:14px;padding:9px 4px;font:800 15px Tajawal;color:var(--dim);cursor:pointer}
+.tab.on{border-color:var(--c,var(--teal));background:var(--p,var(--teal-p));color:var(--c,var(--teal))}
+.meal{border:1px solid var(--border);border-radius:16px;background:#fff;margin-bottom:10px;overflow:hidden}
+.meal-h{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--orange-p);border-bottom:1px solid var(--border)}
+.meal-h .ic{font-size:22px}.meal-h b{flex:1;font-size:17px}.meal-h small{color:var(--orange);font-weight:800}
+.meal ul{list-style:none;padding:8px 14px 12px}
+.meal li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed #eee;font-size:15px}
+.meal li:last-child{border:0}.meal li span:last-child{color:var(--teal);font-weight:800;white-space:nowrap}
+.swap{font-size:13px;color:var(--muted);padding:0 14px 10px}
+table.sw{width:100%;border-collapse:collapse;font-size:14px}
+table.sw td,table.sw th{border-bottom:1px solid #eee;padding:8px 6px;text-align:right;vertical-align:top}
+table.sw th{color:var(--teal);font-size:13px}
+tr.mine{background:var(--green-p)}
+/* training */
+.wk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.wk div{background:#fff;border:1px solid var(--border);border-radius:12px;text-align:center;padding:8px 2px;font-size:13px}
+.wk div b{display:block;color:var(--purple);font-size:15px}
+.wk div.now{border:2px solid var(--purple);background:var(--purple-p)}
+.ex{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed #eee}
+.ex:last-child{border:0}
+.ex .n{width:30px;height:30px;border-radius:50%;background:var(--purple-p);color:var(--purple);font-weight:900;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.ex .t{flex:1}.ex .t b{display:block;font-size:16px}.ex .t small{color:var(--muted);font-size:13px;display:block}
+.ex .s{font-weight:800;color:var(--purple);font-size:14px;white-space:nowrap}
+.vbtn{flex:0 0 auto;text-decoration:none;background:var(--purple);color:#fff;border-radius:10px;padding:5px 10px;font-size:13px;font-weight:700}
+.day-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.day-h b{font-size:18px}.day-h span{background:var(--purple-p);color:var(--purple);border-radius:20px;padding:2px 12px;font-size:13px;font-weight:800}
+/* breathing */
+.vid{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-bottom:10px}
+.vid .ic{font-size:28px}.vid b{display:block}.vid small{color:var(--muted)}.vid .go{margin-right:auto;color:var(--blue);font-weight:800;font-size:14px}
+/* tracker */
+.days{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:10px 0}
+.days button{aspect-ratio:1;border:1px solid var(--border);background:#fff;border-radius:8px;font:700 13px Tajawal;color:var(--dim);cursor:pointer}
+.days button.done{background:var(--green);color:#fff;border-color:var(--green)}
+.days button.sel{outline:3px solid var(--gold-l)}
+.trk label{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed #eee;font-size:15px}
+.trk input[type=number]{width:96px;border:1px solid var(--border);border-radius:10px;padding:6px 8px;font:700 15px Tajawal;text-align:center;direction:ltr}
+.cups{display:flex;gap:4px}.cups i{font-style:normal;font-size:20px;cursor:pointer;opacity:.25}.cups i.on{opacity:1}
+.chk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.chk div{border:2px solid var(--border);border-radius:12px;padding:10px 4px;text-align:center;font-size:14px;font-weight:700;cursor:pointer;background:#fff}
+.chk div.done{border-color:var(--green);background:var(--green-p);color:var(--green)}
+.bar{height:10px;background:#eee;border-radius:10px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold-l));width:0;transition:width .3s}
+.ptxt{text-align:center;color:var(--muted);font-size:14px;margin-top:6px}
+.btn{display:block;text-align:center;text-decoration:none;background:var(--teal);color:#fff;border-radius:14px;padding:13px;font-weight:800;font-size:17px;margin:10px 0}
+.btn.gold{background:var(--gold)}
+.ftr{background:linear-gradient(160deg,#0F3028,#1A5040 55%,#0A2018);color:#fff;text-align:center;padding:30px 20px;margin-top:30px}
+.ayah{font:700 25px/1.9 Amiri,serif}.ayah em{font-style:normal;color:var(--gold-l)}
+.ftr small{display:block;opacity:.75;margin-top:6px}
+.disc{color:var(--muted);font-size:13px;text-align:center;padding:14px 20px 0}
+.start{margin:16px 16px 0;background:#fff;border:2px solid var(--green);border-radius:20px;box-shadow:0 6px 24px rgba(46,125,58,.12);overflow:hidden}
+.start-h{background:var(--green);color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.ms{margin:12px 16px 0;padding:12px 14px;border-radius:14px;background:#fff6dc;border:1px solid #f0c94a;font-size:15px;line-height:1.6}.ms a{font-weight:800;color:var(--green)}
+.start-h b{font-size:18px}.start-h span{font-size:13px;opacity:.9}
+.task{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px dashed #e5e5e5;cursor:pointer}
+.task .bx{width:26px;height:26px;border:2px solid var(--green);border-radius:8px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900}
+.task.done .bx{background:var(--green)}.task.done .tx{text-decoration:line-through;color:var(--muted)}
+.task .tx{flex:1;font-size:15px}.task .tx b{display:block;font-size:16px;color:var(--text)}
+.task a{color:var(--purple);font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap}
+.start-f{padding:10px 16px;background:var(--green-p);color:var(--green);font-size:14px;font-weight:700;text-align:center}
+@media (max-width:380px){.hdr h1{font-size:30px}.stats b{font-size:18px}.days{grid-template-columns:repeat(6,1fr)}}
+@media (hover:hover) and (min-width:760px){.card:hover,.meal:hover{transform:translateY(-2px);transition:.2s}}
+</style></head><body><div class="app">
+
+<div class="hdr">
+ <span class="eyebrow">O2F START · 30 يوم</span>
+ <h1>برنامج <em id="hName"></em></h1>
+ <p id="hSub"></p>
+</div>
+<div class="stats">
+ <div><b id="sK"></b><span>سعرة / يوم</span></div>
+ <div><b id="sP"></b><span>بروتين (غ)</span></div>
+ <div><b>4</b><span>أيام تمرين</span></div>
+ <div><b id="sD">1</b><span>اليوم من 30</span></div>
+</div>
+<nav class="nav" id="nav">
+ <a href="#food" class="on">🍽️ الأكل</a><a href="#train">🏋️ التمرين</a><a href="#breath">🌬️ التنفس</a><a href="#track">✅ المتتبع</a><a href="#rules">📌 القواعد</a>
+</nav>
+
+<!-- FOOD -->
+<!-- ابدأ هنا: only today's three steps; the full plan sits below -->
+<div class="start" id="start"></div>
+
+<div class="sec" id="food">
+ <div class="label" style="--c:var(--orange)"><span>🍽️ برنامج الأكل</span></div>
+ <div class="note" style="--c:var(--orange);--p:var(--orange-p)" id="foodIntro"></div>
+ <div class="tabs" style="--c:var(--orange);--p:var(--orange-p)" id="dTabs"></div>
+ <div id="meals"></div>
+ <div class="card">
+  <b style="font-size:17px">🔁 البدائل: بدّل براحتك</b>
+  <p style="color:var(--muted);font-size:14px;margin:4px 0 8px" id="swIntro"></p>
+  <table class="sw" id="swP"></table>
+  <table class="sw" id="swC" style="margin-top:12px"></table>
+ </div>
+ <div class="card" id="shop"></div>
+</div>
+
+<!-- TRAINING -->
+<div class="sec" id="train">
+ <div class="label" style="--c:var(--purple)"><span>🏋️ التمرين</span></div>
+ <div class="note" style="--c:var(--purple);--p:var(--purple-p)" id="trIntro"></div>
+ <div class="wk" id="wk"></div>
+ <div class="tabs" style="--c:var(--purple);--p:var(--purple-p)" id="tTabs"></div>
+ <div class="card" id="tDay"></div>
+ <div class="note" style="--c:var(--purple);--p:var(--purple-p)" id="cardio"></div>
+</div>
+
+<!-- BREATHING -->
+<div class="sec" id="breath">
+ <div class="label" style="--c:var(--blue)"><span>🌬️ التنفس والمرونة</span></div>
+ <div class="note" style="--c:var(--blue);--p:var(--blue-p)" id="brIntro"></div>
+ <div id="vids"></div>
+</div>
+
+<!-- TRACKER -->
+<div class="sec" id="track">
+ <div class="label" style="--c:var(--green)"><span>✅ المتتبع اليومي</span></div>
+ <div class="card trk">
+  <div style="font-size:15px;color:var(--dim)" id="trkIntro"></div>
+  <div class="days" id="days"></div>
+  <b id="dayT" style="font-size:17px"></b>
+  <label>⚖️ الوزن (كجم) <input type="number" step="0.1" id="fW" placeholder="—"></label>
+  <label>👣 الخطوات <input type="number" id="fS" placeholder="—"></label>
+  <label>😴 النوم (ساعات) <input type="number" step="0.5" id="fN" placeholder="—"></label>
+  <label>💧 الماء <span class="cups" id="cups"></span></label>
+  <div class="chk" id="chk"></div>
+  <div class="bar"><i id="pBar"></i></div>
+  <div class="ptxt" id="pTxt"></div>
+ </div>
+ <a class="btn" id="supLink">💊 ملف المكملات الأساسية (منفصل)</a>
+</div>
+
+<!-- RULES -->
+<div class="sec" id="rules">
+ <div class="label" style="--c:var(--red)"><span>📌 قواعد الـ 30 يوم</span></div>
+ <div class="card" id="rl"></div>
+ <a class="btn gold" href="https://ig.me/m/osama.fit" target="_blank">أرغب في متابعة شخصية</a>
+ <p class="disc" id="upTxt"></p>
+</div>
+
+<div class="ftr">
+ <div class="ayah">﴿إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا <em>مَا بِأَنفُسِهِمْ</em>﴾</div>
+ <small>سورة الرعد · آية 11</small>
+ <p style="margin-top:14px;font-size:16px" id="niya"></p>
+ <div style="font:900 20px Tajawal;letter-spacing:4px;margin-top:16px">O2F <span style="color:var(--gold-l)">LIFE</span></div>
+</div>
+<p class="disc" id="disc"></p>
+</div>
+
+<script>
+/* ---------- client from the intake page ---------- */
+const Q=new URLSearchParams(location.search);
+const C={name:Q.get('n')||'بطل',sex:Q.get('s')=='f'?'f':'m',kcal:+Q.get('k')||1950,place:Q.get('pl')=='H'?'H':'G',
+ budget:['eco','mid','high'].includes(Q.get('b'))?Q.get('b'):'mid',goal:Q.get('g')||'cut',prog:Q.get('p')||'A2'};
+const g=(m,f)=>C.sex=='f'?f:m;          // every instruction follows the client's gender
+const $=id=>document.getElementById(id);
+
+/* ---------- program data: A2 = balanced, 1700–2200 kcal, written for a 1950 base ---------- */
+const P={A2:{base:1950,protein:140,label:'متوازن',
+ days:[
+  {name:'يوم 1',meals:[
+   {ic:'🍳',t:'الفطور',time:'8–10 ص',it:[['بيض مسلوق أو أومليت','3 بيضات'],['فول مدمس بملعقة صغيرة زيت زيتون','5 ملاعق كبيرة'],['عيش بلدي',0.5,'bread'],['خيار + طماطم + جرجير','براحتك']]},
+   {ic:'🍗',t:'الغداء',time:'2–4 م',it:[['صدر دجاج مشوي (وزن بعد الطبخ)','200 غ','P'],['رز أبيض مطبوخ',150,'g'],['سلطة خضراء كبيرة + ملعقة صغيرة زيت','طبق كبير']]},
+   {ic:'🥛',t:'سناك',time:'5–6 م',it:[['زبادي (يوناني لو متوفر)','علبة 170 غ'],['موز صغير',1,'fruit']]},
+   {ic:'🐟',t:'العشاء',time:'8–9 م',it:[['تونة مصفاة من الزيت','علبة 120 غ','P'],['جبنة قريش','100 غ'],['عيش بلدي',0.5,'bread'],['خضار سوتيه أو سلطة','براحتك']]},
+   {ic:'🥜',t:'سناك خفيف (اختياري)',time:'أي وقت',it:[['لوز أو عين جمل','10 حبات'],['فاكهة (تفاحة / برتقالة)',1,'fruit']]}]},
+  {name:'يوم 2',meals:[
+   {ic:'🥣',t:'الفطور',time:'8–10 ص',it:[['شوفان بالحليب خالي الدسم',50,'g'],['بيض مسلوق','2 بيضة'],['ملعقة صغيرة عسل','1']]},
+   {ic:'🥩',t:'الغداء',time:'2–4 م',it:[['لحم مفروم قليل الدهن أو كفتة مشوية','170 غ','P'],['مكرونة مطبوخة',150,'g'],['سلطة خضراء كبيرة','طبق كبير']]},
+   {ic:'🥛',t:'سناك',time:'5–6 م',it:[['زبادي','علبة'],['تمر',3,'fruit']]},
+   {ic:'🍳',t:'العشاء',time:'8–9 م',it:[['أومليت بالخضار (2 بيض + 2 بياض)','4 بيضات'],['جبنة قريش','100 غ'],['عيش بلدي',0.5,'bread']]},
+   {ic:'🥜',t:'سناك خفيف (اختياري)',time:'أي وقت',it:[['لوز أو عين جمل','10 حبات'],['خيار وجزر','براحتك']]}]},
+  {name:'يوم 3',meals:[
+   {ic:'🍳',t:'الفطور',time:'8–10 ص',it:[['بيض مسلوق','3 بيضات'],['جبنة قريش أو فيتا خفيفة','60 غ'],['عيش بلدي',0.5,'bread'],['خضار','براحتك']]},
+   {ic:'🐟',t:'الغداء',time:'2–4 م',it:[['سمك مشوي (بلطي / بوري / سلمون)','250 غ','P'],['رز أبيض مطبوخ',150,'g'],['سلطة + طحينة ملعقة كبيرة','طبق']]},
+   {ic:'🥛',t:'سناك',time:'5–6 م',it:[['زبادي','علبة'],['فاكهة',1,'fruit']]},
+   {ic:'🍗',t:'العشاء',time:'8–9 م',it:[['صدر دجاج أو كبدة دجاج','150 غ','P'],['بطاطس مسلوقة أو مشوية',150,'g'],['خضار','براحتك']]},
+   {ic:'🥜',t:'سناك خفيف (اختياري)',time:'أي وقت',it:[['لوز أو عين جمل','10 حبات']]}]}
+ ]}};
+
+// A1 / A3 reuse the A2 meals with their own portions; key = item name, or 'day:name' when a name repeats
+const mk=(base,protein,map,snack,src='A2')=>({base,protein,label:P[src].label,days:P[src].days.map((d,di)=>({name:d.name,meals:d.meals.map(m=>{
+ if(snack&&m.t.startsWith('سناك خفيف'))return {...m,...snack};
+ return {...m,it:m.it.map(it=>{const k=(di+1)+':'+it[0];const v=k in map?map[k]:map[it[0]];if(v===undefined)return it;const n=[...it];n[1]=v;return n})}})}))});
+P.A1=mk(1500,120,{'بيض مسلوق أو أومليت':'2 بيض + 1 بياض','فول مدمس بملعقة صغيرة زيت زيتون':'4 ملاعق كبيرة','صدر دجاج مشوي (وزن بعد الطبخ)':'170 غ','رز أبيض مطبوخ':100,
+ 'شوفان بالحليب خالي الدسم':40,'لحم مفروم قليل الدهن أو كفتة مشوية':'150 غ','مكرونة مطبوخة':100,'تمر':2,'3:بيض مسلوق':'2 بيض + 1 بياض',
+ 'سمك مشوي (بلطي / بوري / سلمون)':'220 غ','سلطة + طحينة ملعقة كبيرة':'طبق + طحينة ملعقة صغيرة','بطاطس مسلوقة أو مشوية':100},
+ {t:'سناك خفيف (لو جعت)',it:[['خيار وجزر وخس','براحتك'],['شاي أخضر أو قرفة بدون سكر','كوب']]});
+P.A3=mk(2400,165,{'بيض مسلوق أو أومليت':'4 بيضات','صدر دجاج مشوي (وزن بعد الطبخ)':'250 غ','رز أبيض مطبوخ':220,'1:عيش بلدي':1,
+ 'شوفان بالحليب خالي الدسم':70,'2:بيض مسلوق':'3 بيضات','لحم مفروم قليل الدهن أو كفتة مشوية':'220 غ','مكرونة مطبوخة':220,'تمر':4,
+ '3:بيض مسلوق':'4 بيضات','سمك مشوي (بلطي / بوري / سلمون)':'300 غ','صدر دجاج أو كبدة دجاج':'200 غ','بطاطس مسلوقة أو مشوية':220,'لوز أو عين جمل':'15 حبة'},
+ null);
+P.A3.days.forEach(d=>d.meals.forEach(m=>{if(m.t.startsWith('سناك خفيف'))m.t='سناك إضافي'}));
+// K2 = keto, 1700–2200 kcal: two meals + a snack inside a 12–7 window; fat items marked 'g' follow the calorie target
+P.K2={base:1900,protein:130,label:'كيتو',days:[
+ {name:'يوم 1',meals:[
+  {ic:'🍳',t:'الوجبة الأولى',time:'12–1 م',it:[['أومليت بالزبدة (ملعقة كبيرة زبدة)','4 بيضات'],['جبنة رومي أو شيدر',40,'g'],['زيتون','8 حبات'],['خيار + خس + جرجير','براحتك']]},
+  {ic:'🥜',t:'سناك',time:'4 م',it:[['لوز أو عين جمل',30,'g'],['شاي أو قهوة بدون سكر','كوب']]},
+  {ic:'🍗',t:'الوجبة الثانية',time:'7 م',it:[['أوراك دجاج مشوية بالجلد','250 غ','P'],['خضار سوتيه بزيت زيتون (كوسة، فلفل، بروكلي)','طبق'],['سلطة خضراء + زيت زيتون',15,'g'],['طحينة','ملعقة كبيرة']]}]},
+ {name:'يوم 2',meals:[
+  {ic:'🍳',t:'الوجبة الأولى',time:'12–1 م',it:[['بيض مقلي بزيت زيتون','3 بيضات'],['جبنة قريش أو فيتا',100,'g'],['طماطم + خيار','قليل'],['زيت زيتون على الجبنة',10,'g']]},
+  {ic:'🥚',t:'سناك',time:'4 م',it:[['بيض مسلوق','2 بيضة'],['خيار وخس','براحتك']]},
+  {ic:'🥩',t:'الوجبة الثانية',time:'7 م',it:[['كفتة لحم مشوية','200 غ','P'],['باذنجان أو كوسة مشوية','طبق'],['طحينة',20,'g'],['سلطة خضراء','طبق']]}]},
+ {name:'يوم 3',meals:[
+  {ic:'🐟',t:'الوجبة الأولى',time:'12–1 م',it:[['تونة بزيت زيتون (لا تصفّي الزيت)','علبة 120 غ'],['بيض مسلوق','2 بيضة'],['خس + خيار + ليمون','براحتك']]},
+  {ic:'🥛',t:'سناك',time:'4 م',it:[['زبادي يوناني كامل الدسم','170 غ'],['عين جمل',15,'g']]},
+  {ic:'🐟',t:'الوجبة الثانية',time:'7 م',it:[['سمك مشوي (ماكريل / سلمون / بلطي)','250 غ','P'],['قرنبيط مهروس بالزبدة','طبق'],['سلطة + زيت زيتون',15,'g']]}]}
+]};
+P.K1=mk(1450,110,{'أومليت بالزبدة (ملعقة كبيرة زبدة)':'3 بيضات','أوراك دجاج مشوية بالجلد':'200 غ','بيض مقلي بزيت زيتون':'2 بيض + 1 بياض','كفتة لحم مشوية':'170 غ','سمك مشوي (ماكريل / سلمون / بلطي)':'200 غ','3:بيض مسلوق':'1 بيضة','2:بيض مسلوق':'1 بيضة'},null,'K2');
+P.K3=mk(2400,165,{'أومليت بالزبدة (ملعقة كبيرة زبدة)':'5 بيضات','أوراك دجاج مشوية بالجلد':'300 غ','بيض مقلي بزيت زيتون':'4 بيضات','كفتة لحم مشوية':'250 غ','سمك مشوي (ماكريل / سلمون / بلطي)':'300 غ','3:بيض مسلوق':'3 بيضات','2:بيض مسلوق':'3 بيضات','زيتون':'12 حبة'},null,'K2');
+// K3 adds a second snack so the extra calories don't all land in two meals
+P.K3.days.forEach(d=>d.meals.splice(2,0,{ic:'🧀',t:'سناك إضافي',time:'5–6 م',it:[['جبنة شيدر أو رومي',40,'g'],['خيار','براحتك']]}));
+const isK=prog=>prog.label=='كيتو';
+const SWAP_CK=[['الرز','= قرنبيط مفروم مشوّح بالزبدة'],['العيش','= أوراق خس كبيرة، أو بيضة إضافية'],['المكرونة','= كوسة مقطعة شرائح طويلة'],['الحلو','= 2 مربع شوكولاتة داكنة 85% (مرة في اليوم بحد أقصى)']];
+
+// budget swaps for the protein marked 'P'
+const SWAP_P=[
+ ['eco','💵 اقتصادي','5 بيضات · أو علبتين تونة · أو 250 غ كبدة دجاج · أو 1.5 كوب عدس/فول مطبوخ + 2 بيض'],
+ ['mid','💰 متوسط','200 غ صدر دجاج · أو 250 غ بلطي/بوري · أو 170 غ لحم مفروم قليل الدهن'],
+ ['high','💎 مرتاح','180 غ لحم بقري أحمر · أو 220 غ سلمون · أو 250 غ جمبري']];
+const SWAP_C=[['150 غ رز مطبوخ','= 150 غ مكرونة · = 200 غ بطاطس · = رغيف بلدي إلا ربع · = 50 غ شوفان'],
+ ['فاكهة واحدة','= موزة صغيرة · تفاحة · برتقالة · 3 تمرات · كوب بطيخ']];
+
+/* gym plan: every move links to Osama's exercise library (ex30) */
+const IG='https://www.instagram.com/reel/';
+const GYM=[
+ {t:'اليوم 1 · صدر وكتف',tag:'دفع',ex:[['إحماء كارديو 5–7 دقائق','Cardio Warm-Up','CxqzNecLDzc','7 د'],['ضغط صدر بالجهاز','Machine Bench Press','C67vDHHifLQ'],['ضغط صدر عالي بالسميث','Incline Smith Press','Cx2g3OYrTX7'],['فراشة صدر','Pec Deck Fly','Cxv_1GirM7I'],['ضغط كتف بالجهاز','Machine Shoulder Press','Cxh0PDPrTFR'],['رفرفة جانبي بالجهاز','Machine Lateral Raise','CyQi7IfMOqb'],['كرنش بالكيبل','Cable Crunch','CxqyQSoLvJ3']]},
+ {t:'اليوم 2 · رجل',tag:'رجل',ex:[['إحماء كارديو 5–7 دقائق','Cardio Warm-Up','CxqzNecLDzc','7 د'],['سكوات بالبار','Barbell Back Squat','CxuCGvnqQiY'],['ليج برس','Leg Press','CyD3ZmDsqB5'],['ليج إكستنشن','Leg Extension','CxdlTqtrbGm'],['ليج كيرل جالس','Seated Leg Curl','C7A_NFbC3wZ'],['سمانة واقف بالسميث','Smith Calf Raise','Cw96JTeMwhK'],['ضم الركب للبطن','Seated Knee Tuck','Cx-d0uiMiG0']]},
+ {t:'اليوم 3 · ظهر وذراع',tag:'سحب',ex:[['إحماء كارديو 5–7 دقائق','Cardio Warm-Up','CxqzNecLDzc','7 د'],['عقلة مساعدة بالجهاز','Assisted Pull-Up','CxoLYK2LeHO'],['سحب أرضي بالكيبل','Seated Cable Row','CxhyC20r-zg'],['سحب دمبل بيد وحدة','One-Arm DB Row','CxL115Urr7U'],['سحب الكتف الخلفي بالكيبل','Cable Rear Delt Row','C7DYYC7iY4I'],['رفرفة جانبي بالكيبل','Cable Lateral Raise','CxkumgNLXWL'],['هامر كيرل بالحبل','Rope Hammer Curl','CxYkwdvLck1']]},
+ {t:'اليوم 4 · رجل وبطن',tag:'رجل',ex:[['إحماء كارديو 5–7 دقائق','Cardio Warm-Up','CxqzNecLDzc','7 د'],['هاك سكوات بالجهاز','Machine Hack Squat','Cxkva9IM4bh'],['ليج برس (القدم عالي)','Leg Press','CyD3ZmDsqB5'],['ليج كيرل جالس','Seated Leg Curl','C7A_NFbC3wZ'],['سمانة جالس','Seated Calf Raise','C6-OLzyidTQ'],['كرنش أرضي','Floor Crunch','CxyeX2tLM_3']]}];
+/* home plan: bodyweight + a pair of dumbbells (or water bottles) + a chair */
+const HOME=[
+ {t:'اليوم 1 · صدر وكتف',tag:'دفع',ex:[['إحماء: مشي في المكان + دوران كتف','Warm-Up','','5 د'],['ضغط (على الركب لو صعب)','Push-Up'],['ضغط صدر بالدمبل على الأرض','Floor DB Press'],['ضغط كتف بالدمبل جالس','Seated DB Shoulder Press'],['رفرفة جانبي بالدمبل واقف','Standing DB Lateral Raise','CxDkKfGsMAQ'],['ديبس على الكرسي','Chair Dips']]},
+ {t:'اليوم 2 · رجل',tag:'رجل',ex:[['إحماء: مشي في المكان + سكوات خفيف','Warm-Up','','5 د'],['سكوات بالدمبل (جوبلت)','Goblet Squat'],['طعنات للخلف بالتبادل','Reverse Lunge'],['رفع الحوض على الأرض','Glute Bridge'],['سمانة واقف على الدرج','Step Calf Raise'],['كرنش أرضي','Floor Crunch','CxyeX2tLM_3']]},
+ {t:'اليوم 3 · ظهر وذراع',tag:'سحب',ex:[['إحماء: مشي في المكان + دوران كتف','Warm-Up','','5 د'],['سحب دمبل بيد وحدة (سند على الكرسي)','One-Arm DB Row','CxL115Urr7U'],['سحب دمبلين منحني','Bent-Over DB Row'],['رفرفة خلفي منحني','Bent-Over Rear Delt Raise'],['هامر كيرل بالدمبل','DB Hammer Curl'],['سوبرمان على الأرض','Superman']]},
+ {t:'اليوم 4 · رجل وبطن',tag:'رجل',ex:[['إحماء: مشي في المكان + سكوات خفيف','Warm-Up','','5 د'],['ديدلفت روماني بالدمبل','DB Romanian Deadlift'],['سكوات سومو بالدمبل','Sumo Squat'],['صعود على الكرسي (ثابت!)','Step-Up'],['بلانك','Plank','','30–45 ث'],['ضم الركب للبطن','Seated Knee Tuck','Cx-d0uiMiG0']]}];
+// 30-day progression: week -> sets × reps
+const WEEKS=[['أسبوع 1','2 × 15','تعلّم الحركة، وزن خفيف'],['أسبوع 2','3 × 12','زوّد الوزن شوي'],['أسبوع 3','3 × 10','وزن أثقل، نفس الأداء'],['أسبوع 4','4 × 10','أقوى أسبوع']];
+
+/* Osama's approved breathing + mobility videos */
+const VIDS=[['🌅','أول ما '+g('تصحى','تصحين'),'تنفس الصباح','https://youtu.be/WwwQnMcZoSs'],
+ ['💼','منتصف اليوم','التمرين الأول بس من الفيديو','https://youtube.com/shorts/eXNWwQmX__I'],
+ ['🌙','قبل النوم','تهدئة ونوم أعمق','https://youtu.be/j-1n3KJR1I8'],
+ ['🤸','المرونة (موبيليتي)','8–10 دقائق، 5–6 أيام في الأسبوع','https://youtu.be/FI51zRzgIe4']];
+
+/* ---------- render ---------- */
+const prog=P[C.prog]||P.A2;
+const f=Math.min(1.2,Math.max(0.8,C.kcal/prog.base));   // carbs follow the calorie target, protein stays
+const fmtBread=x=>{const q=Math.round(x*f*4)/4;return {0.25:'ربع رغيف',0.5:'نص رغيف',0.75:'رغيف إلا ربع',1:'رغيف'}[q]||q+' رغيف'};
+const qty=it=>it[2]=='g'?Math.round(it[1]*f/10)*10+' غ':it[2]=='bread'?fmtBread(it[1]):it[2]=='fruit'?(it[1]*f>=1.15?'حبة كبيرة':'حبة'):it[1];
+const day0=(()=>{try{const s=localStorage.getItem('o2fs-start');if(s)return s;const d=new Date().toISOString().slice(0,10);localStorage.setItem('o2fs-start',d);return d}catch(e){return new Date().toISOString().slice(0,10)}})();
+const today=Math.min(30,Math.max(1,Math.floor((Date.now()-new Date(day0))/864e5)+1));
+const goalTxt={cut:'تنشيف ونزول دهون',tone:'شد وتحسين شكل',health:'صحة وطاقة'}[C.goal]||'';
+
+$('hName').textContent=C.name;
+$('hSub').textContent=`${goalTxt} · ${prog.label} · ${C.place=='G'?'جيم':'بيت'}`;
+$('sK').textContent=Math.round(C.kcal);$('sP').textContent=prog.protein;$('sD').textContent=today;
+
+$('foodIntro').innerHTML=`<b>${g('لف','لفي')} بين الأيام الثلاثة</b> (1 ← 2 ← 3 ← 1…). الكميات محسوبة على ${Math.round(C.kcal)} سعرة. ${isK(prog)?'الأكل بين 12 الظهر و7 المغرب، وبرّا الوقت ماء وشاي وقهوة بدون سكر. الجبنة والمكسرات والزيت متظبطة على سعراتك.':'الرز والعيش والفاكهة متظبطة على سعراتك، والبروتين ثابت.'}<br>`+
+ (isK(prog)?`<b>أول 3–7 أيام:</b> ممكن ${g('تحس','تحسين')} بصداع أو تعب خفيف (إنفلونزا الكيتو). ${g('زوّد','زوّدي')} الماء وملح الطعام شوي، ويروح.<br>`:'')+
+ `<b>الماء:</b> 3 لتر على الأقل · <b>السكر والمشروبات الغازية والعصاير:</b> لا · <b>القهوة والشاي:</b> بدون سكر أو ملعقة صغيرة بس.`;
+let dSel=0;
+function drawMeals(){
+ $('dTabs').innerHTML=prog.days.map((d,i)=>`<button class="tab ${i==dSel?'on':''}" onclick="dSel=${i};drawMeals()">${d.name}</button>`).join('');
+ $('meals').innerHTML=prog.days[dSel].meals.map(m=>`<div class="meal"><div class="meal-h"><span class="ic">${m.ic}</span><b>${m.t}</b><small>${m.time}</small></div><ul>${m.it.map(it=>`<li><span>${it[0]}${it[2]=='P'?' 🔁':''}</span><span>${qty(it)}</span></li>`).join('')}</ul></div>`).join('');
+}
+drawMeals();
+$('swIntro').innerHTML=`العلامة 🔁 يعني ${g('تقدر تبدّل','تقدرين تبدّلين')} البروتين. السطر الملوّن على قد ميزانيتك.`;
+$('swP').innerHTML='<tr><th>الميزانية</th><th>بدل البروتين في الوجبة</th></tr>'+SWAP_P.map(r=>`<tr class="${r[0]==C.budget?'mine':''}"><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+$('swC').innerHTML=(isK(prog)?'<tr><th>بدل</th><th>في الكيتو</th></tr>':'<tr><th>النشويات</th><th>يساوي</th></tr>')+(isK(prog)?SWAP_CK:SWAP_C).map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+$('shop').innerHTML=`<b style="font-size:17px">🛒 قائمة المشتريات الأسبوعية</b><p style="font-size:15px;color:var(--dim);margin-top:6px">
+${isK(prog)?`بيض (طبقين ونص) · ${C.budget=='eco'?'أوراك دجاج 1.5 كجم + تونة 3 علب + لحم مفروم':C.budget=='high'?'لحم أحمر + سلمون + أوراك دجاج':'أوراك دجاج 1.5 كجم + سمك + لحم مفروم'} · جبنة رومي أو شيدر + قريش أو فيتا · زبادي يوناني كامل الدسم · زبدة · زيت زيتون · زيتون · لوز وعين جمل · طحينة · خضار: خس، خيار، كوسة، باذنجان، قرنبيط، بروكلي، فلفل`
+:`بيض (طبقين) · فول مدمس · ${C.budget=='eco'?'تونة 4 علب + كبدة دجاج + عدس':C.budget=='high'?'لحم أحمر + سلمون + صدور دجاج':'صدور دجاج 1 كجم + سمك + لحم مفروم قليل الدهن'} · جبنة قريش · زبادي 7 علب · رز + مكرونة + عيش بلدي + شوفان · بطاطس · خضار وسلطة للأسبوع · فاكهة 7–10 حبات · لوز أو عين جمل · زيت زيتون · طحينة · عسل`}</p>
+<div class="note" style="--c:var(--green);--p:var(--green-p)">🦠 <b>لصحة القولون:</b> الزبادي اليومي فيه بكتيريا نافعة. ولو ${g('تحب','تحبين')}: مخلل لفت أو كرنب بيتي بدون صبغة، ملعقتين مع الغداء.</div>`;
+
+const PLAN=C.place=='G'?GYM:HOME;
+const wkNow=Math.min(3,Math.floor((today-1)/7));
+$('trIntro').innerHTML=`<b>4 أيام في الأسبوع</b>، مثلاً: السبت · الأحد · الثلاثاء · الأربعاء. راحة بين المجموعات 60–90 ثانية. ${C.place=='G'?'كل تمرين عليه زر فيديو من مكتبة O2F.':g('تحتاج','تحتاجين')+': دمبلين (أو قزازتين مويه مليانة) + كرسي ثابت.'}`;
+$('wk').innerHTML=WEEKS.map((w,i)=>`<div class="${i==wkNow?'now':''}"><b>${w[1]}</b>${w[0]}<br><small style="color:var(--muted)">${w[2]}</small></div>`).join('');
+let tSel=0;
+function drawTrain(){
+ $('tTabs').innerHTML=PLAN.map((d,i)=>`<button class="tab ${i==tSel?'on':''}" onclick="tSel=${i};drawTrain()">يوم ${i+1}</button>`).join('');
+ const d=PLAN[tSel];
+ $('tDay').innerHTML=`<div class="day-h"><b>${d.t}</b><span>${d.tag}</span></div>`+d.ex.map((e,i)=>
+  `<div class="ex"><span class="n">${i+1}</span><span class="t"><b>${e[0]}</b><small>${e[1]}</small></span><span class="s">${e[3]||WEEKS[wkNow][1]}</span>${e[2]?`<a class="vbtn" target="_blank" href="${IG}${e[2]}">▶ فيديو</a>`:''}</div>`).join('');
+}
+drawTrain();
+$('cardio').innerHTML=`🚶 <b>بعد التمرين:</b> مشي 15–20 دقيقة (على ميل لو في الجيم).<br>👣 <b>كل يوم:</b> 8000 خطوة على الأقل، حتى أيام الراحة.<br>⚠️ <b>أي ألم حاد في مفصل: ${g('وقّف التمرين','وقّفي التمرين')}</b>. التعب في العضلة طبيعي، والألم في المفصل لا.`;
+
+$('brIntro').innerHTML=`هذي روتينات الكوتش المعتمدة. ${g('خلّها','خلّيها')} عادة يومية، 5 دقائق تفرق في النوم والتوتر والهضم.`;
+$('vids').innerHTML=VIDS.map(v=>`<a class="vid" href="${v[3]}" target="_blank"><span class="ic">${v[0]}</span><span><b>${v[1]}</b><small>${v[2]}</small></span><span class="go">▶ ${g('شاهد','شاهدي')}</span></a>`).join('');
+
+/* tracker: saved on the client's phone only */
+const K='o2fs-day-';let sel=today;
+const load=d=>{try{return JSON.parse(localStorage.getItem(K+d))||{}}catch(e){return {}}};
+const save=(d,v)=>{try{localStorage.setItem(K+d,JSON.stringify(v))}catch(e){}};
+const CHK=[['meals','🍽️ الأكل'],['train','🏋️ التمرين'],['breath','🌬️ التنفس'],['steps','👣 8000 خطوة'],['sleep','😴 نوم 7 س'],['nosugar','🚫 بدون سكر']];
+$('trkIntro').innerHTML=`${g('سجّل','سجّلي')} يومك في دقيقة. البيانات محفوظة على جوالك. ${g('اضغط','اضغطي')} على أي يوم ${g('تبغى','تبغين')} ${g('تعدله','تعدليه')}.`;
+function drawTrack(){
+ $('days').innerHTML=Array.from({length:30},(_,i)=>{const d=load(i+1);const n=CHK.filter(c=>d[c[0]]).length;return `<button class="${n>=4?'done':''} ${i+1==sel?'sel':''}" onclick="sel=${i+1};drawTrack()">${i+1}</button>`}).join('');
+ const d=load(sel);$('dayT').textContent=`اليوم ${sel} من 30`+(sel==today?' (اليوم)':'');
+ $('fW').value=d.w||'';$('fS').value=d.s||'';$('fN').value=d.n||'';
+ $('cups').innerHTML=Array.from({length:8},(_,i)=>`<i class="${i<(d.water||0)?'on':''}" onclick="setCup(${i+1})">💧</i>`).join('');
+ $('chk').innerHTML=CHK.map(c=>`<div class="${d[c[0]]?'done':''}" onclick="tog('${c[0]}')">${c[1]}</div>`).join('');
+ const n=CHK.filter(c=>d[c[0]]).length;$('pBar').style.width=(n/CHK.length*100)+'%';
+ $('pTxt').textContent=n==CHK.length?g('يوم كامل 🔥 كذا الأبطال','يوم كامل 🔥 كذا البطلات'):n>=4?'ممتاز، قربت 💪':n?'بداية حلوة، كمّل':g('ابدأ يومك من هنا','ابدئي يومك من هنا');
+}
+window.tog=k=>{const d=load(sel);d[k]=!d[k];save(sel,d);drawTrack()};
+window.setCup=n=>{const d=load(sel);d.water=d.water==n?n-1:n;save(sel,d);drawTrack()};
+['fW','fS','fN'].forEach((id,i)=>$(id).onchange=e=>{const d=load(sel);d[['w','s','n'][i]]=e.target.value;save(sel,d)});
+drawTrack();
+
+/* «ابدأ هنا»: one small, clear step per area so starting feels easy */
+// training on days 1,2,4,5 of every week (e.g. Sat, Sun, Tue, Wed), rest on the others
+function drawStart(){
+ const wd=(today-1)%7,trainIdx=[0,1,-1,2,3,-1,-1][wd];
+ const md=prog.days[(today-1)%prog.days.length].meals[0];
+ const brk=md.it.slice(0,3).map(it=>it[0].split(' (')[0].split(' أو ')[0].split(' ب')[0]+' ('+qty(it)+')').join(' + ');
+ const d=load(today);
+ const T=[['meals','🍽️ '+(isK(prog)?'وجبتك الأولى':'فطورك')+' اليوم',brk,''],
+  trainIdx>=0?['train','🏋️ تمرين اليوم: '+PLAN[trainIdx].t.split(' · ')[1],WEEKS[wkNow][1]+' لكل تمرين',`<a href="#train" data-t="${trainIdx}">▶ افتح</a>`]
+   :['train','🌿 اليوم راحة من الحديد','10 دقائق موبيليتي بدل التمرين','<a href="https://youtu.be/FI51zRzgIe4" target="_blank">▶ افتح</a>'],
+  ['steps','👣 '+(today<=7?'10 دقائق مشي':'8000 خطوة'),today<=7?'بعد الغداء أو العشاء، وبس':'المشي أسهل طريقة لحرق الدهون','']];
+ const n=T.filter(t=>d[t[0]]).length;
+ // day 7 cheer + day 30 upgrade offer (from start-kit section 6)
+ const MS={7:`<div class="ms">🔥 أسبوع كامل! ${g('أنت أحسن','أنتِ أحسن')} من 80% من اللي يبدأون ويوقفون. ${g('سجّل','سجّلي')} وزنك اليوم في المتتبع ${g('وكمّل','وكمّلي')}.</div>`,
+  30:`<div class="ms">👏 ${g('خلصت','خلصتي')} 30 يوم! لو ${g('تبغى','تبغين')} نكمل بخطة مفصّلة لك (تحاليل، نوم، أكل، متابعة يومية) ${g('راسلني','راسليني')} بكلمة «تحول» وأعطيك خصم المشتركين. <a href="https://ig.me/m/osama.fit" target="_blank">${g('راسلني','راسليني')} ←</a></div>`};
+ $('start').innerHTML=`<div class="start-h"><b>🟢 ابدأ هنا: اليوم ${today}</b><span>3 خطوات بس</span></div>`+
+  (MS[today]||'')+
+  T.map(t=>`<div class="task ${d[t[0]]?'done':''}" data-k="${t[0]}"><span class="bx">${d[t[0]]?'✓':''}</span><span class="tx"><b>${t[1]}</b>${t[2]}</span>${t[3]}</div>`).join('')+
+  `<div class="start-f">${n==3?g('خلصت يومك 🔥 أنت بطل','خلصتي يومك 🔥 أنتِ بطلة'):n?'كمّل، باقي '+(3-n):g('خلّص الثلاث وبس، الباقي تحت لما تحتاجه','خلّصي الثلاث وبس، الباقي تحت لما تحتاجينه')}</div>`;
+}
+$('start').onclick=e=>{
+ const a=e.target.closest('a');
+ if(a){if(a.dataset.t){tSel=+a.dataset.t;drawTrain()}return}
+ const row=e.target.closest('.task');if(!row)return;
+ const d=load(today);d[row.dataset.k]=!d[row.dataset.k];save(today,d);drawStart();if(sel==today)drawTrack();
+};
+// ticking in the tracker below keeps the top card in sync
+const _tog=window.tog;window.tog=k=>{_tog(k);drawStart()};
+drawStart();
+$('supLink').href='supplements.html?'+Q.toString();
+
+$('rl').innerHTML=[
+ ['⚖️',`${g('وزّن نفسك','وزّني نفسك')} مرة في الأسبوع، الصبح بعد الحمام وقبل الأكل. الوزن يتذبذب يومياً، وهذا طبيعي.`],
+ ['📏',`${g('قيس','قيسي')} الوسط يوم 1 ويوم 30. أحياناً الوزن ثابت والمقاس ينزل.`],
+ ['🍽️',`وجبة حرة وحدة في الأسبوع، بكمية معقولة، بدون ما ${g('تحس','تحسين')} بذنب.`],
+ ['😴','النوم 7 ساعات على الأقل. النوم القليل يفتح الشهية ويوقف النزول.'],
+ ['📵','آخر أكل قبل النوم بساعتين على الأقل.'],
+ ['🤝',`لو فاتك يوم ${g('كمّل','كمّلي')} من بكرة عادي. الاستمرار أهم من المثالية.`]
+].map(r=>`<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed #eee;font-size:15px"><span style="font-size:20px">${r[0]}</span><span>${r[1]}</span></div>`).join('');
+$('upTxt').textContent=g('لو تبغى خطة مفصّلة لك أنت (تحاليل، نوم، أكل، متابعة يومية) راسلني.','لو تبغين خطة مفصّلة لك أنتِ (تحاليل، نوم، أكل، متابعة يومية) راسليني.');
+$('niya').textContent=g('انوِ بأكلك وتمرينك إنك تقوّي جسمك على طاعة الله وخدمة أهلك. النية تحوّل العادة لعبادة.','انوي بأكلك وتمرينك إنك تقوّين جسمك على طاعة الله وخدمة أهلك. النية تحوّل العادة لعبادة.');
+$('disc').textContent=g('راجع طبيبك عند أي أعراض غير طبيعية. هذا البرنامج إرشادات عامة للياقة والتغذية، ولا يُغني عن التقييم الطبي.','راجعي طبيبك عند أي أعراض غير طبيعية. هذا البرنامج إرشادات عامة للياقة والتغذية، ولا يُغني عن التقييم الطبي.');
+
+/* sticky nav follows the scroll */
+const secs=['food','train','breath','track','rules'];
+addEventListener('scroll',()=>{let cur='food';secs.forEach(s=>{if($(s).getBoundingClientRect().top<120)cur=s});document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+cur))},{passive:true});
+</script></body></html>

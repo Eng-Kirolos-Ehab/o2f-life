@@ -1,0 +1,49 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O2F Start · المكملات</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F0E8;--border:#E2D9CE;--text:#1A1A1A;--dim:#4A4A4A;--muted:#808080;--gold-l:#D4A843;--teal:#2A7D6B;--teal-p:#E6F5EF;--red:#B03030;--red-p:#FDECEA;--blue:#3A6FBB;--blue-p:#EEF3FC;--shadow:0 2px 12px rgba(0,0,0,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;-webkit-text-size-adjust:100%}
+.app{margin:0 auto;max-width:720px;padding-bottom:40px;animation:appIn .5s ease both}
+@keyframes appIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (min-width:760px){body{background:linear-gradient(180deg,#EFE9DD,#E8E0D2);padding:32px 24px}.app{background:var(--bg);border-radius:26px;overflow:hidden;box-shadow:0 24px 70px rgba(15,48,40,.16)}}
+.hdr{background:linear-gradient(160deg,#0F3028,#1A5040 55%,#0A2018);color:#fff;text-align:center;padding:30px 20px 24px}
+.hdr h1{font:700 32px Amiri,serif}.hdr h1 em{font-style:normal;color:var(--gold-l)}.hdr p{opacity:.85;font-weight:300}
+.sec{padding:16px}
+.sup{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:14px 16px;margin-bottom:12px;border-right:6px solid var(--c)}
+.sup .h{display:flex;align-items:center;gap:10px}.sup .h span{font-size:26px}.sup .h b{font-size:18px;flex:1}
+.sup .tag{background:var(--p);color:var(--c);border-radius:20px;padding:2px 12px;font-size:13px;font-weight:800}
+.row{display:flex;gap:8px;font-size:15px;padding:4px 0;color:var(--dim)}.row b{color:var(--text);min-width:64px}
+.note{border-right:5px solid var(--c,var(--teal));background:var(--p,var(--teal-p));border-radius:12px;padding:12px 14px;margin:10px 0;font-size:15px;color:var(--dim)}
+.day{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px 16px;font-size:15px}
+.day b{color:var(--teal)}
+a.back{display:block;text-align:center;text-decoration:none;background:var(--teal);color:#fff;border-radius:14px;padding:13px;font-weight:800;margin:16px}
+.disc{color:var(--muted);font-size:13px;text-align:center;padding:0 20px}
+</style></head><body><div class="app">
+<div class="hdr"><h1>المكملات <em>الأساسية</em></h1><p id="sub"></p></div>
+<div class="sec">
+ <div class="note" id="intro"></div>
+ <div id="list"></div>
+ <div class="day" id="day"></div>
+ <div class="note" style="--c:var(--red);--p:var(--red-p)" id="warn"></div>
+</div>
+<a class="back" id="back">↩ رجوع لبرنامجي</a>
+<p class="disc" id="disc"></p>
+</div>
+<script>
+const Q=new URLSearchParams(location.search);const f=Q.get('s')=='f';const g=(m,w)=>f?w:m;const $=id=>document.getElementById(id);
+$('sub').textContent='O2F Start · ملف منفصل عن برنامج الأكل';
+$('intro').innerHTML=`<b>المكملات مو إجبارية.</b> الأكل والنوم والتمرين أهم شيء. هذي الأساسيات اللي ${g('تساعدك','تساعدك')} لو ${g('حاب تضيفها','حابة تضيفينها')}، وكلها بجرعات عادية آمنة.`;
+const S=[
+ ['☀️','فيتامين د3 (D3)','2000 وحدة يومياً','مع الغداء (أكبر وجبة فيها دهون)','للمناعة والعظام والمزاج. أغلب الناس عندهم نقص.','#B8860B','#FBF3DD'],
+ ['🐟','أوميغا 3','1000 ملغ (EPA+DHA) يومياً','مع الغداء','للقلب والمفاصل والالتهابات.','#3A6FBB','#EEF3FC'],
+ ['🌙','مغنيسيوم جلايسينات','200–300 ملغ','قبل النوم بساعة','لنوم أعمق وراحة العضلات.','#6A4FA0','#F0ECF8'],
+ ['💪','كرياتين مونوهيدرات (اختياري)','3–5 غ يومياً','أي وقت، مع الماء','للقوة في التمرين. ممكن يزيد الوزن 1 كجم ماء في العضلة، وهذا طبيعي مو دهون.','#2A7D6B','#E6F5EF']];
+$('list').innerHTML=S.map(s=>`<div class="sup" style="--c:${s[5]};--p:${s[6]}"><div class="h"><span>${s[0]}</span><b>${s[1]}</b></div><div class="row"><b>الجرعة:</b><span style="color:${s[5]};font-weight:800">${s[2]}</span></div><div class="row"><b>الوقت:</b>${s[3]}</div><div class="row"><b>ليش:</b>${s[4]}</div></div>`).join('');
+$('day').innerHTML='<b>الغداء</b><span>فيتامين د3 + أوميغا 3</span><b>أي وقت</b><span>كرياتين (لو اخترته)</span><b>قبل النوم</b><span>مغنيسيوم</span>';
+$('warn').innerHTML=`⚠️ <b>قبل ما ${g('تبدأ','تبدئين')}:</b><br>• لو ${g('تاخذ','تاخذين')} أي دواء بشكل دائم، ${g('اسأل','اسألي')} الصيدلي أو الطبيب الأول.<br>• أوميغا 3 مع أدوية سيولة الدم: لا بدون استشارة.<br>• كرياتين مع أي مشكلة في الكلى: لا.<br>• لو ${g('حاب تحلل','حابة تحللين')} فيتامين د، ${g('حلل','حللي')} معه الكالسيوم.`;
+$('back').href='program.html?'+Q.toString();
+$('disc').textContent=g('هذي اقتراحات كوتش وليست وصفة طبية. راجع طبيبك عند أي أعراض.','هذي اقتراحات كوتش وليست وصفة طبية. راجعي طبيبك عند أي أعراض.');
+</script></body></html>
