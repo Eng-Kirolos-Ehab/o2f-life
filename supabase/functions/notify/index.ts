@@ -1,6 +1,7 @@
 // Public endpoint the site calls (navigator.sendBeacon, text/plain JSON) when something happens,
 // e.g. a visitor finishes the /start/ form. Sends a short Telegram alert to every active recipient.
-// Only a summary is sent (no health details, just a yes/no heads-up); the full answers still arrive on WhatsApp.
+// Everyone gets the summary; bot ADMINS also get the full answers (Osama 2026-11-04: a Kuwait client sent the form twice
+// but never pressed send in WhatsApp, so her answers were lost). Health details never go to non-admin recipients.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
@@ -20,18 +21,33 @@ function intakeText(d: Record<string, unknown>) {
   add("الاسم", d.name); add("النوع", d.gender); add("العمر", d.age); add("البلد", d.country);
   add("المدينة", d.city); add("واتساب", d.whatsapp); add("مدة الاشتراك", d.plan); add("الأهداف", d.goals);
   // Health details stay on WhatsApp only (Osama 2026-10-17); the team just gets a heads-up.
-  if (d.health_note === true) L.push("", "⚠️ فيه ملاحظة صحية، شوف الواتساب");
+  if (d.health_note === true) L.push("", "⚠️ فيه ملاحظة صحية (التفاصيل في الإجابات الكاملة)");
   const wa = String(d.whatsapp ?? "").replace(/\D/g, "").replace(/^00/, "").replace(/^0(1\d{9})$/, "20$1");
-  if (wa.length >= 8) L.push("", `💬 <a href="https://wa.me/${wa}">كلّمه على واتساب</a>`);
-  L.push("", "📩 الإجابات الكاملة توصل على واتساب الكوتش.");
+  const her = d.gender === "امرأة";
+  if (wa.length >= 10) L.push("", `💬 <a href="https://wa.me/${wa}">${her ? "كلّمها" : "كلّمه"} على واتساب</a>`);
+  else if (wa) L.push("", "⚠️ الرقم ناقص مفتاح الدولة، تأكد منه قبل ما تكلّمه.");
   return L.join("\n");
+}
+
+// Full answers (the same text the client gets in WhatsApp), admins only. Split to fit Telegram's 4096 limit.
+function fullParts(full: unknown): string[] {
+  const s = String(full ?? "").slice(0, 12000);
+  if (!s.trim()) return [];
+  const out: string[] = []; let cur = "📄 <b>الإجابات الكاملة</b>\n\n";
+  for (const block of s.split("\n\n")) {
+    const b = esc(block, 3500) + "\n\n";
+    if (cur.length + b.length > 3800) { out.push(cur); cur = ""; }
+    cur += b;
+  }
+  if (cur.trim()) out.push(cur);
+  return out;
 }
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
   if (req.method !== "POST") return new Response("method", { status: 405, headers: CORS });
   let body: any;
-  try { body = JSON.parse((await req.text()).slice(0, 8000)); } catch { return new Response("bad json", { status: 400, headers: CORS }); }
+  try { body = JSON.parse((await req.text()).slice(0, 30000)); } catch { return new Response("bad json", { status: 400, headers: CORS }); }
   if (body?.kind !== "intake" || typeof body.d !== "object") return new Response("bad kind", { status: 400, headers: CORS });
 
   // Abuse guard: max 3 per visitor per 10 min, max 40 site-wide per hour.
@@ -48,14 +64,19 @@ Deno.serve(async (req) => {
   }
 
   if (!TOKEN) TOKEN = (await db.rpc("tg_secret", { p_name: "tg_bot_token" })).data ?? "";
-  const { data: rcpt } = await db.from("notify_recipients").select("chat_id").eq("status", "active");
+  const { data: rcpt } = await db.from("notify_recipients").select("chat_id, is_admin").eq("status", "active");
   const text = intakeText(body.d);
-  const sent = await Promise.all((rcpt ?? []).map((r) =>
+  const parts = fullParts(body.d.full);
+  const tg = (chat_id: unknown, t: string) =>
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: r.chat_id, text, parse_mode: "HTML", disable_web_page_preview: true }),
-    }).then((x) => x.ok).catch(() => false)
-  ));
+      body: JSON.stringify({ chat_id, text: t, parse_mode: "HTML", disable_web_page_preview: true }),
+    }).then((x) => x.ok).catch(() => false);
+  const sent = await Promise.all((rcpt ?? []).map(async (r) => {
+    const ok = await tg(r.chat_id, text);
+    if (r.is_admin) for (const p of parts) await tg(r.chat_id, p); // health details: admin only
+    return ok;
+  }));
   await db.from("notify_log").insert({ kind: body.kind, ip_hash, ok: sent.some(Boolean) });
   return Response.json({ sent: sent.filter(Boolean).length }, { headers: CORS });
 });
