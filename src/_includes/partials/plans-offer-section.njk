@@ -24,6 +24,8 @@
   .o2f-offer-cta { position: relative; white-space: nowrap; }
   .offer-plan-badge { display: none; }
   .plan-card.offer-active .offer-plan-badge { display: inline-flex; }
+  .offer-gift { display: none; margin-top: .45rem; color: #C9A84A; font-weight: 800; font-size: .95rem; background: rgba(201,168,74,.12); border: 1px solid rgba(201,168,74,.32); border-radius: .6rem; padding: .3rem .7rem; width: fit-content; }
+  .plan-card.offer-active .offer-gift { display: block; }
   @keyframes o2fOfferShine { from { transform: translateX(-30%); } to { transform: translateX(30%); } }
   @media (max-width: 760px) { .o2f-offer-card { grid-template-columns: 1fr; text-align: center; justify-items: center; } .o2f-offer-copy p { font-size: .86rem; } }
 </style>
@@ -31,6 +33,7 @@
 (function () {
   var offer = document.getElementById('o2f-plans-offer');
   if (!offer) return;
+  {% if offers.endDate %}if (Date.now() > new Date('{{ offers.endDate }}').getTime()) { offer.remove(); return; }{% endif %}
   var firstPlanSection = document.querySelector('.plan-card') && document.querySelector('.plan-card').closest('section');
   if (firstPlanSection && firstPlanSection.parentNode) firstPlanSection.parentNode.insertBefore(offer, firstPlanSection);
 
@@ -42,6 +45,15 @@
       span.textContent = '{{ offers.badge[lang] }}';
       badges.appendChild(span);
     }
+    var total = card.querySelector('.price-total');
+    if (total && !card.querySelector('.offer-gift')) {
+      var gift = document.createElement('div');
+      gift.className = 'offer-gift';
+      gift.textContent = '{{ offers.gift[lang] }}';
+      total.parentNode.insertBefore(gift, total.nextSibling);
+    }
+    var activeBtn = card.querySelector('.dur-btn.active');
+    card.classList.toggle('offer-active', !!activeBtn && activeBtn.dataset.dur === '{{ offers.appliesTo }}');
     card.querySelectorAll('.dur-btn').forEach(function (btn) {
       btn.addEventListener('click', function () { card.classList.toggle('offer-active', btn.dataset.dur === '{{ offers.appliesTo }}'); });
     });
