@@ -15,6 +15,10 @@
     "ar": "اختر باقة ٣ شهور وخذ شهر رابع هدية للمتابعة، عشان تكمّل لين تشوف النتيجة. العرض لأول ٢٠ مشترك ولين ٣٠ نوفمبر، ويشمل العملاء الحاليين لو جددوا.",
     "en": "Choose the 3-month plan and get a 4th month free, so you keep going until you see the result. First 20 subscribers only, until Nov 30. Current clients get it on renewal too."
   },
+  "gift": {
+    "ar": "🎁 + الشهر الرابع هدية",
+    "en": "🎁 + 4th month free"
+  },
   "cta": {
     "ar": "أبغى العرض",
     "en": "Claim this offer"
