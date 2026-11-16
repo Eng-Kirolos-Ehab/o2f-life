@@ -192,7 +192,10 @@ const STEPS = [
   {id:'country', stage:'me', type:'choice', q:()=>t('وين ساكن؟','وين ساكنة؟'),
     opts:[{v:'egypt',ic:'🇪🇬',l:'مصر'},{v:'gulf',ic:'🌴',l:'الخليج'},{v:'intl',ic:'🌍',l:'دولة ثانية'}]},
   {id:'city', stage:'me', type:'text', optional:true, q:()=>'المدينة؟', ph:'مثلاً: الخبر، القاهرة، دبي'},
-  {id:'whatsapp', stage:'me', type:'text', inputType:'tel', q:()=>'رقم الواتساب؟', hint:'عليه برسلك البرنامج وأتابع معك', ph:'+20 1xx xxx xxxx'},
+  {id:'whatsapp', stage:'me', type:'text', inputType:'tel', q:()=>'رقم الواتساب؟',
+    hint:()=>A.country==='egypt'?'عليه برسلك البرنامج وأتابع معك':t('عليه برسلك البرنامج وأتابع معك. اكتبه <b>مع مفتاح الدولة</b>','عليه برسلك البرنامج وأتابع معك. اكتبيه <b>مع مفتاح الدولة</b>'),
+    ph:()=>A.country==='egypt'?'+20 1xx xxx xxxx':A.country==='gulf'?'+965 / +966 / +971 …':'+ مفتاح الدولة ثم الرقم',
+    ok:v=>phoneOK(v), bad:()=>t('اكتب الرقم مع مفتاح الدولة، مثلاً +965 للكويت أو +966 للسعودية','اكتبي الرقم مع مفتاح الدولة، مثلاً +965 للكويت أو +966 للسعودية')},
   {id:'plan', stage:'me', type:'choice', q:()=>t('كم مدة اشتراكك في باقة التحول الشامل؟','كم مدة اشتراكك في باقة التحول الشامل؟'),
     opts:()=>[{v:'m1',ic:'1️⃣',l:'شهر'},{v:'m3',ic:'⭐',l:'3 شهور'},{v:'m6',ic:'🔥',l:'6 شهور'},{v:'help',ic:'🤔',l:'للحين ما قررت، ساعدني أختار'}]},
 
@@ -326,8 +329,8 @@ function render(){
     body=`<div class="chips">${all.map(o=>`<button class="chip" data-v="${esc(o)}" aria-pressed="${cur.includes(o)}">${o}</button>`).join('')}</div>`;
     canNext=cur.length>0;
   } else if(s.type==='text'){
-    body=`<input id="f_${s.id}" type="${s.inputType||'text'}" placeholder="${s.ph||''}" value="${esc(A[s.id]||'')}" autocomplete="off">`;
-    canNext=s.optional||!!(A[s.id]||'').trim();
+    body=`<input id="f_${s.id}" type="${s.inputType||'text'}" placeholder="${val(s.ph)||''}" value="${esc(A[s.id]||'')}" autocomplete="off" dir="${s.inputType==='tel'?'ltr':'auto'}">`;
+    canNext=s.optional||(s.ok?s.ok(A[s.id]||''):!!(A[s.id]||'').trim());
   } else if(s.type==='textarea'){
     body=`<textarea id="f_${s.id}" placeholder="${s.ph||''}">${esc(A[s.id]||'')}</textarea>`;
     canNext=s.optional||!!(A[s.id]||'').trim();
@@ -398,7 +401,10 @@ function render(){
   }
   const inp=c.querySelector(`#f_${s.id}`);
   if(['text','textarea','date'].includes(s.type)){
-    inp.oninput=()=>{A[s.id]=inp.value; if(!s.optional&&s.type!=='date') nx.disabled=!inp.value.trim(); save()};
+    inp.oninput=()=>{A[s.id]=inp.value;
+      if(s.ok){ const good=s.ok(inp.value); nx.disabled=!good; say(!good&&inp.value.replace(/\D/g,'').length>=7?s.bad():'',true); }
+      else if(!s.optional&&s.type!=='date') nx.disabled=!inp.value.trim();
+      save()};
     if(s.type==='text'){ inp.onkeydown=e=>{if(e.key==='Enter'&&!nx.disabled)next()}; setTimeout(()=>inp.focus({preventScroll:true}),350); }
   }
   if(s.type==='slider'){
@@ -577,10 +583,17 @@ function buildMessage(){
   L.push('', '📸 بأرسل صوري وتحاليلي هنا بعد هذي الرسالة.');
   return L.join('\n').replace(/\n{3,}/g,'\n\n');
 }
-// Short Telegram alert to the O2F team: summary only, health details stay on WhatsApp (just a yes/no flag). Never blocks the form.
+// WhatsApp number must carry a country code (Kuwait client typed 8 digits only, Oct 27 2026). Egypt local 01xxxxxxxxx is fine.
+function phoneOK(v){
+  const s=String(v||'').trim(), d=s.replace(/\D/g,'');
+  if(A.country==='egypt' && /^01\d{9}$/.test(d)) return true;
+  if(/^(\+|00)/.test(s)) return d.replace(/^00/,'').length>=10;
+  return d.length>=11 && d[0]!=='0';
+}
+// Telegram alert: the bot admin (Osama) also gets the FULL answers (Nov 4 2026), so nothing is lost if the client never presses send in WhatsApp. Never blocks the form.
 function pingTelegram(){
   try{
-    const d={name:A.name,gender:g==='f'?'امرأة':'رجل',age:A.age,country:optLabel('country',A.country),city:A.city,whatsapp:A.whatsapp,plan:optLabel('plan',A.plan),goals:A.goals,health_note:computeFlags().length>0};
+    const d={name:A.name,gender:g==='f'?'امرأة':'رجل',age:A.age,country:optLabel('country',A.country),city:A.city,whatsapp:A.whatsapp,plan:optLabel('plan',A.plan),goals:A.goals,health_note:computeFlags().length>0,full:buildMessage()};
     const body=JSON.stringify({kind:'intake',d});
     const url='https://qalzanmeusuqssrgxumg.supabase.co/functions/v1/notify';
     // fetch+keepalive (survives the jump to WhatsApp). sendBeacon was queued but never reached Supabase (tested 2026-10-17).
