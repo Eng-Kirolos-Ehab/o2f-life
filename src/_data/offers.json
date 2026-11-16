@@ -1,21 +1,22 @@
 {
-  "enabled": false,
+  "enabled": true,
   "appliesTo": "m3",
   "freeMonths": 1,
+  "endDate": "2026-11-30T23:59:59+02:00",
   "badge": {
-    "ar": "عرض محدود",
-    "en": "Limited offer"
+    "ar": "عرض لين ٣٠ نوفمبر",
+    "en": "Until Nov 30"
   },
   "headline": {
-    "ar": "اشترك 3 شهور وخد شهر مجانًا",
-    "en": "Subscribe for 3 months and get 1 month free"
+    "ar": "اشترك ٣ شهور، والشهر الرابع هدية",
+    "en": "Subscribe for 3 months, get the 4th month free"
   },
   "description": {
-    "ar": "فعّل باقة 3 شهور واحصل على شهر إضافي مجاني للمتابعة والاستمرارية. العرض يظهر على الباقات عند اختيار مدة 3 شهور.",
-    "en": "Choose the 3-month plan and get one extra month free for better consistency and follow-up. The offer appears when the 3-month duration is selected."
+    "ar": "اختر باقة ٣ شهور وخذ شهر رابع هدية للمتابعة، عشان تكمّل لين تشوف النتيجة. العرض لأول ٢٠ مشترك ولين ٣٠ نوفمبر، ويشمل العملاء الحاليين لو جددوا.",
+    "en": "Choose the 3-month plan and get a 4th month free, so you keep going until you see the result. First 20 subscribers only, until Nov 30. Current clients get it on renewal too."
   },
   "cta": {
-    "ar": "اطلب العرض الآن",
+    "ar": "أبغى العرض",
     "en": "Claim this offer"
   }
 }

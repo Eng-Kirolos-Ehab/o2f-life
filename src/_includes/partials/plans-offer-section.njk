@@ -31,6 +31,7 @@
 (function () {
   var offer = document.getElementById('o2f-plans-offer');
   if (!offer) return;
+  {% if offers.endDate %}if (Date.now() > new Date('{{ offers.endDate }}').getTime()) { offer.remove(); return; }{% endif %}
   var firstPlanSection = document.querySelector('.plan-card') && document.querySelector('.plan-card').closest('section');
   if (firstPlanSection && firstPlanSection.parentNode) firstPlanSection.parentNode.insertBefore(offer, firstPlanSection);
 
